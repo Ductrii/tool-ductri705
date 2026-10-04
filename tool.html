@@ -129,7 +129,82 @@
     border-left: 3px solid #4ade80;
   }
 
-  /* LOCK BOX */
+  /* PROFILE CARD */
+  .profile-card {
+    background: linear-gradient(135deg, #1e1e2e, #16161c);
+    border: 1px solid #3a3a4e;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+  .profile-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .profile-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6ea8ff, #ff6e9c);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 700; color: #0d0d12;
+    flex-shrink: 0;
+  }
+  .profile-name {
+    flex: 1; min-width: 0;
+  }
+  .profile-name .name {
+    font-size: 15px; font-weight: 600; color: #fff;
+    word-break: break-all;
+  }
+  .profile-name .sub {
+    font-size: 11px; color: #888; margin-top: 2px;
+  }
+  .profile-edit-btn {
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid #6ea8ff;
+    color: #6ea8ff;
+    border-radius: 8px;
+    font-size: 11px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .profile-edit-btn:hover { background: #1a2a3e; }
+  .profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .profile-stat {
+    text-align: center;
+    padding: 10px 6px;
+    background: #0d0d12;
+    border-radius: 10px;
+  }
+  .profile-stat .num {
+    font-size: 16px; font-weight: 700; color: #6ea8ff;
+    font-variant-numeric: tabular-nums;
+  }
+  .profile-stat .lbl {
+    font-size: 10px; color: #777; margin-top: 4px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .profile-empty {
+    text-align: center; padding: 16px;
+    background: #1a1a24; border-radius: 10px;
+    color: #888; font-size: 13px; margin-bottom: 14px;
+  }
+  .profile-form input {
+    width: 100%; padding: 10px 12px; margin-bottom: 8px;
+    background: #1a1a24; border: 1px solid #2a2a34;
+    border-radius: 8px; color: #e8e8f0; font-size: 13px; outline: none;
+  }
+  .profile-form input:focus { border-color: #6ea8ff; }
+  .profile-form .row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .profile-form .row input { margin-bottom: 8px; }
+
   .lock-box {
     margin-top: 20px; padding: 24px;
     border: 2px dashed #ffd700; border-radius: 12px;
@@ -148,7 +223,6 @@
   }
   .unlock-btn:hover { transform: scale(1.02); }
   .unlock-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
   .unlocked-badge {
     display: inline-block; padding: 4px 10px;
     background: #1e2a1e; color: #4ade80;
@@ -258,6 +332,24 @@
       <button class="logout" id="logoutBtn">Đăng xuất</button>
     </div>
 
+    <!-- PROFILE TIKTOK -->
+    <div class="card">
+      <div style="font-size:13px;color:#888;margin-bottom:12px">
+        📱 Thông tin kênh TikTok của bạn
+      </div>
+      <div id="profileView"></div>
+      <div id="profileEditForm" class="profile-form hidden">
+        <input type="text" id="pfUsername" placeholder="Tên tài khoản (VD: @ductri705)">
+        <input type="number" id="pfFollowers" placeholder="Số follower">
+        <div class="row">
+          <input type="number" id="pfLikes" placeholder="Tổng số tim">
+          <input type="number" id="pfFollowing" placeholder="Đang follow">
+        </div>
+        <button class="btn" id="pfSave">💾 Lưu thông tin</button>
+        <button class="btn btn-sec" id="pfCancel">Hủy</button>
+      </div>
+    </div>
+
     <div class="card">
       <div>
         <span class="clock-time" id="time">--:--</span><span class="clock-sec" id="sec">--</span>
@@ -295,7 +387,7 @@
       <div id="tab-overview" class="tab-content">
         <div class="stats">
           <div class="stat"><div class="num" id="s-total-views">0</div><div class="lbl">Tổng view</div></div>
-          <div class="stat"><div class="num" id="s-total-likes">0</div><div class="lbl">Tổng like</div></div>
+          <div class="stat"><div class="num" id="s-total-likes">0</div><div class="lbl">Tổng like (data)</div></div>
           <div class="stat"><div class="num" id="s-avg-views">0</div><div class="lbl">View TB/ngày</div></div>
           <div class="stat"><div class="num" id="s-max-views">0</div><div class="lbl">View cao nhất</div></div>
         </div>
@@ -316,7 +408,6 @@
         <div class="hour-row"><div><div class="time">22:00 – 23:30</div><div class="desc">Giờ khuya — video dài dễ viral</div></div></div>
         <div class="hour-row"><div><div class="time">06:00 – 08:00</div><div class="desc">Giờ sáng — dân văn phòng check điện thoại</div></div></div>
 
-        <!-- PHẦN KHÓA -->
         <div id="goldenLocked" class="lock-box">
           <div class="icon">🔒</div>
           <div class="title">PHÂN TÍCH TỪ DATA KÊNH BẠN</div>
@@ -330,7 +421,6 @@
           <button class="unlock-btn" id="goldenUnlockBtn">🔓 Mở khóa — 5 xu</button>
         </div>
 
-        <!-- PHẦN ĐÃ MỞ KHÓA -->
         <div id="goldenUnlocked" class="hidden">
           <span class="unlocked-badge">✅ Đã mở khóa phân tích</span>
           <div style="color:#4ade80;font-weight:600;font-size:14px;margin-bottom:12px">📊 Phân tích từ data kênh bạn</div>
@@ -440,6 +530,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     const isAdmin = (session.user.email === ADMIN_EMAIL);
     document.getElementById('adminTab').classList.toggle('hidden', !isAdmin);
 
+    renderProfile();
     renderGolden();
     await loadDataFromCloud();
     renderAll();
@@ -462,7 +553,117 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   if (!session) document.getElementById('authScreen').classList.remove('hidden');
 })();
 
-/* ============ GOLDEN — KHÓA/MỞ KHÓA ============ */
+/* ============ PROFILE TIKTOK ============ */
+function formatNumber(n) {
+  n = Number(n) || 0;
+  if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.0','') + 'M';
+  if (n >= 1000) return (n / 1000).toFixed(1).replace('.0','') + 'K';
+  return n.toString();
+}
+
+function renderProfile() {
+  const view = document.getElementById('profileView');
+  const form = document.getElementById('profileEditForm');
+  const u = userProfile || {};
+
+  const hasProfile = u.tiktok_username && u.tiktok_username.trim();
+
+  if (hasProfile) {
+    form.classList.add('hidden');
+    view.classList.remove('hidden');
+    const firstChar = u.tiktok_username.replace('@','').charAt(0).toUpperCase() || '?';
+    view.innerHTML = `
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="profile-avatar">${firstChar}</div>
+          <div class="profile-name">
+            <div class="name">${u.tiktok_username}</div>
+            <div class="sub">Kênh TikTok của bạn</div>
+          </div>
+          <button class="profile-edit-btn" id="profileEditBtn">✏️ Sửa</button>
+        </div>
+        <div class="profile-stats">
+          <div class="profile-stat">
+            <div class="num">${formatNumber(u.tiktok_followers)}</div>
+            <div class="lbl">Follower</div>
+          </div>
+          <div class="profile-stat">
+            <div class="num">${formatNumber(u.tiktok_likes)}</div>
+            <div class="lbl">Tim</div>
+          </div>
+          <div class="profile-stat">
+            <div class="num">${formatNumber(u.tiktok_following)}</div>
+            <div class="lbl">Đang follow</div>
+          </div>
+        </div>
+      </div>
+    `;
+    document.getElementById('profileEditBtn').addEventListener('click', () => {
+      openProfileForm(u);
+    });
+  } else {
+    view.classList.remove('hidden');
+    view.innerHTML = `<div class="profile-empty">📝 Chưa có thông tin kênh. Bấm "Thêm thông tin" để bắt đầu.</div>
+      <button class="btn" id="profileAddBtn">➕ Thêm thông tin kênh</button>`;
+    document.getElementById('profileAddBtn').addEventListener('click', () => {
+      openProfileForm(u);
+    });
+    form.classList.add('hidden');
+  }
+}
+
+function openProfileForm(u) {
+  u = u || {};
+  document.getElementById('profileView').classList.add('hidden');
+  document.getElementById('profileEditForm').classList.remove('hidden');
+  document.getElementById('pfUsername').value = u.tiktok_username || '';
+  document.getElementById('pfFollowers').value = u.tiktok_followers || '';
+  document.getElementById('pfLikes').value = u.tiktok_likes || '';
+  document.getElementById('pfFollowing').value = u.tiktok_following || '';
+}
+
+document.getElementById('pfCancel').addEventListener('click', () => {
+  document.getElementById('profileEditForm').classList.add('hidden');
+  document.getElementById('profileView').classList.remove('hidden');
+  renderProfile();
+});
+
+document.getElementById('pfSave').addEventListener('click', async () => {
+  if (!currentUser) return;
+  const username = document.getElementById('pfUsername').value.trim();
+  const followers = parseInt(document.getElementById('pfFollowers').value) || 0;
+  const likes = parseInt(document.getElementById('pfLikes').value) || 0;
+  const following = parseInt(document.getElementById('pfFollowing').value) || 0;
+
+  if (!username) { alert('Nhập tên tài khoản'); return; }
+
+  const btn = document.getElementById('pfSave');
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang lưu...';
+
+  const { error } = await supabaseClient.from('profiles').update({
+    tiktok_username: username,
+    tiktok_followers: followers,
+    tiktok_likes: likes,
+    tiktok_following: following
+  }).eq('id', currentUser.id);
+
+  btn.disabled = false;
+  btn.textContent = '💾 Lưu thông tin';
+
+  if (error) { alert('Lỗi: ' + error.message); return; }
+
+  userProfile.tiktok_username = username;
+  userProfile.tiktok_followers = followers;
+  userProfile.tiktok_likes = likes;
+  userProfile.tiktok_following = following;
+
+  document.getElementById('profileEditForm').classList.add('hidden');
+  document.getElementById('profileView').classList.remove('hidden');
+  renderProfile();
+});
+
+/* ============ GOLDEN ============ */
 function renderGolden() {
   const locked = document.getElementById('goldenLocked');
   const unlocked = document.getElementById('goldenUnlocked');
@@ -585,15 +786,16 @@ async function adminLoadUsers() {
       const isAdmin = u.email === ADMIN_EMAIL;
       const isGolden = u.golden_unlocked === true;
       const created = u.created_at ? new Date(u.created_at).toLocaleDateString('vi-VN') : '-';
+      const tiktok = u.tiktok_username ? `📱 ${u.tiktok_username}` : '';
       return `
         <div class="admin-user ${isBanned ? 'banned' : ''}">
           <div class="head">
             <span class="email">${u.email || 'unknown'}</span>
             ${isAdmin ? '<span class="badge admin">ADMIN</span>' : ''}
-            ${isGolden ? '<span class="badge vip">ĐÃ MỞ KHÓA</span>' : ''}
+            ${isGolden ? '<span class="badge vip">GOLDEN</span>' : ''}
             <span class="badge ${isBanned ? 'banned' : ''}">${isBanned ? 'ĐÃ KHÓA' : 'OK'}</span>
           </div>
-          <div class="info">📅 Tạo: ${created} · ID: ${u.id.slice(0, 8)}...</div>
+          <div class="info">📅 Tạo: ${created} · ID: ${u.id.slice(0, 8)}... ${tiktok}</div>
           <div class="credits-line">💰 <span id="cred-${u.id}">${u.credits || 0}</span> xu</div>
           <div class="actions">
             ${isBanned
@@ -642,7 +844,7 @@ async function adminAddCredit(userId, amount) {
 }
 
 async function adminResetGolden(userId) {
-  if (!confirm('Khóa lại phần phân tích của user này? Họ sẽ phải trả 5 xu để mở lại.')) return;
+  if (!confirm('Khóa lại phần phân tích của user này?')) return;
   const { error } = await supabaseClient.from('profiles').update({ golden_unlocked: false }).eq('id', userId);
   if (error) { alert('Lỗi: ' + error.message); return; }
   if (currentUser && currentUser.id === userId && userProfile) {
