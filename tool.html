@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="tool-version" content="v2.1">
+<meta name="tool-version" content="v2.2">
 <title>Tool by ductri705</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -160,8 +160,6 @@
   .modal-btn:hover { transform: scale(1.02); }
   .daily-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #ffd700, #ffae00); color: #0d0d12; padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 700; text-align: center; box-shadow: 0 8px 30px rgba(255,215,0,0.5); z-index: 9998; max-width: 90vw; animation: slideDown 0.5s ease; }
   @keyframes slideDown { from { transform: translate(-50%, -100px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
-
-  /* NẠP XU */
   .money-banner { padding: 16px; border-radius: 12px; background: linear-gradient(135deg, #2a2010, #1a1a24); border: 1px solid #ffd700; text-align: center; margin-bottom: 16px; }
   .money-banner .title { color: #ffd700; font-weight: 700; font-size: 16px; margin-bottom: 6px; }
   .money-banner .desc { color: #aaa; font-size: 12px; line-height: 1.6; }
@@ -318,7 +316,6 @@
         <div class="auth-msg" id="passMsg"></div>
       </div>
 
-      <!-- TAB NẠP XU -->
       <div id="tab-money" class="tab-content hidden">
         <div class="money-banner">
           <div class="title">💰 NẠP XU ĐỂ MỞ KHÓA TÍNH NĂNG</div>
@@ -334,7 +331,7 @@
 
         <div id="moneyDetail" class="hidden">
           <div class="qr-display">
-            <img src="qr.png" alt="QR" onerror="this.src='https://via.placeholder.com/240x240?text=Upload+qr.png'">
+            <img src="IMG_0998.jpeg" alt="QR" onerror="this.parentNode.innerHTML='<div style=color:#ff6e9c;font-size:12px;padding:20px>Không tải được ảnh QR. Kiểm tra file IMG_0998.jpeg đã có trong repo chưa</div>'">
           </div>
           <div class="bank-info">
             <div class="row"><span class="k">Ngân hàng</span><span class="v">MB Bank</span></div>
@@ -386,11 +383,7 @@ const PROMOTE_COST = 5000;
 const DAILY_BONUS = 10;
 const DAILY_INTERVAL_MS = 24 * 60 * 60 * 1000;
 
-const BANK_INFO = {
-  bank: 'MB Bank',
-  stk: '0865199199',
-  owner: 'DANG TRAN DUC TRI'
-};
+const BANK_INFO = { bank: 'MB Bank', stk: '0865199199', owner: 'DANG TRAN DUC TRI' };
 
 const PACKAGES = [
   { vnd: 1000, xu: 10, label: '1.000đ' },
@@ -421,140 +414,91 @@ function isCurrentAdmin() {
 }
 
 function copyText(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    alert('Đã copy: ' + text);
-  }).catch(() => {
-    alert('Không copy được, vui lòng copy thủ công');
-  });
+  navigator.clipboard.writeText(text).then(() => alert('Đã copy: ' + text)).catch(() => alert('Không copy được, vui lòng copy thủ công'));
 }
 window.copyText = copyText;
 
-/* ============ SOUND ============ */
 function playGoldenSound() {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const notes = [523.25, 659.25, 783.99, 1046.50];
-    notes.forEach((freq, i) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.frequency.value = freq;
-      osc.type = 'sine';
+    [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+      const osc = ctx.createOscillator(); const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value = freq; osc.type = 'sine';
       const start = ctx.currentTime + i * 0.15;
       gain.gain.setValueAtTime(0, start);
       gain.gain.linearRampToValueAtTime(0.3, start + 0.02);
       gain.gain.exponentialRampToValueAtTime(0.001, start + 0.3);
-      osc.start(start);
-      osc.stop(start + 0.35);
+      osc.start(start); osc.stop(start + 0.35);
     });
-  } catch (e) { console.error('Sound error:', e); }
+  } catch (e) {}
 }
 
-/* ============ EXPORT CSV ============ */
 function exportToCSV() {
   if (!rawData.length) { alert('Chưa có dữ liệu để xuất!'); return; }
   const lines = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"'];
-  rawData.forEach(d => {
-    lines.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`);
-  });
+  rawData.forEach(d => lines.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`));
   const csvContent = '\ufeff' + lines.join('\n');
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
   a.download = `tiktok_data_${new Date().toISOString().slice(0,10)}.csv`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
 
-/* ============ COMPARE WEEKS ============ */
 function renderCompare() {
   const box = document.getElementById('compareContent');
   if (!box) return;
-  if (rawData.length < 2) {
-    box.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu để so sánh</div>';
-    return;
-  }
-  const now = Date.now();
-  const week = 7 * 24 * 60 * 60 * 1000;
-  let thisWeek = { views: 0, likes: 0, count: 0 };
-  let lastWeek = { views: 0, likes: 0, count: 0 };
-
+  if (rawData.length < 2) { box.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>'; return; }
+  const now = Date.now(); const week = 7 * 24 * 60 * 60 * 1000;
+  let tw = { views: 0, likes: 0, count: 0 }, lw = { views: 0, likes: 0, count: 0 };
   rawData.forEach(d => {
-    const ts = parseDateToTS(d[0]);
-    if (!ts) return;
+    const ts = parseDateToTS(d[0]); if (!ts) return;
     const diff = now - ts;
-    if (diff <= week) { thisWeek.views += d[1]; thisWeek.likes += d[2]; thisWeek.count++; }
-    else if (diff <= week * 2) { lastWeek.views += d[1]; lastWeek.likes += d[2]; lastWeek.count++; }
+    if (diff <= week) { tw.views += d[1]; tw.likes += d[2]; tw.count++; }
+    else if (diff <= week * 2) { lw.views += d[1]; lw.likes += d[2]; lw.count++; }
   });
-
-  if (thisWeek.count === 0 && lastWeek.count === 0) {
-    box.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Không có dữ liệu trong 2 tuần gần đây</div>';
-    return;
-  }
-
-  const viewDiff = thisWeek.views - lastWeek.views;
-  const likeDiff = thisWeek.likes - lastWeek.likes;
-  let viewPct = lastWeek.views > 0 ? (viewDiff / lastWeek.views * 100) : (thisWeek.views > 0 ? 100 : 0);
-  let likePct = lastWeek.likes > 0 ? (likeDiff / lastWeek.likes * 100) : (thisWeek.likes > 0 ? 100 : 0);
-
+  if (tw.count === 0 && lw.count === 0) { box.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Không có dữ liệu 2 tuần gần đây</div>'; return; }
+  const vd = tw.views - lw.views, ld = tw.likes - lw.likes;
+  const vp = lw.views > 0 ? (vd / lw.views * 100) : (tw.views > 0 ? 100 : 0);
+  const lp = lw.likes > 0 ? (ld / lw.likes * 100) : (tw.likes > 0 ? 100 : 0);
   const fmt = n => Math.round(n).toLocaleString('vi-VN');
   const pct = p => (p >= 0 ? '+' : '') + p.toFixed(1) + '%';
-
   box.innerHTML = `
     <div class="compare-grid">
-      <div class="compare-item"><div class="val">${fmt(thisWeek.views)}</div><div class="lbl">View tuần này</div></div>
-      <div class="compare-item"><div class="val">${fmt(lastWeek.views)}</div><div class="lbl">View tuần trước</div></div>
-      <div class="compare-item"><div class="val">${fmt(thisWeek.likes)}</div><div class="lbl">Like tuần này</div></div>
-      <div class="compare-item"><div class="val">${fmt(lastWeek.likes)}</div><div class="lbl">Like tuần trước</div></div>
+      <div class="compare-item"><div class="val">${fmt(tw.views)}</div><div class="lbl">View tuần này</div></div>
+      <div class="compare-item"><div class="val">${fmt(lw.views)}</div><div class="lbl">View tuần trước</div></div>
+      <div class="compare-item"><div class="val">${fmt(tw.likes)}</div><div class="lbl">Like tuần này</div></div>
+      <div class="compare-item"><div class="val">${fmt(lw.likes)}</div><div class="lbl">Like tuần trước</div></div>
     </div>
-    <div class="compare-diff ${viewDiff > 0 ? 'up' : viewDiff < 0 ? 'down' : 'same'}">
-      📊 View: ${viewDiff >= 0 ? '📈 Tăng' : '📉 Giảm'} ${Math.abs(viewDiff).toLocaleString('vi-VN')} (${pct(viewPct)})
-    </div>
-    <div class="compare-diff ${likeDiff > 0 ? 'up' : likeDiff < 0 ? 'down' : 'same'}" style="margin-top:8px">
-      ❤️ Like: ${likeDiff >= 0 ? '📈 Tăng' : '📉 Giảm'} ${Math.abs(likeDiff).toLocaleString('vi-VN')} (${pct(likePct)})
-    </div>
-  `;
+    <div class="compare-diff ${vd > 0 ? 'up' : vd < 0 ? 'down' : 'same'}">📊 View: ${vd >= 0 ? '📈 Tăng' : '📉 Giảm'} ${Math.abs(vd).toLocaleString('vi-VN')} (${pct(vp)})</div>
+    <div class="compare-diff ${ld > 0 ? 'up' : ld < 0 ? 'down' : 'same'}" style="margin-top:8px">❤️ Like: ${ld >= 0 ? '📈 Tăng' : '📉 Giảm'} ${Math.abs(ld).toLocaleString('vi-VN')} (${pct(lp)})</div>`;
 }
 
 function parseDateToTS(dateStr) {
   if (!dateStr) return null;
-  const months = {
-    'tháng Mười': 9, 'tháng Mười Một': 10, 'tháng Mười Hai': 11,
-    'tháng Một': 0, 'tháng Hai': 1, 'tháng Ba': 2, 'tháng Tư': 3,
-    'tháng Năm': 4, 'tháng Sáu': 5, 'tháng Bảy': 6, 'tháng Tám': 7,
-    'tháng Chín': 8
-  };
-  const m = dateStr.match(/^(\d+)\s+(.+)$/);
-  if (!m) return null;
-  const day = parseInt(m[1]);
-  const monthName = m[2].trim();
+  const months = { 'tháng Mười': 9, 'tháng Mười Một': 10, 'tháng Mười Hai': 11, 'tháng Một': 0, 'tháng Hai': 1, 'tháng Ba': 2, 'tháng Tư': 3, 'tháng Năm': 4, 'tháng Sáu': 5, 'tháng Bảy': 6, 'tháng Tám': 7, 'tháng Chín': 8 };
+  const m = dateStr.match(/^(\d+)\s+(.+)$/); if (!m) return null;
+  const day = parseInt(m[1]); const monthName = m[2].trim();
   if (!(monthName in months)) return null;
-  const year = new Date().getFullYear();
-  return new Date(year, months[monthName], day).getTime();
+  return new Date(new Date().getFullYear(), months[monthName], day).getTime();
 }
 
-/* ============ ACCOUNT ============ */
 function renderAccount() {
   if (!currentUser || !userProfile) return;
   document.getElementById('infoEmail').textContent = currentUser.email || '—';
   const created = userProfile.created_at ? new Date(userProfile.created_at).toLocaleString('vi-VN') : (currentUser.created_at ? new Date(currentUser.created_at).toLocaleString('vi-VN') : '—');
   document.getElementById('infoCreated').textContent = created;
-  const lastLogin = userProfile.last_login ? new Date(userProfile.last_login).toLocaleString('vi-VN') : 'Vừa đăng nhập';
-  document.getElementById('infoLastLogin').textContent = lastLogin;
+  document.getElementById('infoLastLogin').textContent = userProfile.last_login ? new Date(userProfile.last_login).toLocaleString('vi-VN') : 'Vừa đăng nhập';
   document.getElementById('infoCredits').textContent = isCurrentAdmin() ? '∞ (vô hạn)' : (userProfile.credits || 0).toLocaleString('vi-VN') + ' xu';
   document.getElementById('infoRole').textContent = isCurrentAdmin() ? '👑 Admin' : (userProfile.golden_unlocked ? '⭐ VIP' : 'User thường');
 }
 
 document.getElementById('changePassBtn').addEventListener('click', async () => {
-  const p1 = document.getElementById('newPass1').value;
-  const p2 = document.getElementById('newPass2').value;
-  const msg = document.getElementById('passMsg');
-  msg.textContent = '';
-  msg.className = 'auth-msg';
+  const p1 = document.getElementById('newPass1').value; const p2 = document.getElementById('newPass2').value;
+  const msg = document.getElementById('passMsg'); msg.textContent = ''; msg.className = 'auth-msg';
   if (!p1 || !p2) { msg.textContent = 'Nhập đầy đủ mật khẩu mới'; msg.classList.add('err'); return; }
   if (p1.length < 6) { msg.textContent = 'Mật khẩu mới từ 6 ký tự'; msg.classList.add('err'); return; }
   if (p1 !== p2) { msg.textContent = 'Mật khẩu nhập lại không khớp'; msg.classList.add('err'); return; }
@@ -563,19 +507,12 @@ document.getElementById('changePassBtn').addEventListener('click', async () => {
   try {
     const { error } = await supabaseClient.auth.updateUser({ password: p1 });
     if (error) throw error;
-    msg.textContent = '✅ Đổi mật khẩu thành công!';
-    msg.classList.add('ok');
-    document.getElementById('oldPass').value = '';
-    document.getElementById('newPass1').value = '';
-    document.getElementById('newPass2').value = '';
-  } catch (e) {
-    msg.textContent = '❌ Lỗi: ' + (e.message || 'Không đổi được');
-    msg.classList.add('err');
-  }
+    msg.textContent = '✅ Đổi mật khẩu thành công!'; msg.classList.add('ok');
+    document.getElementById('oldPass').value = ''; document.getElementById('newPass1').value = ''; document.getElementById('newPass2').value = '';
+  } catch (e) { msg.textContent = '❌ Lỗi: ' + (e.message || 'Không đổi được'); msg.classList.add('err'); }
   btn.disabled = false; btn.textContent = '🔑 Đổi mật khẩu';
 });
 
-/* ============ NẠP XU ============ */
 function renderPackages() {
   const grid = document.getElementById('pkgGrid');
   grid.innerHTML = PACKAGES.map((p, i) => `
@@ -583,13 +520,11 @@ function renderPackages() {
       <div class="price">${p.label}</div>
       <div class="arrow">↓</div>
       <div class="xu">+${p.xu.toLocaleString('vi-VN')} xu</div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 function selectPackage(idx) {
-  const p = PACKAGES[idx];
-  if (!currentUser) return;
+  const p = PACKAGES[idx]; if (!currentUser) return;
   const content = 'NAPXU ' + currentUser.email.split('@')[0].toUpperCase().substring(0, 10);
   document.getElementById('payAmount').textContent = p.label;
   document.getElementById('payXu').textContent = '+' + p.xu.toLocaleString('vi-VN') + ' xu';
@@ -599,7 +534,6 @@ function selectPackage(idx) {
 }
 window.selectPackage = selectPackage;
 
-/* ============ AUTH ============ */
 let isRegister = false;
 const authTitle = document.getElementById('authTitle');
 const authSubmit = document.getElementById('authSubmit');
@@ -640,18 +574,12 @@ authSubmit.addEventListener('click', async () => {
   authSubmit.disabled = false;
 });
 
-function showMsg(text, type) {
-  authMsg.textContent = text;
-  authMsg.className = 'auth-msg ' + (type || '');
-}
+function showMsg(text, type) { authMsg.textContent = text; authMsg.className = 'auth-msg ' + (type || ''); }
 
 document.getElementById('logoutBtn').addEventListener('click', async () => {
   if (!confirm('Đăng xuất sẽ xóa dữ liệu CSV đã lưu của bạn. Tiếp tục?')) return;
-  if (currentUser) {
-    try { await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id); } catch (e) {}
-  }
-  rawData = [];
-  userProfile = null;
+  if (currentUser) { try { await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id); } catch (e) {} }
+  rawData = []; userProfile = null;
   if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
   await supabaseClient.auth.signOut();
 });
@@ -661,13 +589,10 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   rawData = [];
   if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
   renderAll();
-
   if (session && session.user) {
     currentUser = session.user;
     document.getElementById('userEmail').textContent = session.user.email;
-
     const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', session.user.id).single();
-
     if (profile && profile.banned) {
       await supabaseClient.auth.signOut();
       document.getElementById('authScreen').classList.remove('hidden');
@@ -675,38 +600,28 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
       showMsg('❌ Tài khoản đã bị khóa. Liên hệ admin.', 'err');
       return;
     }
-
     userProfile = profile || { credits: 0, golden_unlocked: false, is_admin: false };
-
     if (session.user.email === ADMIN_EMAIL && !userProfile.is_admin) {
       userProfile.is_admin = true;
       await supabaseClient.from('profiles').update({ is_admin: true }).eq('id', session.user.id);
     }
-
     try {
       await supabaseClient.from('profiles').update({ last_login: new Date().toISOString() }).eq('id', session.user.id);
       userProfile.last_login = new Date().toISOString();
     } catch(e) {}
-
     await applyDailyBonus();
     updateCreditsDisplay();
     document.getElementById('authScreen').classList.add('hidden');
     document.getElementById('app').classList.remove('hidden');
     document.getElementById('adminTab').classList.toggle('hidden', !isCurrentAdmin());
-
-    renderGolden();
-    renderAccount();
-    renderPackages();
+    renderGolden(); renderAccount(); renderPackages();
     await loadDataFromCloud();
     renderAll();
   } else {
-    currentUser = null;
-    userProfile = null;
-    rawData = [];
+    currentUser = null; userProfile = null; rawData = [];
     document.getElementById('authScreen').classList.remove('hidden');
     document.getElementById('app').classList.add('hidden');
-    document.getElementById('authEmail').value = '';
-    document.getElementById('authPass').value = '';
+    document.getElementById('authEmail').value = ''; document.getElementById('authPass').value = '';
     authMsg.textContent = '';
     document.getElementById('adminTab').classList.add('hidden');
   }
@@ -726,92 +641,64 @@ document.getElementById('soundToggle').addEventListener('change', e => {
   if (soundEnabled) playGoldenSound();
 });
 
-/* ============ DAILY BONUS ============ */
 async function applyDailyBonus() {
   if (!currentUser || !userProfile) return;
   if (isCurrentAdmin()) return;
   const last = userProfile.last_daily_bonus ? new Date(userProfile.last_daily_bonus).getTime() : 0;
-  const now = Date.now();
-  if (now - last < DAILY_INTERVAL_MS) return;
+  if (Date.now() - last < DAILY_INTERVAL_MS) return;
   const newCredits = (userProfile.credits || 0) + DAILY_BONUS;
-  const { error } = await supabaseClient.from('profiles').update({
-    credits: newCredits, last_daily_bonus: new Date().toISOString()
-  }).eq('id', currentUser.id);
+  const { error } = await supabaseClient.from('profiles').update({ credits: newCredits, last_daily_bonus: new Date().toISOString() }).eq('id', currentUser.id);
   if (error) return;
-  userProfile.credits = newCredits;
-  userProfile.last_daily_bonus = new Date().toISOString();
+  userProfile.credits = newCredits; userProfile.last_daily_bonus = new Date().toISOString();
   showDailyBonusToast();
 }
 
 function showDailyBonusToast() {
-  const old = document.getElementById('dailyToast');
-  if (old) old.remove();
-  const toast = document.createElement('div');
-  toast.id = 'dailyToast';
-  toast.className = 'daily-toast';
-  toast.innerHTML = `🎁 Điểm danh hàng ngày!<br><span style="font-size:12px">+${DAILY_BONUS} xu đã được cộng vào tài khoản</span>`;
+  const old = document.getElementById('dailyToast'); if (old) old.remove();
+  const toast = document.createElement('div'); toast.id = 'dailyToast'; toast.className = 'daily-toast';
+  toast.innerHTML = `🎁 Điểm danh hàng ngày!<br><span style="font-size:12px">+${DAILY_BONUS} xu đã được cộng</span>`;
   document.body.appendChild(toast);
-  setTimeout(() => {
-    toast.style.transition = 'opacity 0.5s';
-    toast.style.opacity = '0';
-    setTimeout(() => toast.remove(), 500);
-  }, 4000);
+  setTimeout(() => { toast.style.transition = 'opacity 0.5s'; toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, 4000);
 }
 
 function updateCreditsDisplay() {
-  const el = document.getElementById('userCredits');
-  const bar = document.getElementById('creditsBar');
-  if (isCurrentAdmin()) {
-    el.textContent = '∞';
-    bar.classList.add('infinity');
-  } else {
-    el.textContent = (userProfile?.credits || 0).toLocaleString('vi-VN');
-    bar.classList.remove('infinity');
-  }
+  const el = document.getElementById('userCredits'); const bar = document.getElementById('creditsBar');
+  if (isCurrentAdmin()) { el.textContent = '∞'; bar.classList.add('infinity'); }
+  else { el.textContent = (userProfile?.credits || 0).toLocaleString('vi-VN'); bar.classList.remove('infinity'); }
 }
 
-/* ============ MODAL ============ */
 function showRegisterSuccess() {
-  const old = document.getElementById('modalSuccess');
-  if (old) old.remove();
-  const modal = document.createElement('div');
-  modal.id = 'modalSuccess';
-  modal.className = 'modal-overlay';
+  const old = document.getElementById('modalSuccess'); if (old) old.remove();
+  const modal = document.createElement('div'); modal.id = 'modalSuccess'; modal.className = 'modal-overlay';
   modal.innerHTML = `
     <div class="modal-box">
       <h2>🎉 Chúc mừng bạn!</h2>
       <div class="sub">Bạn đã tạo tài khoản thành công</div>
-      <div style="color:#e8e8f0;font-size:13px;margin-bottom:14px;line-height:1.6">
-        Xin mời bạn xem hướng dẫn cách lấy file <b style="color:#6ea8ff">Overview.csv</b> từ TikTok Studio:
-      </div>
+      <div style="color:#e8e8f0;font-size:13px;margin-bottom:14px;line-height:1.6">Hướng dẫn lấy file <b style="color:#6ea8ff">Overview.csv</b>:</div>
       <div class="step"><b>Bước 1:</b> Vào Safari hoặc Google</div>
-      <div class="step"><b>Bước 2:</b> Truy cập trang web TikTok Studio</div>
-      <div class="step"><b>Bước 3:</b> Đăng nhập tài khoản TikTok của bạn</div>
-      <div class="step"><b>Bước 4:</b> Nhấn vào dấu 3 chấm (…), tìm "TikTok Studio"</div>
-      <div class="step"><b>Bước 5:</b> Nhấp vào biểu tượng file có mũi tên đi lên (Tải xuống dữ liệu)</div>
-      <div class="step"><b>Bước 6:</b> Bấm chọn "365 ngày gần nhất", bấm nút "Tải về" → Giải nén → Nhập vào tool</div>
+      <div class="step"><b>Bước 2:</b> Truy cập TikTok Studio</div>
+      <div class="step"><b>Bước 3:</b> Đăng nhập TikTok</div>
+      <div class="step"><b>Bước 4:</b> Bấm 3 chấm (…), tìm "TikTok Studio"</div>
+      <div class="step"><b>Bước 5:</b> Bấm biểu tượng file có mũi tên đi lên</div>
+      <div class="step"><b>Bước 6:</b> Chọn "365 ngày gần nhất" → Tải về → Giải nén → Nhập vào tool</div>
       <div style="color:#4ade80;font-size:13px;text-align:center;margin-top:16px;font-weight:600;line-height:1.7">
         🎊 Chúc mừng bạn đã nhập thành công file!<br>
         <span style="font-size:12px;color:#aaa;font-weight:400">Xin mời bạn tận hưởng quá trình xem giờ vàng 🚀</span>
       </div>
-      <button class="modal-btn" onclick="document.getElementById('modalSuccess').remove()">Đã hiểu, bắt đầu thôi! 🚀</button>
+      <button class="modal-btn" onclick="document.getElementById('modalSuccess').remove()">Đã hiểu, bắt đầu! 🚀</button>
     </div>`;
   document.body.appendChild(modal);
 }
 
 function showUploadSuccess() {
-  const old = document.getElementById('modalUpload');
-  if (old) old.remove();
-  const modal = document.createElement('div');
-  modal.id = 'modalUpload';
-  modal.className = 'modal-overlay';
+  const old = document.getElementById('modalUpload'); if (old) old.remove();
+  const modal = document.createElement('div'); modal.id = 'modalUpload'; modal.className = 'modal-overlay';
   modal.innerHTML = `
     <div class="modal-box">
       <h2>🎉 Chúc mừng bạn!</h2>
       <div class="sub">Bạn đã nhập file thành công</div>
       <div style="color:#e8e8f0;font-size:13px;text-align:center;line-height:1.8;margin:16px 0">
-        Dữ liệu của bạn đã được lưu lên cloud ☁️<br>
-        Xin mời bạn tận hưởng quá trình xem giờ vàng!
+        Dữ liệu đã được lưu lên cloud ☁️<br>Xin mời bạn tận hưởng quá trình xem giờ vàng!
       </div>
       <div style="color:#4ade80;font-size:24px;text-align:center;margin:20px 0">🚀</div>
       <button class="modal-btn" onclick="document.getElementById('modalUpload').remove()">Bắt đầu xem giờ vàng!</button>
@@ -819,31 +706,19 @@ function showUploadSuccess() {
   document.body.appendChild(modal);
 }
 
-/* ============ GOLDEN ============ */
 function renderGolden() {
-  const locked = document.getElementById('goldenLocked');
-  const unlocked = document.getElementById('goldenUnlocked');
-  const adminBadge = document.getElementById('adminBadge');
+  const locked = document.getElementById('goldenLocked'); const unlocked = document.getElementById('goldenUnlocked'); const adminBadge = document.getElementById('adminBadge');
   if (!userProfile) return;
   const isAdmin = isCurrentAdmin();
   if (isAdmin || userProfile.golden_unlocked) {
-    locked.classList.add('hidden');
-    unlocked.classList.remove('hidden');
+    locked.classList.add('hidden'); unlocked.classList.remove('hidden');
     adminBadge.classList.toggle('hidden', !isAdmin);
     renderGoldenAnalysis();
   } else {
-    locked.classList.remove('hidden');
-    unlocked.classList.add('hidden');
-    adminBadge.classList.add('hidden');
-    const btn = document.getElementById('goldenUnlockBtn');
-    const credits = userProfile.credits || 0;
-    if (credits < GOLDEN_COST) {
-      btn.textContent = `❌ Cần ${GOLDEN_COST} xu — Bạn có ${credits} xu`;
-      btn.disabled = true;
-    } else {
-      btn.textContent = `🔓 Mở khóa — ${GOLDEN_COST} xu (bạn có ${credits} xu)`;
-      btn.disabled = false;
-    }
+    locked.classList.remove('hidden'); unlocked.classList.add('hidden'); adminBadge.classList.add('hidden');
+    const btn = document.getElementById('goldenUnlockBtn'); const credits = userProfile.credits || 0;
+    if (credits < GOLDEN_COST) { btn.textContent = `❌ Cần ${GOLDEN_COST} xu — Bạn có ${credits} xu`; btn.disabled = true; }
+    else { btn.textContent = `🔓 Mở khóa — ${GOLDEN_COST} xu (bạn có ${credits} xu)`; btn.disabled = false; }
   }
 }
 
@@ -854,50 +729,39 @@ document.getElementById('goldenUnlockBtn').addEventListener('click', async () =>
   const newCredits = userProfile.credits - GOLDEN_COST;
   const { error } = await supabaseClient.from('profiles').update({ credits: newCredits, golden_unlocked: true }).eq('id', currentUser.id);
   if (error) { alert('Lỗi: ' + error.message); return; }
-  userProfile.credits = newCredits;
-  userProfile.golden_unlocked = true;
-  updateCreditsDisplay();
-  renderGolden();
-  renderAccount();
+  userProfile.credits = newCredits; userProfile.golden_unlocked = true;
+  updateCreditsDisplay(); renderGolden(); renderAccount();
 });
 
-/* ============ PHÂN TÍCH ============ */
 function renderGoldenAnalysis() {
-  const box = document.getElementById('vipContent');
-  if (!box) return;
-  if (!rawData.length) {
-    box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv để xem phân tích.</div>';
-    return;
-  }
-  let totalViews = 0, totalLikes = 0, totalShares = 0, totalComments = 0;
-  let maxViews = 0, maxDay = '';
-  let bestEngagement = 0, bestEngagementDay = '';
+  const box = document.getElementById('vipContent'); if (!box) return;
+  if (!rawData.length) { box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv để xem phân tích.</div>'; return; }
+  let tv = 0, tl = 0, ts = 0, tc = 0, mv = 0, md = '', be = 0, bd = '';
   rawData.forEach(d => {
-    const views = d[1], likes = d[2], comments = d[3], shares = d[4];
-    totalViews += views; totalLikes += likes; totalComments += comments; totalShares += shares;
-    if (views > maxViews) { maxViews = views; maxDay = d[0]; }
-    const engRate = views > 0 ? (likes + comments + shares) / views : 0;
-    if (engRate > bestEngagement && views > 100) { bestEngagement = engRate; bestEngagementDay = d[0]; }
+    const v = d[1], l = d[2], c = d[3], s = d[4];
+    tv += v; tl += l; tc += c; ts += s;
+    if (v > mv) { mv = v; md = d[0]; }
+    const er = v > 0 ? (l + c + s) / v : 0;
+    if (er > be && v > 100) { be = er; bd = d[0]; }
   });
-  const likeRate = totalViews > 0 ? (totalLikes / totalViews * 100).toFixed(2) : 0;
-  const shareRate = totalViews > 0 ? (totalShares / totalViews * 100).toFixed(3) : 0;
-  const commentRate = totalViews > 0 ? (totalComments / totalViews * 100).toFixed(3) : 0;
+  const lr = tv > 0 ? (tl / tv * 100).toFixed(2) : 0;
+  const sr = tv > 0 ? (ts / tv * 100).toFixed(3) : 0;
+  const cr = tv > 0 ? (tc / tv * 100).toFixed(3) : 0;
   const top3 = [...rawData].sort((a, b) => b[1] - a[1]).slice(0, 3);
-  let strategy = [];
-  if (likeRate > 3) strategy.push(`✅ Tỷ lệ like/view cao (${likeRate}%) — nội dung được yêu thích.`);
-  else if (likeRate < 1.5) strategy.push(`⚠️ Tỷ lệ like/view thấp (${likeRate}%) — thêm CTA "thả tim nếu hay".`);
-  if (shareRate > 0.5) strategy.push(`🔥 Tỷ lệ share cao (${shareRate}%) — nội dung lan truyền tốt.`);
-  else if (shareRate < 0.1) strategy.push(`💡 Tỷ lệ share thấp (${shareRate}%) — thử nội dung cảm xúc mạnh.`);
-  strategy.push(`🎯 Ngày viral nhất: <b>${maxDay}</b> (${maxViews.toLocaleString('vi-VN')} view).`);
-  strategy.push(`📊 Ngày tương tác tốt nhất: <b>${bestEngagementDay}</b> (${(bestEngagement*100).toFixed(2)}%).`);
+  let strat = [];
+  if (lr > 3) strat.push(`✅ Tỷ lệ like/view cao (${lr}%) — nội dung được yêu thích.`);
+  else if (lr < 1.5) strat.push(`⚠️ Tỷ lệ like/view thấp (${lr}%) — thêm CTA "thả tim nếu hay".`);
+  if (sr > 0.5) strat.push(`🔥 Tỷ lệ share cao (${sr}%) — nội dung lan truyền tốt.`);
+  else if (sr < 0.1) strat.push(`💡 Tỷ lệ share thấp (${sr}%) — thử nội dung cảm xúc mạnh.`);
+  strat.push(`🎯 Ngày viral nhất: <b>${md}</b> (${mv.toLocaleString('vi-VN')} view).`);
+  strat.push(`📊 Ngày tương tác tốt nhất: <b>${bd}</b> (${(be*100).toFixed(2)}%).`);
   box.innerHTML = `
-    <div class="strategy-item">📈 <b>Tỷ lệ tương tác:</b><br>• Like/View: <b>${likeRate}%</b><br>• Share/View: <b>${shareRate}%</b><br>• Comment/View: <b>${commentRate}%</b></div>
+    <div class="strategy-item">📈 <b>Tỷ lệ tương tác:</b><br>• Like/View: <b>${lr}%</b><br>• Share/View: <b>${sr}%</b><br>• Comment/View: <b>${cr}%</b></div>
     <div class="strategy-item">🏆 <b>Top 3 ngày viral:</b><br>${top3.map((d, i) => `${i+1}. ${d[0]} — ${d[1].toLocaleString('vi-VN')} view`).join('<br>')}</div>
-    <div class="strategy-item">💡 <b>Chiến lược đề xuất:</b><br>${strategy.map(s => '• ' + s).join('<br><br>')}</div>
+    <div class="strategy-item">💡 <b>Chiến lược:</b><br>${strat.map(s => '• ' + s).join('<br><br>')}</div>
     <div class="strategy-item">⏰ <b>Giờ vàng tối ưu:</b> ưu tiên <b>19:00–21:00</b> và <b>11:00–13:00</b>.</div>`;
 }
 
-/* ============ ADMIN ============ */
 async function adminLoadUsers() {
   const box = document.getElementById('adminList');
   box.innerHTML = '<div class="admin-loading">⏳ Đang tải...</div>';
@@ -905,112 +769,61 @@ async function adminLoadUsers() {
     const { data, error } = await supabaseClient.from('profiles').select('*').order('created_at', { ascending: false });
     if (error) throw error;
     if (!data || !data.length) { box.innerHTML = '<div class="admin-empty">Chưa có user nào</div>'; return; }
-
-    const creditBtns = ADMIN_CREDIT_AMOUNTS.map(amt =>
-      `<button class="admin-btn credit" onclick="adminAddCredit('USER_ID', ${amt})">+${amt} xu</button>`
-    );
-
     box.innerHTML = data.map(u => {
-      const isBanned = u.banned === true;
-      const isAdminUser = u.is_admin === true || u.email === ADMIN_EMAIL;
-      const isGolden = u.golden_unlocked === true;
-      const created = u.created_at ? new Date(u.created_at).toLocaleDateString('vi-VN') : '-';
-      const creditsDisplay = isAdminUser ? '∞' : (u.credits || 0).toLocaleString('vi-VN');
-
-      let actionsHtml = '';
-      if (!isAdminUser) actionsHtml += `<button class="admin-btn promote" onclick="adminPromote('${u.id}')">👑 Lên Admin (${PROMOTE_COST} xu)</button>`;
-      else if (u.email !== ADMIN_EMAIL) actionsHtml += `<button class="admin-btn demote" onclick="adminDemote('${u.id}')">⬇️ Hạ Admin</button>`;
-
-      actionsHtml += isBanned
-        ? `<button class="admin-btn unban" onclick="adminUnban('${u.id}')">✅ Mở khóa</button>`
-        : `<button class="admin-btn ban" onclick="adminBan('${u.id}')">🚫 Khóa</button>`;
-
-      ADMIN_CREDIT_AMOUNTS.forEach(amt => {
-        actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', ${amt})">+${amt} xu</button>`;
-      });
-      actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -100)">-100 xu</button>`;
-
-      if (isGolden) actionsHtml += `<button class="admin-btn reset" onclick="adminResetGolden('${u.id}')">🔒 Khóa VIP</button>`;
-      if (u.email !== ADMIN_EMAIL) actionsHtml += `<button class="admin-btn delete" onclick="adminDeleteUser('${u.id}')">🗑️ Xóa</button>`;
-
+      const ib = u.banned === true;
+      const ia = u.is_admin === true || u.email === ADMIN_EMAIL;
+      const ig = u.golden_unlocked === true;
+      const cr = u.created_at ? new Date(u.created_at).toLocaleDateString('vi-VN') : '-';
+      const cDisp = ia ? '∞' : (u.credits || 0).toLocaleString('vi-VN');
+      let ah = '';
+      if (!ia) ah += `<button class="admin-btn promote" onclick="adminPromote('${u.id}')">👑 Lên Admin (${PROMOTE_COST} xu)</button>`;
+      else if (u.email !== ADMIN_EMAIL) ah += `<button class="admin-btn demote" onclick="adminDemote('${u.id}')">⬇️ Hạ Admin</button>`;
+      ah += ib ? `<button class="admin-btn unban" onclick="adminUnban('${u.id}')">✅ Mở khóa</button>` : `<button class="admin-btn ban" onclick="adminBan('${u.id}')">🚫 Khóa</button>`;
+      ADMIN_CREDIT_AMOUNTS.forEach(a => { ah += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', ${a})">+${a} xu</button>`; });
+      ah += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -100)">-100 xu</button>`;
+      if (ig) ah += `<button class="admin-btn reset" onclick="adminResetGolden('${u.id}')">🔒 Khóa VIP</button>`;
+      if (u.email !== ADMIN_EMAIL) ah += `<button class="admin-btn delete" onclick="adminDeleteUser('${u.id}')">🗑️ Xóa</button>`;
       return `
-        <div class="admin-user ${isBanned ? 'banned' : ''} ${isAdminUser ? 'is-admin-user' : ''}">
+        <div class="admin-user ${ib ? 'banned' : ''} ${ia ? 'is-admin-user' : ''}">
           <div class="head">
             <span class="email">${u.email || 'unknown'}</span>
-            ${isAdminUser ? '<span class="badge admin">ADMIN</span>' : ''}
-            ${isGolden ? '<span class="badge vip">GOLDEN</span>' : ''}
-            <span class="badge ${isBanned ? 'banned' : ''}">${isBanned ? 'ĐÃ KHÓA' : 'OK'}</span>
+            ${ia ? '<span class="badge admin">ADMIN</span>' : ''}
+            ${ig ? '<span class="badge vip">GOLDEN</span>' : ''}
+            <span class="badge ${ib ? 'banned' : ''}">${ib ? 'ĐÃ KHÓA' : 'OK'}</span>
           </div>
-          <div class="info">📅 ${created}</div>
-          <div class="credits-line">💰 <span id="cred-${u.id}">${creditsDisplay}</span> xu</div>
-          <div class="actions">${actionsHtml}</div>
+          <div class="info">📅 ${cr}</div>
+          <div class="credits-line">💰 <span id="cred-${u.id}">${cDisp}</span> xu</div>
+          <div class="actions">${ah}</div>
         </div>`;
     }).join('');
-  } catch (e) {
-    box.innerHTML = '<div class="admin-empty" style="color:#ff6e9c">❌ Lỗi: ' + e.message + '</div>';
-  }
+  } catch (e) { box.innerHTML = '<div class="admin-empty" style="color:#ff6e9c">❌ Lỗi: ' + e.message + '</div>'; }
 }
 
-async function adminBan(userId) {
-  if (!confirm('Khóa user?')) return;
-  await supabaseClient.from('profiles').update({ banned: true }).eq('id', userId);
-  adminLoadUsers();
+async function adminBan(uid) { if (!confirm('Khóa user?')) return; await supabaseClient.from('profiles').update({ banned: true }).eq('id', uid); adminLoadUsers(); }
+async function adminUnban(uid) { await supabaseClient.from('profiles').update({ banned: false }).eq('id', uid); adminLoadUsers(); }
+async function adminAddCredit(uid, amt) {
+  const { data } = await supabaseClient.from('profiles').select('credits, email, is_admin').eq('id', uid).single();
+  const ia = data?.is_admin === true || data?.email === ADMIN_EMAIL;
+  if (ia) { alert('Admin có vô cực xu, không cần cộng/trừ!'); return; }
+  const cur = data?.credits || 0; const nv = Math.max(0, cur + amt);
+  await supabaseClient.from('profiles').update({ credits: nv }).eq('id', uid);
+  const el = document.getElementById('cred-' + uid); if (el) el.textContent = nv.toLocaleString('vi-VN');
 }
-async function adminUnban(userId) {
-  await supabaseClient.from('profiles').update({ banned: false }).eq('id', userId);
-  adminLoadUsers();
-}
-async function adminAddCredit(userId, amount) {
-  const { data } = await supabaseClient.from('profiles').select('credits, email, is_admin').eq('id', userId).single();
-  const isTargetAdmin = data?.is_admin === true || data?.email === ADMIN_EMAIL;
-  if (isTargetAdmin) { alert('Admin có vô cực xu, không cần cộng/trừ!'); return; }
-  const current = data?.credits || 0;
-  const newVal = Math.max(0, current + amount);
-  await supabaseClient.from('profiles').update({ credits: newVal }).eq('id', userId);
-  const el = document.getElementById('cred-' + userId);
-  if (el) el.textContent = newVal.toLocaleString('vi-VN');
-}
-async function adminResetGolden(userId) {
-  if (!confirm('Khóa lại phần phân tích VIP?')) return;
-  await supabaseClient.from('profiles').update({ golden_unlocked: false }).eq('id', userId);
-  adminLoadUsers();
-}
-async function adminPromote(userId) {
-  if (!confirm(`Promote user này lên Admin?\nTốn ${PROMOTE_COST.toLocaleString('vi-VN')} xu.\n\nAdmin mới sẽ có vô cực xu.`)) return;
-  const { error } = await supabaseClient.from('profiles').update({ is_admin: true }).eq('id', userId);
-  if (error) { alert('Lỗi: ' + error.message); return; }
-  alert('✅ Đã promote lên Admin!');
-  adminLoadUsers();
-}
-async function adminDemote(userId) {
-  if (!confirm('Hạ user này xuống user thường?')) return;
-  const { error } = await supabaseClient.from('profiles').update({ is_admin: false }).eq('id', userId);
-  if (error) { alert('Lỗi: ' + error.message); return; }
-  adminLoadUsers();
-}
-async function adminDeleteUser(userId) {
-  if (!confirm('⚠️ XÓA VĨNH VIỄN tài khoản này?\nKhông thể khôi phục!')) return;
+async function adminResetGolden(uid) { if (!confirm('Khóa VIP?')) return; await supabaseClient.from('profiles').update({ golden_unlocked: false }).eq('id', uid); adminLoadUsers(); }
+async function adminPromote(uid) { if (!confirm(`Promote lên Admin? Tốn ${PROMOTE_COST.toLocaleString('vi-VN')} xu.`)) return; await supabaseClient.from('profiles').update({ is_admin: true }).eq('id', uid); alert('✅ Đã promote!'); adminLoadUsers(); }
+async function adminDemote(uid) { if (!confirm('Hạ xuống user thường?')) return; await supabaseClient.from('profiles').update({ is_admin: false }).eq('id', uid); adminLoadUsers(); }
+async function adminDeleteUser(uid) {
+  if (!confirm('⚠️ XÓA VĨNH VIỄN?')) return;
   const t = prompt('Gõ "XOA" để xác nhận:');
   if (t !== 'XOA') { alert('Đã hủy.'); return; }
-  try {
-    const { error } = await supabaseClient.rpc('delete_user', { target_user_id: userId });
-    if (error) throw error;
-    alert('✅ Đã xóa!');
-    adminLoadUsers();
-  } catch (e) { alert('❌ Lỗi: ' + e.message); }
+  try { const { error } = await supabaseClient.rpc('delete_user', { target_user_id: uid }); if (error) throw error; alert('✅ Đã xóa!'); adminLoadUsers(); }
+  catch (e) { alert('❌ Lỗi: ' + e.message); }
 }
-
-window.adminBan = adminBan;
-window.adminUnban = adminUnban;
-window.adminAddCredit = adminAddCredit;
-window.adminResetGolden = adminResetGolden;
-window.adminPromote = adminPromote;
-window.adminDemote = adminDemote;
-window.adminDeleteUser = adminDeleteUser;
-
+window.adminBan = adminBan; window.adminUnban = adminUnban; window.adminAddCredit = adminAddCredit;
+window.adminResetGolden = adminResetGolden; window.adminPromote = adminPromote;
+window.adminDemote = adminDemote; window.adminDeleteUser = adminDeleteUser;
 document.getElementById('adminRefresh').addEventListener('click', adminLoadUsers);
 
-/* ============ CLOUD DATA ============ */
 async function saveDataToCloud() {
   if (!currentUser) return;
   try {
@@ -1027,11 +840,8 @@ async function loadDataFromCloud() {
   try {
     const { data, error } = await supabaseClient.from('user_data').select('rows').eq('user_id', currentUser.id).order('updated_at', { ascending: false }).limit(1);
     if (error) throw error;
-    if (data && data.length && data[0].rows) {
-      rawData = data[0].rows;
-      showUploadStatus('✅ Đã tải ' + rawData.length + ' dòng', '#4ade80');
-    }
-  } catch (e) { console.error(e); }
+    if (data && data.length && data[0].rows) { rawData = data[0].rows; showUploadStatus('✅ Đã tải ' + rawData.length + ' dòng', '#4ade80'); }
+  } catch (e) {}
 }
 
 document.getElementById('clearDataBtn').addEventListener('click', async () => {
@@ -1039,8 +849,7 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
   if (!currentUser) return;
   try {
     await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
-    rawData = [];
-    document.getElementById('fileInfo').classList.add('hidden');
+    rawData = []; document.getElementById('fileInfo').classList.add('hidden');
     renderAll();
     if (userProfile && (userProfile.golden_unlocked || isCurrentAdmin())) renderGoldenAnalysis();
     showUploadStatus('🗑️ Đã xóa', '#ff6e9c');
@@ -1048,31 +857,20 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
 });
 
 function showUploadStatus(text, color) {
-  const el = document.getElementById('uploadStatus');
-  el.textContent = text;
-  el.style.color = color || '#4ade80';
+  const el = document.getElementById('uploadStatus'); el.textContent = text; el.style.color = color || '#4ade80';
 }
 
 document.getElementById('exportCsvBtn').addEventListener('click', exportToCSV);
 
-/* ============ UPLOAD ============ */
 const uploadZone = document.getElementById('uploadZone');
 const csvInput = document.getElementById('csvInput');
 
-function formatFileSize(bytes) {
-  if (bytes < 1024) return bytes + ' B';
-  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-  return (bytes / 1024 / 1024).toFixed(2) + ' MB';
-}
+function formatFileSize(b) { if (b < 1024) return b + ' B'; if (b < 1024 * 1024) return (b / 1024).toFixed(1) + ' KB'; return (b / 1024 / 1024).toFixed(2) + ' MB'; }
 
 function handleFile(file) {
   if (!file) return;
   const name = (file.name || '').toLowerCase();
-  const isValidExt = name.endsWith('.csv') || name.endsWith('.txt');
-  if (!isValidExt) {
-    showUploadStatus('❌ Chỉ nhận file .csv', '#ff6e9c');
-    return;
-  }
+  if (!(name.endsWith('.csv') || name.endsWith('.txt'))) { showUploadStatus('❌ Chỉ nhận file .csv', '#ff6e9c'); return; }
   document.getElementById('fileName').textContent = file.name;
   document.getElementById('fileSize').textContent = formatFileSize(file.size);
   document.getElementById('fileInfo').classList.remove('hidden');
@@ -1081,74 +879,35 @@ function handleFile(file) {
     try {
       parseCSV(ev.target.result);
       showUploadStatus('✅ Đã tải ' + rawData.length + ' dòng', '#4ade80');
-      renderAll();
-      await saveDataToCloud();
-      showUploadSuccess();
+      renderAll(); await saveDataToCloud(); showUploadSuccess();
     } catch (err) { showUploadStatus('❌ Lỗi: ' + err.message, '#ff6e9c'); }
   };
   reader.onerror = () => showUploadStatus('❌ Không đọc được file', '#ff6e9c');
   reader.readAsText(file, 'UTF-8');
 }
 
-csvInput.addEventListener('change', e => {
-  const file = e.target.files[0];
-  handleFile(file);
-  e.target.value = '';
-});
-
-uploadZone.addEventListener('click', e => {
-  if (e.target !== csvInput) csvInput.click();
-});
-
-['dragenter', 'dragover'].forEach(evt => {
-  uploadZone.addEventListener(evt, e => {
-    e.preventDefault(); e.stopPropagation();
-    uploadZone.classList.add('dragover');
-  });
-});
-
-['dragleave', 'drop'].forEach(evt => {
-  uploadZone.addEventListener(evt, e => {
-    e.preventDefault(); e.stopPropagation();
-    if (evt === 'dragleave' && uploadZone.contains(e.relatedTarget)) return;
-    uploadZone.classList.remove('dragover');
-  });
-});
-
-uploadZone.addEventListener('drop', e => {
-  const file = e.dataTransfer.files[0];
-  handleFile(file);
-});
-
-['dragover', 'drop'].forEach(evt => {
-  window.addEventListener(evt, e => {
-    if (!uploadZone.contains(e.target)) e.preventDefault();
-  });
-});
-
+csvInput.addEventListener('change', e => { const file = e.target.files[0]; handleFile(file); e.target.value = ''; });
+uploadZone.addEventListener('click', e => { if (e.target !== csvInput) csvInput.click(); });
+['dragenter', 'dragover'].forEach(evt => { uploadZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); uploadZone.classList.add('dragover'); }); });
+['dragleave', 'drop'].forEach(evt => { uploadZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); if (evt === 'dragleave' && uploadZone.contains(e.relatedTarget)) return; uploadZone.classList.remove('dragover'); }); });
+uploadZone.addEventListener('drop', e => { handleFile(e.dataTransfer.files[0]); });
+['dragover', 'drop'].forEach(evt => { window.addEventListener(evt, e => { if (!uploadZone.contains(e.target)) e.preventDefault(); }); });
 document.addEventListener('paste', e => {
-  const items = e.clipboardData?.items;
-  if (!items) return;
+  const items = e.clipboardData?.items; if (!items) return;
   for (const item of items) {
     if (item.type === 'text/csv' || item.type === 'text/plain' || item.kind === 'file') {
       const file = item.getAsFile();
-      if (file && (file.name.endsWith('.csv') || file.type.includes('csv') || file.type === 'text/plain')) {
-        handleFile(file);
-        break;
-      }
+      if (file && (file.name.endsWith('.csv') || file.type.includes('csv') || file.type === 'text/plain')) { handleFile(file); break; }
     }
   }
 });
 
-(function detectDevice() {
+(function() {
   const ua = navigator.userAgent;
   const hint = document.getElementById('uploadHint');
   const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const isAndroid = /Android/.test(ua);
-  let text;
-  if (isIOS || isAndroid) text = 'Chạm để chọn file CSV<br><b>hoặc kéo thả từ Files</b>';
-  else text = 'Bấm để chọn file CSV<br><b>hoặc kéo thả / dán (Ctrl+V)</b>';
-  hint.innerHTML = text;
+  hint.innerHTML = (isIOS || isAndroid) ? 'Chạm để chọn file CSV<br><b>hoặc kéo thả từ Files</b>' : 'Bấm để chọn file CSV<br><b>hoặc kéo thả / dán (Ctrl+V)</b>';
 })();
 
 function parseCSV(text) {
@@ -1158,14 +917,10 @@ function parseCSV(text) {
   for (let i = 1; i < lines.length; i++) {
     const parts = lines[i].replace(/^"|"$/g, '').split('","').map(s => s.replace(/"/g, ''));
     if (parts.length < 3) continue;
-    const date = parts[0];
-    const views = parseInt(parts[1]) || 0;
-    const profileViews = parseInt(parts[2]) || 0;
-    const likes = parseInt(parts[3]) || 0;
-    const comments = parseInt(parts[4]) || 0;
-    const shares = parseInt(parts[5]) || 0;
+    const date = parts[0]; const views = parseInt(parts[1]) || 0; const pv = parseInt(parts[2]) || 0;
+    const likes = parseInt(parts[3]) || 0; const cmt = parseInt(parts[4]) || 0; const sh = parseInt(parts[5]) || 0;
     if (!date) continue;
-    rows.push([date, views, likes, comments, shares, profileViews]);
+    rows.push([date, views, likes, cmt, sh, pv]);
   }
   if (!rows.length) throw new Error('Không đọc được dòng nào');
   rawData = rows;
@@ -1174,10 +929,7 @@ function parseCSV(text) {
 function renderAll() { renderStats(); renderTop(); renderChart(); renderCompare(); }
 
 function renderStats() {
-  if (!rawData.length) {
-    ['s-total-views','s-total-likes','s-avg-views','s-max-views'].forEach(id => document.getElementById(id).textContent = '—');
-    return;
-  }
+  if (!rawData.length) { ['s-total-views','s-total-likes','s-avg-views','s-max-views'].forEach(id => document.getElementById(id).textContent = '—'); return; }
   let tv = 0, tl = 0, mx = 0;
   rawData.forEach(d => { tv += d[1]; tl += d[2]; if (d[1] > mx) mx = d[1]; });
   document.getElementById('s-total-views').textContent = tv.toLocaleString('vi-VN');
@@ -1189,25 +941,21 @@ function renderStats() {
 function renderTop() {
   const box = document.getElementById('top-list');
   if (!rawData.length) { box.innerHTML = '<div style="color:#666;text-align:center;padding:20px">Chưa có dữ liệu.</div>'; return; }
-  const sorted = [...rawData].sort((a,b) => b[1] - a[1]).slice(0, 10);
-  box.innerHTML = sorted.map((d, i) => `<div class="top-item rank-${i+1}"><span class="date">#${i+1} · ${d[0]}</span><span class="val">${d[1].toLocaleString('vi-VN')} view</span></div>`).join('');
+  const s = [...rawData].sort((a,b) => b[1] - a[1]).slice(0, 10);
+  box.innerHTML = s.map((d, i) => `<div class="top-item rank-${i+1}"><span class="date">#${i+1} · ${d[0]}</span><span class="val">${d[1].toLocaleString('vi-VN')} view</span></div>`).join('');
 }
 
 function renderChart() {
   const ctx = document.getElementById('chart');
   if (chartInstance) chartInstance.destroy();
   if (!rawData.length) return;
-  let data = rawData;
-  if (chartFilterDays > 0) data = rawData.slice(-chartFilterDays);
+  let data = rawData; if (chartFilterDays > 0) data = rawData.slice(-chartFilterDays);
   chartInstance = new Chart(ctx, {
     type: 'bar',
-    data: {
-      labels: data.map(d => d[0]),
-      datasets: [{ label: 'View', data: data.map(d => d[1]), backgroundColor: data.map(d => d[1] > 10000 ? '#ff6e9c' : '#6ea8ff'), borderRadius: 4 }]
-    },
+    data: { labels: data.map(d => d[0]), datasets: [{ label: 'View', data: data.map(d => d[1]), backgroundColor: data.map(d => d[1] > 10000 ? '#ff6e9c' : '#6ea8ff'), borderRadius: 4 }] },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.parsed.y.toLocaleString('vi-VN') + ' view' } } },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => c.parsed.y.toLocaleString('vi-VN') + ' view' } } },
       scales: {
         x: { ticks: { color: '#666', font: { size: 9 }, maxRotation: 90, autoSkip: true, maxTicksLimit: 20 }, grid: { display: false } },
         y: { ticks: { color: '#666', font: { size: 10 }, callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v }, grid: { color: '#1e1e26' } }
@@ -1244,10 +992,9 @@ const days = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Th
 
 function getNextGolden(now) {
   const h = now.getHours();
-  const inGolden1 = h >= 11 && h < 13;
-  const inGolden2 = h >= 19 && h < 22;
-  if (inGolden1 || inGolden2) {
-    const endH = inGolden1 ? 13 : 22;
+  const g1 = h >= 11 && h < 13, g2 = h >= 19 && h < 22;
+  if (g1 || g2) {
+    const endH = g1 ? 13 : 22;
     const end = new Date(now); end.setHours(endH, 0, 0, 0);
     return { active: true, target: end, label: 'ĐANG GIỜ VÀNG' };
   }
@@ -1265,31 +1012,25 @@ function tick() {
   document.getElementById('date').textContent = `${days[now.getDay()]}, ${now.getDate()}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
   document.getElementById('zone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const g = getNextGolden(now);
-  const goldenBox = document.getElementById('golden');
-  const txt = document.getElementById('goldenText');
-  const cd = document.getElementById('countdown');
+  const gb = document.getElementById('golden'); const txt = document.getElementById('goldenText'); const cd = document.getElementById('countdown');
   if (g.active) {
-    goldenBox.className = 'golden active';
+    gb.className = 'golden active';
     txt.innerHTML = '🔥 <strong>' + g.label + '</strong> — Đăng ngay!';
     if (!lastGoldenState && soundEnabled) playGoldenSound();
     lastGoldenState = true;
   } else {
-    goldenBox.className = 'golden';
+    gb.className = 'golden';
     txt.innerHTML = '⏰ <strong>' + g.label + '</strong> — Khung tối ưu 11–13h & 19–22h';
     lastGoldenState = false;
   }
   const diff = g.target - now;
-  const hh = Math.floor(diff / 3600000);
-  const mm = Math.floor((diff % 3600000) / 60000);
-  const ss = Math.floor((diff % 60000) / 1000);
+  const hh = Math.floor(diff / 3600000); const mm = Math.floor((diff % 3600000) / 60000); const ss = Math.floor((diff % 60000) / 1000);
   cd.textContent = (g.active ? 'Kết thúc sau ' : 'Còn ') + pad(hh) + ':' + pad(mm) + ':' + pad(ss);
 }
 
-tick();
-setInterval(tick, 1000);
+tick(); setInterval(tick, 1000);
 
-/* ============ AUTO UPDATE ============ */
-const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v2.1';
+const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v2.2';
 const UPDATE_CHECK_URL = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 const CHECK_INTERVAL = 5 * 60 * 1000;
 
@@ -1300,19 +1041,17 @@ async function checkForUpdate() {
     const text = await res.text();
     const match = text.match(/name="tool-version"\s+content="([^"]+)"/);
     if (!match) return;
-    const latestVersion = match[1];
-    if (latestVersion !== CURRENT_VERSION) showUpdateToast(latestVersion);
+    if (match[1] !== CURRENT_VERSION) showUpdateToast(match[1]);
   } catch (e) {}
 }
 
-function showUpdateToast(newVersion) {
+function showUpdateToast(v) {
   if (document.getElementById('updateToast')) return;
-  const toast = document.createElement('div');
-  toast.id = 'updateToast';
-  toast.style.cssText = `position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,0.4);z-index:99999;max-width:90vw;cursor:pointer;animation:slideUp 0.4s ease;`;
-  toast.innerHTML = `🔄 Có bản cập nhật mới (${newVersion})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại trang</span>`;
-  toast.onclick = () => { location.href = location.pathname + '?v=' + Date.now(); };
-  document.body.appendChild(toast);
+  const t = document.createElement('div'); t.id = 'updateToast';
+  t.style.cssText = `position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,0.4);z-index:99999;max-width:90vw;cursor:pointer;`;
+  t.innerHTML = `🔄 Có bản cập nhật mới (${v})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại trang</span>`;
+  t.onclick = () => { location.href = location.pathname + '?v=' + Date.now(); };
+  document.body.appendChild(t);
 }
 
 setTimeout(checkForUpdate, 3000);
