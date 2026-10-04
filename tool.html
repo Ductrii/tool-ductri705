@@ -129,7 +129,7 @@
     border-left: 3px solid #4ade80;
   }
 
-  /* PROFILE SECTION - gộp trong tab Tổng quan */
+  /* PROFILE SECTION */
   .profile-section {
     background: linear-gradient(135deg, #1e1e2e, #16161c);
     border: 1px solid #3a3a4e;
@@ -137,11 +137,11 @@
     padding: 16px;
     margin-bottom: 16px;
   }
-  .profile-section .head {
+  .profile-section .section-head {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 12px;
   }
-  .profile-section .title {
+  .profile-section .section-title {
     font-size: 12px; color: #888;
     text-transform: uppercase; letter-spacing: 1px;
   }
@@ -160,14 +160,14 @@
     margin-bottom: 12px;
   }
   .profile-avatar {
-    width: 44px; height: 44px; border-radius: 50%;
+    width: 48px; height: 48px; border-radius: 50%;
     background: linear-gradient(135deg, #6ea8ff, #ff6e9c);
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px; font-weight: 700; color: #0d0d12;
+    font-size: 22px; font-weight: 700; color: #0d0d12;
     flex-shrink: 0;
   }
   .profile-name {
-    font-size: 15px; font-weight: 600; color: #fff;
+    font-size: 16px; font-weight: 600; color: #fff;
     word-break: break-all;
   }
   .profile-sub {
@@ -177,20 +177,17 @@
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
   }
   .profile-stat {
-    text-align: center; padding: 10px 6px;
+    text-align: center; padding: 12px 6px;
     background: #0d0d12; border-radius: 10px;
+    border: 1px solid #26262e;
   }
   .profile-stat .num {
-    font-size: 16px; font-weight: 700; color: #6ea8ff;
+    font-size: 17px; font-weight: 700; color: #6ea8ff;
     font-variant-numeric: tabular-nums;
   }
   .profile-stat .lbl {
     font-size: 10px; color: #777; margin-top: 4px;
     text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .profile-empty {
-    text-align: center; color: #888; font-size: 13px;
-    padding: 8px 0;
   }
   .profile-form input {
     width: 100%; padding: 10px 12px; margin-bottom: 8px;
@@ -295,12 +292,10 @@
   .signature b { color: #6ea8ff; }
   .hidden { display: none !important; }
   .loading { text-align: center; color: #6ea8ff; padding: 40px; font-size: 14px; }
-  .section-title {
-    font-size: 13px; color: #888;
-    margin-bottom: 12px; margin-top: 4px;
-  }
-  .divider {
-    height: 1px; background: #26262e; margin: 16px 0;
+  .divider { height: 1px; background: #26262e; margin: 16px 0; }
+  .section-title-sm {
+    font-size: 12px; color: #888;
+    margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;
   }
 </style>
 </head>
@@ -369,31 +364,31 @@
         <div class="tab admin-tab hidden" data-tab="admin" id="adminTab">👑 Admin</div>
       </div>
 
-      <!-- TAB TỔNG QUAN - GỘP THÔNG TIN KÊNH + STATS -->
+      <!-- TAB TỔNG QUAN -->
       <div id="tab-overview" class="tab-content">
 
-        <!-- Thông tin kênh -->
-        <div class="profile-section">
-          <div class="head">
-            <span class="title">📱 Thông tin kênh TikTok</span>
-            <button class="edit-btn" id="profileEditBtn">✏️ Sửa</button>
+        <!-- THÔNG TIN KÊNH - CHỈ HIỆN KHI CÓ DATA -->
+        <div id="profileSection" class="profile-section hidden">
+          <div class="section-head">
+            <span class="section-title">📱 Thông tin kênh TikTok</span>
+            <button class="edit-btn hidden" id="profileEditBtn">✏️ Sửa</button>
           </div>
           <div id="profileDisplay"></div>
           <div id="profileForm" class="profile-form hidden">
-            <input type="text" id="pfUsername" placeholder="Tên tài khoản (VD: @ductri705)">
+            <input type="text" id="pfUsername" placeholder="ID TikTok (VD: @ductri705)">
             <input type="number" id="pfFollowers" placeholder="Số follower">
             <div class="row">
               <input type="number" id="pfLikes" placeholder="Tổng số tim">
               <input type="number" id="pfFollowing" placeholder="Đang follow">
             </div>
-            <button class="btn" id="pfSave">💾 Lưu</button>
+            <button class="btn" id="pfSave">💾 Lưu thông tin</button>
             <button class="btn btn-sec" id="pfCancel">Hủy</button>
           </div>
         </div>
 
-        <div class="divider"></div>
+        <div id="profileDivider" class="divider hidden"></div>
 
-        <div class="section-title">📊 Thống kê từ file CSV</div>
+        <div class="section-title-sm">📊 Thống kê từ file CSV</div>
         <div class="stats">
           <div class="stat"><div class="num" id="s-total-views">—</div><div class="lbl">Tổng view</div></div>
           <div class="stat"><div class="num" id="s-total-likes">—</div><div class="lbl">Tổng like (data)</div></div>
@@ -538,7 +533,6 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     const isAdmin = (session.user.email === ADMIN_EMAIL);
     document.getElementById('adminTab').classList.toggle('hidden', !isAdmin);
 
-    renderProfile();
     renderGolden();
     await loadDataFromCloud();
     renderAll();
@@ -569,16 +563,33 @@ function formatNumber(n) {
   return n.toString();
 }
 
+// Chỉ gọi khi rawData có dữ liệu (đã upload CSV)
 function renderProfile() {
+  const section = document.getElementById('profileSection');
+  const divider = document.getElementById('profileDivider');
   const display = document.getElementById('profileDisplay');
   const form = document.getElementById('profileForm');
+  const editBtn = document.getElementById('profileEditBtn');
   const u = userProfile || {};
   const hasProfile = u.tiktok_username && u.tiktok_username.trim();
+
+  // Ẩn nếu chưa upload CSV
+  if (!rawData.length) {
+    section.classList.add('hidden');
+    divider.classList.add('hidden');
+    return;
+  }
+
+  // Hiện section khi có data
+  section.classList.remove('hidden');
+  divider.classList.remove('hidden');
 
   form.classList.add('hidden');
   display.classList.remove('hidden');
 
   if (hasProfile) {
+    // Đã có thông tin → hiện bảng đẹp
+    editBtn.classList.remove('hidden');
     const firstChar = u.tiktok_username.replace('@','').charAt(0).toUpperCase() || '?';
     display.innerHTML = `
       <div class="profile-card">
@@ -604,13 +615,25 @@ function renderProfile() {
       </div>
     `;
   } else {
-    display.innerHTML = `<div class="profile-empty">Chưa có thông tin. Bấm ✏️ Sửa để nhập.</div>`;
+    // Chưa có thông tin → hiện form nhập
+    editBtn.classList.add('hidden');
+    display.innerHTML = `
+      <div style="color:#888;font-size:13px;margin-bottom:12px;text-align:center">
+        👇 Nhập thông tin kênh TikTok của bạn
+      </div>
+    `;
+    form.classList.remove('hidden');
+    document.getElementById('pfUsername').value = '';
+    document.getElementById('pfFollowers').value = '';
+    document.getElementById('pfLikes').value = '';
+    document.getElementById('pfFollowing').value = '';
   }
 }
 
 document.getElementById('profileEditBtn').addEventListener('click', () => {
   const u = userProfile || {};
   document.getElementById('profileDisplay').classList.add('hidden');
+  document.getElementById('profileEditBtn').classList.add('hidden');
   document.getElementById('profileForm').classList.remove('hidden');
   document.getElementById('pfUsername').value = u.tiktok_username || '';
   document.getElementById('pfFollowers').value = u.tiktok_followers || '';
@@ -619,7 +642,14 @@ document.getElementById('profileEditBtn').addEventListener('click', () => {
 });
 
 document.getElementById('pfCancel').addEventListener('click', () => {
-  renderProfile();
+  // Nếu đã có thông tin → quay về bảng hiển thị
+  if (userProfile && userProfile.tiktok_username) {
+    renderProfile();
+  } else {
+    // Nếu chưa có → chỉ ẩn form
+    document.getElementById('profileForm').classList.add('hidden');
+    document.getElementById('profileDisplay').classList.remove('hidden');
+  }
 });
 
 document.getElementById('pfSave').addEventListener('click', async () => {
@@ -629,7 +659,7 @@ document.getElementById('pfSave').addEventListener('click', async () => {
   const likes = parseInt(document.getElementById('pfLikes').value) || 0;
   const following = parseInt(document.getElementById('pfFollowing').value) || 0;
 
-  if (!username) { alert('Nhập tên tài khoản'); return; }
+  if (!username) { alert('Nhập ID TikTok'); return; }
 
   const btn = document.getElementById('pfSave');
   btn.disabled = true;
@@ -643,7 +673,7 @@ document.getElementById('pfSave').addEventListener('click', async () => {
   }).eq('id', currentUser.id);
 
   btn.disabled = false;
-  btn.textContent = '💾 Lưu';
+  btn.textContent = '💾 Lưu thông tin';
 
   if (error) { alert('Lỗi: ' + error.message); return; }
 
@@ -705,7 +735,7 @@ function renderGoldenAnalysis() {
   if (!box) return;
 
   if (!rawData.length) {
-    box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv ở trên để xem phân tích.</div>';
+    box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv để xem phân tích.</div>';
     return;
   }
 
@@ -883,6 +913,7 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
     await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
     rawData = [];
     renderAll();
+    renderProfile(); // ẩn profile vì hết data
     if (userProfile && userProfile.golden_unlocked) renderGoldenAnalysis();
     showUploadStatus('🗑️ Đã xóa', '#ff6e9c');
   } catch (e) {
@@ -905,6 +936,7 @@ document.getElementById('csvInput').addEventListener('change', e => {
       parseCSV(ev.target.result);
       showUploadStatus('✅ Đã tải ' + rawData.length + ' dòng', '#4ade80');
       renderAll();
+      renderProfile(); // ← Hiện profile sau khi upload
       await saveDataToCloud();
     } catch (err) {
       showUploadStatus('❌ Lỗi: ' + err.message, '#ff6e9c');
@@ -933,7 +965,7 @@ function parseCSV(text) {
   rawData = rows;
 }
 
-function renderAll() { renderStats(); renderTop(); renderChart(); }
+function renderAll() { renderStats(); renderTop(); renderChart(); renderProfile(); }
 
 function renderStats() {
   if (!rawData.length) {
