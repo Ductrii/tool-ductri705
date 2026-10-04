@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tool by ductri705</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -11,176 +12,131 @@
     background: radial-gradient(circle at top, #1a1a2e 0%, #0d0d12 70%);
     color: #e8e8f0;
     font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
-    padding: 24px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  .wrap { width: 100%; max-width: 720px; }
-
-  /* Header */
-  header {
-    text-align: center;
-    margin-bottom: 24px;
-  }
-  header h1 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #6ea8ff;
-    letter-spacing: 2px;
-  }
-  header p {
-    font-size: 12px;
-    color: #666;
-    margin-top: 4px;
-  }
-
-  /* Card */
+  .wrap { width: 100%; max-width: 760px; }
+  header { text-align: center; margin-bottom: 20px; }
+  header h1 { font-size: 20px; font-weight: 600; color: #6ea8ff; letter-spacing: 2px; }
+  header p { font-size: 12px; color: #666; margin-top: 4px; }
   .card {
     background: #16161c;
     border: 1px solid #26262e;
     border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 16px;
+    padding: 20px;
+    margin-bottom: 14px;
     box-shadow: 0 4px 30px rgba(0,0,0,0.3);
   }
-
-  /* Clock */
+  #authScreen input {
+    width: 100%; padding: 12px 14px; margin-bottom: 10px;
+    background: #1a1a24; border: 1px solid #2a2a34;
+    border-radius: 10px; color: #e8e8f0; font-size: 14px; outline: none;
+  }
+  #authScreen input:focus { border-color: #6ea8ff; }
+  .btn {
+    width: 100%; padding: 12px; background: #6ea8ff; color: #0d0d12;
+    border: none; border-radius: 10px; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: 0.2s;
+  }
+  .btn:hover { background: #8bb9ff; }
+  .btn:disabled { opacity: 0.5; cursor: wait; }
+  .btn-sec {
+    background: transparent; border: 1px solid #3a3a44;
+    color: #aaa; margin-top: 8px;
+  }
+  .btn-sec:hover { background: #1a1a24; color: #e8e8f0; }
+  .auth-title { font-size: 18px; font-weight: 600; margin-bottom: 14px; color: #6ea8ff; text-align: center; }
+  .auth-msg { font-size: 12px; text-align: center; margin-top: 8px; min-height: 16px; }
+  .auth-msg.err { color: #ff6e9c; }
+  .auth-msg.ok { color: #4ade80; }
+  .user-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px; padding: 10px 14px;
+    background: #16161c; border: 1px solid #26262e;
+    border-radius: 12px; font-size: 13px;
+  }
+  .user-bar b { color: #6ea8ff; }
+  .logout {
+    background: transparent; border: 1px solid #3a3a44; color: #aaa;
+    padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer;
+  }
+  .logout:hover { color: #ff6e9c; border-color: #ff6e9c; }
   .clock-time {
-    font-size: clamp(44px, 11vw, 72px);
-    font-weight: 200;
-    text-align: center;
-    font-variant-numeric: tabular-nums;
-    color: #6ea8ff;
-    text-shadow: 0 0 24px rgba(110,168,255,0.45);
-    letter-spacing: 3px;
+    font-size: clamp(40px, 11vw, 68px); font-weight: 200; text-align: center;
+    font-variant-numeric: tabular-nums; color: #6ea8ff;
+    text-shadow: 0 0 24px rgba(110,168,255,0.45); letter-spacing: 3px;
   }
-  .clock-sec {
-    font-size: clamp(18px, 4vw, 26px);
-    color: #ff6e9c;
-    text-shadow: 0 0 12px rgba(255,110,156,0.6);
-  }
-  .clock-date {
-    text-align: center;
-    margin-top: 10px;
-    color: #9a9aa0;
-    font-size: 14px;
-    letter-spacing: 1px;
-  }
-  .clock-zone {
-    text-align: center;
-    margin-top: 4px;
-    color: #555;
-    font-size: 11px;
-  }
-
-  /* Golden hour */
+  .clock-sec { font-size: clamp(18px, 4vw, 24px); color: #ff6e9c; }
+  .clock-date { text-align: center; margin-top: 8px; color: #9a9aa0; font-size: 14px; }
+  .clock-zone { text-align: center; margin-top: 4px; color: #555; font-size: 11px; }
   .golden {
-    margin-top: 18px;
-    padding: 14px;
-    border-radius: 12px;
-    background: #1a1a24;
-    border-left: 3px solid #6ea8ff;
-    font-size: 13px;
-    line-height: 1.6;
+    margin-top: 16px; padding: 14px; border-radius: 12px;
+    background: #1a1a24; border-left: 3px solid #6ea8ff;
+    font-size: 13px; line-height: 1.6; text-align: center;
   }
-  .golden strong { color: #6ea8ff; }
   .golden.active {
     background: linear-gradient(90deg, #1e2a1e, #1a1a24);
     border-left-color: #4ade80;
   }
+  .golden strong { color: #6ea8ff; }
   .golden.active strong { color: #4ade80; }
-
-  /* Tabs */
-  .tabs {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-  }
-  .tab {
-    flex: 1;
-    min-width: 100px;
-    padding: 10px;
-    text-align: center;
-    background: #1a1a24;
-    border: 1px solid #26262e;
-    border-radius: 10px;
-    font-size: 12px;
-    color: #888;
-    cursor: pointer;
-    transition: all 0.2s;
-    user-select: none;
-  }
-  .tab.active {
-    background: #26263a;
-    color: #6ea8ff;
-    border-color: #6ea8ff;
-  }
-
-  /* Stats grid */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 10px;
-  }
-  .stat {
-    background: #1a1a24;
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
-  }
-  .stat .num {
-    font-size: 22px;
-    font-weight: 600;
-    color: #6ea8ff;
+  .countdown {
+    font-size: 22px; font-weight: 600;
     font-variant-numeric: tabular-nums;
+    color: #ffd700; margin-top: 6px; letter-spacing: 2px;
   }
-  .stat .lbl {
-    font-size: 11px;
-    color: #777;
-    margin-top: 4px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  .upload-zone {
+    border: 2px dashed #3a3a44; border-radius: 12px; padding: 24px;
+    text-align: center; cursor: pointer; transition: 0.2s;
   }
-
-  /* Top list */
+  .upload-zone:hover { border-color: #6ea8ff; background: #1a1a24; }
+  .upload-zone input { display: none; }
+  .upload-zone .icon { font-size: 32px; margin-bottom: 8px; }
+  .upload-zone .txt { font-size: 13px; color: #888; }
+  .upload-zone .txt b { color: #6ea8ff; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .tab {
+    flex: 1; min-width: 100px; padding: 10px; text-align: center;
+    background: #1a1a24; border: 1px solid #26262e;
+    border-radius: 10px; font-size: 12px; color: #888;
+    cursor: pointer; user-select: none; transition: 0.2s;
+  }
+  .tab.active { background: #26263a; color: #6ea8ff; border-color: #6ea8ff; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .stat { background: #1a1a24; border-radius: 10px; padding: 12px; text-align: center; }
+  .stat .num { font-size: 20px; font-weight: 600; color: #6ea8ff; font-variant-numeric: tabular-nums; }
+  .stat .lbl { font-size: 10px; color: #777; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
   .top-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 12px;
-    background: #1a1a24;
-    border-radius: 8px;
-    margin-bottom: 6px;
-    font-size: 13px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 12px; background: #1a1a24; border-radius: 8px;
+    margin-bottom: 6px; font-size: 13px;
   }
   .top-item .date { color: #aaa; }
   .top-item .val { color: #6ea8ff; font-weight: 600; font-variant-numeric: tabular-nums; }
   .top-item.rank-1 { border-left: 3px solid #ffd700; }
   .top-item.rank-2 { border-left: 3px solid #c0c0c0; }
   .top-item.rank-3 { border-left: 3px solid #cd7f32; }
-
-  /* Note */
-  .note {
-    text-align: center;
-    color: #555;
-    font-size: 11px;
-    margin-top: 16px;
-    letter-spacing: 1px;
+  .chart-box { position: relative; height: 300px; }
+  .hour-row {
+    display: flex; justify-content: space-between;
+    padding: 12px 14px; background: #1a1a24;
+    border-radius: 10px; margin-bottom: 8px; font-size: 13px;
+    border-left: 3px solid #3a3a44;
   }
-
-  /* Footer signature */
+  .hour-row.hot { border-left-color: #4ade80; }
+  .hour-row .time { color: #6ea8ff; font-weight: 600; }
+  .hour-row .desc { color: #aaa; font-size: 12px; }
+  .note { text-align: center; color: #555; font-size: 11px; margin-top: 12px; }
   .signature {
-    text-align: center;
-    margin-top: 20px;
-    padding: 12px;
-    font-size: 12px;
-    color: #444;
-    border-top: 1px solid #1e1e26;
-    letter-spacing: 2px;
+    text-align: center; margin-top: 16px; padding: 12px;
+    font-size: 12px; color: #444;
+    border-top: 1px solid #1e1e26; letter-spacing: 2px;
   }
   .signature b { color: #6ea8ff; }
+  .hidden { display: none !important; }
+  .loading { text-align: center; color: #6ea8ff; padding: 40px; font-size: 14px; }
 </style>
 </head>
 <body>
@@ -188,228 +144,298 @@
 
   <header>
     <h1>⚡ TOOL BY DUCTRI705</h1>
-    <p>Đồng hồ • Giờ vàng • Thống kê TikTok</p>
+    <p>Đồng hồ • Giờ vàng • Thống kê TikTok • Cloud</p>
   </header>
 
-  <!-- Đồng hồ -->
-  <div class="card">
-    <div>
-      <span class="clock-time" id="time">--:--</span><span class="clock-sec" id="sec">--</span>
-    </div>
-    <div class="clock-date" id="date">Đang tải...</div>
-    <div class="clock-zone" id="zone"></div>
-    <div class="golden" id="golden">Đang kiểm tra khung giờ...</div>
+  <div id="loadingScreen" class="card">
+    <div class="loading">⏳ Đang tải...</div>
   </div>
 
-  <!-- Thống kê -->
-  <div class="card">
-    <div class="tabs">
-      <div class="tab active" data-tab="overview">Tổng quan</div>
-      <div class="tab" data-tab="top">Top ngày viral</div>
-      <div class="tab" data-tab="hour">Giờ vàng</div>
+  <div id="authScreen" class="card hidden">
+    <div class="auth-title" id="authTitle">Đăng nhập</div>
+    <input type="email" id="authEmail" placeholder="Email" autocomplete="email">
+    <input type="password" id="authPass" placeholder="Mật khẩu (từ 6 ký tự)" autocomplete="current-password">
+    <button class="btn" id="authSubmit">Đăng nhập</button>
+    <button class="btn btn-sec" id="authToggle">Chưa có tài khoản? Đăng ký</button>
+    <div class="auth-msg" id="authMsg"></div>
+    <div class="note">Tài khoản lưu trên Firebase — đăng nhập từ máy nào cũng được</div>
+  </div>
+
+  <div id="app" class="hidden">
+    <div class="user-bar">
+      <span>Xin chào, <b id="userEmail">bạn</b> 👋</span>
+      <button class="logout" id="logoutBtn">Đăng xuất</button>
     </div>
 
-    <div id="tab-overview" class="tab-content">
-      <div class="stats">
-        <div class="stat"><div class="num" id="s-total-views">0</div><div class="lbl">Tổng view</div></div>
-        <div class="stat"><div class="num" id="s-total-likes">0</div><div class="lbl">Tổng like</div></div>
-        <div class="stat"><div class="num" id="s-avg-views">0</div><div class="lbl">View TB/ngày</div></div>
-        <div class="stat"><div class="num" id="s-max-views">0</div><div class="lbl">View cao nhất</div></div>
+    <div class="card">
+      <div>
+        <span class="clock-time" id="time">--:--</span><span class="clock-sec" id="sec">--</span>
+      </div>
+      <div class="clock-date" id="date">Đang tải...</div>
+      <div class="clock-zone" id="zone"></div>
+      <div class="golden" id="golden">
+        <div id="goldenText">Đang kiểm tra...</div>
+        <div class="countdown" id="countdown"></div>
       </div>
     </div>
 
-    <div id="tab-top" class="tab-content" style="display:none">
-      <div id="top-list"></div>
+    <div class="card">
+      <div style="font-size:13px;color:#888;margin-bottom:12px">
+        📤 Tải file <b style="color:#6ea8ff">Overview.csv</b> xuất từ TikTok Studio
+      </div>
+      <label class="upload-zone" for="csvInput">
+        <input type="file" id="csvInput" accept=".csv">
+        <div class="icon">📄</div>
+        <div class="txt">Bấm để chọn file CSV<br><b>hoặc kéo thả file vào đây</b></div>
+      </label>
+      <div id="uploadStatus" style="margin-top:10px;font-size:12px;text-align:center"></div>
+      <button class="btn btn-sec" id="clearDataBtn" style="margin-top:10px">🗑️ Xóa dữ liệu đã lưu</button>
     </div>
 
-    <div id="tab-hour" class="tab-content" style="display:none">
-      <div style="font-size:13px;line-height:1.8;color:#bbb">
-        <p>Dựa trên dữ liệu và hành vi người dùng TikTok Việt Nam:</p>
-        <br>
-        <p>🌅 <strong style="color:#6ea8ff">11:00 – 13:00</strong> — Giờ nghỉ trưa, view ổn định</p>
-        <p>🌆 <strong style="color:#6ea8ff">19:00 – 22:00</strong> — Giờ vàng, tương tác cao nhất</p>
-        <p>🌙 <strong style="color:#6ea8ff">22:00 – 23:30</strong> — Giờ khuya, video dài dễ viral</p>
-        <br>
-        <p style="color:#666;font-size:12px">Lưu ý: giờ vàng thay đổi theo ngách nội dung. Hãy đăng thử nhiều khung giờ và so sánh view sau 24h.</p>
+    <div class="card">
+      <div class="tabs">
+        <div class="tab active" data-tab="overview">Tổng quan</div>
+        <div class="tab" data-tab="chart">Biểu đồ</div>
+        <div class="tab" data-tab="top">Top viral</div>
+        <div class="tab" data-tab="hour">Giờ vàng</div>
+      </div>
+
+      <div id="tab-overview" class="tab-content">
+        <div class="stats">
+          <div class="stat"><div class="num" id="s-total-views">0</div><div class="lbl">Tổng view</div></div>
+          <div class="stat"><div class="num" id="s-total-likes">0</div><div class="lbl">Tổng like</div></div>
+          <div class="stat"><div class="num" id="s-avg-views">0</div><div class="lbl">View TB/ngày</div></div>
+          <div class="stat"><div class="num" id="s-max-views">0</div><div class="lbl">View cao nhất</div></div>
+        </div>
+      </div>
+
+      <div id="tab-chart" class="tab-content hidden">
+        <div class="chart-box"><canvas id="chart"></canvas></div>
+      </div>
+
+      <div id="tab-top" class="tab-content hidden">
+        <div id="top-list"></div>
+      </div>
+
+      <div id="tab-hour" class="tab-content hidden">
+        <div class="hour-row hot"><div><div class="time">11:00 – 13:00</div><div class="desc">Giờ nghỉ trưa — view ổn định</div></div></div>
+        <div class="hour-row hot"><div><div class="time">19:00 – 22:00</div><div class="desc">Giờ vàng — tương tác cao nhất</div></div></div>
+        <div class="hour-row"><div><div class="time">22:00 – 23:30</div><div class="desc">Giờ khuya — video dài dễ viral</div></div></div>
+        <div class="hour-row"><div><div class="time">06:00 – 08:00</div><div class="desc">Giờ sáng — dân văn phòng check điện thoại</div></div></div>
+        <div class="note" style="margin-top:14px">Khung giờ trên là trung bình toàn TikTok Việt Nam. Giờ vàng thật của kênh bạn phải xem trong TikTok Studio → Analytics → Người xem.</div>
       </div>
     </div>
-  </div>
 
-  <div class="note">Dữ liệu phân tích từ file Overview.csv của bạn</div>
-  <div class="signature">Tool by <b>ductri705</b></div>
+    <div class="signature">Tool by <b>ductri705</b></div>
+  </div>
 </div>
 
-<script>
-/* ============ DATA từ CSV của bạn ============ */
-const rawData = [
-  ["3 tháng Mười",294,8,0,0],["4 tháng Mười",255,11,0,0],["5 tháng Mười",198,5,0,0],
-  ["6 tháng Mười",376,32,0,0],["7 tháng Mười",420,16,0,0],["8 tháng Mười",269,9,0,0],
-  ["9 tháng Mười",450,11,0,0],["10 tháng Mười",537,17,4,0],["11 tháng Mười",699,35,10,0],
-  ["12 tháng Mười",989,53,8,1],["13 tháng Mười",241,4,0,0],["14 tháng Mười",361,18,0,0],
-  ["15 tháng Mười",281,11,0,0],["16 tháng Mười",222,4,0,0],["17 tháng Mười",198,1,-1,0],
-  ["18 tháng Mười",558,31,5,0],["19 tháng Mười",848,24,8,0],["20 tháng Mười",1013,46,3,16],
-  ["21 tháng Mười",866,49,0,0],["22 tháng Mười",330,19,0,0],["23 tháng Mười",381,21,1,0],
-  ["24 tháng Mười",781,52,2,4],["25 tháng Mười",492,23,0,1],["26 tháng Mười",661,22,3,0],
-  ["27 tháng Mười",485,17,0,0],["28 tháng Mười",241,9,0,0],["29 tháng Mười",164,3,3,0],
-  ["30 tháng Mười",166,5,1,0],["31 tháng Mười",195,3,1,0],["1 tháng Mười Một",470,28,2,0],
-  ["2 tháng Mười Một",384,6,0,0],["3 tháng Mười Một",269,9,7,0],["4 tháng Mười Một",189,5,0,1],
-  ["5 tháng Mười Một",112,3,0,0],["6 tháng Mười Một",831,50,2,0],["7 tháng Mười Một",725,31,-2,0],
-  ["8 tháng Mười Một",1284,61,3,0],["9 tháng Mười Một",984,51,4,2],["10 tháng Mười Một",433,17,2,0],
-  ["11 tháng Mười Một",138,3,1,0],["12 tháng Mười Một",374,19,1,4],["13 tháng Mười Một",603,32,4,1],
-  ["14 tháng Mười Một",396,13,2,0],["15 tháng Mười Một",765,27,7,1],["16 tháng Mười Một",344,13,2,0],
-  ["17 tháng Mười Một",186,6,2,0],["18 tháng Mười Một",641,15,1,0],["19 tháng Mười Một",635,34,10,1],
-  ["20 tháng Mười Một",530,13,-8,2],["21 tháng Mười Một",428,44,0,1],["22 tháng Mười Một",255,5,0,8],
-  ["23 tháng Mười Một",709,23,4,7],["24 tháng Mười Một",153,3,0,0],["25 tháng Mười Một",161,0,0,1],
-  ["26 tháng Mười Một",58,1,0,0],["27 tháng Mười Một",69,0,0,0],["28 tháng Mười Một",103,3,0,0],
-  ["29 tháng Mười Một",135,5,0,0],["30 tháng Mười Một",185,4,0,0],["1 tháng Mười Hai",76,1,0,0],
-  ["2 tháng Mười Hai",111,2,0,0],["3 tháng Mười Hai",54,1,0,0],["4 tháng Mười Hai",64,1,0,0],
-  ["5 tháng Mười Hai",150,8,0,0],["6 tháng Mười Hai",125,7,0,0],["7 tháng Mười Hai",217,12,0,0],
-  ["8 tháng Mười Hai",105,8,0,0],["9 tháng Mười Hai",85,5,0,0],["10 tháng Mười Hai",59,4,0,0],
-  ["11 tháng Mười Hai",118,3,0,0],["12 tháng Mười Hai",3794,83,6,3],["13 tháng Mười Hai",1906,15,2,1],
-  ["14 tháng Mười Hai",284,8,0,0],["15 tháng Mười Hai",328,16,0,0],["16 tháng Mười Hai",394,11,2,0],
-  ["17 tháng Mười Hai",183,11,1,0],["18 tháng Mười Hai",314,6,1,0],["19 tháng Mười Hai",461,9,3,0],
-  ["20 tháng Mười Hai",233,6,0,0],["21 tháng Mười Hai",270,4,0,0],["22 tháng Mười Hai",75,2,-1,0],
-  ["23 tháng Mười Hai",90,2,1,0],["24 tháng Mười Hai",496,14,2,0],["25 tháng Mười Hai",300,3,1,0],
-  ["26 tháng Mười Hai",200,7,0,0],["27 tháng Mười Hai",223,10,1,1],["28 tháng Mười Hai",110,4,0,0],
-  ["29 tháng Mười Hai",183,6,2,0],["30 tháng Mười Hai",292,16,2,0],["31 tháng Mười Hai",252,7,4,0],
-  ["1 tháng Một",237,4,0,0],["2 tháng Một",193,3,0,0],["3 tháng Một",356,8,0,0],
-  ["4 tháng Một",110,0,0,0],["5 tháng Một",127,3,-1,0],["6 tháng Một",259,8,0,0],
-  ["7 tháng Một",71,2,0,0],["8 tháng Một",180,10,0,0],["9 tháng Một",211,12,0,0],
-  ["10 tháng Một",110,2,0,0],["11 tháng Một",51,0,-2,0],["12 tháng Một",48,0,-2,0],
-  ["13 tháng Một",108,3,0,0],["14 tháng Một",35,0,0,0],["15 tháng Một",155,4,0,0],
-  ["16 tháng Một",431,15,0,0],["17 tháng Một",380,24,0,0],["18 tháng Một",149,6,0,0],
-  ["19 tháng Một",246,8,0,1],["20 tháng Một",93,1,0,0],["21 tháng Một",179,5,0,1],
-  ["22 tháng Một",86,2,0,0],["23 tháng Một",219,8,0,1],["24 tháng Một",280,5,-2,0],
-  ["25 tháng Một",107,2,0,0],["26 tháng Một",95,4,0,0],["27 tháng Một",281,13,3,0],
-  ["28 tháng Một",420,12,2,1],["29 tháng Một",597,29,5,0],["30 tháng Một",237,2,0,1],
-  ["31 tháng Một",1181,43,4,0],["1 tháng Hai",1065,24,3,7],["2 tháng Hai",255,8,0,1],
-  ["3 tháng Hai",1440,46,6,2],["4 tháng Hai",7743,404,25,35],["5 tháng Hai",2835,130,10,51],
-  ["6 tháng Hai",5535,227,0,39],["7 tháng Hai",1496,83,0,5],["8 tháng Hai",1551,75,3,4],
-  ["9 tháng Hai",681,26,1,5],["10 tháng Hai",820,40,7,5],["11 tháng Hai",609,28,5,13],
-  ["12 tháng Hai",729,37,0,2],["13 tháng Hai",829,34,0,0],["14 tháng Hai",732,27,0,5],
-  ["15 tháng Hai",434,24,2,1],["16 tháng Hai",705,32,7,5],["17 tháng Hai",1126,30,1,0],
-  ["18 tháng Hai",401,10,0,3],["19 tháng Hai",269,11,0,0],["20 tháng Hai",125,0,0,0],
-  ["21 tháng Hai",427,24,2,1],["22 tháng Hai",188,3,1,0],["23 tháng Hai",207,5,0,0],
-  ["24 tháng Hai",161,3,0,1],["25 tháng Hai",184,9,3,0],["26 tháng Hai",210,12,0,1],
-  ["27 tháng Hai",861,38,6,2],["28 tháng Hai",414,5,2,0],["1 tháng Ba",598,23,1,2],
-  ["2 tháng Ba",570,28,3,3],["3 tháng Ba",329,16,0,1],["4 tháng Ba",223,2,2,4],
-  ["5 tháng Ba",33600,704,48,192],["6 tháng Ba",193816,5492,134,1065],["7 tháng Ba",31238,848,39,127],
-  ["8 tháng Ba",35978,1086,12,277],["9 tháng Ba",11499,274,4,19],["10 tháng Ba",10083,293,17,15],
-  ["11 tháng Ba",5306,147,9,8],["12 tháng Ba",2334,46,0,8],["13 tháng Ba",1956,66,4,2],
-  ["14 tháng Ba",5801,123,3,9],["15 tháng Ba",6940,157,3,32],["16 tháng Ba",6918,153,1,15],
-  ["17 tháng Ba",7065,154,2,10],["18 tháng Ba",6645,150,2,12],["19 tháng Ba",3320,105,3,15],
-  ["20 tháng Ba",4169,110,2,5],["21 tháng Ba",36350,910,11,49],["22 tháng Ba",10210,256,6,21],
-  ["23 tháng Ba",5716,144,1,41],["24 tháng Ba",10690,287,12,40],["25 tháng Ba",13882,309,56,69],
-  ["26 tháng Ba",9981,237,11,24],["27 tháng Ba",7659,224,9,8],["28 tháng Ba",4277,99,2,37],
-  ["29 tháng Ba",3776,79,2,6],["30 tháng Ba",2477,65,4,14],["31 tháng Ba",2382,46,12,14],
-  ["1 tháng Tư",1701,39,5,2],["2 tháng Tư",2238,57,2,7],["3 tháng Tư",5584,127,3,8],
-  ["4 tháng Tư",4252,116,5,3],["5 tháng Tư",5107,107,1,11],["6 tháng Tư",3859,87,2,9],
-  ["7 tháng Tư",3703,93,1,11],["8 tháng Tư",3572,90,0,7],["9 tháng Tư",3592,57,0,5],
-  ["10 tháng Tư",2803,65,3,1],["11 tháng Tư",3436,72,2,2],["12 tháng Tư",2556,71,0,4],
-  ["13 tháng Tư",1552,27,0,1],["14 tháng Tư",2026,43,-3,10],["15 tháng Tư",2043,38,0,4],
-  ["16 tháng Tư",4324,103,1,7],["17 tháng Tư",6729,157,13,20],["18 tháng Tư",8073,134,4,9],
-  ["19 tháng Tư",7224,140,2,12],["20 tháng Tư",3630,83,5,4],["21 tháng Tư",4587,101,9,4],
-  ["22 tháng Tư",5129,109,4,14],["23 tháng Tư",3482,79,10,2],["24 tháng Tư",5759,110,6,23],
-  ["25 tháng Tư",6983,175,14,8],["26 tháng Tư",6290,177,20,25],["27 tháng Tư",5381,196,24,18],
-  ["28 tháng Tư",2690,119,4,6],["29 tháng Tư",1904,63,-2,3],["30 tháng Tư",3505,106,12,6],
-  ["1 tháng Năm",3191,81,3,7],["2 tháng Năm",3430,91,8,5],["3 tháng Năm",3536,89,4,10],
-  ["4 tháng Năm",1910,44,0,3],["5 tháng Năm",72344,2920,69,1084],["6 tháng Năm",11863,492,14,302],
-  ["7 tháng Năm",17635,814,25,272],["8 tháng Năm",4519,167,0,67],["9 tháng Năm",6574,286,2,59],
-  ["10 tháng Năm",4160,161,16,55],["11 tháng Năm",2168,85,2,19],["12 tháng Năm",1488,48,1,36],
-  ["13 tháng Năm",1351,42,2,8],["14 tháng Năm",1747,66,1,3],["15 tháng Năm",1585,28,0,6],
-  ["16 tháng Năm",1506,62,0,6],["17 tháng Năm",2282,75,-1,4],["18 tháng Năm",2351,62,2,9],
-  ["19 tháng Năm",1355,58,0,5],["20 tháng Năm",1601,54,0,8],["21 tháng Năm",2083,73,1,9],
-  ["22 tháng Năm",2656,87,2,7],["23 tháng Năm",1932,48,2,5],["24 tháng Năm",1228,31,0,1],
-  ["25 tháng Năm",1042,34,0,7],["26 tháng Năm",1012,26,1,2],["27 tháng Năm",1046,13,3,0],
-  ["28 tháng Năm",1191,38,0,9],["29 tháng Năm",914,16,1,4],["30 tháng Năm",988,20,0,1],
-  ["31 tháng Năm",3747,114,0,11],["1 tháng Sáu",2083,94,7,2],["2 tháng Sáu",2452,62,1,2],
-  ["3 tháng Sáu",1774,41,1,1],["4 tháng Sáu",1662,42,4,1],["5 tháng Sáu",991,15,2,0],
-  ["6 tháng Sáu",860,24,1,2],["7 tháng Sáu",1016,17,0,0],["8 tháng Sáu",857,27,0,0],
-  ["9 tháng Sáu",1133,51,4,1],["10 tháng Sáu",2743,97,1,3],["11 tháng Sáu",786,34,0,10],
-  ["12 tháng Sáu",631,21,0,0],["13 tháng Sáu",538,19,0,0],["14 tháng Sáu",433,14,0,2],
-  ["15 tháng Sáu",504,10,0,2],["16 tháng Sáu",465,14,0,0],["17 tháng Sáu",793,18,-2,5],
-  ["18 tháng Sáu",1062,51,-1,4],["19 tháng Sáu",1249,94,6,5],["20 tháng Sáu",573,22,0,0],
-  ["21 tháng Sáu",545,26,0,4],["22 tháng Sáu",707,24,0,2],["23 tháng Sáu",611,14,0,0],
-  ["24 tháng Sáu",684,37,0,1],["25 tháng Sáu",678,16,0,1],["26 tháng Sáu",1221,49,0,10],
-  ["27 tháng Sáu",1641,57,2,37],["28 tháng Sáu",1925,87,0,12],["29 tháng Sáu",524,37,0,1],
-  ["30 tháng Sáu",1435,75,8,83],["1 tháng Bảy",516,25,-2,0],["2 tháng Bảy",832,36,-2,4],
-  ["3 tháng Bảy",793,38,0,0],["4 tháng Bảy",543,24,0,0],["5 tháng Bảy",3787,137,15,7],
-  ["6 tháng Bảy",6007,116,6,10],["7 tháng Bảy",3751,110,6,10],["8 tháng Bảy",1526,47,5,1],
-  ["9 tháng Bảy",886,44,0,1],["10 tháng Bảy",2762,163,6,8],["11 tháng Bảy",1127,75,0,1],
-  ["12 tháng Bảy",1318,69,0,0],["13 tháng Bảy",991,73,1,2],["14 tháng Bảy",1434,101,5,5],
-  ["15 tháng Bảy",590,13,4,6],["16 tháng Bảy",2676,147,5,9],["17 tháng Bảy",2849,177,36,1],
-  ["18 tháng Bảy",973,37,9,2],["19 tháng Bảy",967,34,0,10],["20 tháng Bảy",534,10,-1,1],
-  ["21 tháng Bảy",931,36,5,21],["22 tháng Bảy",764,36,3,1],["23 tháng Bảy",1108,60,5,4],
-  ["24 tháng Bảy",1680,88,6,3],["25 tháng Bảy",977,38,-1,1],["26 tháng Bảy",1600,112,20,5],
-  ["27 tháng Bảy",1879,117,2,9],["28 tháng Bảy",2143,106,-3,3],["29 tháng Bảy",1136,71,5,1],
-  ["30 tháng Bảy",1126,60,0,2],["31 tháng Bảy",1387,74,0,1],["1 tháng Tám",1536,100,14,3],
-  ["2 tháng Tám",1092,38,0,2],["3 tháng Tám",2911,152,32,9],["4 tháng Tám",3846,127,17,35],
-  ["5 tháng Tám",7294,367,39,148],["6 tháng Tám",4537,233,19,35],["7 tháng Tám",3084,155,7,39],
-  ["8 tháng Tám",1785,111,5,12],["9 tháng Tám",1557,72,6,11],["10 tháng Tám",1116,56,0,2],
-  ["11 tháng Tám",1144,76,2,4],["12 tháng Tám",1986,90,2,44],["13 tháng Tám",1272,69,0,2],
-  ["14 tháng Tám",927,53,0,4],["15 tháng Tám",1008,50,0,11],["16 tháng Tám",1234,81,1,2],
-  ["17 tháng Tám",722,31,1,0],["18 tháng Tám",841,46,0,6],["19 tháng Tám",537,18,0,1],
-  ["20 tháng Tám",672,32,0,1],["21 tháng Tám",765,40,0,0],["22 tháng Tám",781,49,4,1],
-  ["23 tháng Tám",619,29,4,1],["24 tháng Tám",882,55,4,2],["25 tháng Tám",961,46,0,3],
-  ["26 tháng Tám",684,17,0,1],["27 tháng Tám",494,19,0,5],["28 tháng Tám",1096,66,0,6],
-  ["29 tháng Tám",1129,48,0,3],["30 tháng Tám",825,45,0,3],["31 tháng Tám",1094,46,0,1],
-  ["1 tháng Chín",2109,118,3,15],["2 tháng Chín",1484,56,0,2],["3 tháng Chín",1250,53,0,0],
-  ["4 tháng Chín",847,53,0,3],["5 tháng Chín",1032,67,2,21],["6 tháng Chín",1687,131,31,15],
-  ["7 tháng Chín",771,55,35,11],["8 tháng Chín",858,66,1,1],["9 tháng Chín",1294,97,21,9],
-  ["10 tháng Chín",2056,112,14,7],["11 tháng Chín",1141,86,3,3],["12 tháng Chín",1142,80,2,11],
-  ["13 tháng Chín",5617,172,9,14],["14 tháng Chín",867,64,59,12],["15 tháng Chín",591,50,4,2],
-  ["16 tháng Chín",874,72,5,8],["17 tháng Chín",564,43,1,0],["18 tháng Chín",721,77,0,3],
-  ["19 tháng Chín",1192,93,5,4],["20 tháng Chín",708,57,0,5],["21 tháng Chín",681,65,3,9],
-  ["22 tháng Chín",1157,85,30,20],["23 tháng Chín",1072,96,24,5],["24 tháng Chín",1089,78,11,9],
-  ["25 tháng Chín",1120,102,12,27],["26 tháng Chín",1297,110,14,6],["27 tháng Chín",1519,93,10,9],
-  ["28 tháng Chín",321,13,0,11],["29 tháng Chín",384,25,1,0],["30 tháng Chín",762,68,3,1],
-  ["1 tháng Mười",7288,208,12,17],["2 tháng Mười",4456,152,10,28]
-];
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  signOut, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  getFirestore, doc, setDoc, getDoc, deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-/* ============ ĐỒNG HỒ ============ */
-const pad = n => String(n).padStart(2,'0');
-const days = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
+const firebaseConfig = {
+  apiKey: "AIzaSyBE3p5Ozj2uRvaOyZ1rRux4nt6k89cgrKM",
+  authDomain: "tool-ductri705.firebaseapp.com",
+  projectId: "tool-ductri705",
+  storageBucket: "tool-ductri705.firebasestorage.app",
+  messagingSenderId: "416431047072",
+  appId: "1:416431047072:web:4d10c9a083a6c13fc364c5"
+};
 
-function tick() {
-  const now = new Date();
-  document.getElementById('time').textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
-  document.getElementById('sec').textContent = pad(now.getSeconds());
-  document.getElementById('date').textContent = `${days[now.getDay()]}, ${now.getDate()}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
-  document.getElementById('zone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  updateGoldenHour(now.getHours());
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let currentUser = null;
+let rawData = [];
+let chartInstance = null;
+
+let isRegister = false;
+const authTitle = document.getElementById('authTitle');
+const authSubmit = document.getElementById('authSubmit');
+const authToggle = document.getElementById('authToggle');
+const authMsg = document.getElementById('authMsg');
+
+authToggle.addEventListener('click', () => {
+  isRegister = !isRegister;
+  authTitle.textContent = isRegister ? 'Đăng ký' : 'Đăng nhập';
+  authSubmit.textContent = isRegister ? 'Tạo tài khoản' : 'Đăng nhập';
+  authToggle.textContent = isRegister ? 'Đã có tài khoản? Đăng nhập' : 'Chưa có tài khoản? Đăng ký';
+  authMsg.textContent = '';
+});
+
+authSubmit.addEventListener('click', async () => {
+  const email = document.getElementById('authEmail').value.trim();
+  const pass = document.getElementById('authPass').value;
+  if (!email || !pass) { showMsg('Nhập đầy đủ email và mật khẩu', 'err'); return; }
+  if (pass.length < 6) { showMsg('Mật khẩu từ 6 ký tự', 'err'); return; }
+  authSubmit.disabled = true;
+  try {
+    if (isRegister) {
+      await createUserWithEmailAndPassword(auth, email, pass);
+      showMsg('Đăng ký thành công!', 'ok');
+    } else {
+      await signInWithEmailAndPassword(auth, email, pass);
+    }
+  } catch (e) {
+    let msg = 'Lỗi: ' + e.code;
+    if (e.code === 'auth/email-already-in-use') msg = 'Email này đã được đăng ký';
+    else if (e.code === 'auth/invalid-email') msg = 'Email không hợp lệ';
+    else if (e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') msg = 'Sai email hoặc mật khẩu';
+    else if (e.code === 'auth/weak-password') msg = 'Mật khẩu quá yếu';
+    else if (e.code === 'auth/user-not-found') msg = 'Tài khoản không tồn tại';
+    showMsg(msg, 'err');
+  }
+  authSubmit.disabled = false;
+});
+
+function showMsg(text, type) {
+  authMsg.textContent = text;
+  authMsg.className = 'auth-msg ' + (type || '');
 }
 
-function updateGoldenHour(h) {
-  const el = document.getElementById('golden');
-  if ((h >= 11 && h < 13) || (h >= 19 && h < 22)) {
-    el.className = 'golden active';
-    el.innerHTML = '🔥 <strong>ĐANG TRONG GIỜ VÀNG</strong> — Đăng ngay để tối ưu tương tác!';
-  } else if (h >= 22 && h < 24) {
-    el.className = 'golden active';
-    el.innerHTML = '🌙 <strong>Giờ khuya</strong> — Phù hợp video dài, storytelling.';
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await signOut(auth);
+});
+
+onAuthStateChanged(auth, async (user) => {
+  document.getElementById('loadingScreen').classList.add('hidden');
+  if (user) {
+    currentUser = user;
+    document.getElementById('authScreen').classList.add('hidden');
+    document.getElementById('app').classList.remove('hidden');
+    document.getElementById('userEmail').textContent = user.email;
+    await loadDataFromCloud();
+    renderAll();
   } else {
-    el.className = 'golden';
-    el.innerHTML = '⏰ Giờ hiện tại chưa phải giờ vàng. Khung tối ưu: <strong>11–13h</strong> và <strong>19–22h</strong>.';
+    currentUser = null;
+    rawData = [];
+    document.getElementById('authScreen').classList.remove('hidden');
+    document.getElementById('app').classList.add('hidden');
+    document.getElementById('authEmail').value = '';
+    document.getElementById('authPass').value = '';
+    authMsg.textContent = '';
+  }
+});
+
+async function saveDataToCloud() {
+  if (!currentUser) return;
+  try {
+    await setDoc(doc(db, 'users', currentUser.uid, 'data', 'overview'), {
+      rows: rawData,
+      updatedAt: new Date().toISOString()
+    });
+    showUploadStatus('☁️ Đã lưu lên cloud', '#4ade80');
+  } catch (e) {
+    showUploadStatus('❌ Lỗi lưu cloud: ' + e.message, '#ff6e9c');
   }
 }
 
-/* ============ THỐNG KÊ ============ */
+async function loadDataFromCloud() {
+  if (!currentUser) return;
+  try {
+    const snap = await getDoc(doc(db, 'users', currentUser.uid, 'data', 'overview'));
+    if (snap.exists()) {
+      rawData = snap.data().rows || [];
+      if (rawData.length) {
+        showUploadStatus('✅ Đã tải ' + rawData.length + ' dòng từ cloud', '#4ade80');
+      }
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+document.getElementById('clearDataBtn').addEventListener('click', async () => {
+  if (!confirm('Xóa toàn bộ dữ liệu đã lưu?')) return;
+  if (!currentUser) return;
+  try {
+    await deleteDoc(doc(db, 'users', currentUser.uid, 'data', 'overview'));
+    rawData = [];
+    renderAll();
+    showUploadStatus('🗑️ Đã xóa dữ liệu', '#ff6e9c');
+  } catch (e) {
+    showUploadStatus('❌ Lỗi: ' + e.message, '#ff6e9c');
+  }
+});
+
+function showUploadStatus(text, color) {
+  const el = document.getElementById('uploadStatus');
+  el.textContent = text;
+  el.style.color = color || '#4ade80';
+}
+
+document.getElementById('csvInput').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async ev => {
+    try {
+      parseCSV(ev.target.result);
+      showUploadStatus('✅ Đã tải ' + rawData.length + ' dòng', '#4ade80');
+      renderAll();
+      await saveDataToCloud();
+    } catch (err) {
+      showUploadStatus('❌ Lỗi: ' + err.message, '#ff6e9c');
+    }
+  };
+  reader.readAsText(file, 'UTF-8');
+});
+
+function parseCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  if (lines.length < 2) throw new Error('File rỗng');
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const parts = lines[i].replace(/^"|"$/g, '').split('","').map(s => s.replace(/"/g, ''));
+    if (parts.length < 3) continue;
+    const date = parts[0];
+    const views = parseInt(parts[1]) || 0;
+    const profileViews = parseInt(parts[2]) || 0;
+    const likes = parseInt(parts[3]) || 0;
+    const comments = parseInt(parts[4]) || 0;
+    const shares = parseInt(parts[5]) || 0;
+    if (!date) continue;
+    rows.push([date, views, likes, comments, shares, profileViews]);
+  }
+  if (!rows.length) throw new Error('Không đọc được dòng nào');
+  rawData = rows;
+}
+
+function renderAll() {
+  renderStats();
+  renderTop();
+  renderChart();
+}
+
 function renderStats() {
-  let totalViews = 0, totalLikes = 0, maxViews = 0;
-  rawData.forEach(d => {
-    totalViews += d[1];
-    totalLikes += d[2];
-    if (d[1] > maxViews) maxViews = d[1];
-  });
-  document.getElementById('s-total-views').textContent = totalViews.toLocaleString('vi-VN');
-  document.getElementById('s-total-likes').textContent = totalLikes.toLocaleString('vi-VN');
-  document.getElementById('s-avg-views').textContent = Math.round(totalViews / rawData.length).toLocaleString('vi-VN');
-  document.getElementById('s-max-views').textContent = maxViews.toLocaleString('vi-VN');
+  if (!rawData.length) {
+    ['s-total-views','s-total-likes','s-avg-views','s-max-views'].forEach(id =>
+      document.getElementById(id).textContent = '—');
+    return;
+  }
+  let tv = 0, tl = 0, mx = 0;
+  rawData.forEach(d => { tv += d[1]; tl += d[2]; if (d[1] > mx) mx = d[1]; });
+  document.getElementById('s-total-views').textContent = tv.toLocaleString('vi-VN');
+  document.getElementById('s-total-likes').textContent = tl.toLocaleString('vi-VN');
+  document.getElementById('s-avg-views').textContent = Math.round(tv / rawData.length).toLocaleString('vi-VN');
+  document.getElementById('s-max-views').textContent = mx.toLocaleString('vi-VN');
 }
 
 function renderTop() {
-  const sorted = [...rawData].sort((a,b) => b[1] - a[1]).slice(0, 10);
   const box = document.getElementById('top-list');
+  if (!rawData.length) {
+    box.innerHTML = '<div style="color:#666;text-align:center;padding:20px">Chưa có dữ liệu. Upload file CSV ở trên.</div>';
+    return;
+  }
+  const sorted = [...rawData].sort((a,b) => b[1] - a[1]).slice(0, 10);
   box.innerHTML = sorted.map((d, i) => `
     <div class="top-item rank-${i+1}">
       <span class="date">#${i+1} · ${d[0]}</span>
@@ -418,19 +444,93 @@ function renderTop() {
   `).join('');
 }
 
-/* ============ TABS ============ */
+function renderChart() {
+  const ctx = document.getElementById('chart');
+  if (chartInstance) chartInstance.destroy();
+  if (!rawData.length) return;
+  const recent = rawData.slice(-60);
+  chartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: recent.map(d => d[0]),
+      datasets: [{
+        label: 'View',
+        data: recent.map(d => d[1]),
+        backgroundColor: recent.map(d => d[1] > 10000 ? '#ff6e9c' : '#6ea8ff'),
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.parsed.y.toLocaleString('vi-VN') + ' view' } }
+      },
+      scales: {
+        x: { ticks: { color: '#666', font: { size: 9 }, maxRotation: 90, autoSkip: true, maxTicksLimit: 20 }, grid: { display: false } },
+        y: { ticks: { color: '#666', font: { size: 10 }, callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v }, grid: { color: '#1e1e26' } }
+      }
+    }
+  });
+}
+
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
     tab.classList.add('active');
-    document.getElementById('tab-' + tab.dataset.tab).style.display = 'block';
+    document.getElementById('tab-' + tab.dataset.tab).classList.remove('hidden');
+    if (tab.dataset.tab === 'chart') renderChart();
   });
 });
 
-/* ============ KHỞI CHẠY ============ */
-renderStats();
-renderTop();
+const pad = n => String(n).padStart(2, '0');
+const days = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
+
+function getNextGolden(now) {
+  const h = now.getHours();
+  const inGolden1 = h >= 11 && h < 13;
+  const inGolden2 = h >= 19 && h < 22;
+  if (inGolden1 || inGolden2) {
+    const endH = inGolden1 ? 13 : 22;
+    const end = new Date(now); end.setHours(endH, 0, 0, 0);
+    return { active: true, target: end, label: 'ĐANG GIỜ VÀNG' };
+  }
+  let target = new Date(now);
+  if (h < 11) target.setHours(11, 0, 0, 0);
+  else if (h < 19) target.setHours(19, 0, 0, 0);
+  else { target.setDate(target.getDate() + 1); target.setHours(11, 0, 0, 0); }
+  return { active: false, target, label: 'GIỜ VÀNG TIẾP THEO' };
+}
+
+function tick() {
+  const now = new Date();
+  document.getElementById('time').textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  document.getElementById('sec').textContent = pad(now.getSeconds());
+  document.getElementById('date').textContent = `${days[now.getDay()]}, ${now.getDate()}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
+  document.getElementById('zone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  const g = getNextGolden(now);
+  const goldenBox = document.getElementById('golden');
+  const txt = document.getElementById('goldenText');
+  const cd = document.getElementById('countdown');
+
+  if (g.active) {
+    goldenBox.className = 'golden active';
+    txt.innerHTML = '🔥 <strong>' + g.label + '</strong> — Đăng ngay!';
+  } else {
+    goldenBox.className = 'golden';
+    txt.innerHTML = '⏰ <strong>' + g.label + '</strong> — Khung tối ưu 11–13h & 19–22h';
+  }
+
+  const diff = g.target - now;
+  const hh = Math.floor(diff / 3600000);
+  const mm = Math.floor((diff % 3600000) / 60000);
+  const ss = Math.floor((diff % 60000) / 1000);
+  cd.textContent = (g.active ? 'Kết thúc sau ' : 'Còn ') + pad(hh) + ':' + pad(mm) + ':' + pad(ss);
+}
+
 tick();
 setInterval(tick, 1000);
 </script>
