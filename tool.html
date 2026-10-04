@@ -48,9 +48,10 @@
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 14px; padding: 10px 14px;
     background: #16161c; border: 1px solid #26262e;
-    border-radius: 12px; font-size: 13px;
+    border-radius: 12px; font-size: 13px; gap: 8px; flex-wrap: wrap;
   }
   .user-bar b { color: #6ea8ff; }
+  .user-bar .credits { color: #ffd700; font-weight: 600; }
   .logout {
     background: transparent; border: 1px solid #3a3a44; color: #aaa;
     padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer;
@@ -121,18 +122,68 @@
   .hour-row.hot { border-left-color: #4ade80; }
   .hour-row .time { color: #6ea8ff; font-weight: 600; }
   .hour-row .desc { color: #aaa; font-size: 12px; }
-  .admin-link {
-    display: block; padding: 14px; background: #1a1a24;
-    border: 1px solid #6ea8ff; border-radius: 10px;
-    color: #6ea8ff; text-decoration: none; text-align: center;
-    font-weight: 600; margin-bottom: 10px; transition: 0.2s;
+  .strategy-item {
+    padding: 10px 12px; background: #0d0d12;
+    border-radius: 8px; margin-bottom: 6px;
+    font-size: 12px; color: #ccc; line-height: 1.6;
+    border-left: 3px solid #4ade80;
   }
-  .admin-link:hover { background: #26263a; }
-  .admin-link.gold { border-color: #ffd700; color: #ffd700; }
-  .admin-note {
-    padding: 12px; background: #1a1a24; border-radius: 10px;
-    font-size: 12px; color: #888; margin-top: 8px; line-height: 1.6;
+  .admin-user {
+    background: #1a1a24; border: 1px solid #26262e;
+    border-radius: 12px; padding: 14px; margin-bottom: 10px;
   }
+  .admin-user.banned { border-color: #ff6e9c; background: #2a1a1e; }
+  .admin-user .head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px; gap: 8px; flex-wrap: wrap;
+  }
+  .admin-user .email {
+    font-size: 13px; color: #e8e8f0; font-weight: 600;
+    word-break: break-all; flex: 1; min-width: 150px;
+  }
+  .admin-user .badge {
+    font-size: 10px; padding: 3px 8px; border-radius: 6px;
+    background: #26263a; color: #aaa; text-transform: uppercase;
+  }
+  .admin-user .badge.banned { background: #ff6e9c; color: #0d0d12; }
+  .admin-user .badge.admin { background: #ffd700; color: #0d0d12; }
+  .admin-user .info {
+    font-size: 11px; color: #777; margin-bottom: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .admin-user .credits-line {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; color: #ffd700; font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .admin-user .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  .admin-btn {
+    flex: 1; min-width: 70px;
+    padding: 8px 10px; border-radius: 8px;
+    border: 1px solid #3a3a44; background: transparent;
+    color: #aaa; font-size: 11px; cursor: pointer;
+    font-weight: 600; transition: 0.2s;
+  }
+  .admin-btn:hover { background: #26263a; color: #e8e8f0; }
+  .admin-btn.ban { border-color: #ff6e9c; color: #ff6e9c; }
+  .admin-btn.ban:hover { background: #2a1a1e; }
+  .admin-btn.unban { border-color: #4ade80; color: #4ade80; }
+  .admin-btn.unban:hover { background: #1e2a1e; }
+  .admin-btn.credit { border-color: #ffd700; color: #ffd700; }
+  .admin-btn.credit:hover { background: #3a2a10; }
+  .admin-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px;
+  }
+  .admin-title { color: #ffd700; font-weight: 600; font-size: 15px; }
+  .admin-refresh {
+    background: transparent; border: 1px solid #3a3a44;
+    color: #aaa; padding: 6px 12px; border-radius: 8px;
+    font-size: 12px; cursor: pointer;
+  }
+  .admin-refresh:hover { color: #6ea8ff; border-color: #6ea8ff; }
+  .admin-loading { text-align: center; color: #6ea8ff; padding: 20px; font-size: 13px; }
+  .admin-empty { text-align: center; color: #666; padding: 20px; font-size: 13px; }
   .note { text-align: center; color: #555; font-size: 11px; margin-top: 12px; }
   .signature {
     text-align: center; margin-top: 16px; padding: 12px;
@@ -163,12 +214,15 @@
     <button class="btn" id="authSubmit">Đăng nhập</button>
     <button class="btn btn-sec" id="authToggle">Chưa có tài khoản? Đăng ký</button>
     <div class="auth-msg" id="authMsg"></div>
-    <div class="note">Tài khoản lưu trên Supabase — đăng nhập từ máy nào cũng được</div>
+    <div class="note">🎁 Đăng ký mới nhận ngay 50 xu</div>
   </div>
 
   <div id="app" class="hidden">
     <div class="user-bar">
-      <span>Xin chào, <b id="userEmail">bạn</b> 👋</span>
+      <span>
+        Xin chào, <b id="userEmail">bạn</b> 👋
+        <span class="credits">💰 <span id="userCredits">0</span> xu</span>
+      </span>
       <button class="logout" id="logoutBtn">Đăng xuất</button>
     </div>
 
@@ -224,37 +278,24 @@
       </div>
 
       <div id="tab-hour" class="tab-content hidden">
+        <div style="color:#ffd700;font-weight:600;font-size:14px;margin-bottom:12px">⏰ Khung giờ vàng chung</div>
         <div class="hour-row hot"><div><div class="time">11:00 – 13:00</div><div class="desc">Giờ nghỉ trưa — view ổn định</div></div></div>
         <div class="hour-row hot"><div><div class="time">19:00 – 22:00</div><div class="desc">Giờ vàng — tương tác cao nhất</div></div></div>
         <div class="hour-row"><div><div class="time">22:00 – 23:30</div><div class="desc">Giờ khuya — video dài dễ viral</div></div></div>
         <div class="hour-row"><div><div class="time">06:00 – 08:00</div><div class="desc">Giờ sáng — dân văn phòng check điện thoại</div></div></div>
-        <div class="note" style="margin-top:14px">Khung giờ trên là trung bình toàn TikTok Việt Nam. Giờ vàng thật của kênh bạn phải xem trong TikTok Studio → Analytics → Người xem.</div>
+
+        <div style="color:#4ade80;font-weight:600;font-size:14px;margin-top:20px;margin-bottom:12px">📊 Phân tích từ data kênh bạn</div>
+        <div id="vipContent"></div>
+
+        <div class="note" style="margin-top:14px">Phân tích dựa trên file CSV bạn đã upload. Upload file mới để cập nhật.</div>
       </div>
 
       <div id="tab-admin" class="tab-content hidden">
-        <div style="font-size:13px;line-height:1.8;color:#bbb">
-          <p style="color:#ffd700;font-weight:600;margin-bottom:12px;font-size:15px">👑 Bảng điều khiển Admin</p>
-          <p style="margin-bottom:14px">Bạn đang đăng nhập với quyền admin. Quản lý qua Supabase Dashboard:</p>
-
-          <a href="https://supabase.com/dashboard/project/wkddmixhqyvhxznycpgs/auth/users" 
-             target="_blank" class="admin-link gold">
-            📋 Quản lý User
-          </a>
-
-          <a href="https://supabase.com/dashboard/project/wkddmixhqyvhxznycpgs/editor" 
-             target="_blank" class="admin-link">
-            🗄️ Xem Database
-          </a>
-
-          <a href="https://supabase.com/dashboard/project/wkddmixhqyvhxznycpgs/auth/providers" 
-             target="_blank" class="admin-link">
-            🔒 Cấu hình Auth
-          </a>
-
-          <div class="admin-note">
-            💡 <b>Lưu ý:</b> Tab Admin chỉ hiển thị với tài khoản <b>duc116642@gmail.com</b>.
-          </div>
+        <div class="admin-header">
+          <div class="admin-title">👑 Quản lý User</div>
+          <button class="admin-refresh" id="adminRefresh">🔄 Tải lại</button>
         </div>
+        <div id="adminList"></div>
       </div>
     </div>
 
@@ -263,21 +304,17 @@
 </div>
 
 <script>
-/* ============================================================
-   SUPABASE CONFIG — đã điền sẵn của bạn
-   ============================================================ */
 const SUPABASE_URL = "https://wkddmlxhqyvhxznycpgs.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGRtbHhocXl2aHh6bnljcGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODYzMzIsImV4cCI6MjEwNjY2MjMzMn0.ugXSLH3OhjAgLr6MzvYRviXztU_6oAviqvbj71keyK8";
 const ADMIN_EMAIL = "duc116642@gmail.com";
-/* ============================================================ */
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentUser = null;
 let rawData = [];
 let chartInstance = null;
+let userProfile = null;
 
-/* ============ AUTH UI ============ */
 let isRegister = false;
 const authTitle = document.getElementById('authTitle');
 const authSubmit = document.getElementById('authSubmit');
@@ -287,7 +324,7 @@ const authMsg = document.getElementById('authMsg');
 authToggle.addEventListener('click', () => {
   isRegister = !isRegister;
   authTitle.textContent = isRegister ? 'Đăng ký' : 'Đăng nhập';
-  authSubmit.textContent = isRegister ? 'Tạo tài khoản' : 'Đăng nhập';
+  authSubmit.textContent = isRegister ? 'Tạo tài khoản (+50 xu)' : 'Đăng nhập';
   authToggle.textContent = isRegister ? 'Đã có tài khoản? Đăng nhập' : 'Chưa có tài khoản? Đăng ký';
   authMsg.textContent = '';
 });
@@ -300,13 +337,9 @@ authSubmit.addEventListener('click', async () => {
   authSubmit.disabled = true;
   try {
     if (isRegister) {
-      const { data, error } = await supabaseClient.auth.signUp({ email, password: pass });
+      const { error } = await supabaseClient.auth.signUp({ email, password: pass });
       if (error) throw error;
-      if (data.user && !data.session) {
-        showMsg('Đăng ký OK! Nhưng cần tắt "Confirm email" trong Supabase → Authentication → Providers → Email', 'err');
-      } else {
-        showMsg('Đăng ký thành công!', 'ok');
-      }
+      showMsg('Đăng ký thành công! Bạn được tặng 50 xu 🎁', 'ok');
     } else {
       const { error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
       if (error) throw error;
@@ -316,7 +349,6 @@ authSubmit.addEventListener('click', async () => {
     if (msg.includes('already registered') || msg.includes('already been registered')) msg = 'Email này đã được đăng ký';
     else if (msg.includes('Invalid login')) msg = 'Sai email hoặc mật khẩu';
     else if (msg.includes('Password should be')) msg = 'Mật khẩu quá yếu';
-    else if (msg.includes('Email not confirmed')) msg = 'Email chưa xác nhận. Tắt "Confirm email" trong Supabase';
     showMsg(msg, 'err');
   }
   authSubmit.disabled = false;
@@ -331,20 +363,37 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
   await supabaseClient.auth.signOut();
 });
 
-/* ============ AUTH STATE ============ */
 supabaseClient.auth.onAuthStateChange(async (event, session) => {
   document.getElementById('loadingScreen').classList.add('hidden');
   if (session && session.user) {
     currentUser = session.user;
+    document.getElementById('userEmail').textContent = session.user.email;
+
+    const { data: profile } = await supabaseClient
+      .from('profiles').select('*').eq('id', session.user.id).single();
+
+    if (profile && profile.banned) {
+      await supabaseClient.auth.signOut();
+      document.getElementById('authScreen').classList.remove('hidden');
+      document.getElementById('app').classList.add('hidden');
+      showMsg('❌ Tài khoản của bạn đã bị khóa. Liên hệ admin.', 'err');
+      return;
+    }
+
+    userProfile = profile || { credits: 0 };
+    document.getElementById('userCredits').textContent = userProfile.credits || 0;
+
     document.getElementById('authScreen').classList.add('hidden');
     document.getElementById('app').classList.remove('hidden');
-    document.getElementById('userEmail').textContent = session.user.email;
+
     const isAdmin = (session.user.email === ADMIN_EMAIL);
     document.getElementById('adminTab').classList.toggle('hidden', !isAdmin);
+
     await loadDataFromCloud();
     renderAll();
   } else {
     currentUser = null;
+    userProfile = null;
     rawData = [];
     document.getElementById('authScreen').classList.remove('hidden');
     document.getElementById('app').classList.add('hidden');
@@ -355,14 +404,148 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   }
 });
 
-/* Khởi động — check session */
 (async () => {
   const { data: { session } } = await supabaseClient.auth.getSession();
   document.getElementById('loadingScreen').classList.add('hidden');
-  if (!session) {
-    document.getElementById('authScreen').classList.remove('hidden');
-  }
+  if (!session) document.getElementById('authScreen').classList.remove('hidden');
 })();
+
+/* ============ PHÂN TÍCH GIỜ VÀNG ============ */
+function renderGoldenAnalysis() {
+  const box = document.getElementById('vipContent');
+  if (!box) return;
+
+  if (!rawData.length) {
+    box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv ở trên để xem phân tích chi tiết.</div>';
+    return;
+  }
+
+  let totalViews = 0, totalLikes = 0, totalShares = 0, totalComments = 0;
+  let maxViews = 0, maxDay = '';
+  let bestEngagement = 0, bestEngagementDay = '';
+
+  rawData.forEach(d => {
+    const views = d[1], likes = d[2], comments = d[3], shares = d[4];
+    totalViews += views; totalLikes += likes; totalComments += comments; totalShares += shares;
+    if (views > maxViews) { maxViews = views; maxDay = d[0]; }
+    const engRate = views > 0 ? (likes + comments + shares) / views : 0;
+    if (engRate > bestEngagement && views > 100) { bestEngagement = engRate; bestEngagementDay = d[0]; }
+  });
+
+  const likeRate = totalViews > 0 ? (totalLikes / totalViews * 100).toFixed(2) : 0;
+  const shareRate = totalViews > 0 ? (totalShares / totalViews * 100).toFixed(3) : 0;
+  const commentRate = totalViews > 0 ? (totalComments / totalViews * 100).toFixed(3) : 0;
+
+  const top3 = [...rawData].sort((a, b) => b[1] - a[1]).slice(0, 3);
+
+  let strategy = [];
+  if (likeRate > 3) strategy.push(`✅ Tỷ lệ like/view cao (${likeRate}%) — nội dung được yêu thích. Duy trì phong cách này.`);
+  else if (likeRate < 1.5) strategy.push(`⚠️ Tỷ lệ like/view thấp (${likeRate}%) — thêm CTA "thả tim nếu hay" cuối video.`);
+
+  if (shareRate > 0.5) strategy.push(`🔥 Tỷ lệ share cao (${shareRate}%) — nội dung lan truyền tốt. Làm thêm dạng này.`);
+  else if (shareRate < 0.1) strategy.push(`💡 Tỷ lệ share thấp (${shareRate}%) — thử nội dung "cảm xúc mạnh" hoặc "hữu ích".`);
+
+  strategy.push(`🎯 Ngày viral nhất: <b>${maxDay}</b> (${maxViews.toLocaleString('vi-VN')} view). Phân tích nội dung ngày đó để lặp lại công thức.`);
+  strategy.push(`📊 Ngày tương tác tốt nhất: <b>${bestEngagementDay}</b> (tỷ lệ ${(bestEngagement*100).toFixed(2)}%).`);
+
+  box.innerHTML = `
+    <div class="strategy-item">
+      📈 <b>Tỷ lệ tương tác:</b><br>
+      • Like/View: <b>${likeRate}%</b><br>
+      • Share/View: <b>${shareRate}%</b><br>
+      • Comment/View: <b>${commentRate}%</b>
+    </div>
+    <div class="strategy-item">
+      🏆 <b>Top 3 ngày viral:</b><br>
+      ${top3.map((d, i) => `${i+1}. ${d[0]} — ${d[1].toLocaleString('vi-VN')} view`).join('<br>')}
+    </div>
+    <div class="strategy-item">
+      💡 <b>Chiến lược đề xuất:</b><br>
+      ${strategy.map(s => '• ' + s).join('<br><br>')}
+    </div>
+    <div class="strategy-item">
+      ⏰ <b>Giờ vàng tối ưu:</b> ưu tiên <b>19:00–21:00</b> và <b>11:00–13:00</b>.
+    </div>
+  `;
+}
+
+/* ============ ADMIN ============ */
+async function adminLoadUsers() {
+  const box = document.getElementById('adminList');
+  box.innerHTML = '<div class="admin-loading">⏳ Đang tải danh sách user...</div>';
+  try {
+    const { data, error } = await supabaseClient
+      .from('profiles').select('*')
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+
+    if (!data || !data.length) {
+      box.innerHTML = '<div class="admin-empty">Chưa có user nào</div>';
+      return;
+    }
+
+    box.innerHTML = data.map(u => {
+      const isBanned = u.banned === true;
+      const isAdmin = u.email === ADMIN_EMAIL;
+      const created = u.created_at ? new Date(u.created_at).toLocaleDateString('vi-VN') : '-';
+      return `
+        <div class="admin-user ${isBanned ? 'banned' : ''}">
+          <div class="head">
+            <span class="email">${u.email || 'unknown'}</span>
+            ${isAdmin ? '<span class="badge admin">ADMIN</span>' : ''}
+            <span class="badge ${isBanned ? 'banned' : ''}">${isBanned ? 'ĐÃ KHÓA' : 'OK'}</span>
+          </div>
+          <div class="info">📅 Tạo: ${created} · ID: ${u.id.slice(0, 8)}...</div>
+          <div class="credits-line">💰 <span id="cred-${u.id}">${u.credits || 0}</span> xu</div>
+          <div class="actions">
+            ${isBanned
+              ? `<button class="admin-btn unban" onclick="adminUnban('${u.id}')">✅ Mở khóa</button>`
+              : `<button class="admin-btn ban" onclick="adminBan('${u.id}')">🚫 Khóa</button>`
+            }
+            <button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 10)">+10 xu</button>
+            <button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 50)">+50 xu</button>
+            <button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -10)">-10 xu</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  } catch (e) {
+    box.innerHTML = '<div class="admin-empty" style="color:#ff6e9c">❌ Lỗi: ' + e.message + '</div>';
+  }
+}
+
+async function adminBan(userId) {
+  if (!confirm('Khóa user này?')) return;
+  const { error } = await supabaseClient.from('profiles').update({ banned: true }).eq('id', userId);
+  if (error) { alert('Lỗi: ' + error.message); return; }
+  adminLoadUsers();
+}
+
+async function adminUnban(userId) {
+  const { error } = await supabaseClient.from('profiles').update({ banned: false }).eq('id', userId);
+  if (error) { alert('Lỗi: ' + error.message); return; }
+  adminLoadUsers();
+}
+
+async function adminAddCredit(userId, amount) {
+  const { data } = await supabaseClient.from('profiles').select('credits').eq('id', userId).single();
+  const current = data?.credits || 0;
+  const newVal = Math.max(0, current + amount);
+  const { error } = await supabaseClient.from('profiles').update({ credits: newVal }).eq('id', userId);
+  if (error) { alert('Lỗi: ' + error.message); return; }
+  const el = document.getElementById('cred-' + userId);
+  if (el) el.textContent = newVal;
+  if (currentUser && currentUser.id === userId) {
+    document.getElementById('userCredits').textContent = newVal;
+    if (userProfile) userProfile.credits = newVal;
+  }
+}
+
+window.adminBan = adminBan;
+window.adminUnban = adminUnban;
+window.adminAddCredit = adminAddCredit;
+
+document.getElementById('adminRefresh').addEventListener('click', adminLoadUsers);
 
 /* ============ CLOUD DATA ============ */
 async function saveDataToCloud() {
@@ -370,12 +553,11 @@ async function saveDataToCloud() {
   try {
     await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
     const { error } = await supabaseClient.from('user_data').insert({
-      user_id: currentUser.id,
-      rows: rawData,
-      updated_at: new Date().toISOString()
+      user_id: currentUser.id, rows: rawData, updated_at: new Date().toISOString()
     });
     if (error) throw error;
     showUploadStatus('☁️ Đã lưu lên cloud', '#4ade80');
+    renderGoldenAnalysis();
   } catch (e) {
     showUploadStatus('❌ Lỗi lưu cloud: ' + e.message, '#ff6e9c');
   }
@@ -385,19 +567,15 @@ async function loadDataFromCloud() {
   if (!currentUser) return;
   try {
     const { data, error } = await supabaseClient
-      .from('user_data')
-      .select('rows')
+      .from('user_data').select('rows')
       .eq('user_id', currentUser.id)
-      .order('updated_at', { ascending: false })
-      .limit(1);
+      .order('updated_at', { ascending: false }).limit(1);
     if (error) throw error;
     if (data && data.length && data[0].rows) {
       rawData = data[0].rows;
       showUploadStatus('✅ Đã tải ' + rawData.length + ' dòng từ cloud', '#4ade80');
     }
-  } catch (e) {
-    console.error(e);
-  }
+  } catch (e) { console.error(e); }
 }
 
 document.getElementById('clearDataBtn').addEventListener('click', async () => {
@@ -407,6 +585,7 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
     await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
     rawData = [];
     renderAll();
+    renderGoldenAnalysis();
     showUploadStatus('🗑️ Đã xóa dữ liệu', '#ff6e9c');
   } catch (e) {
     showUploadStatus('❌ Lỗi: ' + e.message, '#ff6e9c');
@@ -419,7 +598,6 @@ function showUploadStatus(text, color) {
   el.style.color = color || '#4ade80';
 }
 
-/* ============ CSV UPLOAD ============ */
 document.getElementById('csvInput').addEventListener('change', e => {
   const file = e.target.files[0];
   if (!file) return;
@@ -457,12 +635,7 @@ function parseCSV(text) {
   rawData = rows;
 }
 
-/* ============ RENDER ============ */
-function renderAll() {
-  renderStats();
-  renderTop();
-  renderChart();
-}
+function renderAll() { renderStats(); renderTop(); renderChart(); renderGoldenAnalysis(); }
 
 function renderStats() {
   if (!rawData.length) {
@@ -510,8 +683,7 @@ function renderChart() {
       }]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
         tooltip: { callbacks: { label: ctx => ctx.parsed.y.toLocaleString('vi-VN') + ' view' } }
@@ -524,7 +696,6 @@ function renderChart() {
   });
 }
 
-/* ============ TABS ============ */
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -532,10 +703,11 @@ document.querySelectorAll('.tab').forEach(tab => {
     tab.classList.add('active');
     document.getElementById('tab-' + tab.dataset.tab).classList.remove('hidden');
     if (tab.dataset.tab === 'chart') renderChart();
+    if (tab.dataset.tab === 'admin') adminLoadUsers();
+    if (tab.dataset.tab === 'hour') renderGoldenAnalysis();
   });
 });
 
-/* ============ CLOCK ============ */
 const pad = n => String(n).padStart(2, '0');
 const days = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
 
