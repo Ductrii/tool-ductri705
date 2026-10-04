@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="tool-version" content="v1.0">
+<meta name="tool-version" content="v1.1">
 <title>Tool by ductri705</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -127,6 +127,21 @@
   .hidden { display: none !important; }
   .loading { text-align: center; color: #6ea8ff; padding: 40px; font-size: 14px; }
   .section-title-sm { font-size: 12px; color: #888; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .video-input { width: 100%; padding: 10px 12px; margin-bottom: 8px; background: #0d0d12; border: 1px solid #2a2a34; border-radius: 8px; color: #e8e8f0; font-size: 13px; outline: none; }
+  .video-input:focus { border-color: #6ea8ff; }
+  .video-btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .video-btn-clean { padding: 10px; background: linear-gradient(90deg, #4ade80, #22c55e); color: #0d0d12; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .video-btn-dirty { padding: 10px; background: linear-gradient(90deg, #ff6e9c, #dc2626); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .video-card { background: #1a1a24; border-radius: 8px; padding: 10px 12px; margin-bottom: 6px; font-size: 12px; }
+  .video-card.clean { border-left: 3px solid #4ade80; }
+  .video-card.dirty { border-left: 3px solid #ff6e9c; }
+  .video-title { font-weight: 600; margin-bottom: 4px; }
+  .video-card.clean .video-title { color: #4ade80; }
+  .video-card.dirty .video-title { color: #ff6e9c; }
+  .video-link { color: #6ea8ff; font-size: 11px; word-break: break-all; display: block; margin-bottom: 4px; text-decoration: none; }
+  .video-note { color: #aaa; font-size: 11px; margin-bottom: 6px; }
+  .video-del { background: transparent; border: 1px solid #ff6e9c; color: #ff6e9c; padding: 4px 8px; border-radius: 6px; font-size: 10px; cursor: pointer; }
+  .video-del:hover { background: #2a1a1e; }
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 20px; animation: fadeIn 0.3s ease; }
   @keyframes fadeIn { from{opacity:0} to{opacity:1} }
   .modal-box { background: linear-gradient(135deg, #1e1e2e, #16161c); border: 1px solid #6ea8ff; border-radius: 18px; padding: 24px; max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(110,168,255,0.3); animation: slideUp 0.4s ease; }
@@ -202,6 +217,7 @@
         <div class="tab" data-tab="chart">Biểu đồ</div>
         <div class="tab" data-tab="top">Top viral</div>
         <div class="tab" data-tab="hour">Giờ vàng</div>
+        <div class="tab" data-tab="video">🎬 Video</div>
         <div class="tab admin-tab hidden" data-tab="admin" id="adminTab">👑 Admin</div>
       </div>
 
@@ -240,6 +256,38 @@
         </div>
 
         <div class="note" style="margin-top:14px">Phân tích dựa trên file CSV đã upload.</div>
+      </div>
+
+      <div id="tab-video" class="tab-content hidden">
+        <div style="color:#4ade80;font-weight:600;font-size:14px;margin-bottom:12px">🎬 Phân loại Video</div>
+
+        <div style="background:#1a1a24;border-radius:12px;padding:14px;margin-bottom:16px">
+          <div style="font-size:12px;color:#888;margin-bottom:10px">➕ Thêm video mới</div>
+          <input type="text" id="vLink" class="video-input" placeholder="Link video (VD: https://tiktok.com/@user/video/...)">
+          <input type="text" id="vTitle" class="video-input" placeholder="Tiêu đề / mô tả video">
+          <input type="text" id="vNote" class="video-input" placeholder="Ghi chú (VD: view 50k, viral)">
+          <div class="video-btn-grid">
+            <button id="addClean" class="video-btn-clean">✅ Content Sạch</button>
+            <button id="addDirty" class="video-btn-dirty">🚫 Content Bẩn</button>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+          <div class="stat" style="border-left:3px solid #4ade80">
+            <div class="num" id="countClean" style="color:#4ade80">0</div>
+            <div class="lbl">Video sạch</div>
+          </div>
+          <div class="stat" style="border-left:3px solid #ff6e9c">
+            <div class="num" id="countDirty" style="color:#ff6e9c">0</div>
+            <div class="lbl">Video bẩn</div>
+          </div>
+        </div>
+
+        <div style="color:#4ade80;font-weight:600;font-size:13px;margin-bottom:8px">✅ Content Sạch</div>
+        <div id="cleanList"></div>
+
+        <div style="color:#ff6e9c;font-weight:600;font-size:13px;margin:16px 0 8px">🚫 Content Bẩn</div>
+        <div id="dirtyList"></div>
       </div>
 
       <div id="tab-admin" class="tab-content hidden">
@@ -569,6 +617,89 @@ function renderGoldenAnalysis() {
     <div class="strategy-item">⏰ <b>Giờ vàng tối ưu:</b> ưu tiên <b>19:00–21:00</b> và <b>11:00–13:00</b>.</div>`;
 }
 
+/* ============ VIDEO CATEGORIES ============ */
+async function loadVideos() {
+  if (!currentUser) return;
+  const cleanBox = document.getElementById('cleanList');
+  const dirtyBox = document.getElementById('dirtyList');
+  cleanBox.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Đang tải...</div>';
+  dirtyBox.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Đang tải...</div>';
+
+  const { data, error } = await supabaseClient
+    .from('video_categories').select('*').eq('user_id', currentUser.id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    cleanBox.innerHTML = '<div style="color:#ff6e9c;font-size:12px;padding:10px">Lỗi: ' + error.message + '</div>';
+    dirtyBox.innerHTML = '';
+    return;
+  }
+
+  const clean = (data || []).filter(v => v.category === 'clean');
+  const dirty = (data || []).filter(v => v.category === 'dirty');
+
+  document.getElementById('countClean').textContent = clean.length;
+  document.getElementById('countDirty').textContent = dirty.length;
+
+  const renderList = (arr, cls, box) => {
+    if (!arr.length) {
+      box.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:12px">Chưa có video nào</div>';
+      return;
+    }
+    box.innerHTML = arr.map(v => `
+      <div class="video-card ${cls}">
+        <div class="video-title">${escapeHtml(v.video_title) || '(Không có tiêu đề)'}</div>
+        ${v.video_link ? `<a class="video-link" href="${escapeHtml(v.video_link)}" target="_blank" rel="noopener">${escapeHtml(v.video_link)}</a>` : ''}
+        ${v.note ? `<div class="video-note">📝 ${escapeHtml(v.note)}</div>` : ''}
+        <button class="video-del" onclick="deleteVideo('${v.id}')">🗑️ Xóa</button>
+      </div>
+    `).join('');
+  };
+
+  renderList(clean, 'clean', cleanBox);
+  renderList(dirty, 'dirty', dirtyBox);
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+async function addVideo(category) {
+  if (!currentUser) return;
+  const link = document.getElementById('vLink').value.trim();
+  const title = document.getElementById('vTitle').value.trim();
+  const note = document.getElementById('vNote').value.trim();
+
+  if (!link && !title) { alert('Nhập ít nhất link hoặc tiêu đề video'); return; }
+
+  const { error } = await supabaseClient.from('video_categories').insert({
+    user_id: currentUser.id,
+    video_link: link,
+    video_title: title,
+    note: note,
+    category: category
+  });
+
+  if (error) { alert('Lỗi: ' + error.message); return; }
+
+  document.getElementById('vLink').value = '';
+  document.getElementById('vTitle').value = '';
+  document.getElementById('vNote').value = '';
+  loadVideos();
+}
+
+async function deleteVideo(id) {
+  if (!confirm('Xóa video này?')) return;
+  await supabaseClient.from('video_categories').delete().eq('id', id);
+  loadVideos();
+}
+
+window.deleteVideo = deleteVideo;
+
+document.getElementById('addClean').addEventListener('click', () => addVideo('clean'));
+document.getElementById('addDirty').addEventListener('click', () => addVideo('dirty'));
+
 /* ============ ADMIN ============ */
 async function adminLoadUsers() {
   const box = document.getElementById('adminList');
@@ -886,6 +1017,7 @@ document.querySelectorAll('.tab').forEach(tab => {
     if (tab.dataset.tab === 'chart') renderChart();
     if (tab.dataset.tab === 'admin') adminLoadUsers();
     if (tab.dataset.tab === 'hour') renderGolden();
+    if (tab.dataset.tab === 'video') loadVideos();
   });
 });
 
@@ -936,7 +1068,7 @@ tick();
 setInterval(tick, 1000);
 
 /* ============ AUTO UPDATE ============ */
-const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v1.0';
+const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v1.1';
 const UPDATE_CHECK_URL = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 const CHECK_INTERVAL = 5 * 60 * 1000;
 
