@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="tool-version" content="v1.3">
+<meta name="tool-version" content="v2.0">
 <title>Tool by ductri705</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -16,13 +16,15 @@
   header h1 { font-size: 20px; font-weight: 600; color: #6ea8ff; letter-spacing: 2px; }
   header p { font-size: 12px; color: #666; margin-top: 4px; }
   .card { background: #16161c; border: 1px solid #26262e; border-radius: 16px; padding: 20px; margin-bottom: 14px; box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
-  #authScreen input { width: 100%; padding: 12px 14px; margin-bottom: 10px; background: #1a1a24; border: 1px solid #2a2a34; border-radius: 10px; color: #e8e8f0; font-size: 14px; outline: none; }
-  #authScreen input:focus { border-color: #6ea8ff; }
+  #authScreen input, .account-input { width: 100%; padding: 12px 14px; margin-bottom: 10px; background: #1a1a24; border: 1px solid #2a2a34; border-radius: 10px; color: #e8e8f0; font-size: 14px; outline: none; }
+  #authScreen input:focus, .account-input:focus { border-color: #6ea8ff; }
   .btn { width: 100%; padding: 12px; background: #6ea8ff; color: #0d0d12; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; }
   .btn:hover { background: #8bb9ff; }
   .btn:disabled { opacity: 0.5; cursor: wait; }
   .btn-sec { background: transparent; border: 1px solid #3a3a44; color: #aaa; margin-top: 8px; }
   .btn-sec:hover { background: #1a1a24; color: #e8e8f0; }
+  .btn-green { background: linear-gradient(90deg, #4ade80, #22c55e); color: #0d0d12; }
+  .btn-green:hover { background: linear-gradient(90deg, #6ee89e, #34d26e); }
   .auth-title { font-size: 18px; font-weight: 600; margin-bottom: 14px; color: #6ea8ff; text-align: center; }
   .auth-msg { font-size: 12px; text-align: center; margin-top: 8px; min-height: 16px; }
   .auth-msg.err { color: #ff6e9c; }
@@ -42,6 +44,8 @@
   .golden strong { color: #6ea8ff; }
   .golden.active strong { color: #4ade80; }
   .countdown { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; color: #ffd700; margin-top: 6px; letter-spacing: 2px; }
+  .sound-toggle { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; font-size: 11px; color: #888; cursor: pointer; user-select: none; }
+  .sound-toggle input { width: auto; margin: 0; }
   .upload-zone { border: 2px dashed #3a3a44; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: 0.2s; position: relative; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   .upload-zone:hover, .upload-zone:focus { border-color: #6ea8ff; background: #1a1a24; outline: none; }
   .upload-zone.dragover { border-color: #4ade80; background: linear-gradient(135deg, #1e2a1e, #1a1a24); transform: scale(1.02); }
@@ -56,11 +60,24 @@
   .tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
   .tab { flex: 1; min-width: 100px; padding: 10px; text-align: center; background: #1a1a24; border: 1px solid #26262e; border-radius: 10px; font-size: 12px; color: #888; cursor: pointer; user-select: none; transition: 0.2s; }
   .tab.active { background: #26263a; color: #6ea8ff; border-color: #6ea8ff; }
-  .tab.admin-tab.active { background: #3a2a10; color: #ffd1700; border-color: #ffd700; }
-  .estats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
-  .stat { background: #11e26a1a;24; border-radius: 10px; padding: 12px; text-align: center; }
+  .tab.admin-tab.active { background: #3a2a10; color: #ffd700; border-color: #ffd700; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .stat { background: #1a1a24; border-radius: 10px; padding: 12px; text-align: center; }
   .stat .num { font-size: 20px; font-weight: 600; color: #6ea8ff; font-variant-numeric: tabular-nums; }
   .stat .lbl { font-size: 10px; color: #777; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+  .compare-box { margin-top: 14px; padding: 14px; border-radius: 12px; background: linear-gradient(135deg, #1e1e2e, #16161c); border: 1px solid #3a3a4e; }
+  .compare-title { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .compare-item { padding: 10px; background: #0d0d12; border-radius: 8px; text-align: center; }
+  .compare-item .val { font-size: 16px; font-weight: 700; color: #6ea8ff; font-variant-numeric: tabular-nums; }
+  .compare-item .lbl { font-size: 10px; color: #777; margin-top: 4px; }
+  .compare-diff { margin-top: 10px; padding: 10px; border-radius: 8px; text-align: center; font-size: 13px; font-weight: 600; }
+  .compare-diff.up { background: #1e2a1e; color: #4ade80; border: 1px solid #4ade80; }
+  .compare-diff.down { background: #2a1a1e; color: #ff6e9c; border: 1px solid #ff6e9c; }
+  .compare-diff.same { background: #1a1a24; color: #aaa; border: 1px solid #3a3a44; }
+  .filter-bar { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .filter-btn { flex: 1; min-width: 70px; padding: 8px; text-align: center; background: #1a1a24; border: 1px solid #26262e; border-radius: 8px; font-size: 11px; color: #888; cursor: pointer; transition: 0.2s; }
+  .filter-btn.active { background: #26263a; color: #6ea8ff; border-color: #6ea8ff; }
   .top-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #1a1a24; border-radius: 8px; margin-bottom: 6px; font-size: 13px; }
   .top-item .date { color: #aaa; }
   .top-item .val { color: #6ea8ff; font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -118,8 +135,11 @@
   .admin-empty { text-align: center; color: #666; padding: 20px; font-size: 13px; }
   .admin-info-box { padding: 12px; background: #1a2a3e; border: 1px solid #6ea8ff; border-radius: 10px; margin-bottom: 14px; font-size: 12px; color: #aaa; line-height: 1.6; }
   .admin-info-box b { color: #6ea8ff; }
+  .info-row { display: flex; justify-content: space-between; padding: 10px 12px; background: #1a1a24; border-radius: 8px; margin-bottom: 6px; font-size: 13px; }
+  .info-row .k { color: #888; }
+  .info-row .v { color: #e8e8f0; font-weight: 600; }
   .note { text-align: center; color: #555; font-size: 11px; margin-top: 12px; }
-  .signature { text-align: center; margin-top: 16px; padding: 20px 12px; font-size: 12px; color: #444; border-top: 1px solid # letter-spacing: 1px; line-height: 2; }
+  .signature { text-align: center; margin-top: 16px; padding: 20px 12px; font-size: 12px; color: #444; border-top: 1px solid #1e1e26; letter-spacing: 1px; line-height: 2; }
   .signature b { color: #6ea8ff; }
   .signature .celebrate { color: #ffd700; font-size: 13px; font-weight: 600; }
   .signature .link { color: #aaa; }
@@ -178,6 +198,9 @@
         <div id="goldenText">Đang kiểm tra...</div>
         <div class="countdown" id="countdown"></div>
       </div>
+      <label class="sound-toggle">
+        <input type="checkbox" id="soundToggle"> 🔔 Bật âm thanh thông báo khi vào giờ vàng
+      </label>
     </div>
 
     <div class="card">
@@ -202,6 +225,7 @@
         <div class="tab" data-tab="chart">Biểu đồ</div>
         <div class="tab" data-tab="top">Top viral</div>
         <div class="tab" data-tab="hour">Giờ vàng</div>
+        <div class="tab" data-tab="account">⚙️ Tài khoản</div>
         <div class="tab admin-tab hidden" data-tab="admin" id="adminTab">👑 Admin</div>
       </div>
 
@@ -213,9 +237,26 @@
           <div class="stat"><div class="num" id="s-avg-views">—</div><div class="lbl">View TB/ngày</div></div>
           <div class="stat"><div class="num" id="s-max-views">—</div><div class="lbl">View cao nhất</div></div>
         </div>
+
+        <div class="compare-box" id="compareBox">
+          <div class="compare-title">📈 So sánh tuần này vs tuần trước</div>
+          <div id="compareContent"><div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa có dữ liệu</div></div>
+        </div>
+
+        <button class="btn btn-green" id="exportCsvBtn" style="margin-top:14px">📥 Xuất dữ liệu CSV về máy</button>
       </div>
 
-      <div id="tab-chart" class="tab-content hidden"><div class="chart-box"><canvas id="chart"></canvas></div></div>
+      <div id="tab-chart" class="tab-content hidden">
+        <div class="filter-bar">
+          <div class="filter-btn active" data-days="7">7 ngày</div>
+          <div class="filter-btn" data-days="30">30 ngày</div>
+          <div class="filter-btn" data-days="90">90 ngày</div>
+          <div class="filter-btn" data-days="365">365 ngày</div>
+          <div class="filter-btn" data-days="0">Tất cả</div>
+        </div>
+        <div class="chart-box"><canvas id="chart"></canvas></div>
+      </div>
+
       <div id="tab-top" class="tab-content hidden"><div id="top-list"></div></div>
 
       <div id="tab-hour" class="tab-content hidden">
@@ -240,6 +281,22 @@
         </div>
 
         <div class="note" style="margin-top:14px">Phân tích dựa trên file CSV đã upload.</div>
+      </div>
+
+      <div id="tab-account" class="tab-content hidden">
+        <div class="section-title-sm">👤 Thông tin tài khoản</div>
+        <div class="info-row"><span class="k">Email</span><span class="v" id="infoEmail">—</span></div>
+        <div class="info-row"><span class="k">Ngày tạo</span><span class="v" id="infoCreated">—</span></div>
+        <div class="info-row"><span class="k">Đăng nhập gần nhất</span><span class="v" id="infoLastLogin">—</span></div>
+        <div class="info-row"><span class="k">Số xu</span><span class="v" id="infoCredits">—</span></div>
+        <div class="info-row"><span class="k">Quyền</span><span class="v" id="infoRole">—</span></div>
+
+        <div class="section-title-sm" style="margin-top:20px">🔐 Đổi mật khẩu</div>
+        <input type="password" id="oldPass" class="account-input" placeholder="Mật khẩu hiện tại">
+        <input type="password" id="newPass1" class="account-input" placeholder="Mật khẩu mới (từ 6 ký tự)">
+        <input type="password" id="newPass2" class="account-input" placeholder="Nhập lại mật khẩu mới">
+        <button class="btn" id="changePassBtn">🔑 Đổi mật khẩu</button>
+        <div class="auth-msg" id="passMsg"></div>
       </div>
 
       <div id="tab-admin" class="tab-content hidden">
@@ -280,6 +337,9 @@ let currentUser = null;
 let rawData = [];
 let chartInstance = null;
 let userProfile = null;
+let chartFilterDays = 7;
+let soundEnabled = localStorage.getItem('soundEnabled') === 'true';
+let lastGoldenState = false;
 
 function isCurrentAdmin() {
   if (userProfile && userProfile.is_admin === true) return true;
@@ -287,6 +347,174 @@ function isCurrentAdmin() {
   return false;
 }
 
+/* ============ SOUND ============ */
+function playGoldenSound() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = [523.25, 659.25, 783.99, 1046.50];
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = freq;
+      osc.type = 'sine';
+      const start = ctx.currentTime + i * 0.15;
+      gain.gain.setValueAtTime(0, start);
+      gain.gain.linearRampToValueAtTime(0.3, start + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.3);
+      osc.start(start);
+      osc.stop(start + 0.35);
+    });
+  } catch (e) { console.error('Sound error:', e); }
+}
+
+/* ============ EXPORT CSV ============ */
+function exportToCSV() {
+  if (!rawData.length) { alert('Chưa có dữ liệu để xuất!'); return; }
+  const lines = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"'];
+  rawData.forEach(d => {
+    lines.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`);
+  });
+  const csvContent = '\ufeff' + lines.join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `tiktok_data_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ============ COMPARE WEEKS ============ */
+function renderCompare() {
+  const box = document.getElementById('compareContent');
+  if (!box) return;
+  if (rawData.length < 2) {
+    box.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu để so sánh</div>';
+    return;
+  }
+  const now = Date.now();
+  const week = 7 * 24 * 60 * 60 * 1000;
+  let thisWeek = { views: 0, likes: 0, count: 0 };
+  let lastWeek = { views: 0, likes: 0, count: 0 };
+
+  rawData.forEach(d => {
+    const ts = parseDateToTS(d[0]);
+    if (!ts) return;
+    const diff = now - ts;
+    if (diff <= week) {
+      thisWeek.views += d[1]; thisWeek.likes += d[2]; thisWeek.count++;
+    } else if (diff <= week * 2) {
+      lastWeek.views += d[1]; lastWeek.likes += d[2]; lastWeek.count++;
+    }
+  });
+
+  if (thisWeek.count === 0 && lastWeek.count === 0) {
+    box.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Không có dữ liệu trong 2 tuần gần đây</div>';
+    return;
+  }
+
+  const viewDiff = thisWeek.views - lastWeek.views;
+  const likeDiff = thisWeek.likes - lastWeek.likes;
+  let viewPct = lastWeek.views > 0 ? (viewDiff / lastWeek.views * 100) : (thisWeek.views > 0 ? 100 : 0);
+  let likePct = lastWeek.likes > 0 ? (likeDiff / lastWeek.likes * 100) : (thisWeek.likes > 0 ? 100 : 0);
+
+  const fmt = n => Math.round(n).toLocaleString('vi-VN');
+  const pct = p => (p >= 0 ? '+' : '') + p.toFixed(1) + '%';
+
+  box.innerHTML = `
+    <div class="compare-grid">
+      <div class="compare-item">
+        <div class="val">${fmt(thisWeek.views)}</div>
+        <div class="lbl">View tuần này</div>
+      </div>
+      <div class="compare-item">
+        <div class="val">${fmt(lastWeek.views)}</div>
+        <div class="lbl">View tuần trước</div>
+      </div>
+      <div class="compare-item">
+        <div class="val">${fmt(thisWeek.likes)}</div>
+        <div class="lbl">Like tuần này</div>
+      </div>
+      <div class="compare-item">
+        <div class="val">${fmt(lastWeek.likes)}</div>
+        <div class="lbl">Like tuần trước</div>
+      </div>
+    </div>
+    <div class="compare-diff ${viewDiff > 0 ? 'up' : viewDiff < 0 ? 'down' : 'same'}">
+      📊 View: ${viewDiff >= 0 ? '📈 Tăng' : '📉 Giảm'} ${Math.abs(viewDiff).toLocaleString('vi-VN')} (${pct(viewPct)})
+    </div>
+    <div class="compare-diff ${likeDiff > 0 ? 'up' : likeDiff < 0 ? 'down' : 'same'}" style="margin-top:8px">
+      ❤️ Like: ${likeDiff >= 0 ? '📈 Tăng' : '📉 Giảm'} ${Math.abs(likeDiff).toLocaleString('vi-VN')} (${pct(likePct)})
+    </div>
+  `;
+}
+
+function parseDateToTS(dateStr) {
+  if (!dateStr) return null;
+  const months = {
+    'tháng Mười': 9, 'tháng Mười Một': 10, 'tháng Mười Hai': 11,
+    'tháng Một': 0, 'tháng Hai': 1, 'tháng Ba': 2, 'tháng Tư': 3,
+    'tháng Năm': 4, 'tháng Sáu': 5, 'tháng Bảy': 6, 'tháng Tám': 7,
+    'tháng Chín': 8
+  };
+  const m = dateStr.match(/^(\d+)\s+(.+)$/);
+  if (!m) return null;
+  const day = parseInt(m[1]);
+  const monthName = m[2].trim();
+  if (!(monthName in months)) return null;
+  const year = new Date().getFullYear();
+  return new Date(year, months[monthName], day).getTime();
+}
+
+/* ============ ACCOUNT ============ */
+function renderAccount() {
+  if (!currentUser || !userProfile) return;
+  document.getElementById('infoEmail').textContent = currentUser.email || '—';
+  const created = userProfile.created_at ? new Date(userProfile.created_at).toLocaleString('vi-VN') : (currentUser.created_at ? new Date(currentUser.created_at).toLocaleString('vi-VN') : '—');
+  document.getElementById('infoCreated').textContent = created;
+  const lastLogin = userProfile.last_login ? new Date(userProfile.last_login).toLocaleString('vi-VN') : 'Vừa đăng nhập';
+  document.getElementById('infoLastLogin').textContent = lastLogin;
+  document.getElementById('infoCredits').textContent = isCurrentAdmin() ? '∞ (vô hạn)' : (userProfile.credits || 0).toLocaleString('vi-VN') + ' xu';
+  document.getElementById('infoRole').textContent = isCurrentAdmin() ? '👑 Admin' : (userProfile.golden_unlocked ? '⭐ VIP' : 'User thường');
+}
+
+document.getElementById('changePassBtn').addEventListener('click', async () => {
+  const oldP = document.getElementById('oldPass').value;
+  const p1 = document.getElementById('newPass1').value;
+  const p2 = document.getElementById('newPass2').value;
+  const msg = document.getElementById('passMsg');
+  msg.textContent = '';
+  msg.className = 'auth-msg';
+
+  if (!p1 || !p2) { msg.textContent = 'Nhập đầy đủ mật khẩu mới'; msg.classList.add('err'); return; }
+  if (p1.length < 6) { msg.textContent = 'Mật khẩu mới từ 6 ký tự'; msg.classList.add('err'); return; }
+  if (p1 !== p2) { msg.textContent = 'Mật khẩu nhập lại không khớp'; msg.classList.add('err'); return; }
+
+  const btn = document.getElementById('changePassBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang đổi...';
+
+  try {
+    const { error } = await supabaseClient.auth.updateUser({ password: p1 });
+    if (error) throw error;
+    msg.textContent = '✅ Đổi mật khẩu thành công!';
+    msg.classList.add('ok');
+    document.getElementById('oldPass').value = '';
+    document.getElementById('newPass1').value = '';
+    document.getElementById('newPass2').value = '';
+  } catch (e) {
+    msg.textContent = '❌ Lỗi: ' + (e.message || 'Không đổi được');
+    msg.classList.add('err');
+  }
+  btn.disabled = false;
+  btn.textContent = '🔑 Đổi mật khẩu';
+});
+
+/* ============ AUTH ============ */
 let isRegister = false;
 const authTitle = document.getElementById('authTitle');
 const authSubmit = document.getElementById('authSubmit');
@@ -371,6 +599,12 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
       await supabaseClient.from('profiles').update({ is_admin: true }).eq('id', session.user.id);
     }
 
+    // Update last_login
+    try {
+      await supabaseClient.from('profiles').update({ last_login: new Date().toISOString() }).eq('id', session.user.id);
+      userProfile.last_login = new Date().toISOString();
+    } catch(e) {}
+
     await applyDailyBonus();
     updateCreditsDisplay();
     document.getElementById('authScreen').classList.add('hidden');
@@ -378,6 +612,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     document.getElementById('adminTab').classList.toggle('hidden', !isCurrentAdmin());
 
     renderGolden();
+    renderAccount();
     await loadDataFromCloud();
     renderAll();
   } else {
@@ -397,7 +632,16 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   const { data: { session } } = await supabaseClient.auth.getSession();
   document.getElementById('loadingScreen').classList.add('hidden');
   if (!session) document.getElementById('authScreen').classList.remove('hidden');
+  // Load sound setting
+  const st = document.getElementById('soundToggle');
+  st.checked = soundEnabled;
 })();
+
+document.getElementById('soundToggle').addEventListener('change', e => {
+  soundEnabled = e.target.checked;
+  localStorage.setItem('soundEnabled', soundEnabled);
+  if (soundEnabled) playGoldenSound();
+});
 
 /* ============ DAILY BONUS ============ */
 async function applyDailyBonus() {
@@ -531,6 +775,7 @@ document.getElementById('goldenUnlockBtn').addEventListener('click', async () =>
   userProfile.golden_unlocked = true;
   updateCreditsDisplay();
   renderGolden();
+  renderAccount();
 });
 
 /* ============ PHÂN TÍCH ============ */
@@ -593,7 +838,7 @@ async function adminLoadUsers() {
       actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 50)">+50 xu</button>`;
       actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -10)">-10 xu</button>`;
       if (isGolden) actionsHtml += `<button class="admin-btn reset" onclick="adminResetGolden('${u.id}')">🔒 Khóa</button>`;
-      if (u.email !== ADMIN_EMAIL) actionsHtml += `<button class="admin-btn delete" onclick="adminDeleteUser('${u.id}')">🗑️ Xóa tài khoản</button>`;
+      if (u.email !== ADMIN_EMAIL) actionsHtml += `<button class="admin-btn delete" onclick="adminDeleteUser('${u.id}')">🗑️ Xóa</button>`;
       return `
         <div class="admin-user ${isBanned ? 'banned' : ''} ${isAdminUser ? 'is-admin-user' : ''}">
           <div class="head">
@@ -714,6 +959,8 @@ function showUploadStatus(text, color) {
   el.style.color = color || '#4ade80';
 }
 
+document.getElementById('exportCsvBtn').addEventListener('click', exportToCSV);
+
 /* ============ UPLOAD ============ */
 const uploadZone = document.getElementById('uploadZone');
 const csvInput = document.getElementById('csvInput');
@@ -833,7 +1080,7 @@ function parseCSV(text) {
   rawData = rows;
 }
 
-function renderAll() { renderStats(); renderTop(); renderChart(); }
+function renderAll() { renderStats(); renderTop(); renderChart(); renderCompare(); }
 
 function renderStats() {
   if (!rawData.length) {
@@ -859,12 +1106,13 @@ function renderChart() {
   const ctx = document.getElementById('chart');
   if (chartInstance) chartInstance.destroy();
   if (!rawData.length) return;
-  const recent = rawData.slice(-60);
+  let data = rawData;
+  if (chartFilterDays > 0) data = rawData.slice(-chartFilterDays);
   chartInstance = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: recent.map(d => d[0]),
-      datasets: [{ label: 'View', data: recent.map(d => d[1]), backgroundColor: recent.map(d => d[1] > 10000 ? '#ff6e9c' : '#6ea8ff'), borderRadius: 4 }]
+      labels: data.map(d => d[0]),
+      datasets: [{ label: 'View', data: data.map(d => d[1]), backgroundColor: data.map(d => d[1] > 10000 ? '#ff6e9c' : '#6ea8ff'), borderRadius: 4 }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
@@ -877,6 +1125,15 @@ function renderChart() {
   });
 }
 
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    chartFilterDays = parseInt(btn.dataset.days);
+    renderChart();
+  });
+});
+
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -886,6 +1143,7 @@ document.querySelectorAll('.tab').forEach(tab => {
     if (tab.dataset.tab === 'chart') renderChart();
     if (tab.dataset.tab === 'admin') adminLoadUsers();
     if (tab.dataset.tab === 'hour') renderGolden();
+    if (tab.dataset.tab === 'account') renderAccount();
   });
 });
 
@@ -921,9 +1179,12 @@ function tick() {
   if (g.active) {
     goldenBox.className = 'golden active';
     txt.innerHTML = '🔥 <strong>' + g.label + '</strong> — Đăng ngay!';
+    if (!lastGoldenState && soundEnabled) playGoldenSound();
+    lastGoldenState = true;
   } else {
     goldenBox.className = 'golden';
     txt.innerHTML = '⏰ <strong>' + g.label + '</strong> — Khung tối ưu 11–13h & 19–22h';
+    lastGoldenState = false;
   }
   const diff = g.target - now;
   const hh = Math.floor(diff / 3600000);
@@ -936,7 +1197,7 @@ tick();
 setInterval(tick, 1000);
 
 /* ============ AUTO UPDATE ============ */
-const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v1.3';
+const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v2.0';
 const UPDATE_CHECK_URL = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 const CHECK_INTERVAL = 5 * 60 * 1000;
 
