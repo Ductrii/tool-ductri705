@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="tool-version" content="v2.2">
+<meta name="tool-version" content="v2.3">
 <title>Tool by ductri705</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -90,7 +90,7 @@
   .hour-row.hot { border-left-color: #4ade80; }
   .hour-row .time { color: #6ea8ff; font-weight: 600; }
   .hour-row .desc { color: #aaa; font-size: 12px; }
-  .strategy-item { padding: 10px 12px; background: #0d0d12; border-radius: 8px; margin-bottom: 6px; font-size: 12px; color: #ccc; line-height: 1.6; border-left: 3px solid #4ade80; }
+  .strategy-item { padding: 10px 12px; background: #0d0d12; border-radius: 8px; margin-bottom: 6px; font-size: 12px; color: #ccc; line-height: 1.7; border-left: 3px solid #4ade80; }
   .lock-box { margin-top: 20px; padding: 24px; border: 2px dashed #ffd700; border-radius: 12px; background: linear-gradient(135deg, #2a2010, #1a1a24); text-align: center; }
   .lock-box .icon { font-size: 40px; margin-bottom: 10px; }
   .lock-box .title { color: #ffd700; font-weight: 600; font-size: 15px; margin-bottom: 8px; }
@@ -733,35 +733,185 @@ document.getElementById('goldenUnlockBtn').addEventListener('click', async () =>
   updateCreditsDisplay(); renderGolden(); renderAccount();
 });
 
+/* ============ PHÂN TÍCH NÂNG CAO ============ */
 function renderGoldenAnalysis() {
-  const box = document.getElementById('vipContent'); if (!box) return;
-  if (!rawData.length) { box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv để xem phân tích.</div>'; return; }
-  let tv = 0, tl = 0, ts = 0, tc = 0, mv = 0, md = '', be = 0, bd = '';
+  const box = document.getElementById('vipContent');
+  if (!box) return;
+
+  if (!rawData.length) {
+    box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv để xem phân tích.</div>';
+    return;
+  }
+
+  const n = rawData.length;
+  const views = rawData.map(d => d[1]);
+  const likes = rawData.map(d => d[2]);
+  const comments = rawData.map(d => d[3]);
+  const shares = rawData.map(d => d[4]);
+
+  const totalV = views.reduce((a, b) => a + b, 0);
+  const totalL = likes.reduce((a, b) => a + b, 0);
+  const totalC = comments.reduce((a, b) => a + b, 0);
+  const totalS = shares.reduce((a, b) => a + b, 0);
+  const avgV = totalV / n;
+
+  const sortedV = [...views].sort((a, b) => a - b);
+  const median = sortedV.length % 2 === 0
+    ? (sortedV[sortedV.length / 2 - 1] + sortedV[sortedV.length / 2]) / 2
+    : sortedV[Math.floor(sortedV.length / 2)];
+
+  const variance = views.reduce((acc, v) => acc + Math.pow(v - avgV, 2), 0) / n;
+  const stdDev = Math.sqrt(variance);
+  const cv = avgV > 0 ? (stdDev / avgV * 100) : 0;
+
+  const maxV = Math.max(...views);
+  const minV = Math.min(...views);
+  const maxIdx = views.indexOf(maxV);
+  const minIdx = views.indexOf(minV);
+  const maxDay = rawData[maxIdx][0];
+  const minDay = rawData[minIdx][0];
+
+  const likeRate = totalV > 0 ? (totalL / totalV * 100) : 0;
+  const shareRate = totalV > 0 ? (totalS / totalV * 100) : 0;
+  const commentRate = totalV > 0 ? (totalC / totalV * 100) : 0;
+  const engagementRate = likeRate + shareRate + commentRate;
+
+  const top5 = [...rawData].sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+  let trend = { text: '', cls: 'same' };
+  if (n >= 14) {
+    const last7 = views.slice(-7).reduce((a, b) => a + b, 0);
+    const prev7 = views.slice(-14, -7).reduce((a, b) => a + b, 0);
+    const diff = last7 - prev7;
+    const pct = prev7 > 0 ? (diff / prev7 * 100) : (last7 > 0 ? 100 : 0);
+    if (diff > 0) trend = { text: `📈 Đang LÊN — tăng ${pct.toFixed(1)}%`, cls: 'up' };
+    else if (diff < 0) trend = { text: `📉 Đang XUỐNG — giảm ${Math.abs(pct).toFixed(1)}%`, cls: 'down' };
+    else trend = { text: '➡️ Đi ngang', cls: 'same' };
+  } else {
+    trend = { text: '⚠️ Cần ít nhất 14 ngày dữ liệu để phân tích xu hướng', cls: 'same' };
+  }
+
+  const daysOfWeek = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+  const byDayOfWeek = Array.from({ length: 7 }, () => ({ total: 0, count: 0 }));
   rawData.forEach(d => {
-    const v = d[1], l = d[2], c = d[3], s = d[4];
-    tv += v; tl += l; tc += c; ts += s;
-    if (v > mv) { mv = v; md = d[0]; }
-    const er = v > 0 ? (l + c + s) / v : 0;
-    if (er > be && v > 100) { be = er; bd = d[0]; }
+    const ts = parseDateToTS(d[0]);
+    if (!ts) return;
+    const dow = new Date(ts).getDay();
+    byDayOfWeek[dow].total += d[1];
+    byDayOfWeek[dow].count++;
   });
-  const lr = tv > 0 ? (tl / tv * 100).toFixed(2) : 0;
-  const sr = tv > 0 ? (ts / tv * 100).toFixed(3) : 0;
-  const cr = tv > 0 ? (tc / tv * 100).toFixed(3) : 0;
-  const top3 = [...rawData].sort((a, b) => b[1] - a[1]).slice(0, 3);
-  let strat = [];
-  if (lr > 3) strat.push(`✅ Tỷ lệ like/view cao (${lr}%) — nội dung được yêu thích.`);
-  else if (lr < 1.5) strat.push(`⚠️ Tỷ lệ like/view thấp (${lr}%) — thêm CTA "thả tim nếu hay".`);
-  if (sr > 0.5) strat.push(`🔥 Tỷ lệ share cao (${sr}%) — nội dung lan truyền tốt.`);
-  else if (sr < 0.1) strat.push(`💡 Tỷ lệ share thấp (${sr}%) — thử nội dung cảm xúc mạnh.`);
-  strat.push(`🎯 Ngày viral nhất: <b>${md}</b> (${mv.toLocaleString('vi-VN')} view).`);
-  strat.push(`📊 Ngày tương tác tốt nhất: <b>${bd}</b> (${(be*100).toFixed(2)}%).`);
+  let bestDow = 0, bestDowAvg = 0;
+  byDayOfWeek.forEach((d, i) => {
+    const avg = d.count > 0 ? d.total / d.count : 0;
+    if (avg > bestDowAvg) { bestDowAvg = avg; bestDow = i; }
+  });
+
+  let stability, stabilityColor, stabilityIcon;
+  if (cv < 50) { stability = 'Rất ổn định'; stabilityColor = '#4ade80'; stabilityIcon = '🟢'; }
+  else if (cv < 100) { stability = 'Ổn định vừa'; stabilityColor = '#ffd700'; stabilityIcon = '🟡'; }
+  else if (cv < 200) { stability = 'Biến động cao'; stabilityColor = '#ff9500'; stabilityIcon = '🟠'; }
+  else { stability = 'Rất biến động'; stabilityColor = '#ff6e9c'; stabilityIcon = '🔴'; }
+
+  let longestStreak = 0, currentStreak = 0;
+  const viralThreshold = avgV * 1.5;
+  views.forEach(v => {
+    if (v >= viralThreshold) { currentStreak++; if (currentStreak > longestStreak) longestStreak = currentStreak; }
+    else { currentStreak = 0; }
+  });
+
+  let growthRate = 0;
+  if (n >= 2 && views[0] > 0) {
+    growthRate = (Math.pow(views[n - 1] / views[0], 1 / n) - 1) * 100;
+  }
+
+  let strategy = [];
+  if (likeRate > 4) strategy.push(`✅ <b>Like cực tốt (${likeRate.toFixed(2)}%)</b> — nội dung được yêu thích, duy trì phong cách này.`);
+  else if (likeRate > 2) strategy.push(`👍 <b>Like tốt (${likeRate.toFixed(2)}%)</b> — ổn định, thêm CTA "thả tim nếu hay" để tăng.`);
+  else strategy.push(`⚠️ <b>Like thấp (${likeRate.toFixed(2)}%)</b> — cần cải thiện nội dung, thêm hook 3 giây đầu.`);
+
+  if (shareRate > 0.5) strategy.push(`🔥 <b>Share cao (${shareRate.toFixed(3)}%)</b> — nội dung lan truyền tốt, làm thêm dạng này.`);
+  else if (shareRate < 0.1) strategy.push(`💡 <b>Share thấp (${shareRate.toFixed(3)}%)</b> — thử nội dung cảm xúc mạnh hoặc hữu ích.`);
+
+  if (commentRate > 0.3) strategy.push(`💬 <b>Comment tốt (${commentRate.toFixed(3)}%)</b> — cộng đồng tương tác, trả lời comment để tăng reach.`);
+  else strategy.push(`💭 <b>Comment thấp (${commentRate.toFixed(3)}%)</b> — đặt câu hỏi cuối video để kích thích bình luận.`);
+
+  if (cv > 150) strategy.push(`🎢 <b>View biến động lớn (CV: ${cv.toFixed(0)}%)</b> — nên đăng đều đặn, tránh đăng quá dồn.`);
+  else if (cv < 50) strategy.push(`🎯 <b>View ổn định (CV: ${cv.toFixed(0)}%)</b> — content ổn, tìm cách đột phá để viral hơn.`);
+
+  if (longestStreak >= 3) strategy.push(`🔥 <b>Chuỗi ${longestStreak} ngày viral liên tiếp</b> — phân tích công thức thời gian này để lặp lại.`);
+
+  strategy.push(`🎯 <b>Ngày viral nhất: ${maxDay}</b> (${maxV.toLocaleString('vi-VN')} view) — xem lại nội dung để lặp lại.`);
+  strategy.push(`📅 <b>Ngày tốt nhất trong tuần: ${daysOfWeek[bestDow]}</b> (trung bình ${Math.round(bestDowAvg).toLocaleString('vi-VN')} view/ngày).`);
+
   box.innerHTML = `
-    <div class="strategy-item">📈 <b>Tỷ lệ tương tác:</b><br>• Like/View: <b>${lr}%</b><br>• Share/View: <b>${sr}%</b><br>• Comment/View: <b>${cr}%</b></div>
-    <div class="strategy-item">🏆 <b>Top 3 ngày viral:</b><br>${top3.map((d, i) => `${i+1}. ${d[0]} — ${d[1].toLocaleString('vi-VN')} view`).join('<br>')}</div>
-    <div class="strategy-item">💡 <b>Chiến lược:</b><br>${strat.map(s => '• ' + s).join('<br><br>')}</div>
-    <div class="strategy-item">⏰ <b>Giờ vàng tối ưu:</b> ưu tiên <b>19:00–21:00</b> và <b>11:00–13:00</b>.</div>`;
+    <div class="strategy-item">
+      📈 <b>XU HƯỚNG:</b><br>
+      <span style="color:${trend.cls === 'up' ? '#4ade80' : trend.cls === 'down' ? '#ff6e9c' : '#aaa'};font-weight:700">${trend.text}</span>
+    </div>
+
+    <div class="strategy-item">
+      📊 <b>THỐNG KÊ CHI TIẾT:</b><br>
+      • Trung bình: <b>${Math.round(avgV).toLocaleString('vi-VN')}</b> view/ngày<br>
+      • Trung vị: <b>${Math.round(median).toLocaleString('vi-VN')}</b> view/ngày<br>
+      • Cao nhất: <b>${maxV.toLocaleString('vi-VN')}</b> (${maxDay})<br>
+      • Thấp nhất: <b>${minV.toLocaleString('vi-VN')}</b> (${minDay})<br>
+      • Độ lệch chuẩn: <b>${Math.round(stdDev).toLocaleString('vi-VN')}</b>
+    </div>
+
+    <div class="strategy-item">
+      ${stabilityIcon} <b>ĐỘ ỔN ĐỊNH:</b> <span style="color:${stabilityColor};font-weight:700">${stability}</span><br>
+      <span style="color:#888;font-size:11px">Hệ số biến thiên: ${cv.toFixed(0)}% (càng thấp càng ổn định)</span>
+    </div>
+
+    <div class="strategy-item">
+      💞 <b>TỶ LỆ TƯƠNG TÁC:</b><br>
+      • Like/View: <b>${likeRate.toFixed(2)}%</b><br>
+      • Share/View: <b>${shareRate.toFixed(3)}%</b><br>
+      • Comment/View: <b>${commentRate.toFixed(3)}%</b><br>
+      • Tổng tương tác: <b style="color:#4ade80">${engagementRate.toFixed(2)}%</b>
+    </div>
+
+    <div class="strategy-item">
+      🏆 <b>TOP 5 NGÀY VIRAL:</b><br>
+      ${top5.map((d, i) => {
+        const medal = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'][i];
+        return `${medal} ${d[0]} — <b>${d[1].toLocaleString('vi-VN')}</b> view`;
+      }).join('<br>')}
+    </div>
+
+    <div class="strategy-item">
+      📅 <b>PHÂN TÍCH THEO THỨ:</b><br>
+      ${byDayOfWeek.map((d, i) => {
+        const avg = d.count > 0 ? Math.round(d.total / d.count) : 0;
+        const bar = d.count > 0 ? '█'.repeat(Math.min(10, Math.round(avg / (bestDowAvg || 1) * 10))) : '';
+        return `<span style="display:inline-block;width:30px;color:#6ea8ff">${daysOfWeek[i]}</span> ${bar} ${avg.toLocaleString('vi-VN')} view`;
+      }).join('<br>')}
+    </div>
+
+    <div class="strategy-item">
+      🔥 <b>CHUỖI VIRAL DÀI NHẤT:</b> <span style="color:#ffd700;font-weight:700">${longestStreak} ngày</span><br>
+      <span style="color:#888;font-size:11px">Ngưỡng viral: ≥ ${Math.round(viralThreshold).toLocaleString('vi-VN')} view (150% trung bình)</span>
+    </div>
+
+    ${growthRate !== 0 ? `
+    <div class="strategy-item">
+      📈 <b>TỐC ĐỘ TĂNG TRƯỞNG:</b> <span style="color:${growthRate > 0 ? '#4ade80' : '#ff6e9c'};font-weight:700">${growthRate > 0 ? '+' : ''}${growthRate.toFixed(2)}%/ngày</span><br>
+      <span style="color:#888;font-size:11px">Trung bình cộng dồn qua ${n} ngày</span>
+    </div>` : ''}
+
+    <div class="strategy-item">
+      💡 <b>CHIẾN LƯỢC ĐỀ XUẤT:</b><br>
+      ${strategy.map(s => '• ' + s).join('<br><br>')}
+    </div>
+
+    <div class="strategy-item">
+      ⏰ <b>GIỜ VÀNG TỐI ƯU:</b> Đăng vào <b>19:00–21:00</b> (giờ vàng chính) và <b>11:00–13:00</b> (nghỉ trưa).<br>
+      <span style="color:#888;font-size:11px">Với ngày tốt nhất là ${daysOfWeek[bestDow]}, ưu tiên đăng nhiều vào ngày này.</span>
+    </div>
+  `;
 }
 
+/* ============ ADMIN ============ */
 async function adminLoadUsers() {
   const box = document.getElementById('adminList');
   box.innerHTML = '<div class="admin-loading">⏳ Đang tải...</div>';
@@ -1030,7 +1180,7 @@ function tick() {
 
 tick(); setInterval(tick, 1000);
 
-const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v2.2';
+const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v2.3';
 const UPDATE_CHECK_URL = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 const CHECK_INTERVAL = 5 * 60 * 1000;
 
