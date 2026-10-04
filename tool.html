@@ -128,8 +128,6 @@
     font-size: 12px; color: #ccc; line-height: 1.6;
     border-left: 3px solid #4ade80;
   }
-
-  /* PROFILE SECTION */
   .profile-section {
     background: linear-gradient(135deg, #1e1e2e, #16161c);
     border: 1px solid #3a3a4e;
@@ -170,9 +168,7 @@
     font-size: 16px; font-weight: 600; color: #fff;
     word-break: break-all;
   }
-  .profile-sub {
-    font-size: 11px; color: #888; margin-top: 2px;
-  }
+  .profile-sub { font-size: 11px; color: #888; margin-top: 2px; }
   .profile-stats {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
   }
@@ -197,7 +193,6 @@
   .profile-form input:focus { border-color: #6ea8ff; }
   .profile-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .profile-form .row input { margin-bottom: 8px; }
-
   .lock-box {
     margin-top: 20px; padding: 24px;
     border: 2px dashed #ffd700; border-radius: 12px;
@@ -223,7 +218,6 @@
     font-size: 11px; font-weight: 600;
     margin-bottom: 12px;
   }
-
   .admin-user {
     background: #1a1a24; border: 1px solid #26262e;
     border-radius: 12px; padding: 14px; margin-bottom: 10px;
@@ -285,11 +279,13 @@
   .admin-empty { text-align: center; color: #666; padding: 20px; font-size: 13px; }
   .note { text-align: center; color: #555; font-size: 11px; margin-top: 12px; }
   .signature {
-    text-align: center; margin-top: 16px; padding: 12px;
+    text-align: center; margin-top: 16px; padding: 16px 12px;
     font-size: 12px; color: #444;
-    border-top: 1px solid #1e1e26; letter-spacing: 2px;
+    border-top: 1px solid #1e1e26; letter-spacing: 1px;
+    line-height: 1.8;
   }
   .signature b { color: #6ea8ff; }
+  .signature .celebrate { color: #ffd700; font-size: 13px; font-weight: 600; }
   .hidden { display: none !important; }
   .loading { text-align: center; color: #6ea8ff; padding: 40px; font-size: 14px; }
   .divider { height: 1px; background: #26262e; margin: 16px 0; }
@@ -297,6 +293,54 @@
     font-size: 12px; color: #888;
     margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;
   }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999; padding: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .modal-box {
+    background: linear-gradient(135deg, #1e1e2e, #16161c);
+    border: 1px solid #6ea8ff;
+    border-radius: 18px;
+    padding: 24px;
+    max-width: 500px; width: 100%;
+    max-height: 85vh; overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(110,168,255,0.3);
+    animation: slideUp 0.4s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .modal-box h2 {
+    color: #6ea8ff; font-size: 20px;
+    text-align: center; margin-bottom: 8px;
+  }
+  .modal-box .sub {
+    color: #4ade80; font-size: 13px;
+    text-align: center; margin-bottom: 18px; font-weight: 600;
+  }
+  .modal-box .step {
+    background: #0d0d12; border-radius: 10px;
+    padding: 10px 14px; margin-bottom: 8px;
+    font-size: 13px; color: #ccc; line-height: 1.5;
+    border-left: 3px solid #6ea8ff;
+  }
+  .modal-box .step b { color: #ffd700; }
+  .modal-btn {
+    width: 100%; padding: 12px;
+    background: linear-gradient(90deg, #6ea8ff, #8bb9ff);
+    color: #0d0d12; border: none; border-radius: 10px;
+    font-size: 14px; font-weight: 700;
+    cursor: pointer; margin-top: 16px;
+    transition: 0.2s;
+  }
+  .modal-btn:hover { transform: scale(1.02); }
 </style>
 </head>
 <body>
@@ -364,10 +408,8 @@
         <div class="tab admin-tab hidden" data-tab="admin" id="adminTab">👑 Admin</div>
       </div>
 
-      <!-- TAB TỔNG QUAN -->
       <div id="tab-overview" class="tab-content">
 
-        <!-- THÔNG TIN KÊNH - CHỈ HIỆN KHI CÓ DATA -->
         <div id="profileSection" class="profile-section hidden">
           <div class="section-head">
             <span class="section-title">📱 Thông tin kênh TikTok</span>
@@ -375,7 +417,7 @@
           </div>
           <div id="profileDisplay"></div>
           <div id="profileForm" class="profile-form hidden">
-            <input type="text" id="pfUsername" placeholder="ID TikTok (VD: @ductri705)">
+            <input type="text" id="pfUsername" placeholder="ID TikTok" value="@ductri705">
             <input type="number" id="pfFollowers" placeholder="Số follower">
             <div class="row">
               <input type="number" id="pfLikes" placeholder="Tổng số tim">
@@ -442,7 +484,10 @@
       </div>
     </div>
 
-    <div class="signature">Tool by <b>ductri705</b></div>
+    <div class="signature">
+      <span class="celebrate">🎉 Chúc mừng bạn đã dùng tool! 🎉</span><br>
+      <span style="font-size:11px;color:#555">Tool by</span> <b>ductri705</b>
+    </div>
   </div>
 </div>
 
@@ -484,6 +529,7 @@ authSubmit.addEventListener('click', async () => {
       const { error } = await supabaseClient.auth.signUp({ email, password: pass });
       if (error) throw error;
       showMsg('Đăng ký thành công! Bạn được tặng 50 xu 🎁', 'ok');
+      setTimeout(() => showRegisterSuccess(), 800);
     } else {
       const { error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
       if (error) throw error;
@@ -555,6 +601,64 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   if (!session) document.getElementById('authScreen').classList.remove('hidden');
 })();
 
+/* ============ MODAL ĐĂNG KÝ THÀNH CÔNG ============ */
+function showRegisterSuccess() {
+  const old = document.getElementById('modalSuccess');
+  if (old) old.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'modalSuccess';
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `
+    <div class="modal-box">
+      <h2>🎉 Chúc mừng bạn!</h2>
+      <div class="sub">Bạn đã tạo tài khoản thành công</div>
+      <div style="color:#e8e8f0;font-size:13px;margin-bottom:14px;line-height:1.6">
+        Xin mời bạn xem hướng dẫn cách lấy file <b style="color:#6ea8ff">Overview.csv</b> từ TikTok Studio để tra giờ vàng:
+      </div>
+      <div class="step"><b>Bước 1:</b> Vào Safari hoặc Google</div>
+      <div class="step"><b>Bước 2:</b> Truy cập trang web TikTok Studio</div>
+      <div class="step"><b>Bước 3:</b> Đăng nhập tài khoản TikTok của bạn</div>
+      <div class="step"><b>Bước 4:</b> Nhấn vào dấu 3 chấm (…), tìm "TikTok Studio"</div>
+      <div class="step"><b>Bước 5:</b> Nhấp vào biểu tượng file có mũi tên đi lên (Tải xuống dữ liệu)</div>
+      <div class="step"><b>Bước 6:</b> Bấm chọn "365 ngày gần nhất", bấm nút "Tải về" bên cạnh → Giải nén file → Nhập vào tool</div>
+      <div style="color:#4ade80;font-size:13px;text-align:center;margin-top:16px;font-weight:600;line-height:1.7">
+        🎊 Chúc mừng bạn đã nhập thành công file!<br>
+        <span style="font-size:12px;color:#aaa;font-weight:400">Xin mời bạn tận hưởng quá trình xem giờ vàng của chúng tôi 🚀</span>
+      </div>
+      <button class="modal-btn" onclick="document.getElementById('modalSuccess').remove()">
+        Đã hiểu, bắt đầu thôi! 🚀
+      </button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+/* ============ MODAL UPLOAD THÀNH CÔNG ============ */
+function showUploadSuccess() {
+  const old = document.getElementById('modalUpload');
+  if (old) old.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'modalUpload';
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `
+    <div class="modal-box">
+      <h2>🎉 Chúc mừng bạn!</h2>
+      <div class="sub">Bạn đã nhập file thành công</div>
+      <div style="color:#e8e8f0;font-size:13px;text-align:center;line-height:1.8;margin:16px 0">
+        Dữ liệu của bạn đã được lưu lên cloud ☁️<br>
+        Xin mời bạn tận hưởng quá trình xem giờ vàng của chúng tôi!
+      </div>
+      <div style="color:#4ade80;font-size:24px;text-align:center;margin:20px 0">🚀</div>
+      <button class="modal-btn" onclick="document.getElementById('modalUpload').remove()">
+        Bắt đầu xem giờ vàng!
+      </button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
 /* ============ PROFILE ============ */
 function formatNumber(n) {
   n = Number(n) || 0;
@@ -563,7 +667,6 @@ function formatNumber(n) {
   return n.toString();
 }
 
-// Chỉ gọi khi rawData có dữ liệu (đã upload CSV)
 function renderProfile() {
   const section = document.getElementById('profileSection');
   const divider = document.getElementById('profileDivider');
@@ -573,14 +676,12 @@ function renderProfile() {
   const u = userProfile || {};
   const hasProfile = u.tiktok_username && u.tiktok_username.trim();
 
-  // Ẩn nếu chưa upload CSV
   if (!rawData.length) {
     section.classList.add('hidden');
     divider.classList.add('hidden');
     return;
   }
 
-  // Hiện section khi có data
   section.classList.remove('hidden');
   divider.classList.remove('hidden');
 
@@ -588,7 +689,6 @@ function renderProfile() {
   display.classList.remove('hidden');
 
   if (hasProfile) {
-    // Đã có thông tin → hiện bảng đẹp
     editBtn.classList.remove('hidden');
     const firstChar = u.tiktok_username.replace('@','').charAt(0).toUpperCase() || '?';
     display.innerHTML = `
@@ -615,7 +715,6 @@ function renderProfile() {
       </div>
     `;
   } else {
-    // Chưa có thông tin → hiện form nhập
     editBtn.classList.add('hidden');
     display.innerHTML = `
       <div style="color:#888;font-size:13px;margin-bottom:12px;text-align:center">
@@ -623,7 +722,7 @@ function renderProfile() {
       </div>
     `;
     form.classList.remove('hidden');
-    document.getElementById('pfUsername').value = '';
+    document.getElementById('pfUsername').value = '@ductri705';
     document.getElementById('pfFollowers').value = '';
     document.getElementById('pfLikes').value = '';
     document.getElementById('pfFollowing').value = '';
@@ -635,18 +734,16 @@ document.getElementById('profileEditBtn').addEventListener('click', () => {
   document.getElementById('profileDisplay').classList.add('hidden');
   document.getElementById('profileEditBtn').classList.add('hidden');
   document.getElementById('profileForm').classList.remove('hidden');
-  document.getElementById('pfUsername').value = u.tiktok_username || '';
+  document.getElementById('pfUsername').value = u.tiktok_username || '@ductri705';
   document.getElementById('pfFollowers').value = u.tiktok_followers || '';
   document.getElementById('pfLikes').value = u.tiktok_likes || '';
   document.getElementById('pfFollowing').value = u.tiktok_following || '';
 });
 
 document.getElementById('pfCancel').addEventListener('click', () => {
-  // Nếu đã có thông tin → quay về bảng hiển thị
   if (userProfile && userProfile.tiktok_username) {
     renderProfile();
   } else {
-    // Nếu chưa có → chỉ ẩn form
     document.getElementById('profileForm').classList.add('hidden');
     document.getElementById('profileDisplay').classList.remove('hidden');
   }
@@ -913,7 +1010,7 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
     await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
     rawData = [];
     renderAll();
-    renderProfile(); // ẩn profile vì hết data
+    renderProfile();
     if (userProfile && userProfile.golden_unlocked) renderGoldenAnalysis();
     showUploadStatus('🗑️ Đã xóa', '#ff6e9c');
   } catch (e) {
@@ -936,8 +1033,9 @@ document.getElementById('csvInput').addEventListener('change', e => {
       parseCSV(ev.target.result);
       showUploadStatus('✅ Đã tải ' + rawData.length + ' dòng', '#4ade80');
       renderAll();
-      renderProfile(); // ← Hiện profile sau khi upload
+      renderProfile();
       await saveDataToCloud();
+      showUploadSuccess();
     } catch (err) {
       showUploadStatus('❌ Lỗi: ' + err.message, '#ff6e9c');
     }
