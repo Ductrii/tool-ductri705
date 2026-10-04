@@ -8,34 +8,15 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    min-height: 100vh;
-    background: radial-gradient(circle at top, #1a1a2e 0%, #0d0d12 70%);
-    color: #e8e8f0;
-    font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
-    padding: 20px;
-    display: flex; flex-direction: column; align-items: center;
-  }
+  body { min-height: 100vh; background: radial-gradient(circle at top, #1a1a2e 0%, #0d0d12 70%); color: #e8e8f0; font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; }
   .wrap { width: 100%; max-width: 760px; }
   header { text-align: center; margin-bottom: 20px; }
   header h1 { font-size: 20px; font-weight: 600; color: #6ea8ff; letter-spacing: 2px; }
   header p { font-size: 12px; color: #666; margin-top: 4px; }
-  .card {
-    background: #16161c; border: 1px solid #26262e;
-    border-radius: 16px; padding: 20px; margin-bottom: 14px;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.3);
-  }
-  #authScreen input {
-    width: 100%; padding: 12px 14px; margin-bottom: 10px;
-    background: #1a1a24; border: 1px solid #2a2a34;
-    border-radius: 10px; color: #e8e8f0; font-size: 14px; outline: none;
-  }
+  .card { background: #16161c; border: 1px solid #26262e; border-radius: 16px; padding: 20px; margin-bottom: 14px; box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
+  #authScreen input { width: 100%; padding: 12px 14px; margin-bottom: 10px; background: #1a1a24; border: 1px solid #2a2a34; border-radius: 10px; color: #e8e8f0; font-size: 14px; outline: none; }
   #authScreen input:focus { border-color: #6ea8ff; }
-  .btn {
-    width: 100%; padding: 12px; background: #6ea8ff; color: #0d0d12;
-    border: none; border-radius: 10px; font-size: 14px; font-weight: 600;
-    cursor: pointer; transition: 0.2s;
-  }
+  .btn { width: 100%; padding: 12px; background: #6ea8ff; color: #0d0d12; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; }
   .btn:hover { background: #8bb9ff; }
   .btn:disabled { opacity: 0.5; cursor: wait; }
   .btn-sec { background: transparent; border: 1px solid #3a3a44; color: #aaa; margin-top: 8px; }
@@ -44,159 +25,69 @@
   .auth-msg { font-size: 12px; text-align: center; margin-top: 8px; min-height: 16px; }
   .auth-msg.err { color: #ff6e9c; }
   .auth-msg.ok { color: #4ade80; }
-  .user-bar {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 14px; padding: 10px 14px;
-    background: #16161c; border: 1px solid #26262e;
-    border-radius: 12px; font-size: 13px; gap: 8px; flex-wrap: wrap;
-  }
+  .user-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding: 10px 14px; background: #16161c; border: 1px solid #26262e; border-radius: 12px; font-size: 13px; gap: 8px; flex-wrap: wrap; }
   .user-bar b { color: #6ea8ff; }
   .user-bar .credits { color: #ffd700; font-weight: 600; }
-  .logout {
-    background: transparent; border: 1px solid #3a3a44; color: #aaa;
-    padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer;
-  }
+  .user-bar .credits.infinity { color: #ffd700; text-shadow: 0 0 12px rgba(255,215,0,0.6); }
+  .logout { background: transparent; border: 1px solid #3a3a44; color: #aaa; padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
   .logout:hover { color: #ff6e9c; border-color: #ff6e9c; }
-  .clock-time {
-    font-size: clamp(40px, 11vw, 68px); font-weight: 200; text-align: center;
-    font-variant-numeric: tabular-nums; color: #6ea8ff;
-    text-shadow: 0 0 24px rgba(110,168,255,0.45); letter-spacing: 3px;
-  }
+  .clock-time { font-size: clamp(40px, 11vw, 68px); font-weight: 200; text-align: center; font-variant-numeric: tabular-nums; color: #6ea8ff; text-shadow: 0 0 24px rgba(110,168,255,0.45); letter-spacing: 3px; }
   .clock-sec { font-size: clamp(18px, 4vw, 24px); color: #ff6e9c; }
   .clock-date { text-align: center; margin-top: 8px; color: #9a9aa0; font-size: 14px; }
   .clock-zone { text-align: center; margin-top: 4px; color: #555; font-size: 11px; }
-  .golden {
-    margin-top: 16px; padding: 14px; border-radius: 12px;
-    background: #1a1a24; border-left: 3px solid #6ea8ff;
-    font-size: 13px; line-height: 1.6; text-align: center;
-  }
-  .golden.active {
-    background: linear-gradient(90deg, #1e2a1e, #1a1a24);
-    border-left-color: #4ade80;
-  }
+  .golden { margin-top: 16px; padding: 14px; border-radius: 12px; background: #1a1a24; border-left: 3px solid #6ea8ff; font-size: 13px; line-height: 1.6; text-align: center; }
+  .golden.active { background: linear-gradient(90deg, #1e2a1e, #1a1a24); border-left-color: #4ade80; }
   .golden strong { color: #6ea8ff; }
   .golden.active strong { color: #4ade80; }
-  .countdown {
-    font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums;
-    color: #ffd700; margin-top: 6px; letter-spacing: 2px;
-  }
-  .upload-zone {
-    border: 2px dashed #3a3a44; border-radius: 12px; padding: 24px;
-    text-align: center; cursor: pointer; transition: 0.2s;
-  }
+  .countdown { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; color: #ffd700; margin-top: 6px; letter-spacing: 2px; }
+  .upload-zone { border: 2px dashed #3a3a44; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: 0.2s; }
   .upload-zone:hover { border-color: #6ea8ff; background: #1a1a24; }
   .upload-zone input { display: none; }
   .upload-zone .icon { font-size: 32px; margin-bottom: 8px; }
   .upload-zone .txt { font-size: 13px; color: #888; }
   .upload-zone .txt b { color: #6ea8ff; }
   .tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
-  .tab {
-    flex: 1; min-width: 100px; padding: 10px; text-align: center;
-    background: #1a1a24; border: 1px solid #26262e;
-    border-radius: 10px; font-size: 12px; color: #888;
-    cursor: pointer; user-select: none; transition: 0.2s;
-  }
+  .tab { flex: 1; min-width: 100px; padding: 10px; text-align: center; background: #1a1a24; border: 1px solid #26262e; border-radius: 10px; font-size: 12px; color: #888; cursor: pointer; user-select: none; transition: 0.2s; }
   .tab.active { background: #26263a; color: #6ea8ff; border-color: #6ea8ff; }
   .tab.admin-tab.active { background: #3a2a10; color: #ffd700; border-color: #ffd700; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
   .stat { background: #1a1a24; border-radius: 10px; padding: 12px; text-align: center; }
   .stat .num { font-size: 20px; font-weight: 600; color: #6ea8ff; font-variant-numeric: tabular-nums; }
   .stat .lbl { font-size: 10px; color: #777; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
-  .top-item {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 12px; background: #1a1a24; border-radius: 8px;
-    margin-bottom: 6px; font-size: 13px;
-  }
+  .top-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #1a1a24; border-radius: 8px; margin-bottom: 6px; font-size: 13px; }
   .top-item .date { color: #aaa; }
   .top-item .val { color: #6ea8ff; font-weight: 600; font-variant-numeric: tabular-nums; }
   .top-item.rank-1 { border-left: 3px solid #ffd700; }
   .top-item.rank-2 { border-left: 3px solid #c0c0c0; }
   .top-item.rank-3 { border-left: 3px solid #cd7f32; }
   .chart-box { position: relative; height: 300px; }
-  .hour-row {
-    display: flex; justify-content: space-between;
-    padding: 12px 14px; background: #1a1a24;
-    border-radius: 10px; margin-bottom: 8px; font-size: 13px;
-    border-left: 3px solid #3a3a44;
-  }
+  .hour-row { display: flex; justify-content: space-between; padding: 12px 14px; background: #1a1a24; border-radius: 10px; margin-bottom: 8px; font-size: 13px; border-left: 3px solid #3a3a44; }
   .hour-row.hot { border-left-color: #4ade80; }
   .hour-row .time { color: #6ea8ff; font-weight: 600; }
   .hour-row .desc { color: #aaa; font-size: 12px; }
-  .strategy-item {
-    padding: 10px 12px; background: #0d0d12;
-    border-radius: 8px; margin-bottom: 6px;
-    font-size: 12px; color: #ccc; line-height: 1.6;
-    border-left: 3px solid #4ade80;
-  }
-  .lock-box {
-    margin-top: 20px; padding: 24px;
-    border: 2px dashed #ffd700; border-radius: 12px;
-    background: linear-gradient(135deg, #2a2010, #1a1a24);
-    text-align: center;
-  }
+  .strategy-item { padding: 10px 12px; background: #0d0d12; border-radius: 8px; margin-bottom: 6px; font-size: 12px; color: #ccc; line-height: 1.6; border-left: 3px solid #4ade80; }
+  .lock-box { margin-top: 20px; padding: 24px; border: 2px dashed #ffd700; border-radius: 12px; background: linear-gradient(135deg, #2a2010, #1a1a24); text-align: center; }
   .lock-box .icon { font-size: 40px; margin-bottom: 10px; }
   .lock-box .title { color: #ffd700; font-weight: 600; font-size: 15px; margin-bottom: 8px; }
   .lock-box .desc { color: #aaa; font-size: 12px; margin-bottom: 16px; line-height: 1.7; }
-  .unlock-btn {
-    width: 100%; padding: 12px;
-    background: linear-gradient(90deg, #ffd700, #ffae00);
-    color: #0d0d12; border: none; border-radius: 10px;
-    font-size: 14px; font-weight: 700; cursor: pointer;
-    transition: 0.2s;
-  }
+  .unlock-btn { width: 100%; padding: 12px; background: linear-gradient(90deg, #ffd700, #ffae00); color: #0d0d12; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s; }
   .unlock-btn:hover { transform: scale(1.02); }
   .unlock-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-  .unlocked-badge {
-    display: inline-block; padding: 4px 10px;
-    background: #1e2a1e; color: #4ade80;
-    border: 1px solid #4ade80; border-radius: 8px;
-    font-size: 11px; font-weight: 600;
-    margin-bottom: 12px;
-  }
-  .admin-badge {
-    display: inline-block; padding: 4px 10px;
-    background: #3a2a10; color: #ffd700;
-    border: 1px solid #ffd700; border-radius: 8px;
-    font-size: 11px; font-weight: 600;
-    margin-bottom: 12px; margin-left: 6px;
-  }
-  .admin-user {
-    background: #1a1a24; border: 1px solid #26262e;
-    border-radius: 12px; padding: 14px; margin-bottom: 10px;
-  }
+  .unlocked-badge { display: inline-block; padding: 4px 10px; background: #1e2a1e; color: #4ade80; border: 1px solid #4ade80; border-radius: 8px; font-size: 11px; font-weight: 600; margin-bottom: 12px; }
+  .admin-badge { display: inline-block; padding: 4px 10px; background: #3a2a10; color: #ffd700; border: 1px solid #ffd700; border-radius: 8px; font-size: 11px; font-weight: 600; margin-bottom: 12px; margin-left: 6px; }
+  .admin-user { background: #1a1a24; border: 1px solid #26262e; border-radius: 12px; padding: 14px; margin-bottom: 10px; }
   .admin-user.banned { border-color: #ff6e9c; background: #2a1a1e; }
-  .admin-user .head {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 8px; gap: 8px; flex-wrap: wrap;
-  }
-  .admin-user .email {
-    font-size: 13px; color: #e8e8f0; font-weight: 600;
-    word-break: break-all; flex: 1; min-width: 150px;
-  }
-  .admin-user .badge {
-    font-size: 10px; padding: 3px 8px; border-radius: 6px;
-    background: #26263a; color: #aaa; text-transform: uppercase;
-  }
+  .admin-user.is-admin-user { border-color: #ffd700; }
+  .admin-user .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 8px; flex-wrap: wrap; }
+  .admin-user .email { font-size: 13px; color: #e8e8f0; font-weight: 600; word-break: break-all; flex: 1; min-width: 150px; }
+  .admin-user .badge { font-size: 10px; padding: 3px 8px; border-radius: 6px; background: #26263a; color: #aaa; text-transform: uppercase; }
   .admin-user .badge.banned { background: #ff6e9c; color: #0d0d12; }
   .admin-user .badge.admin { background: #ffd700; color: #0d0d12; }
   .admin-user .badge.vip { background: #4ade80; color: #0d0d12; }
-  .admin-user .info {
-    font-size: 11px; color: #777; margin-bottom: 10px;
-    font-variant-numeric: tabular-nums;
-  }
-  .admin-user .credits-line {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 13px; color: #ffd700; font-weight: 600;
-    margin-bottom: 10px;
-  }
+  .admin-user .info { font-size: 11px; color: #777; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+  .admin-user .credits-line { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #ffd700; font-weight: 600; margin-bottom: 10px; }
   .admin-user .actions { display: flex; gap: 6px; flex-wrap: wrap; }
-  .admin-btn {
-    flex: 1; min-width: 70px;
-    padding: 8px 10px; border-radius: 8px;
-    border: 1px solid #3a3a44; background: transparent;
-    color: #aaa; font-size: 11px; cursor: pointer;
-    font-weight: 600; transition: 0.2s;
-  }
+  .admin-btn { flex: 1; min-width: 70px; padding: 8px 10px; border-radius: 8px; border: 1px solid #3a3a44; background: transparent; color: #aaa; font-size: 11px; cursor: pointer; font-weight: 600; transition: 0.2s; }
   .admin-btn:hover { background: #26263a; color: #e8e8f0; }
   .admin-btn.ban { border-color: #ff6e9c; color: #ff6e9c; }
   .admin-btn.ban:hover { background: #2a1a1e; }
@@ -206,82 +97,39 @@
   .admin-btn.credit:hover { background: #3a2a10; }
   .admin-btn.reset { border-color: #6ea8ff; color: #6ea8ff; }
   .admin-btn.reset:hover { background: #1a2a3e; }
-  .admin-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 14px;
-  }
+  .admin-btn.promote { border-color: #ffd700; color: #ffd700; background: linear-gradient(90deg, transparent, #3a2a10); }
+  .admin-btn.promote:hover { background: #3a2a10; color: #fff; }
+  .admin-btn.demote { border-color: #ff6e9c; color: #ff6e9c; }
+  .admin-btn.demote:hover { background: #2a1a1e; }
+  .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
   .admin-title { color: #ffd700; font-weight: 600; font-size: 15px; }
-  .admin-refresh {
-    background: transparent; border: 1px solid #3a3a44;
-    color: #aaa; padding: 6px 12px; border-radius: 8px;
-    font-size: 12px; cursor: pointer;
-  }
+  .admin-refresh { background: transparent; border: 1px solid #3a3a44; color: #aaa; padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
   .admin-refresh:hover { color: #6ea8ff; border-color: #6ea8ff; }
   .admin-loading { text-align: center; color: #6ea8ff; padding: 20px; font-size: 13px; }
   .admin-empty { text-align: center; color: #666; padding: 20px; font-size: 13px; }
+  .admin-info-box { padding: 12px; background: #1a2a3e; border: 1px solid #6ea8ff; border-radius: 10px; margin-bottom: 14px; font-size: 12px; color: #aaa; line-height: 1.6; }
+  .admin-info-box b { color: #6ea8ff; }
   .note { text-align: center; color: #555; font-size: 11px; margin-top: 12px; }
-  .signature {
-    text-align: center; margin-top: 16px; padding: 20px 12px;
-    font-size: 12px; color: #444;
-    border-top: 1px solid #1e1e26; letter-spacing: 1px;
-    line-height: 2;
-  }
+  .signature { text-align: center; margin-top: 16px; padding: 20px 12px; font-size: 12px; color: #444; border-top: 1px solid #1e1e26; letter-spacing: 1px; line-height: 2; }
   .signature b { color: #6ea8ff; }
   .signature .celebrate { color: #ffd700; font-size: 13px; font-weight: 600; }
   .signature .link { color: #aaa; }
   .signature .value { color: #6ea8ff; font-weight: 600; }
   .hidden { display: none !important; }
   .loading { text-align: center; color: #6ea8ff; padding: 40px; font-size: 14px; }
-  .section-title-sm {
-    font-size: 12px; color: #888;
-    margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;
-  }
-  .modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.85);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 9999; padding: 20px;
-    animation: fadeIn 0.3s ease;
-  }
+  .section-title-sm { font-size: 12px; color: #888; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 20px; animation: fadeIn 0.3s ease; }
   @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-  .modal-box {
-    background: linear-gradient(135deg, #1e1e2e, #16161c);
-    border: 1px solid #6ea8ff;
-    border-radius: 18px;
-    padding: 24px;
-    max-width: 500px; width: 100%;
-    max-height: 85vh; overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(110,168,255,0.3);
-    animation: slideUp 0.4s ease;
-  }
-  @keyframes slideUp {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-  .modal-box h2 {
-    color: #6ea8ff; font-size: 20px;
-    text-align: center; margin-bottom: 8px;
-  }
-  .modal-box .sub {
-    color: #4ade80; font-size: 13px;
-    text-align: center; margin-bottom: 18px; font-weight: 600;
-  }
-  .modal-box .step {
-    background: #0d0d12; border-radius: 10px;
-    padding: 10px 14px; margin-bottom: 8px;
-    font-size: 13px; color: #ccc; line-height: 1.5;
-    border-left: 3px solid #6ea8ff;
-  }
+  .modal-box { background: linear-gradient(135deg, #1e1e2e, #16161c); border: 1px solid #6ea8ff; border-radius: 18px; padding: 24px; max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(110,168,255,0.3); animation: slideUp 0.4s ease; }
+  @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-box h2 { color: #6ea8ff; font-size: 20px; text-align: center; margin-bottom: 8px; }
+  .modal-box .sub { color: #4ade80; font-size: 13px; text-align: center; margin-bottom: 18px; font-weight: 600; }
+  .modal-box .step { background: #0d0d12; border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; font-size: 13px; color: #ccc; line-height: 1.5; border-left: 3px solid #6ea8ff; }
   .modal-box .step b { color: #ffd700; }
-  .modal-btn {
-    width: 100%; padding: 12px;
-    background: linear-gradient(90deg, #6ea8ff, #8bb9ff);
-    color: #0d0d12; border: none; border-radius: 10px;
-    font-size: 14px; font-weight: 700;
-    cursor: pointer; margin-top: 16px;
-    transition: 0.2s;
-  }
+  .modal-btn { width: 100%; padding: 12px; background: linear-gradient(90deg, #6ea8ff, #8bb9ff); color: #0d0d12; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 16px; transition: 0.2s; }
   .modal-btn:hover { transform: scale(1.02); }
+  .daily-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #ffd700, #ffae00); color: #0d0d12; padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 700; text-align: center; box-shadow: 0 8px 30px rgba(255,215,0,0.5); z-index: 9998; max-width: 90vw; animation: slideDown 0.5s ease; }
+  @keyframes slideDown { from { transform: translate(-50%, -100px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
 </style>
 </head>
 <body>
@@ -292,9 +140,7 @@
     <p>Đồng hồ • Giờ vàng • Thống kê TikTok • Cloud</p>
   </header>
 
-  <div id="loadingScreen" class="card">
-    <div class="loading">⏳ Đang tải...</div>
-  </div>
+  <div id="loadingScreen" class="card"><div class="loading">⏳ Đang tải...</div></div>
 
   <div id="authScreen" class="card hidden">
     <div class="auth-title" id="authTitle">Đăng nhập</div>
@@ -303,22 +149,20 @@
     <button class="btn" id="authSubmit">Đăng nhập</button>
     <button class="btn btn-sec" id="authToggle">Chưa có tài khoản? Đăng ký</button>
     <div class="auth-msg" id="authMsg"></div>
-    <div class="note">🎁 Đăng ký mới nhận ngay 50 xu</div>
+    <div class="note">🎁 Đăng ký mới nhận ngay 50 xu · Mỗi ngày +10 xu</div>
   </div>
 
   <div id="app" class="hidden">
     <div class="user-bar">
       <span>
         Xin chào, <b id="userEmail">bạn</b> 👋
-        <span class="credits">💰 <span id="userCredits">0</span> xu</span>
+        <span class="credits" id="creditsBar">💰 <span id="userCredits">0</span> xu</span>
       </span>
       <button class="logout" id="logoutBtn">Đăng xuất</button>
     </div>
 
     <div class="card">
-      <div>
-        <span class="clock-time" id="time">--:--</span><span class="clock-sec" id="sec">--</span>
-      </div>
+      <div><span class="clock-time" id="time">--:--</span><span class="clock-sec" id="sec">--</span></div>
       <div class="clock-date" id="date">Đang tải...</div>
       <div class="clock-zone" id="zone"></div>
       <div class="golden" id="golden">
@@ -328,9 +172,7 @@
     </div>
 
     <div class="card">
-      <div style="font-size:13px;color:#888;margin-bottom:12px">
-        📤 Tải file <b style="color:#6ea8ff">Overview.csv</b> xuất từ TikTok Studio
-      </div>
+      <div style="font-size:13px;color:#888;margin-bottom:12px">📤 Tải file <b style="color:#6ea8ff">Overview.csv</b> xuất từ TikTok Studio</div>
       <label class="upload-zone" for="csvInput">
         <input type="file" id="csvInput" accept=".csv">
         <div class="icon">📄</div>
@@ -359,13 +201,8 @@
         </div>
       </div>
 
-      <div id="tab-chart" class="tab-content hidden">
-        <div class="chart-box"><canvas id="chart"></canvas></div>
-      </div>
-
-      <div id="tab-top" class="tab-content hidden">
-        <div id="top-list"></div>
-      </div>
+      <div id="tab-chart" class="tab-content hidden"><div class="chart-box"><canvas id="chart"></canvas></div></div>
+      <div id="tab-top" class="tab-content hidden"><div id="top-list"></div></div>
 
       <div id="tab-hour" class="tab-content hidden">
         <div style="color:#ffd700;font-weight:600;font-size:14px;margin-bottom:12px">⏰ Khung giờ vàng chung</div>
@@ -377,12 +214,7 @@
         <div id="goldenLocked" class="lock-box">
           <div class="icon">🔒</div>
           <div class="title">PHÂN TÍCH TỪ DATA KÊNH BẠN</div>
-          <div class="desc">
-            Mở khóa để xem:<br>
-            • Tỷ lệ tương tác like/view, share/view, comment/view<br>
-            • Top 3 ngày viral của kênh<br>
-            • Chiến lược đăng bài đề xuất
-          </div>
+          <div class="desc">Mở khóa để xem:<br>• Tỷ lệ tương tác like/view, share/view, comment/view<br>• Top 3 ngày viral của kênh<br>• Chiến lược đăng bài đề xuất</div>
           <button class="unlock-btn" id="goldenUnlockBtn">🔓 Mở khóa — 5 xu</button>
         </div>
 
@@ -400,6 +232,10 @@
         <div class="admin-header">
           <div class="admin-title">👑 Quản lý User</div>
           <button class="admin-refresh" id="adminRefresh">🔄 Tải lại</button>
+        </div>
+        <div class="admin-info-box">
+          💡 <b>Promote lên Admin:</b> tốn <b>5000 xu</b> từ tài khoản admin hiện tại. User được promote sẽ có <b>vô cực xu</b>.<br>
+          💡 <b>Mỗi ngày:</b> user được cộng <b>+10 xu</b> khi đăng nhập.
         </div>
         <div id="adminList"></div>
       </div>
@@ -419,6 +255,9 @@ const SUPABASE_URL = "https://wkddmlxhqyvhxznycpgs.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGRtbHhocXl2aHh6bnljcGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODYzMzIsImV4cCI6MjEwNjY2MjMzMn0.ugXSLH3OhjAgLr6MzvYRviXztU_6oAviqvbj71keyK8";
 const ADMIN_EMAIL = "duc116642@gmail.com";
 const GOLDEN_COST = 5;
+const PROMOTE_COST = 5000;
+const DAILY_BONUS = 10;
+const DAILY_INTERVAL_MS = 24 * 60 * 60 * 1000;
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -426,6 +265,16 @@ let currentUser = null;
 let rawData = [];
 let chartInstance = null;
 let userProfile = null;
+
+function isCurrentAdmin() {
+  if (!userProfile && !currentUser) return false;
+  return (userProfile && userProfile.is_admin === true) || (currentUser && currentUser.email === ADMIN_EMAIL);
+}
+
+function formatCredits(n) {
+  if (isCurrentAdmin()) return '∞';
+  return Number(n || 0).toLocaleString('vi-VN');
+}
 
 let isRegister = false;
 const authTitle = document.getElementById('authTitle');
@@ -472,13 +321,10 @@ function showMsg(text, type) {
   authMsg.className = 'auth-msg ' + (type || '');
 }
 
-/* ============ ĐĂNG XUẤT - TỰ ĐỘNG XÓA DATA ============ */
 document.getElementById('logoutBtn').addEventListener('click', async () => {
   if (!confirm('Đăng xuất sẽ xóa dữ liệu CSV đã lưu của bạn. Tiếp tục?')) return;
   if (currentUser) {
-    try {
-      await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
-    } catch (e) { console.error('Lỗi xóa data:', e); }
+    try { await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id); } catch (e) {}
   }
   rawData = [];
   userProfile = null;
@@ -486,10 +332,8 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
   await supabaseClient.auth.signOut();
 });
 
-/* ============ AUTH STATE ============ */
 supabaseClient.auth.onAuthStateChange(async (event, session) => {
   document.getElementById('loadingScreen').classList.add('hidden');
-
   rawData = [];
   if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
   renderAll();
@@ -509,14 +353,21 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
       return;
     }
 
-    userProfile = profile || { credits: 0, golden_unlocked: false };
-    document.getElementById('userCredits').textContent = userProfile.credits || 0;
+    userProfile = profile || { credits: 0, golden_unlocked: false, is_admin: false };
 
+    // Admin gốc luôn được set is_admin = true
+    if (session.user.email === ADMIN_EMAIL && !userProfile.is_admin) {
+      userProfile.is_admin = true;
+      await supabaseClient.from('profiles').update({ is_admin: true }).eq('id', session.user.id);
+    }
+
+    // Daily bonus
+    await applyDailyBonus();
+
+    updateCreditsDisplay();
     document.getElementById('authScreen').classList.add('hidden');
     document.getElementById('app').classList.remove('hidden');
-
-    const isAdmin = (session.user.email === ADMIN_EMAIL);
-    document.getElementById('adminTab').classList.toggle('hidden', !isAdmin);
+    document.getElementById('adminTab').classList.toggle('hidden', !isCurrentAdmin());
 
     renderGolden();
     await loadDataFromCloud();
@@ -540,11 +391,57 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   if (!session) document.getElementById('authScreen').classList.remove('hidden');
 })();
 
-/* ============ MODAL ĐĂNG KÝ THÀNH CÔNG ============ */
+/* ============ DAILY BONUS ============ */
+async function applyDailyBonus() {
+  if (!currentUser || !userProfile) return;
+  const last = userProfile.last_daily_bonus ? new Date(userProfile.last_daily_bonus).getTime() : 0;
+  const now = Date.now();
+  if (now - last < DAILY_INTERVAL_MS) return;
+
+  const newCredits = (userProfile.credits || 0) + DAILY_BONUS;
+  const { error } = await supabaseClient.from('profiles').update({
+    credits: newCredits,
+    last_daily_bonus: new Date().toISOString()
+  }).eq('id', currentUser.id);
+
+  if (error) { console.error('Daily bonus error:', error); return; }
+  userProfile.credits = newCredits;
+  userProfile.last_daily_bonus = new Date().toISOString();
+
+  showDailyBonusToast();
+}
+
+function showDailyBonusToast() {
+  const old = document.getElementById('dailyToast');
+  if (old) old.remove();
+  const toast = document.createElement('div');
+  toast.id = 'dailyToast';
+  toast.className = 'daily-toast';
+  toast.innerHTML = `🎁 Điểm danh hàng ngày!<br><span style="font-size:12px">+${DAILY_BONUS} xu đã được cộng vào tài khoản</span>`;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.style.transition = 'opacity 0.5s';
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 500);
+  }, 4000);
+}
+
+function updateCreditsDisplay() {
+  const el = document.getElementById('userCredits');
+  const bar = document.getElementById('creditsBar');
+  if (isCurrentAdmin()) {
+    el.textContent = '∞';
+    bar.classList.add('infinity');
+  } else {
+    el.textContent = (userProfile?.credits || 0).toLocaleString('vi-VN');
+    bar.classList.remove('infinity');
+  }
+}
+
+/* ============ MODAL ĐĂNG KÝ ============ */
 function showRegisterSuccess() {
   const old = document.getElementById('modalSuccess');
   if (old) old.remove();
-
   const modal = document.createElement('div');
   modal.id = 'modalSuccess';
   modal.className = 'modal-overlay';
@@ -565,19 +462,14 @@ function showRegisterSuccess() {
         🎊 Chúc mừng bạn đã nhập thành công file!<br>
         <span style="font-size:12px;color:#aaa;font-weight:400">Xin mời bạn tận hưởng quá trình xem giờ vàng của chúng tôi 🚀</span>
       </div>
-      <button class="modal-btn" onclick="document.getElementById('modalSuccess').remove()">
-        Đã hiểu, bắt đầu thôi! 🚀
-      </button>
-    </div>
-  `;
+      <button class="modal-btn" onclick="document.getElementById('modalSuccess').remove()">Đã hiểu, bắt đầu thôi! 🚀</button>
+    </div>`;
   document.body.appendChild(modal);
 }
 
-/* ============ MODAL UPLOAD THÀNH CÔNG ============ */
 function showUploadSuccess() {
   const old = document.getElementById('modalUpload');
   if (old) old.remove();
-
   const modal = document.createElement('div');
   modal.id = 'modalUpload';
   modal.className = 'modal-overlay';
@@ -590,32 +482,24 @@ function showUploadSuccess() {
         Xin mời bạn tận hưởng quá trình xem giờ vàng của chúng tôi!
       </div>
       <div style="color:#4ade80;font-size:24px;text-align:center;margin:20px 0">🚀</div>
-      <button class="modal-btn" onclick="document.getElementById('modalUpload').remove()">
-        Bắt đầu xem giờ vàng!
-      </button>
-    </div>
-  `;
+      <button class="modal-btn" onclick="document.getElementById('modalUpload').remove()">Bắt đầu xem giờ vàng!</button>
+    </div>`;
   document.body.appendChild(modal);
 }
 
-/* ============ GOLDEN — ADMIN MIỄN PHÍ, USER TRẢ 5 XU ============ */
+/* ============ GOLDEN ============ */
 function renderGolden() {
   const locked = document.getElementById('goldenLocked');
   const unlocked = document.getElementById('goldenUnlocked');
   const adminBadge = document.getElementById('adminBadge');
   if (!userProfile) return;
 
-  // Kiểm tra admin
-  const isAdmin = currentUser && currentUser.email === ADMIN_EMAIL;
+  const isAdmin = isCurrentAdmin();
 
   if (isAdmin || userProfile.golden_unlocked) {
     locked.classList.add('hidden');
     unlocked.classList.remove('hidden');
-    if (isAdmin) {
-      adminBadge.classList.remove('hidden');
-    } else {
-      adminBadge.classList.add('hidden');
-    }
+    adminBadge.classList.toggle('hidden', !isAdmin);
     renderGoldenAnalysis();
   } else {
     locked.classList.remove('hidden');
@@ -637,18 +521,12 @@ document.getElementById('goldenUnlockBtn').addEventListener('click', async () =>
   if (!userProfile) return;
   if ((userProfile.credits || 0) < GOLDEN_COST) { alert('Không đủ xu!'); return; }
   if (!confirm(`Mở khóa phân tích giờ vàng? Tốn ${GOLDEN_COST} xu.`)) return;
-
   const newCredits = userProfile.credits - GOLDEN_COST;
-  const { error } = await supabaseClient.from('profiles').update({
-    credits: newCredits,
-    golden_unlocked: true
-  }).eq('id', currentUser.id);
-
+  const { error } = await supabaseClient.from('profiles').update({ credits: newCredits, golden_unlocked: true }).eq('id', currentUser.id);
   if (error) { alert('Lỗi: ' + error.message); return; }
-
   userProfile.credits = newCredits;
   userProfile.golden_unlocked = true;
-  document.getElementById('userCredits').textContent = newCredits;
+  updateCreditsDisplay();
   renderGolden();
 });
 
@@ -656,16 +534,13 @@ document.getElementById('goldenUnlockBtn').addEventListener('click', async () =>
 function renderGoldenAnalysis() {
   const box = document.getElementById('vipContent');
   if (!box) return;
-
   if (!rawData.length) {
     box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv để xem phân tích.</div>';
     return;
   }
-
   let totalViews = 0, totalLikes = 0, totalShares = 0, totalComments = 0;
   let maxViews = 0, maxDay = '';
   let bestEngagement = 0, bestEngagementDay = '';
-
   rawData.forEach(d => {
     const views = d[1], likes = d[2], comments = d[3], shares = d[4];
     totalViews += views; totalLikes += likes; totalComments += comments; totalShares += shares;
@@ -673,42 +548,22 @@ function renderGoldenAnalysis() {
     const engRate = views > 0 ? (likes + comments + shares) / views : 0;
     if (engRate > bestEngagement && views > 100) { bestEngagement = engRate; bestEngagementDay = d[0]; }
   });
-
   const likeRate = totalViews > 0 ? (totalLikes / totalViews * 100).toFixed(2) : 0;
   const shareRate = totalViews > 0 ? (totalShares / totalViews * 100).toFixed(3) : 0;
   const commentRate = totalViews > 0 ? (totalComments / totalViews * 100).toFixed(3) : 0;
-
   const top3 = [...rawData].sort((a, b) => b[1] - a[1]).slice(0, 3);
-
   let strategy = [];
   if (likeRate > 3) strategy.push(`✅ Tỷ lệ like/view cao (${likeRate}%) — nội dung được yêu thích.`);
   else if (likeRate < 1.5) strategy.push(`⚠️ Tỷ lệ like/view thấp (${likeRate}%) — thêm CTA "thả tim nếu hay".`);
-
   if (shareRate > 0.5) strategy.push(`🔥 Tỷ lệ share cao (${shareRate}%) — nội dung lan truyền tốt.`);
   else if (shareRate < 0.1) strategy.push(`💡 Tỷ lệ share thấp (${shareRate}%) — thử nội dung cảm xúc mạnh.`);
-
   strategy.push(`🎯 Ngày viral nhất: <b>${maxDay}</b> (${maxViews.toLocaleString('vi-VN')} view).`);
   strategy.push(`📊 Ngày tương tác tốt nhất: <b>${bestEngagementDay}</b> (${(bestEngagement*100).toFixed(2)}%).`);
-
   box.innerHTML = `
-    <div class="strategy-item">
-      📈 <b>Tỷ lệ tương tác:</b><br>
-      • Like/View: <b>${likeRate}%</b><br>
-      • Share/View: <b>${shareRate}%</b><br>
-      • Comment/View: <b>${commentRate}%</b>
-    </div>
-    <div class="strategy-item">
-      🏆 <b>Top 3 ngày viral:</b><br>
-      ${top3.map((d, i) => `${i+1}. ${d[0]} — ${d[1].toLocaleString('vi-VN')} view`).join('<br>')}
-    </div>
-    <div class="strategy-item">
-      💡 <b>Chiến lược đề xuất:</b><br>
-      ${strategy.map(s => '• ' + s).join('<br><br>')}
-    </div>
-    <div class="strategy-item">
-      ⏰ <b>Giờ vàng tối ưu:</b> ưu tiên <b>19:00–21:00</b> và <b>11:00–13:00</b>.
-    </div>
-  `;
+    <div class="strategy-item">📈 <b>Tỷ lệ tương tác:</b><br>• Like/View: <b>${likeRate}%</b><br>• Share/View: <b>${shareRate}%</b><br>• Comment/View: <b>${commentRate}%</b></div>
+    <div class="strategy-item">🏆 <b>Top 3 ngày viral:</b><br>${top3.map((d, i) => `${i+1}. ${d[0]} — ${d[1].toLocaleString('vi-VN')} view`).join('<br>')}</div>
+    <div class="strategy-item">💡 <b>Chiến lược đề xuất:</b><br>${strategy.map(s => '• ' + s).join('<br><br>')}</div>
+    <div class="strategy-item">⏰ <b>Giờ vàng tối ưu:</b> ưu tiên <b>19:00–21:00</b> và <b>11:00–13:00</b>.</div>`;
 }
 
 /* ============ ADMIN ============ */
@@ -716,43 +571,46 @@ async function adminLoadUsers() {
   const box = document.getElementById('adminList');
   box.innerHTML = '<div class="admin-loading">⏳ Đang tải...</div>';
   try {
-    const { data, error } = await supabaseClient
-      .from('profiles').select('*')
-      .order('created_at', { ascending: false });
+    const { data, error } = await supabaseClient.from('profiles').select('*').order('created_at', { ascending: false });
     if (error) throw error;
-
-    if (!data || !data.length) {
-      box.innerHTML = '<div class="admin-empty">Chưa có user nào</div>';
-      return;
-    }
+    if (!data || !data.length) { box.innerHTML = '<div class="admin-empty">Chưa có user nào</div>'; return; }
 
     box.innerHTML = data.map(u => {
       const isBanned = u.banned === true;
-      const isAdmin = u.email === ADMIN_EMAIL;
+      const isAdminUser = u.is_admin === true || u.email === ADMIN_EMAIL;
       const isGolden = u.golden_unlocked === true;
       const created = u.created_at ? new Date(u.created_at).toLocaleDateString('vi-VN') : '-';
+      const creditsDisplay = isAdminUser ? '∞' : (u.credits || 0).toLocaleString('vi-VN');
+
+      let actionsHtml = '';
+      if (!isAdminUser) {
+        actionsHtml += `<button class="admin-btn promote" onclick="adminPromote('${u.id}')">👑 Lên Admin (${PROMOTE_COST} xu)</button>`;
+      } else if (u.email !== ADMIN_EMAIL) {
+        actionsHtml += `<button class="admin-btn demote" onclick="adminDemote('${u.id}')">⬇️ Hạ Admin</button>`;
+      }
+
+      actionsHtml += isBanned
+        ? `<button class="admin-btn unban" onclick="adminUnban('${u.id}')">✅ Mở khóa</button>`
+        : `<button class="admin-btn ban" onclick="adminBan('${u.id}')">🚫 Khóa</button>`;
+
+      actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 10)">+10 xu</button>`;
+      actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 50)">+50 xu</button>`;
+      actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -10)">-10 xu</button>`;
+
+      if (isGolden) actionsHtml += `<button class="admin-btn reset" onclick="adminResetGolden('${u.id}')">🔒 Khóa</button>`;
+
       return `
-        <div class="admin-user ${isBanned ? 'banned' : ''}">
+        <div class="admin-user ${isBanned ? 'banned' : ''} ${isAdminUser ? 'is-admin-user' : ''}">
           <div class="head">
             <span class="email">${u.email || 'unknown'}</span>
-            ${isAdmin ? '<span class="badge admin">ADMIN</span>' : ''}
+            ${isAdminUser ? '<span class="badge admin">ADMIN</span>' : ''}
             ${isGolden ? '<span class="badge vip">GOLDEN</span>' : ''}
             <span class="badge ${isBanned ? 'banned' : ''}">${isBanned ? 'ĐÃ KHÓA' : 'OK'}</span>
           </div>
           <div class="info">📅 ${created}</div>
-          <div class="credits-line">💰 <span id="cred-${u.id}">${u.credits || 0}</span> xu</div>
-          <div class="actions">
-            ${isBanned
-              ? `<button class="admin-btn unban" onclick="adminUnban('${u.id}')">✅ Mở khóa</button>`
-              : `<button class="admin-btn ban" onclick="adminBan('${u.id}')">🚫 Khóa</button>`
-            }
-            <button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 10)">+10 xu</button>
-            <button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 50)">+50 xu</button>
-            <button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -10)">-10 xu</button>
-            ${isGolden ? `<button class="admin-btn reset" onclick="adminResetGolden('${u.id}')">🔒 Khóa</button>` : ''}
-          </div>
-        </div>
-      `;
+          <div class="credits-line">💰 <span id="cred-${u.id}">${creditsDisplay}</span> xu</div>
+          <div class="actions">${actionsHtml}</div>
+        </div>`;
     }).join('');
   } catch (e) {
     box.innerHTML = '<div class="admin-empty" style="color:#ff6e9c">❌ Lỗi: ' + e.message + '</div>';
@@ -769,31 +627,59 @@ async function adminUnban(userId) {
   adminLoadUsers();
 }
 async function adminAddCredit(userId, amount) {
-  const { data } = await supabaseClient.from('profiles').select('credits').eq('id', userId).single();
+  const { data } = await supabaseClient.from('profiles').select('credits, email, is_admin').eq('id', userId).single();
+  const isTargetAdmin = data?.is_admin === true || data?.email === ADMIN_EMAIL;
+  if (isTargetAdmin) { alert('Admin có vô cực xu, không cần cộng/trừ!'); return; }
   const current = data?.credits || 0;
   const newVal = Math.max(0, current + amount);
   await supabaseClient.from('profiles').update({ credits: newVal }).eq('id', userId);
   const el = document.getElementById('cred-' + userId);
-  if (el) el.textContent = newVal;
-  if (currentUser && currentUser.id === userId) {
-    document.getElementById('userCredits').textContent = newVal;
-    if (userProfile) userProfile.credits = newVal;
-    renderGolden();
-  }
+  if (el) el.textContent = newVal.toLocaleString('vi-VN');
 }
 async function adminResetGolden(userId) {
   if (!confirm('Khóa lại phần phân tích?')) return;
   await supabaseClient.from('profiles').update({ golden_unlocked: false }).eq('id', userId);
-  if (currentUser && currentUser.id === userId && userProfile) {
-    userProfile.golden_unlocked = false;
-    renderGolden();
-  }
   adminLoadUsers();
 }
+
+async function adminPromote(userId) {
+  // Kiểm tra xu admin hiện tại (admin có ∞ nên luôn đủ)
+  const currentCredits = isCurrentAdmin() ? Infinity : (userProfile?.credits || 0);
+  if (currentCredits < PROMOTE_COST) {
+    alert(`Cần ${PROMOTE_COST.toLocaleString('vi-VN')} xu để promote. Bạn có ${currentCredits.toLocaleString('vi-VN')} xu.`);
+    return;
+  }
+  if (!confirm(`Promote user này lên Admin?\nTốn ${PROMOTE_COST.toLocaleString('vi-VN')} xu từ tài khoản của bạn.\n\nAdmin mới sẽ có vô cực xu.`)) return;
+
+  // Trừ xu của admin hiện tại (admin ∞ thì bỏ qua)
+  if (!isCurrentAdmin() && currentUser) {
+    const newCredits = currentCredits - PROMOTE_COST;
+    await supabaseClient.from('profiles').update({ credits: newCredits }).eq('id', currentUser.id);
+    userProfile.credits = newCredits;
+    updateCreditsDisplay();
+  }
+
+  // Set is_admin = true cho target
+  const { error } = await supabaseClient.from('profiles').update({ is_admin: true }).eq('id', userId);
+  if (error) { alert('Lỗi: ' + error.message); return; }
+
+  alert('✅ Đã promote lên Admin!');
+  adminLoadUsers();
+}
+
+async function adminDemote(userId) {
+  if (!confirm('Hạ user này xuống user thường? Họ sẽ không còn vô cực xu.')) return;
+  const { error } = await supabaseClient.from('profiles').update({ is_admin: false }).eq('id', userId);
+  if (error) { alert('Lỗi: ' + error.message); return; }
+  adminLoadUsers();
+}
+
 window.adminBan = adminBan;
 window.adminUnban = adminUnban;
 window.adminAddCredit = adminAddCredit;
 window.adminResetGolden = adminResetGolden;
+window.adminPromote = adminPromote;
+window.adminDemote = adminDemote;
 
 document.getElementById('adminRefresh').addEventListener('click', adminLoadUsers);
 
@@ -802,14 +688,10 @@ async function saveDataToCloud() {
   if (!currentUser) return;
   try {
     await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
-    const { error } = await supabaseClient.from('user_data').insert({
-      user_id: currentUser.id, rows: rawData, updated_at: new Date().toISOString()
-    });
+    const { error } = await supabaseClient.from('user_data').insert({ user_id: currentUser.id, rows: rawData, updated_at: new Date().toISOString() });
     if (error) throw error;
     showUploadStatus('☁️ Đã lưu lên cloud', '#4ade80');
-    if (userProfile && (userProfile.golden_unlocked || (currentUser && currentUser.email === ADMIN_EMAIL))) {
-      renderGoldenAnalysis();
-    }
+    if (userProfile && (userProfile.golden_unlocked || isCurrentAdmin())) renderGoldenAnalysis();
   } catch (e) {
     showUploadStatus('❌ Lỗi lưu cloud: ' + e.message, '#ff6e9c');
   }
@@ -818,10 +700,7 @@ async function saveDataToCloud() {
 async function loadDataFromCloud() {
   if (!currentUser) return;
   try {
-    const { data, error } = await supabaseClient
-      .from('user_data').select('rows')
-      .eq('user_id', currentUser.id)
-      .order('updated_at', { ascending: false }).limit(1);
+    const { data, error } = await supabaseClient.from('user_data').select('rows').eq('user_id', currentUser.id).order('updated_at', { ascending: false }).limit(1);
     if (error) throw error;
     if (data && data.length && data[0].rows) {
       rawData = data[0].rows;
@@ -837,9 +716,7 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
     await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
     rawData = [];
     renderAll();
-    if (userProfile && (userProfile.golden_unlocked || (currentUser && currentUser.email === ADMIN_EMAIL))) {
-      renderGoldenAnalysis();
-    }
+    if (userProfile && (userProfile.golden_unlocked || isCurrentAdmin())) renderGoldenAnalysis();
     showUploadStatus('🗑️ Đã xóa', '#ff6e9c');
   } catch (e) {
     showUploadStatus('❌ Lỗi: ' + e.message, '#ff6e9c');
@@ -894,8 +771,7 @@ function renderAll() { renderStats(); renderTop(); renderChart(); }
 
 function renderStats() {
   if (!rawData.length) {
-    ['s-total-views','s-total-likes','s-avg-views','s-max-views'].forEach(id =>
-      document.getElementById(id).textContent = '—');
+    ['s-total-views','s-total-likes','s-avg-views','s-max-views'].forEach(id => document.getElementById(id).textContent = '—');
     return;
   }
   let tv = 0, tl = 0, mx = 0;
@@ -908,17 +784,9 @@ function renderStats() {
 
 function renderTop() {
   const box = document.getElementById('top-list');
-  if (!rawData.length) {
-    box.innerHTML = '<div style="color:#666;text-align:center;padding:20px">Chưa có dữ liệu.</div>';
-    return;
-  }
+  if (!rawData.length) { box.innerHTML = '<div style="color:#666;text-align:center;padding:20px">Chưa có dữ liệu.</div>'; return; }
   const sorted = [...rawData].sort((a,b) => b[1] - a[1]).slice(0, 10);
-  box.innerHTML = sorted.map((d, i) => `
-    <div class="top-item rank-${i+1}">
-      <span class="date">#${i+1} · ${d[0]}</span>
-      <span class="val">${d[1].toLocaleString('vi-VN')} view</span>
-    </div>
-  `).join('');
+  box.innerHTML = sorted.map((d, i) => `<div class="top-item rank-${i+1}"><span class="date">#${i+1} · ${d[0]}</span><span class="val">${d[1].toLocaleString('vi-VN')} view</span></div>`).join('');
 }
 
 function renderChart() {
@@ -930,19 +798,11 @@ function renderChart() {
     type: 'bar',
     data: {
       labels: recent.map(d => d[0]),
-      datasets: [{
-        label: 'View',
-        data: recent.map(d => d[1]),
-        backgroundColor: recent.map(d => d[1] > 10000 ? '#ff6e9c' : '#6ea8ff'),
-        borderRadius: 4,
-      }]
+      datasets: [{ label: 'View', data: recent.map(d => d[1]), backgroundColor: recent.map(d => d[1] > 10000 ? '#ff6e9c' : '#6ea8ff'), borderRadius: 4 }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => ctx.parsed.y.toLocaleString('vi-VN') + ' view' } }
-      },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.parsed.y.toLocaleString('vi-VN') + ' view' } } },
       scales: {
         x: { ticks: { color: '#666', font: { size: 9 }, maxRotation: 90, autoSkip: true, maxTicksLimit: 20 }, grid: { display: false } },
         y: { ticks: { color: '#666', font: { size: 10 }, callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v }, grid: { color: '#1e1e26' } }
@@ -988,12 +848,10 @@ function tick() {
   document.getElementById('sec').textContent = pad(now.getSeconds());
   document.getElementById('date').textContent = `${days[now.getDay()]}, ${now.getDate()}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
   document.getElementById('zone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
   const g = getNextGolden(now);
   const goldenBox = document.getElementById('golden');
   const txt = document.getElementById('goldenText');
   const cd = document.getElementById('countdown');
-
   if (g.active) {
     goldenBox.className = 'golden active';
     txt.innerHTML = '🔥 <strong>' + g.label + '</strong> — Đăng ngay!';
@@ -1001,7 +859,6 @@ function tick() {
     goldenBox.className = 'golden';
     txt.innerHTML = '⏰ <strong>' + g.label + '</strong> — Khung tối ưu 11–13h & 19–22h';
   }
-
   const diff = g.target - now;
   const hh = Math.floor(diff / 3600000);
   const mm = Math.floor((diff % 3600000) / 60000);
