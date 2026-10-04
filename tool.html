@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="tool-version" content="v2.0">
+<meta name="tool-version" content="v2.1">
 <title>Tool by ductri705</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -46,8 +46,8 @@
   .countdown { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; color: #ffd700; margin-top: 6px; letter-spacing: 2px; }
   .sound-toggle { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; font-size: 11px; color: #888; cursor: pointer; user-select: none; }
   .sound-toggle input { width: auto; margin: 0; }
-  .upload-zone { border: 2px dashed #3a3a44; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: 0.2s; position: relative; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-  .upload-zone:hover, .upload-zone:focus { border-color: #6ea8ff; background: #1a1a24; outline: none; }
+  .upload-zone { border: 2px dashed #3a3a44; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: 0.2s; position: relative; touch-action: manipulation; }
+  .upload-zone:hover { border-color: #6ea8ff; background: #1a1a24; }
   .upload-zone.dragover { border-color: #4ade80; background: linear-gradient(135deg, #1e2a1e, #1a1a24); transform: scale(1.02); }
   .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
   .upload-zone .icon { font-size: 32px; margin-bottom: 8px; pointer-events: none; }
@@ -58,8 +58,9 @@
   .file-info-name { flex: 1; color: #6ea8ff; font-weight: 600; word-break: break-all; }
   .file-info-size { color: #777; font-size: 11px; white-space: nowrap; }
   .tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
-  .tab { flex: 1; min-width: 100px; padding: 10px; text-align: center; background: #1a1a24; border: 1px solid #26262e; border-radius: 10px; font-size: 12px; color: #888; cursor: pointer; user-select: none; transition: 0.2s; }
+  .tab { flex: 1; min-width: 90px; padding: 10px; text-align: center; background: #1a1a24; border: 1px solid #26262e; border-radius: 10px; font-size: 12px; color: #888; cursor: pointer; user-select: none; transition: 0.2s; }
   .tab.active { background: #26263a; color: #6ea8ff; border-color: #6ea8ff; }
+  .tab.money-tab.active { background: #3a2a10; color: #ffd700; border-color: #ffd700; }
   .tab.admin-tab.active { background: #3a2a10; color: #ffd700; border-color: #ffd700; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
   .stat { background: #1a1a24; border-radius: 10px; padding: 12px; text-align: center; }
@@ -111,7 +112,7 @@
   .admin-user .info { font-size: 11px; color: #777; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
   .admin-user .credits-line { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #ffd700; font-weight: 600; margin-bottom: 10px; }
   .admin-user .actions { display: flex; gap: 6px; flex-wrap: wrap; }
-  .admin-btn { flex: 1; min-width: 70px; padding: 8px 10px; border-radius: 8px; border: 1px solid #3a3a44; background: transparent; color: #aaa; font-size: 11px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+  .admin-btn { flex: 1; min-width: 60px; padding: 8px 10px; border-radius: 8px; border: 1px solid #3a3a44; background: transparent; color: #aaa; font-size: 11px; cursor: pointer; font-weight: 600; transition: 0.2s; }
   .admin-btn:hover { background: #26263a; color: #e8e8f0; }
   .admin-btn.ban { border-color: #ff6e9c; color: #ff6e9c; }
   .admin-btn.ban:hover { background: #2a1a1e; }
@@ -159,6 +160,25 @@
   .modal-btn:hover { transform: scale(1.02); }
   .daily-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #ffd700, #ffae00); color: #0d0d12; padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 700; text-align: center; box-shadow: 0 8px 30px rgba(255,215,0,0.5); z-index: 9998; max-width: 90vw; animation: slideDown 0.5s ease; }
   @keyframes slideDown { from { transform: translate(-50%, -100px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+
+  /* NẠP XU */
+  .money-banner { padding: 16px; border-radius: 12px; background: linear-gradient(135deg, #2a2010, #1a1a24); border: 1px solid #ffd700; text-align: center; margin-bottom: 16px; }
+  .money-banner .title { color: #ffd700; font-weight: 700; font-size: 16px; margin-bottom: 6px; }
+  .money-banner .desc { color: #aaa; font-size: 12px; line-height: 1.6; }
+  .pkg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .pkg-card { background: linear-gradient(135deg, #1e1e2e, #16161c); border: 1px solid #3a3a4e; border-radius: 12px; padding: 14px; text-align: center; cursor: pointer; transition: 0.2s; }
+  .pkg-card:hover { border-color: #ffd700; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,215,0,0.2); }
+  .pkg-card .price { font-size: 16px; font-weight: 700; color: #ffd700; margin-bottom: 4px; }
+  .pkg-card .xu { font-size: 13px; color: #4ade80; font-weight: 600; }
+  .pkg-card .arrow { font-size: 10px; color: #666; margin: 4px 0; }
+  .qr-display { text-align: center; padding: 16px; background: #0d0d12; border-radius: 12px; margin-bottom: 14px; }
+  .qr-display img { max-width: 240px; width: 100%; border-radius: 10px; background: #fff; padding: 8px; }
+  .bank-info { padding: 12px; background: #1a1a24; border-radius: 10px; margin-bottom: 10px; font-size: 13px; }
+  .bank-info .row { display: flex; justify-content: space-between; padding: 6px 0; }
+  .bank-info .row .k { color: #888; }
+  .bank-info .row .v { color: #6ea8ff; font-weight: 700; }
+  .copy-btn { background: transparent; border: 1px solid #6ea8ff; color: #6ea8ff; padding: 4px 8px; border-radius: 6px; font-size: 10px; cursor: pointer; margin-left: 8px; }
+  .copy-btn:hover { background: #1a2a3e; }
 </style>
 </head>
 <body>
@@ -226,6 +246,7 @@
         <div class="tab" data-tab="top">Top viral</div>
         <div class="tab" data-tab="hour">Giờ vàng</div>
         <div class="tab" data-tab="account">⚙️ Tài khoản</div>
+        <div class="tab money-tab" data-tab="money">💰 Nạp xu</div>
         <div class="tab admin-tab hidden" data-tab="admin" id="adminTab">👑 Admin</div>
       </div>
 
@@ -279,8 +300,6 @@
           <div style="color:#4ade80;font-weight:600;font-size:14px;margin-bottom:12px">📊 Phân tích từ data kênh bạn</div>
           <div id="vipContent"></div>
         </div>
-
-        <div class="note" style="margin-top:14px">Phân tích dựa trên file CSV đã upload.</div>
       </div>
 
       <div id="tab-account" class="tab-content hidden">
@@ -299,6 +318,42 @@
         <div class="auth-msg" id="passMsg"></div>
       </div>
 
+      <!-- TAB NẠP XU -->
+      <div id="tab-money" class="tab-content hidden">
+        <div class="money-banner">
+          <div class="title">💰 NẠP XU ĐỂ MỞ KHÓA TÍNH NĂNG</div>
+          <div class="desc">
+            Chuyển khoản theo QR bên dưới<br>
+            Nội dung CK: <b style="color:#6ea8ff">EMAIL_CỦA_BẠN</b><br>
+            Sau khi CK xong → gửi bill cho admin qua Zalo để được cộng xu
+          </div>
+        </div>
+
+        <div class="section-title-sm">🎁 Chọn gói nạp</div>
+        <div class="pkg-grid" id="pkgGrid"></div>
+
+        <div id="moneyDetail" class="hidden">
+          <div class="qr-display">
+            <img src="qr.png" alt="QR" onerror="this.src='https://via.placeholder.com/240x240?text=Upload+qr.png'">
+          </div>
+          <div class="bank-info">
+            <div class="row"><span class="k">Ngân hàng</span><span class="v">MB Bank</span></div>
+            <div class="row"><span class="k">Số TK</span><span class="v">0865199199 <button class="copy-btn" onclick="copyText('0865199199')">📋</button></span></div>
+            <div class="row"><span class="k">Chủ TK</span><span class="v">DANG TRAN DUC TRI</span></div>
+            <div class="row"><span class="k">Số tiền</span><span class="v" id="payAmount">—</span></div>
+            <div class="row"><span class="k">Số xu nhận</span><span class="v" style="color:#4ade80" id="payXu">—</span></div>
+            <div class="row"><span class="k">Nội dung CK</span><span class="v" id="payContent">— <button class="copy-btn" onclick="copyText(document.getElementById('payContent').textContent.trim())">📋</button></span></div>
+          </div>
+          <div style="padding:12px;background:#1a2a3e;border:1px solid #6ea8ff;border-radius:10px;font-size:12px;color:#aaa;line-height:1.7;margin-top:12px">
+            ✅ <b style="color:#6ea8ff">Sau khi chuyển khoản:</b><br>
+            1. Chụp ảnh màn hình bill giao dịch<br>
+            2. Gửi cho admin qua Zalo <b style="color:#4ade80">0865199199</b><br>
+            3. Admin sẽ cộng xu trong vòng 24h
+          </div>
+          <a href="https://zalo.me/0865199199" target="_blank" class="btn btn-green" style="display:block;text-align:center;text-decoration:none;margin-top:12px">💬 Mở Zalo gửi bill cho admin</a>
+        </div>
+      </div>
+
       <div id="tab-admin" class="tab-content hidden">
         <div class="admin-header">
           <div class="admin-title">👑 Quản lý User</div>
@@ -306,7 +361,7 @@
         </div>
         <div class="admin-info-box">
           💡 <b>Promote lên Admin:</b> tốn <b>5000 xu</b>. Admin có <b>vô cực xu</b>.<br>
-          💡 <b>Mỗi ngày:</b> user được cộng <b>+10 xu</b> khi đăng nhập.<br>
+          💡 <b>Cộng xu:</b> +100, +500, +1000, +2000, +3000, +5000<br>
           💡 <b>Xóa tài khoản:</b> xóa vĩnh viễn, không thể khôi phục.
         </div>
         <div id="adminList"></div>
@@ -331,6 +386,24 @@ const PROMOTE_COST = 5000;
 const DAILY_BONUS = 10;
 const DAILY_INTERVAL_MS = 24 * 60 * 60 * 1000;
 
+const BANK_INFO = {
+  bank: 'MB Bank',
+  stk: '0865199199',
+  owner: 'DANG TRAN DUC TRI'
+};
+
+const PACKAGES = [
+  { vnd: 1000, xu: 10, label: '1.000đ' },
+  { vnd: 5000, xu: 100, label: '5.000đ' },
+  { vnd: 10000, xu: 500, label: '10.000đ' },
+  { vnd: 20000, xu: 1000, label: '20.000đ' },
+  { vnd: 30000, xu: 2000, label: '30.000đ' },
+  { vnd: 40000, xu: 3000, label: '40.000đ' },
+  { vnd: 50000, xu: 5000, label: '50.000đ' }
+];
+
+const ADMIN_CREDIT_AMOUNTS = [100, 500, 1000, 2000, 3000, 5000];
+
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentUser = null;
@@ -346,6 +419,15 @@ function isCurrentAdmin() {
   if (currentUser && currentUser.email === ADMIN_EMAIL) return true;
   return false;
 }
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Đã copy: ' + text);
+  }).catch(() => {
+    alert('Không copy được, vui lòng copy thủ công');
+  });
+}
+window.copyText = copyText;
 
 /* ============ SOUND ============ */
 function playGoldenSound() {
@@ -405,11 +487,8 @@ function renderCompare() {
     const ts = parseDateToTS(d[0]);
     if (!ts) return;
     const diff = now - ts;
-    if (diff <= week) {
-      thisWeek.views += d[1]; thisWeek.likes += d[2]; thisWeek.count++;
-    } else if (diff <= week * 2) {
-      lastWeek.views += d[1]; lastWeek.likes += d[2]; lastWeek.count++;
-    }
+    if (diff <= week) { thisWeek.views += d[1]; thisWeek.likes += d[2]; thisWeek.count++; }
+    else if (diff <= week * 2) { lastWeek.views += d[1]; lastWeek.likes += d[2]; lastWeek.count++; }
   });
 
   if (thisWeek.count === 0 && lastWeek.count === 0) {
@@ -427,22 +506,10 @@ function renderCompare() {
 
   box.innerHTML = `
     <div class="compare-grid">
-      <div class="compare-item">
-        <div class="val">${fmt(thisWeek.views)}</div>
-        <div class="lbl">View tuần này</div>
-      </div>
-      <div class="compare-item">
-        <div class="val">${fmt(lastWeek.views)}</div>
-        <div class="lbl">View tuần trước</div>
-      </div>
-      <div class="compare-item">
-        <div class="val">${fmt(thisWeek.likes)}</div>
-        <div class="lbl">Like tuần này</div>
-      </div>
-      <div class="compare-item">
-        <div class="val">${fmt(lastWeek.likes)}</div>
-        <div class="lbl">Like tuần trước</div>
-      </div>
+      <div class="compare-item"><div class="val">${fmt(thisWeek.views)}</div><div class="lbl">View tuần này</div></div>
+      <div class="compare-item"><div class="val">${fmt(lastWeek.views)}</div><div class="lbl">View tuần trước</div></div>
+      <div class="compare-item"><div class="val">${fmt(thisWeek.likes)}</div><div class="lbl">Like tuần này</div></div>
+      <div class="compare-item"><div class="val">${fmt(lastWeek.likes)}</div><div class="lbl">Like tuần trước</div></div>
     </div>
     <div class="compare-diff ${viewDiff > 0 ? 'up' : viewDiff < 0 ? 'down' : 'same'}">
       📊 View: ${viewDiff >= 0 ? '📈 Tăng' : '📉 Giảm'} ${Math.abs(viewDiff).toLocaleString('vi-VN')} (${pct(viewPct)})
@@ -483,21 +550,16 @@ function renderAccount() {
 }
 
 document.getElementById('changePassBtn').addEventListener('click', async () => {
-  const oldP = document.getElementById('oldPass').value;
   const p1 = document.getElementById('newPass1').value;
   const p2 = document.getElementById('newPass2').value;
   const msg = document.getElementById('passMsg');
   msg.textContent = '';
   msg.className = 'auth-msg';
-
   if (!p1 || !p2) { msg.textContent = 'Nhập đầy đủ mật khẩu mới'; msg.classList.add('err'); return; }
   if (p1.length < 6) { msg.textContent = 'Mật khẩu mới từ 6 ký tự'; msg.classList.add('err'); return; }
   if (p1 !== p2) { msg.textContent = 'Mật khẩu nhập lại không khớp'; msg.classList.add('err'); return; }
-
   const btn = document.getElementById('changePassBtn');
-  btn.disabled = true;
-  btn.textContent = '⏳ Đang đổi...';
-
+  btn.disabled = true; btn.textContent = '⏳ Đang đổi...';
   try {
     const { error } = await supabaseClient.auth.updateUser({ password: p1 });
     if (error) throw error;
@@ -510,9 +572,32 @@ document.getElementById('changePassBtn').addEventListener('click', async () => {
     msg.textContent = '❌ Lỗi: ' + (e.message || 'Không đổi được');
     msg.classList.add('err');
   }
-  btn.disabled = false;
-  btn.textContent = '🔑 Đổi mật khẩu';
+  btn.disabled = false; btn.textContent = '🔑 Đổi mật khẩu';
 });
+
+/* ============ NẠP XU ============ */
+function renderPackages() {
+  const grid = document.getElementById('pkgGrid');
+  grid.innerHTML = PACKAGES.map((p, i) => `
+    <div class="pkg-card" onclick="selectPackage(${i})">
+      <div class="price">${p.label}</div>
+      <div class="arrow">↓</div>
+      <div class="xu">+${p.xu.toLocaleString('vi-VN')} xu</div>
+    </div>
+  `).join('');
+}
+
+function selectPackage(idx) {
+  const p = PACKAGES[idx];
+  if (!currentUser) return;
+  const content = 'NAPXU ' + currentUser.email.split('@')[0].toUpperCase().substring(0, 10);
+  document.getElementById('payAmount').textContent = p.label;
+  document.getElementById('payXu').textContent = '+' + p.xu.toLocaleString('vi-VN') + ' xu';
+  document.getElementById('payContent').textContent = content;
+  document.getElementById('moneyDetail').classList.remove('hidden');
+  document.getElementById('moneyDetail').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+window.selectPackage = selectPackage;
 
 /* ============ AUTH ============ */
 let isRegister = false;
@@ -547,7 +632,7 @@ authSubmit.addEventListener('click', async () => {
     }
   } catch (e) {
     let msg = e.message || 'Lỗi không xác định';
-    if (msg.includes('already registered') || msg.includes('already been registered')) msg = 'Email này đã được đăng ký';
+    if (msg.includes('already registered')) msg = 'Email này đã được đăng ký';
     else if (msg.includes('Invalid login')) msg = 'Sai email hoặc mật khẩu';
     else if (msg.includes('Password should be')) msg = 'Mật khẩu quá yếu';
     showMsg(msg, 'err');
@@ -581,8 +666,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     currentUser = session.user;
     document.getElementById('userEmail').textContent = session.user.email;
 
-    const { data: profile } = await supabaseClient
-      .from('profiles').select('*').eq('id', session.user.id).single();
+    const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', session.user.id).single();
 
     if (profile && profile.banned) {
       await supabaseClient.auth.signOut();
@@ -599,7 +683,6 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
       await supabaseClient.from('profiles').update({ is_admin: true }).eq('id', session.user.id);
     }
 
-    // Update last_login
     try {
       await supabaseClient.from('profiles').update({ last_login: new Date().toISOString() }).eq('id', session.user.id);
       userProfile.last_login = new Date().toISOString();
@@ -613,6 +696,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
 
     renderGolden();
     renderAccount();
+    renderPackages();
     await loadDataFromCloud();
     renderAll();
   } else {
@@ -632,9 +716,8 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   const { data: { session } } = await supabaseClient.auth.getSession();
   document.getElementById('loadingScreen').classList.add('hidden');
   if (!session) document.getElementById('authScreen').classList.remove('hidden');
-  // Load sound setting
   const st = document.getElementById('soundToggle');
-  st.checked = soundEnabled;
+  if (st) st.checked = soundEnabled;
 })();
 
 document.getElementById('soundToggle').addEventListener('change', e => {
@@ -706,10 +789,10 @@ function showRegisterSuccess() {
       <div class="step"><b>Bước 3:</b> Đăng nhập tài khoản TikTok của bạn</div>
       <div class="step"><b>Bước 4:</b> Nhấn vào dấu 3 chấm (…), tìm "TikTok Studio"</div>
       <div class="step"><b>Bước 5:</b> Nhấp vào biểu tượng file có mũi tên đi lên (Tải xuống dữ liệu)</div>
-      <div class="step"><b>Bước 6:</b> Bấm chọn "365 ngày gần nhất", bấm nút "Tải về" bên cạnh → Giải nén file → Nhập vào tool</div>
+      <div class="step"><b>Bước 6:</b> Bấm chọn "365 ngày gần nhất", bấm nút "Tải về" → Giải nén → Nhập vào tool</div>
       <div style="color:#4ade80;font-size:13px;text-align:center;margin-top:16px;font-weight:600;line-height:1.7">
         🎊 Chúc mừng bạn đã nhập thành công file!<br>
-        <span style="font-size:12px;color:#aaa;font-weight:400">Xin mời bạn tận hưởng quá trình xem giờ vàng của chúng tôi 🚀</span>
+        <span style="font-size:12px;color:#aaa;font-weight:400">Xin mời bạn tận hưởng quá trình xem giờ vàng 🚀</span>
       </div>
       <button class="modal-btn" onclick="document.getElementById('modalSuccess').remove()">Đã hiểu, bắt đầu thôi! 🚀</button>
     </div>`;
@@ -728,7 +811,7 @@ function showUploadSuccess() {
       <div class="sub">Bạn đã nhập file thành công</div>
       <div style="color:#e8e8f0;font-size:13px;text-align:center;line-height:1.8;margin:16px 0">
         Dữ liệu của bạn đã được lưu lên cloud ☁️<br>
-        Xin mời bạn tận hưởng quá trình xem giờ vàng của chúng tôi!
+        Xin mời bạn tận hưởng quá trình xem giờ vàng!
       </div>
       <div style="color:#4ade80;font-size:24px;text-align:center;margin:20px 0">🚀</div>
       <button class="modal-btn" onclick="document.getElementById('modalUpload').remove()">Bắt đầu xem giờ vàng!</button>
@@ -822,23 +905,34 @@ async function adminLoadUsers() {
     const { data, error } = await supabaseClient.from('profiles').select('*').order('created_at', { ascending: false });
     if (error) throw error;
     if (!data || !data.length) { box.innerHTML = '<div class="admin-empty">Chưa có user nào</div>'; return; }
+
+    const creditBtns = ADMIN_CREDIT_AMOUNTS.map(amt =>
+      `<button class="admin-btn credit" onclick="adminAddCredit('USER_ID', ${amt})">+${amt} xu</button>`
+    );
+
     box.innerHTML = data.map(u => {
       const isBanned = u.banned === true;
       const isAdminUser = u.is_admin === true || u.email === ADMIN_EMAIL;
       const isGolden = u.golden_unlocked === true;
       const created = u.created_at ? new Date(u.created_at).toLocaleDateString('vi-VN') : '-';
       const creditsDisplay = isAdminUser ? '∞' : (u.credits || 0).toLocaleString('vi-VN');
+
       let actionsHtml = '';
       if (!isAdminUser) actionsHtml += `<button class="admin-btn promote" onclick="adminPromote('${u.id}')">👑 Lên Admin (${PROMOTE_COST} xu)</button>`;
       else if (u.email !== ADMIN_EMAIL) actionsHtml += `<button class="admin-btn demote" onclick="adminDemote('${u.id}')">⬇️ Hạ Admin</button>`;
+
       actionsHtml += isBanned
         ? `<button class="admin-btn unban" onclick="adminUnban('${u.id}')">✅ Mở khóa</button>`
         : `<button class="admin-btn ban" onclick="adminBan('${u.id}')">🚫 Khóa</button>`;
-      actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 10)">+10 xu</button>`;
-      actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 50)">+50 xu</button>`;
-      actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -10)">-10 xu</button>`;
-      if (isGolden) actionsHtml += `<button class="admin-btn reset" onclick="adminResetGolden('${u.id}')">🔒 Khóa</button>`;
+
+      ADMIN_CREDIT_AMOUNTS.forEach(amt => {
+        actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', ${amt})">+${amt} xu</button>`;
+      });
+      actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -100)">-100 xu</button>`;
+
+      if (isGolden) actionsHtml += `<button class="admin-btn reset" onclick="adminResetGolden('${u.id}')">🔒 Khóa VIP</button>`;
       if (u.email !== ADMIN_EMAIL) actionsHtml += `<button class="admin-btn delete" onclick="adminDeleteUser('${u.id}')">🗑️ Xóa</button>`;
+
       return `
         <div class="admin-user ${isBanned ? 'banned' : ''} ${isAdminUser ? 'is-admin-user' : ''}">
           <div class="head">
@@ -877,7 +971,7 @@ async function adminAddCredit(userId, amount) {
   if (el) el.textContent = newVal.toLocaleString('vi-VN');
 }
 async function adminResetGolden(userId) {
-  if (!confirm('Khóa lại phần phân tích?')) return;
+  if (!confirm('Khóa lại phần phân tích VIP?')) return;
   await supabaseClient.from('profiles').update({ golden_unlocked: false }).eq('id', userId);
   adminLoadUsers();
 }
@@ -889,19 +983,19 @@ async function adminPromote(userId) {
   adminLoadUsers();
 }
 async function adminDemote(userId) {
-  if (!confirm('Hạ user này xuống user thường? Họ sẽ không còn vô cực xu.')) return;
+  if (!confirm('Hạ user này xuống user thường?')) return;
   const { error } = await supabaseClient.from('profiles').update({ is_admin: false }).eq('id', userId);
   if (error) { alert('Lỗi: ' + error.message); return; }
   adminLoadUsers();
 }
 async function adminDeleteUser(userId) {
-  if (!confirm('⚠️ CẢNH BÁO: Xóa tài khoản này sẽ xóa VĨNH VIỄN:\n• Tài khoản đăng nhập\n• Toàn bộ dữ liệu CSV\n• Mọi thông tin liên quan\n\nKHÔNG THỂ KHÔI PHỤC!\n\nTiếp tục?')) return;
-  const confirmText = prompt('Gõ chính xác "XOA" để xác nhận xóa vĩnh viễn:');
-  if (confirmText !== 'XOA') { alert('Đã hủy xóa.'); return; }
+  if (!confirm('⚠️ XÓA VĨNH VIỄN tài khoản này?\nKhông thể khôi phục!')) return;
+  const t = prompt('Gõ "XOA" để xác nhận:');
+  if (t !== 'XOA') { alert('Đã hủy.'); return; }
   try {
     const { error } = await supabaseClient.rpc('delete_user', { target_user_id: userId });
     if (error) throw error;
-    alert('✅ Đã xóa tài khoản thành công!');
+    alert('✅ Đã xóa!');
     adminLoadUsers();
   } catch (e) { alert('❌ Lỗi: ' + e.message); }
 }
@@ -976,7 +1070,7 @@ function handleFile(file) {
   const name = (file.name || '').toLowerCase();
   const isValidExt = name.endsWith('.csv') || name.endsWith('.txt');
   if (!isValidExt) {
-    showUploadStatus('❌ Chỉ nhận file .csv (bạn chọn: ' + name + ')', '#ff6e9c');
+    showUploadStatus('❌ Chỉ nhận file .csv', '#ff6e9c');
     return;
   }
   document.getElementById('fileName').textContent = file.name;
@@ -1049,14 +1143,11 @@ document.addEventListener('paste', e => {
 (function detectDevice() {
   const ua = navigator.userAgent;
   const hint = document.getElementById('uploadHint');
-  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const isAndroid = /Android/.test(ua);
-  const isDesktop = !isTouch && !isIOS && !isAndroid;
   let text;
   if (isIOS || isAndroid) text = 'Chạm để chọn file CSV<br><b>hoặc kéo thả từ Files</b>';
-  else if (isDesktop) text = 'Bấm để chọn file CSV<br><b>hoặc kéo thả / dán (Ctrl+V)</b>';
-  else text = 'Bấm để chọn file CSV<br><b>hoặc kéo thả file vào đây</b>';
+  else text = 'Bấm để chọn file CSV<br><b>hoặc kéo thả / dán (Ctrl+V)</b>';
   hint.innerHTML = text;
 })();
 
@@ -1144,6 +1235,7 @@ document.querySelectorAll('.tab').forEach(tab => {
     if (tab.dataset.tab === 'admin') adminLoadUsers();
     if (tab.dataset.tab === 'hour') renderGolden();
     if (tab.dataset.tab === 'account') renderAccount();
+    if (tab.dataset.tab === 'money') renderPackages();
   });
 });
 
@@ -1197,7 +1289,7 @@ tick();
 setInterval(tick, 1000);
 
 /* ============ AUTO UPDATE ============ */
-const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v2.0';
+const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v2.1';
 const UPDATE_CHECK_URL = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 const CHECK_INTERVAL = 5 * 60 * 1000;
 
