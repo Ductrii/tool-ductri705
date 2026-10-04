@@ -1598,3 +1598,35 @@ function tick() {
     if (userProfile && (userProfile.golden_unlocked || isCurrentAdmin())) renderGoldenAnalysis();
   }
 }
+
+tick(); setInterval(tick, 1000);
+
+const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v4.0';
+const UPDATE_CHECK_URL = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
+const CHECK_INTERVAL = 5 * 60 * 1000;
+
+async function checkForUpdate() {
+  try {
+    const res = await fetch(UPDATE_CHECK_URL + '?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) return;
+    const text = await res.text();
+    const match = text.match(/name="tool-version"\s+content="([^"]+)"/);
+    if (!match) return;
+    if (match[1] !== CURRENT_VERSION) showUpdateToast(match[1]);
+  } catch (e) {}
+}
+
+function showUpdateToast(v) {
+  if (document.getElementById('updateToast')) return;
+  const t = document.createElement('div'); t.id = 'updateToast';
+  t.style.cssText = `position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,0.4);z-index:99999;max-width:90vw;cursor:pointer;`;
+  t.innerHTML = `🔄 Có bản cập nhật mới (${v})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại trang</span>`;
+  t.onclick = () => { location.href = location.pathname + '?v=' + Date.now(); };
+  document.body.appendChild(t);
+}
+
+setTimeout(checkForUpdate, 3000);
+setInterval(checkForUpdate, CHECK_INTERVAL);
+</script>
+</body>
+</html>
