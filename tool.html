@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="tool-version" content="v3.0">
+<meta name="tool-version" content="v4.0">
 <title>Tool by ductri705</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -25,6 +25,12 @@
   .btn-sec:hover { background: #1a1a24; color: #e8e8f0; }
   .btn-green { background: linear-gradient(90deg, #4ade80, #22c55e); color: #0d0d12; }
   .btn-green:hover { background: linear-gradient(90deg, #6ee89e, #34d26e); }
+  .btn-orange { background: linear-gradient(90deg, #ff9500, #ff6e00); color: #fff; }
+  .btn-orange:hover { background: linear-gradient(90deg, #ffb040, #ff8c30); }
+  .btn-blue { background: linear-gradient(90deg, #6ea8ff, #4a87ff); color: #fff; }
+  .btn-blue:hover { background: linear-gradient(90deg, #8bb9ff, #6aa0ff); }
+  .btn-purple { background: linear-gradient(90deg, #a855f7, #7c3aed); color: #fff; }
+  .btn-purple:hover { background: linear-gradient(90deg, #b975f8, #8d4cf0); }
   .auth-title { font-size: 18px; font-weight: 600; margin-bottom: 14px; color: #6ea8ff; text-align: center; }
   .auth-msg { font-size: 12px; text-align: center; margin-top: 8px; min-height: 16px; }
   .auth-msg.err { color: #ff6e9c; }
@@ -46,6 +52,17 @@
   .countdown { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; color: #ffd700; margin-top: 6px; letter-spacing: 2px; }
   .sound-toggle { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; font-size: 11px; color: #888; cursor: pointer; user-select: none; }
   .sound-toggle input { width: auto; margin: 0; }
+  .mini-boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .mini-box { padding: 12px; border-radius: 10px; text-align: center; font-size: 12px; }
+  .mini-box.streak { background: linear-gradient(135deg, #2a2010, #1a1a24); border: 1px solid #ff9500; }
+  .mini-box.event { background: linear-gradient(135deg, #1a2a3e, #1a1a24); border: 1px solid #6ea8ff; }
+  .mini-box .mini-num { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .mini-box.streak .mini-num { color: #ff9500; }
+  .mini-box.event .mini-num { color: #6ea8ff; }
+  .mini-box .mini-lbl { font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
+  .mini-box .mini-sub { font-size: 10px; color: #666; margin-top: 4px; }
+  .tip-box { margin-top: 12px; padding: 12px 14px; background: linear-gradient(135deg, #1e2a3e, #16161c); border-left: 3px solid #ffd700; border-radius: 10px; font-size: 12px; color: #ccc; line-height: 1.6; }
+  .tip-box .tip-title { color: #ffd700; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
   .upload-zone { border: 2px dashed #3a3a44; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: 0.2s; position: relative; touch-action: manipulation; }
   .upload-zone:hover { border-color: #6ea8ff; background: #1a1a24; }
   .upload-zone.dragover { border-color: #4ade80; background: linear-gradient(135deg, #1e2a1e, #1a1a24); transform: scale(1.02); }
@@ -62,10 +79,19 @@
   .tab.active { background: #26263a; color: #6ea8ff; border-color: #6ea8ff; }
   .tab.money-tab.active { background: #3a2a10; color: #ffd700; border-color: #ffd700; }
   .tab.admin-tab.active { background: #3a2a10; color: #ffd700; border-color: #ffd700; }
+  .tab.rate-tab.active { background: #3a2a10; color: #ffd700; border-color: #ffd700; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
   .stat { background: #1a1a24; border-radius: 10px; padding: 12px; text-align: center; }
   .stat .num { font-size: 20px; font-weight: 600; color: #6ea8ff; font-variant-numeric: tabular-nums; }
   .stat .lbl { font-size: 10px; color: #777; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+  .goal-box { margin-top: 14px; padding: 14px; background: linear-gradient(135deg, #1e2e2e, #16161c); border: 1px solid #4ade80; border-radius: 12px; }
+  .goal-title { font-size: 12px; color: #4ade80; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 600; }
+  .goal-progress { height: 24px; background: #0d0d12; border-radius: 12px; overflow: hidden; position: relative; margin: 10px 0; }
+  .goal-fill { height: 100%; background: linear-gradient(90deg, #4ade80, #22c55e); transition: width 0.5s; border-radius: 12px; }
+  .goal-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12px; font-weight: 700; color: #0d0d12; text-shadow: 0 0 4px rgba(255,255,255,0.6); }
+  .goal-input-row { display: flex; gap: 8px; margin-top: 10px; }
+  .goal-input-row input { flex: 1; padding: 8px 12px; background: #0d0d12; border: 1px solid #2a2a34; border-radius: 8px; color: #e8e8f0; font-size: 13px; outline: none; }
+  .goal-input-row button { padding: 8px 16px; background: #4ade80; color: #0d0d12; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
   .compare-box { margin-top: 14px; padding: 14px; border-radius: 12px; background: linear-gradient(135deg, #1e1e2e, #16161c); border: 1px solid #3a3a4e; }
   .compare-title { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
   .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -76,6 +102,8 @@
   .compare-diff.up { background: #1e2a1e; color: #4ade80; border: 1px solid #4ade80; }
   .compare-diff.down { background: #2a1a1e; color: #ff6e9c; border: 1px solid #ff6e9c; }
   .compare-diff.same { background: #1a1a24; color: #aaa; border: 1px solid #3a3a44; }
+  .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .action-btns .btn { margin: 0; }
   .filter-bar { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
   .filter-btn { flex: 1; min-width: 70px; padding: 8px; text-align: center; background: #1a1a24; border: 1px solid #26262e; border-radius: 8px; font-size: 11px; color: #888; cursor: pointer; transition: 0.2s; }
   .filter-btn.active { background: #26263a; color: #6ea8ff; border-color: #6ea8ff; }
@@ -177,6 +205,20 @@
   .bank-info .row .v { color: #6ea8ff; font-weight: 700; }
   .copy-btn { background: transparent; border: 1px solid #6ea8ff; color: #6ea8ff; padding: 4px 8px; border-radius: 6px; font-size: 10px; cursor: pointer; margin-left: 8px; }
   .copy-btn:hover { background: #1a2a3e; }
+  /* Rating */
+  .rate-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #1a1a24; border-radius: 10px; margin-bottom: 8px; font-size: 13px; gap: 8px; }
+  .rate-info { flex: 1; }
+  .rate-date { color: #e8e8f0; font-weight: 600; margin-bottom: 3px; }
+  .rate-view { color: #6ea8ff; font-size: 11px; }
+  .stars { display: flex; gap: 2px; }
+  .star { font-size: 20px; cursor: pointer; color: #3a3a44; transition: 0.15s; user-select: none; }
+  .star.active { color: #ffd700; text-shadow: 0 0 8px rgba(255,215,0,0.5); }
+  .star:hover { transform: scale(1.2); }
+  /* Event */
+  .event-row { display: flex; justify-content: space-between; padding: 10px 12px; background: #1a1a24; border-radius: 10px; margin-bottom: 6px; font-size: 13px; }
+  .event-name { color: #6ea8ff; font-weight: 600; }
+  .event-days { color: #ffd700; font-weight: 700; }
+  .event-days.soon { color: #ff6e9c; }
 </style>
 </head>
 <body>
@@ -219,6 +261,24 @@
       <label class="sound-toggle">
         <input type="checkbox" id="soundToggle"> 🔔 Bật âm thanh thông báo khi vào giờ vàng
       </label>
+
+      <div class="mini-boxes">
+        <div class="mini-box streak">
+          <div class="mini-num" id="streakNum">0</div>
+          <div class="mini-lbl">🔥 Chuỗi đăng bài</div>
+          <div class="mini-sub" id="streakSub">Ngày liên tiếp</div>
+        </div>
+        <div class="mini-box event">
+          <div class="mini-num" id="eventNum">—</div>
+          <div class="mini-lbl">⏰ Sự kiện gần nhất</div>
+          <div class="mini-sub" id="eventName">Đang tải...</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-title">💡 Tip TikTok hôm nay</div>
+        <div id="dailyTip">Đang tải tip...</div>
+      </div>
     </div>
 
     <div class="card">
@@ -243,6 +303,8 @@
         <div class="tab" data-tab="chart">Biểu đồ</div>
         <div class="tab" data-tab="top">Top viral</div>
         <div class="tab" data-tab="hour">Giờ vàng</div>
+        <div class="tab rate-tab" data-tab="rate">⭐ Đánh giá</div>
+        <div class="tab" data-tab="event">⏰ Sự kiện</div>
         <div class="tab" data-tab="account">⚙️ Tài khoản</div>
         <div class="tab money-tab" data-tab="money">💰 Nạp xu</div>
         <div class="tab admin-tab hidden" data-tab="admin" id="adminTab">👑 Admin</div>
@@ -257,12 +319,36 @@
           <div class="stat"><div class="num" id="s-max-views">—</div><div class="lbl">View cao nhất</div></div>
         </div>
 
-        <div class="compare-box" id="compareBox">
+        <div class="goal-box">
+          <div class="goal-title">🎯 Mục tiêu view tháng</div>
+          <div class="goal-progress">
+            <div class="goal-fill" id="goalFill" style="width: 0%"></div>
+            <div class="goal-text" id="goalText">0%</div>
+          </div>
+          <div style="font-size:12px;color:#aaa;text-align:center" id="goalStatus">Chưa đặt mục tiêu</div>
+          <div class="goal-input-row">
+            <input type="number" id="goalInput" placeholder="VD: 100000" min="1000">
+            <button onclick="saveGoal()">💾 Lưu</button>
+          </div>
+        </div>
+
+        <div class="compare-box">
           <div class="compare-title">📈 So sánh tuần này vs tuần trước</div>
           <div id="compareContent"><div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa có dữ liệu</div></div>
         </div>
 
-        <button class="btn btn-green" id="exportCsvBtn" style="margin-top:14px">📥 Xuất dữ liệu CSV về máy</button>
+        <div class="compare-box" style="margin-top:14px">
+          <div class="compare-title">📊 So sánh tháng này vs tháng trước</div>
+          <div id="monthCompareContent"><div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa có dữ liệu</div></div>
+        </div>
+
+        <div class="action-btns">
+          <button class="btn btn-green" id="exportCsvBtn">📥 Xuất CSV</button>
+          <button class="btn btn-blue" id="shareBtn">📱 Share kết quả</button>
+          <button class="btn btn-purple" id="backupBtn">💾 Backup</button>
+          <button class="btn btn-orange" id="restoreBtn">📂 Restore</button>
+        </div>
+        <input type="file" id="restoreInput" accept=".json" style="display:none">
       </div>
 
       <div id="tab-chart" class="tab-content hidden">
@@ -297,6 +383,18 @@
           <div style="color:#4ade80;font-weight:600;font-size:14px;margin-bottom:12px">📊 Phân tích từ data kênh bạn</div>
           <div id="vipContent"></div>
         </div>
+      </div>
+
+      <div id="tab-rate" class="tab-content hidden">
+        <div style="color:#ffd700;font-weight:600;font-size:14px;margin-bottom:12px">⭐ Đánh giá video theo ngày</div>
+        <div class="note" style="margin-bottom:14px;text-align:left">Chấm sao cho mỗi ngày để ghi chú chất lượng content</div>
+        <div id="rateList"></div>
+      </div>
+
+      <div id="tab-event" class="tab-content hidden">
+        <div style="color:#ffd700;font-weight:600;font-size:14px;margin-bottom:12px">⏰ Đếm ngược sự kiện</div>
+        <div class="note" style="margin-bottom:14px;text-align:left">Lên content đúng dịp để tăng view</div>
+        <div id="eventList"></div>
       </div>
 
       <div id="tab-account" class="tab-content hidden">
@@ -394,6 +492,55 @@ const PACKAGES = [
 
 const ADMIN_CREDIT_AMOUNTS = [100, 500, 1000, 2000, 3000, 5000];
 
+/* 30 TIP TIKTOK */
+const TIPS = [
+  "Hook 3 giây đầu quyết định 80% view — mở đầu phải gây tò mò",
+  "Đăng đều đặn 1-2 video/ngày để thuật toán ưu tiên",
+  "Dùng nhạc đang trending trong TikTok để tăng reach",
+  "Caption ngắn gọn, có CTA rõ ràng cuối video",
+  "Trả lời comment bằng video để tăng tương tác gấp đôi",
+  "Dùng 3-5 hashtag liên quan, đừng spam 20-30 cái",
+  "Video 15-30 giây dễ viral hơn video dài 1-2 phút",
+  "Đăng vào giờ vàng 19-22h hoặc 11-13h nghỉ trưa",
+  "Không xóa video flop — để thuật toán hiểu hành vi",
+  "Đọc comment để biết content tiếp theo nên làm gì",
+  "Xem analytics để biết video nào giữ chân người xem lâu",
+  "Thumbnail rõ mặt, màu nổi, tránh mờ và tối",
+  "Dùng text overlay lớn để giữ chân người xem",
+  "Tránh nhạc bản quyền — video sẽ bị giảm view",
+  "Kết hợp trend + niche của bạn để tạo khác biệt",
+  "Đặt câu hỏi cuối video để kích thích comment",
+  "Video dọc 9:16 chuẩn sẽ tối ưu được màn hình",
+  "Follow top creator trong niche để học hỏi",
+  "Đăng Story để kéo view về video chính",
+  "Ghim comment hay nhất để tăng tương tác",
+  "Dùng filter trending nhẹ nhàng, đừng lạm dụng",
+  "Video có gương mặt dễ tăng trust với người xem",
+  "Caption có emoji thu hút hơn caption chữ trơn",
+  "Âm thanh gốc tốt hơn nhạc có sẵn (đỡ bị chặn)",
+  "Đăng lại video flop sau 1 tuần với caption khác",
+  "Kết hợp 2-3 trend trong 1 video để tăng viral",
+  "Đừng quá dài dòng — đi thẳng vào nội dung chính",
+  "Đăng video dài ≥1 phút để tăng watch time",
+  "Phân tích video viral của đối thủ để học công thức",
+  "Kiên trì 30 ngày trước khi đánh giá hiệu quả"
+];
+
+/* SỰ KIỆN */
+const EVENTS = [
+  { month: 1, day: 1, name: '🎊 Tết Dương lịch' },
+  { month: 2, day: 14, name: '💝 Valentine' },
+  { month: 3, day: 8, name: '🌹 Quốc tế Phụ nữ' },
+  { month: 4, day: 30, name: '🇻🇳 Giải phóng miền Nam' },
+  { month: 5, day: 1, name: '👷 Quốc tế Lao động' },
+  { month: 6, day: 1, name: '🧒 Quốc tế Thiếu nhi' },
+  { month: 9, day: 2, name: '🎆 Quốc khánh' },
+  { month: 10, day: 20, name: '💐 Phụ nữ Việt Nam' },
+  { month: 12, day: 24, name: '🎄 Đêm Giáng sinh' },
+  { month: 12, day: 25, name: '🎅 Giáng sinh' },
+  { month: 12, day: 31, name: '🎉 Đêm giao thừa' }
+];
+
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentUser = null;
@@ -412,7 +559,7 @@ function isCurrentAdmin() {
 }
 
 function copyText(text) {
-  navigator.clipboard.writeText(text).then(() => alert('Đã copy: ' + text)).catch(() => alert('Không copy được, vui lòng copy thủ công'));
+  navigator.clipboard.writeText(text).then(() => alert('Đã copy: ' + text)).catch(() => alert('Không copy được'));
 }
 window.copyText = copyText;
 
@@ -432,24 +579,307 @@ function playGoldenSound() {
   } catch (e) {}
 }
 
-/* ============ KHUNG GIỜ VÀNG RANDOM MỖI GIỜ ============ */
-function seededRandom(seed) {
-  const x = Math.sin(seed) * 10000;
-  return x - Math.floor(x);
+/* ============ 1. TIP HÀNG NGÀY ============ */
+function renderDailyTip() {
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+  const tip = TIPS[dayOfYear % TIPS.length];
+  const el = document.getElementById('dailyTip');
+  if (el) el.textContent = tip;
 }
+
+/* ============ 2. STREAK ============ */
+function calcStreak() {
+  if (!rawData.length) return 0;
+  const dates = rawData.map(d => parseDateToTS(d[0])).filter(t => t).sort((a, b) => b - a);
+  if (!dates.length) return 0;
+  let streak = 1;
+  for (let i = 1; i < dates.length; i++) {
+    const diff = dates[i - 1] - dates[i];
+    if (diff <= 86400000 * 1.5) streak++;
+    else break;
+  }
+  return streak;
+}
+
+function renderStreak() {
+  const streak = calcStreak();
+  const el = document.getElementById('streakNum');
+  const sub = document.getElementById('streakSub');
+  if (el) el.textContent = streak;
+  if (sub) {
+    if (streak >= 30) sub.textContent = '🏆 Siêu kiên trì!';
+    else if (streak >= 14) sub.textContent = '🔥 Đang bùng cháy!';
+    else if (streak >= 7) sub.textContent = '⚡ Rất tốt!';
+    else if (streak >= 3) sub.textContent = '👍 Đang lên!';
+    else sub.textContent = 'Ngày liên tiếp';
+  }
+}
+
+/* ============ 3. ĐẾM NGƯỢC SỰ KIỆN ============ */
+function getNextEvent() {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let next = null, minDays = Infinity;
+  EVENTS.forEach(e => {
+    let d = new Date(now.getFullYear(), e.month - 1, e.day);
+    if (d < today) d = new Date(now.getFullYear() + 1, e.month - 1, e.day);
+    const days = Math.ceil((d - today) / 86400000);
+    if (days < minDays) { minDays = days; next = { ...e, days, date: d }; }
+  });
+  return next;
+}
+
+function renderEventMini() {
+  const e = getNextEvent();
+  if (!e) return;
+  const numEl = document.getElementById('eventNum');
+  const nameEl = document.getElementById('eventName');
+  if (numEl) numEl.textContent = e.days === 0 ? 'Hôm nay!' : e.days + ' ngày';
+  if (nameEl) nameEl.textContent = e.name;
+}
+
+function renderEventList() {
+  const el = document.getElementById('eventList');
+  if (!el) return;
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const list = EVENTS.map(e => {
+    let d = new Date(now.getFullYear(), e.month - 1, e.day);
+    if (d < today) d = new Date(now.getFullYear() + 1, e.month - 1, e.day);
+    return { ...e, days: Math.ceil((d - today) / 86400000), dateStr: d.toLocaleDateString('vi-VN') };
+  }).sort((a, b) => a.days - b.days);
+
+  el.innerHTML = list.map(e => `
+    <div class="event-row">
+      <div>
+        <div class="event-name">${e.name}</div>
+        <div style="font-size:11px;color:#888;margin-top:2px">${e.dateStr}</div>
+      </div>
+      <div class="event-days ${e.days <= 7 ? 'soon' : ''}">${e.days === 0 ? 'HÔM NAY' : e.days + ' ngày'}</div>
+    </div>
+  `).join('');
+}
+
+/* ============ 4. MỤC TIÊU VIEW THÁNG ============ */
+function getGoalKey() { return currentUser ? `goal_${currentUser.id}` : 'goal'; }
+
+function saveGoal() {
+  const val = parseInt(document.getElementById('goalInput').value);
+  if (!val || val < 1000) { alert('Nhập mục tiêu ≥ 1.000 view'); return; }
+  localStorage.setItem(getGoalKey(), val);
+  renderGoal();
+  alert('✅ Đã lưu mục tiêu: ' + val.toLocaleString('vi-VN') + ' view');
+}
+window.saveGoal = saveGoal;
+
+function renderGoal() {
+  const goal = parseInt(localStorage.getItem(getGoalKey()) || 0);
+  const fill = document.getElementById('goalFill');
+  const text = document.getElementById('goalText');
+  const status = document.getElementById('goalStatus');
+
+  if (!goal) {
+    fill.style.width = '0%';
+    text.textContent = '0%';
+    status.textContent = 'Chưa đặt mục tiêu — nhập số bên dưới';
+    return;
+  }
+
+  // Tính view tháng này
+  const now = new Date();
+  let monthViews = 0;
+  rawData.forEach(d => {
+    const ts = parseDateToTS(d[0]);
+    if (!ts) return;
+    const dt = new Date(ts);
+    if (dt.getMonth() === now.getMonth() && dt.getFullYear() === now.getFullYear()) {
+      monthViews += d[1];
+    }
+  });
+
+  const pct = Math.min(100, Math.round(monthViews / goal * 100));
+  fill.style.width = pct + '%';
+  text.textContent = pct + '%';
+  status.innerHTML = `<b style="color:#4ade80">${monthViews.toLocaleString('vi-VN')}</b> / ${goal.toLocaleString('vi-VN')} view`;
+  document.getElementById('goalInput').placeholder = goal;
+}
+
+/* ============ 5. SO SÁNH THÁNG ============ */
+function renderMonthCompare() {
+  const box = document.getElementById('monthCompareContent');
+  if (!box) return;
+  if (rawData.length < 2) { box.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>'; return; }
+
+  const now = new Date();
+  let tm = { views: 0, likes: 0 }, lm = { views: 0, likes: 0 };
+  const thisM = now.getMonth(), thisY = now.getFullYear();
+  const lastM = thisM === 0 ? 11 : thisM - 1;
+  const lastY = thisM === 0 ? thisY - 1 : thisY;
+
+  rawData.forEach(d => {
+    const ts = parseDateToTS(d[0]);
+    if (!ts) return;
+    const dt = new Date(ts);
+    if (dt.getMonth() === thisM && dt.getFullYear() === thisY) { tm.views += d[1]; tm.likes += d[2]; }
+    else if (dt.getMonth() === lastM && dt.getFullYear() === lastY) { lm.views += d[1]; lm.likes += d[2]; }
+  });
+
+  if (tm.views === 0 && lm.views === 0) {
+    box.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Không có dữ liệu 2 tháng gần đây</div>';
+    return;
+  }
+
+  const vd = tm.views - lm.views, ld = tm.likes - lm.likes;
+  const vp = lm.views > 0 ? (vd / lm.views * 100) : (tm.views > 0 ? 100 : 0);
+  const lp = lm.likes > 0 ? (ld / lm.likes * 100) : (tm.likes > 0 ? 100 : 0);
+  const fmt = n => Math.round(n).toLocaleString('vi-VN');
+  const pct = p => (p >= 0 ? '+' : '') + p.toFixed(1) + '%';
+
+  const months = ['Th1', 'Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Th8', 'Th9', 'Th10', 'Th11', 'Th12'];
+
+  box.innerHTML = `
+    <div class="compare-grid">
+      <div class="compare-item"><div class="val">${fmt(tm.views)}</div><div class="lbl">${months[thisM]} view</div></div>
+      <div class="compare-item"><div class="val">${fmt(lm.views)}</div><div class="lbl">${months[lastM]} view</div></div>
+      <div class="compare-item"><div class="val">${fmt(tm.likes)}</div><div class="lbl">${months[thisM]} like</div></div>
+      <div class="compare-item"><div class="val">${fmt(lm.likes)}</div><div class="lbl">${months[lastM]} like</div></div>
+    </div>
+    <div class="compare-diff ${vd > 0 ? 'up' : vd < 0 ? 'down' : 'same'}">📊 View: ${vd >= 0 ? '📈 Tăng' : '📉 Giảm'} ${Math.abs(vd).toLocaleString('vi-VN')} (${pct(vp)})</div>
+    <div class="compare-diff ${ld > 0 ? 'up' : ld < 0 ? 'down' : 'same'}" style="margin-top:8px">❤️ Like: ${ld >= 0 ? '📈 Tăng' : '📉 Giảm'} ${Math.abs(ld).toLocaleString('vi-VN')} (${pct(lp)})</div>`;
+}
+
+/* ============ 6. ĐÁNH GIÁ VIDEO ============ */
+function getRateKey(date) { return currentUser ? `rate_${currentUser.id}_${date}` : `rate_${date}`; }
+
+function renderRateList() {
+  const el = document.getElementById('rateList');
+  if (!el) return;
+  if (!rawData.length) { el.innerHTML = '<div style="color:#666;text-align:center;padding:20px">Chưa có dữ liệu</div>'; return; }
+
+  const sorted = [...rawData].sort((a, b) => (parseDateToTS(b[0]) || 0) - (parseDateToTS(a[0]) || 0)).slice(0, 30);
+
+  el.innerHTML = sorted.map(d => {
+    const date = d[0], views = d[1];
+    const rating = parseInt(localStorage.getItem(getRateKey(date)) || 0);
+    return `
+      <div class="rate-item">
+        <div class="rate-info">
+          <div class="rate-date">${date}</div>
+          <div class="rate-view">${views.toLocaleString('vi-VN')} view</div>
+        </div>
+        <div class="stars" data-date="${date}">
+          ${[1,2,3,4,5].map(i => `<span class="star ${i <= rating ? 'active' : ''}" data-val="${i}">★</span>`).join('')}
+        </div>
+      </div>`;
+  }).join('');
+
+  el.querySelectorAll('.stars').forEach(container => {
+    container.querySelectorAll('.star').forEach(star => {
+      star.addEventListener('click', () => {
+        const date = container.dataset.date;
+        const val = parseInt(star.dataset.val);
+        localStorage.setItem(getRateKey(date), val);
+        container.querySelectorAll('.star').forEach(s => {
+          s.classList.toggle('active', parseInt(s.dataset.val) <= val);
+        });
+      });
+    });
+  });
+}
+
+/* ============ 7. BACKUP / RESTORE ============ */
+function backupData() {
+  if (!currentUser) return;
+  const ratings = {};
+  rawData.forEach(d => {
+    const r = localStorage.getItem(getRateKey(d[0]));
+    if (r) ratings[d[0]] = r;
+  });
+  const backup = {
+    version: '1.0',
+    exportedAt: new Date().toISOString(),
+    user: currentUser.email,
+    rows: rawData,
+    goal: localStorage.getItem(getGoalKey()) || null,
+    ratings: ratings,
+    sound: soundEnabled
+  };
+  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function restoreData(file) {
+  const reader = new FileReader();
+  reader.onload = async ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (!data.rows || !Array.isArray(data.rows)) throw new Error('File không hợp lệ');
+      if (!confirm(`Khôi phục ${data.rows.length} dòng dữ liệu?\nDữ liệu hiện tại sẽ bị ghi đè.`)) return;
+      rawData = data.rows;
+      if (data.goal) localStorage.setItem(getGoalKey(), data.goal);
+      if (data.ratings) {
+        Object.entries(data.ratings).forEach(([date, r]) => localStorage.setItem(getRateKey(date), r));
+      }
+      renderAll();
+      await saveDataToCloud();
+      alert('✅ Đã khôi phục thành công!');
+    } catch (e) {
+      alert('❌ Lỗi: ' + e.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* ============ 8. SHARE KẾT QUẢ ============ */
+function shareResults() {
+  if (!rawData.length) { alert('Chưa có dữ liệu để chia sẻ!'); return; }
+
+  let tv = 0, tl = 0, mx = 0, mxDay = '';
+  rawData.forEach(d => {
+    tv += d[1]; tl += d[2];
+    if (d[1] > mx) { mx = d[1]; mxDay = d[0]; }
+  });
+  const avg = Math.round(tv / rawData.length);
+  const streak = calcStreak();
+
+  const text = `📊 THỐNG KÊ KÊNH TIKTOK
+━━━━━━━━━━━━━━━━━
+📅 Số ngày có data: ${rawData.length}
+👀 Tổng view: ${tv.toLocaleString('vi-VN')}
+❤️ Tổng like: ${tl.toLocaleString('vi-VN')}
+📈 View trung bình: ${avg.toLocaleString('vi-VN')}/ngày
+🏆 Ngày viral nhất: ${mxDay}
+   → ${mx.toLocaleString('vi-VN')} view
+🔥 Chuỗi đăng bài: ${streak} ngày
+━━━━━━━━━━━━━━━━━
+Được tạo bởi Tool của @ductri705 🚀`;
+
+  if (navigator.share) {
+    navigator.share({ title: 'Thống kê TikTok của tôi', text: text }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => alert('✅ Đã copy vào clipboard!\nDán vào Facebook/Zalo để chia sẻ')).catch(() => {
+      prompt('Copy nội dung này:', text);
+    });
+  }
+}
+
+/* ============ KHUNG GIỜ VÀNG ============ */
+function seededRandom(seed) { const x = Math.sin(seed) * 10000; return x - Math.floor(x); }
 
 function getGoldenSlotForHour(now) {
   const dayKey = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
   const hourKey = now.getHours();
   const seed = dayKey * 100 + hourKey;
-
   const startMin = Math.floor(seededRandom(seed) * 30);
   const durationMin = 20 + Math.floor(seededRandom(seed + 1) * 21);
-
   const start = new Date(now);
   start.setMinutes(startMin, 0, 0);
   const end = new Date(start.getTime() + durationMin * 60000);
-
   return { start, end, startMin, durationMin };
 }
 
@@ -463,32 +893,14 @@ function getNextGolden(now) {
   const hh = String(now.getHours()).padStart(2, '0');
 
   if (inSlot) {
-    return {
-      active: true,
-      target: slot.end,
-      label: `🔥 GIỜ VÀNG ${hh}h`,
-      desc: `Khung ${formatTime(slot.start)} – ${formatTime(slot.end)} · Đăng ngay!`,
-      durationMin: slot.durationMin
-    };
+    return { active: true, target: slot.end, label: `🔥 GIỜ VÀNG ${hh}h`, desc: `Khung ${formatTime(slot.start)} – ${formatTime(slot.end)} · Đăng ngay!`, durationMin: slot.durationMin };
   } else if (now < slot.start) {
-    return {
-      active: false,
-      target: slot.start,
-      label: `⏰ SẮP VÀO KHUNG VÀNG ${hh}h`,
-      desc: `Khung sắp tới: ${formatTime(slot.start)} – ${formatTime(slot.end)}`,
-      durationMin: slot.durationMin
-    };
+    return { active: false, target: slot.start, label: `⏰ SẮP VÀO KHUNG VÀNG ${hh}h`, desc: `Khung sắp tới: ${formatTime(slot.start)} – ${formatTime(slot.end)}`, durationMin: slot.durationMin };
   } else {
     const nextHour = new Date(now);
     nextHour.setHours(now.getHours() + 1, 0, 0, 0);
     const nextSlot = getGoldenSlotForHour(nextHour);
-    return {
-      active: false,
-      target: nextSlot.start,
-      label: `⏰ ĐÃ QUA KHUNG VÀNG ${hh}h`,
-      desc: `Khung giờ sau: ${formatTime(nextSlot.start)} – ${formatTime(nextSlot.end)}`,
-      durationMin: nextSlot.durationMin
-    };
+    return { active: false, target: nextSlot.start, label: `⏰ ĐÃ QUA KHUNG VÀNG ${hh}h`, desc: `Khung giờ sau: ${formatTime(nextSlot.start)} – ${formatTime(nextSlot.end)}`, durationMin: nextSlot.durationMin };
   }
 }
 
@@ -499,17 +911,10 @@ function renderTodayGolden() {
   const slot = getGoldenSlotForHour(now);
   const inSlot = now >= slot.start && now < slot.end;
   const hh = String(now.getHours()).padStart(2, '0');
-
   box.innerHTML = `
-    <div style="color:#ffd700;font-weight:700;font-size:15px;margin-bottom:8px">
-      ${inSlot ? '🔥 ĐANG TRONG KHUNG GIỜ VÀNG' : '⏰ Khung giờ vàng giờ ' + hh + 'h'}
-    </div>
-    <div style="color:#4ade80;font-weight:600;font-size:16px;margin-bottom:8px">
-      ${formatTime(slot.start)} – ${formatTime(slot.end)}
-    </div>
-    <div style="color:#888;font-size:11px">
-      Kéo dài ${slot.durationMin} phút · Tự động đổi mỗi giờ
-    </div>
+    <div style="color:#ffd700;font-weight:700;font-size:15px;margin-bottom:8px">${inSlot ? '🔥 ĐANG TRONG KHUNG GIỜ VÀNG' : '⏰ Khung giờ vàng giờ ' + hh + 'h'}</div>
+    <div style="color:#4ade80;font-weight:600;font-size:16px;margin-bottom:8px">${formatTime(slot.start)} – ${formatTime(slot.end)}</div>
+    <div style="color:#888;font-size:11px">Kéo dài ${slot.durationMin} phút · Tự động đổi mỗi giờ</div>
   `;
 }
 
@@ -695,6 +1100,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     document.getElementById('app').classList.remove('hidden');
     document.getElementById('adminTab').classList.toggle('hidden', !isCurrentAdmin());
     renderGolden(); renderAccount(); renderPackages();
+    renderDailyTip(); renderStreak(); renderEventMini(); renderEventList();
     await loadDataFromCloud();
     renderAll();
   } else {
@@ -813,14 +1219,11 @@ document.getElementById('goldenUnlockBtn').addEventListener('click', async () =>
   updateCreditsDisplay(); renderGolden(); renderAccount();
 });
 
-/* ============ PHÂN TÍCH NÂNG CAO ============ */
+/* PHÂN TÍCH NÂNG CAO */
 function renderGoldenAnalysis() {
   const box = document.getElementById('vipContent');
   if (!box) return;
-  if (!rawData.length) {
-    box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv để xem phân tích.</div>';
-    return;
-  }
+  if (!rawData.length) { box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv để xem phân tích.</div>'; return; }
 
   const n = rawData.length;
   const views = rawData.map(d => d[1]);
@@ -845,10 +1248,8 @@ function renderGoldenAnalysis() {
 
   const maxV = Math.max(...views);
   const minV = Math.min(...views);
-  const maxIdx = views.indexOf(maxV);
-  const minIdx = views.indexOf(minV);
-  const maxDay = rawData[maxIdx][0];
-  const minDay = rawData[minIdx][0];
+  const maxDay = rawData[views.indexOf(maxV)][0];
+  const minDay = rawData[views.indexOf(minV)][0];
 
   const likeRate = totalV > 0 ? (totalL / totalV * 100) : 0;
   const shareRate = totalV > 0 ? (totalS / totalV * 100) : 0;
@@ -899,97 +1300,36 @@ function renderGoldenAnalysis() {
   });
 
   let growthRate = 0;
-  if (n >= 2 && views[0] > 0) {
-    growthRate = (Math.pow(views[n - 1] / views[0], 1 / n) - 1) * 100;
-  }
+  if (n >= 2 && views[0] > 0) growthRate = (Math.pow(views[n - 1] / views[0], 1 / n) - 1) * 100;
 
   let strategy = [];
-  if (likeRate > 4) strategy.push(`✅ <b>Like cực tốt (${likeRate.toFixed(2)}%)</b> — nội dung được yêu thích, duy trì phong cách này.`);
-  else if (likeRate > 2) strategy.push(`👍 <b>Like tốt (${likeRate.toFixed(2)}%)</b> — ổn định, thêm CTA "thả tim nếu hay" để tăng.`);
-  else strategy.push(`⚠️ <b>Like thấp (${likeRate.toFixed(2)}%)</b> — cần cải thiện nội dung, thêm hook 3 giây đầu.`);
-
-  if (shareRate > 0.5) strategy.push(`🔥 <b>Share cao (${shareRate.toFixed(3)}%)</b> — nội dung lan truyền tốt, làm thêm dạng này.`);
-  else if (shareRate < 0.1) strategy.push(`💡 <b>Share thấp (${shareRate.toFixed(3)}%)</b> — thử nội dung cảm xúc mạnh hoặc hữu ích.`);
-
-  if (commentRate > 0.3) strategy.push(`💬 <b>Comment tốt (${commentRate.toFixed(3)}%)</b> — cộng đồng tương tác, trả lời comment để tăng reach.`);
-  else strategy.push(`💭 <b>Comment thấp (${commentRate.toFixed(3)}%)</b> — đặt câu hỏi cuối video để kích thích bình luận.`);
-
-  if (cv > 150) strategy.push(`🎢 <b>View biến động lớn (CV: ${cv.toFixed(0)}%)</b> — nên đăng đều đặn, tránh đăng quá dồn.`);
-  else if (cv < 50) strategy.push(`🎯 <b>View ổn định (CV: ${cv.toFixed(0)}%)</b> — content ổn, tìm cách đột phá để viral hơn.`);
-
-  if (longestStreak >= 3) strategy.push(`🔥 <b>Chuỗi ${longestStreak} ngày viral liên tiếp</b> — phân tích công thức thời gian này để lặp lại.`);
-
-  strategy.push(`🎯 <b>Ngày viral nhất: ${maxDay}</b> (${maxV.toLocaleString('vi-VN')} view) — xem lại nội dung để lặp lại.`);
-  strategy.push(`📅 <b>Ngày tốt nhất trong tuần: ${daysOfWeek[bestDow]}</b> (trung bình ${Math.round(bestDowAvg).toLocaleString('vi-VN')} view/ngày).`);
+  if (likeRate > 4) strategy.push(`✅ <b>Like cực tốt (${likeRate.toFixed(2)}%)</b> — nội dung được yêu thích.`);
+  else if (likeRate > 2) strategy.push(`👍 <b>Like tốt (${likeRate.toFixed(2)}%)</b> — ổn định, thêm CTA.`);
+  else strategy.push(`⚠️ <b>Like thấp (${likeRate.toFixed(2)}%)</b> — thêm hook 3 giây đầu.`);
+  if (shareRate > 0.5) strategy.push(`🔥 <b>Share cao (${shareRate.toFixed(3)}%)</b> — lan truyền tốt.`);
+  else if (shareRate < 0.1) strategy.push(`💡 <b>Share thấp (${shareRate.toFixed(3)}%)</b> — thử nội dung cảm xúc mạnh.`);
+  if (commentRate > 0.3) strategy.push(`💬 <b>Comment tốt (${commentRate.toFixed(3)}%)</b> — trả lời để tăng reach.`);
+  else strategy.push(`💭 <b>Comment thấp (${commentRate.toFixed(3)}%)</b> — đặt câu hỏi cuối video.`);
+  if (cv > 150) strategy.push(`🎢 <b>View biến động (CV ${cv.toFixed(0)}%)</b> — nên đăng đều.`);
+  else if (cv < 50) strategy.push(`🎯 <b>View ổn định (CV ${cv.toFixed(0)}%)</b> — tìm cách đột phá.`);
+  if (longestStreak >= 3) strategy.push(`🔥 <b>Chuỗi ${longestStreak} ngày viral</b> — lặp lại công thức.`);
+  strategy.push(`🎯 <b>Ngày viral nhất: ${maxDay}</b> (${maxV.toLocaleString('vi-VN')} view).`);
+  strategy.push(`📅 <b>Ngày tốt nhất: ${daysOfWeek[bestDow]}</b> (TB ${Math.round(bestDowAvg).toLocaleString('vi-VN')} view).`);
 
   box.innerHTML = `
-    <div class="strategy-item">
-      📈 <b>XU HƯỚNG:</b><br>
-      <span style="color:${trend.cls === 'up' ? '#4ade80' : trend.cls === 'down' ? '#ff6e9c' : '#aaa'};font-weight:700">${trend.text}</span>
-    </div>
-
-    <div class="strategy-item">
-      📊 <b>THỐNG KÊ CHI TIẾT:</b><br>
-      • Trung bình: <b>${Math.round(avgV).toLocaleString('vi-VN')}</b> view/ngày<br>
-      • Trung vị: <b>${Math.round(median).toLocaleString('vi-VN')}</b> view/ngày<br>
-      • Cao nhất: <b>${maxV.toLocaleString('vi-VN')}</b> (${maxDay})<br>
-      • Thấp nhất: <b>${minV.toLocaleString('vi-VN')}</b> (${minDay})<br>
-      • Độ lệch chuẩn: <b>${Math.round(stdDev).toLocaleString('vi-VN')}</b>
-    </div>
-
-    <div class="strategy-item">
-      ${stabilityIcon} <b>ĐỘ ỔN ĐỊNH:</b> <span style="color:${stabilityColor};font-weight:700">${stability}</span><br>
-      <span style="color:#888;font-size:11px">Hệ số biến thiên: ${cv.toFixed(0)}% (càng thấp càng ổn định)</span>
-    </div>
-
-    <div class="strategy-item">
-      💞 <b>TỶ LỆ TƯƠNG TÁC:</b><br>
-      • Like/View: <b>${likeRate.toFixed(2)}%</b><br>
-      • Share/View: <b>${shareRate.toFixed(3)}%</b><br>
-      • Comment/View: <b>${commentRate.toFixed(3)}%</b><br>
-      • Tổng tương tác: <b style="color:#4ade80">${engagementRate.toFixed(2)}%</b>
-    </div>
-
-    <div class="strategy-item">
-      🏆 <b>TOP 5 NGÀY VIRAL:</b><br>
-      ${top5.map((d, i) => {
-        const medal = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'][i];
-        return `${medal} ${d[0]} — <b>${d[1].toLocaleString('vi-VN')}</b> view`;
-      }).join('<br>')}
-    </div>
-
-    <div class="strategy-item">
-      📅 <b>PHÂN TÍCH THEO THỨ:</b><br>
-      ${byDayOfWeek.map((d, i) => {
-        const avg = d.count > 0 ? Math.round(d.total / d.count) : 0;
-        const bar = d.count > 0 ? '█'.repeat(Math.min(10, Math.round(avg / (bestDowAvg || 1) * 10))) : '';
-        return `<span style="display:inline-block;width:30px;color:#6ea8ff">${daysOfWeek[i]}</span> ${bar} ${avg.toLocaleString('vi-VN')} view`;
-      }).join('<br>')}
-    </div>
-
-    <div class="strategy-item">
-      🔥 <b>CHUỖI VIRAL DÀI NHẤT:</b> <span style="color:#ffd700;font-weight:700">${longestStreak} ngày</span><br>
-      <span style="color:#888;font-size:11px">Ngưỡng viral: ≥ ${Math.round(viralThreshold).toLocaleString('vi-VN')} view (150% trung bình)</span>
-    </div>
-
-    ${growthRate !== 0 ? `
-    <div class="strategy-item">
-      📈 <b>TỐC ĐỘ TĂNG TRƯỞNG:</b> <span style="color:${growthRate > 0 ? '#4ade80' : '#ff6e9c'};font-weight:700">${growthRate > 0 ? '+' : ''}${growthRate.toFixed(2)}%/ngày</span><br>
-      <span style="color:#888;font-size:11px">Trung bình cộng dồn qua ${n} ngày</span>
-    </div>` : ''}
-
-    <div class="strategy-item">
-      💡 <b>CHIẾN LƯỢC ĐỀ XUẤT:</b><br>
-      ${strategy.map(s => '• ' + s).join('<br><br>')}
-    </div>
-
-    <div class="strategy-item">
-      ⏰ <b>GIỜ VÀNG HÔM NAY:</b> ${document.getElementById('todayGoldenBox') ? document.getElementById('todayGoldenBox').innerHTML : 'Đang cập nhật...'}
-    </div>
+    <div class="strategy-item">📈 <b>XU HƯỚNG:</b><br><span style="color:${trend.cls === 'up' ? '#4ade80' : trend.cls === 'down' ? '#ff6e9c' : '#aaa'};font-weight:700">${trend.text}</span></div>
+    <div class="strategy-item">📊 <b>THỐNG KÊ:</b><br>• Trung bình: <b>${Math.round(avgV).toLocaleString('vi-VN')}</b><br>• Trung vị: <b>${Math.round(median).toLocaleString('vi-VN')}</b><br>• Cao nhất: <b>${maxV.toLocaleString('vi-VN')}</b> (${maxDay})<br>• Thấp nhất: <b>${minV.toLocaleString('vi-VN')}</b> (${minDay})<br>• Độ lệch chuẩn: <b>${Math.round(stdDev).toLocaleString('vi-VN')}</b></div>
+    <div class="strategy-item">${stabilityIcon} <b>ĐỘ ỔN ĐỊNH:</b> <span style="color:${stabilityColor};font-weight:700">${stability}</span><br><span style="color:#888;font-size:11px">CV: ${cv.toFixed(0)}%</span></div>
+    <div class="strategy-item">💞 <b>TƯƠNG TÁC:</b><br>• Like/View: <b>${likeRate.toFixed(2)}%</b><br>• Share/View: <b>${shareRate.toFixed(3)}%</b><br>• Comment/View: <b>${commentRate.toFixed(3)}%</b><br>• Tổng: <b style="color:#4ade80">${engagementRate.toFixed(2)}%</b></div>
+    <div class="strategy-item">🏆 <b>TOP 5 NGÀY VIRAL:</b><br>${top5.map((d, i) => `${['🥇','🥈','🥉','4️⃣','5️⃣'][i]} ${d[0]} — <b>${d[1].toLocaleString('vi-VN')}</b>`).join('<br>')}</div>
+    <div class="strategy-item">📅 <b>THEO THỨ:</b><br>${byDayOfWeek.map((d, i) => { const avg = d.count > 0 ? Math.round(d.total / d.count) : 0; const bar = d.count > 0 ? '█'.repeat(Math.min(10, Math.round(avg / (bestDowAvg || 1) * 10))) : ''; return `<span style="display:inline-block;width:30px;color:#6ea8ff">${daysOfWeek[i]}</span> ${bar} ${avg.toLocaleString('vi-VN')}`; }).join('<br>')}</div>
+    <div class="strategy-item">🔥 <b>CHUỖI VIRAL:</b> <span style="color:#ffd700;font-weight:700">${longestStreak} ngày</span></div>
+    ${growthRate !== 0 ? `<div class="strategy-item">📈 <b>TĂNG TRƯỞNG:</b> <span style="color:${growthRate > 0 ? '#4ade80' : '#ff6e9c'};font-weight:700">${growthRate > 0 ? '+' : ''}${growthRate.toFixed(2)}%/ngày</span></div>` : ''}
+    <div class="strategy-item">💡 <b>CHIẾN LƯỢC:</b><br>${strategy.map(s => '• ' + s).join('<br><br>')}</div>
   `;
 }
 
-/* ============ ADMIN ============ */
+/* ADMIN */
 async function adminLoadUsers() {
   const box = document.getElementById('adminList');
   box.innerHTML = '<div class="admin-loading">⏳ Đang tải...</div>';
@@ -1004,25 +1344,18 @@ async function adminLoadUsers() {
       const cr = u.created_at ? new Date(u.created_at).toLocaleDateString('vi-VN') : '-';
       const cDisp = ia ? '∞' : (u.credits || 0).toLocaleString('vi-VN');
       let ah = '';
-      if (!ia) ah += `<button class="admin-btn promote" onclick="adminPromote('${u.id}')">👑 Lên Admin (${PROMOTE_COST} xu)</button>`;
+      if (!ia) ah += `<button class="admin-btn promote" onclick="adminPromote('${u.id}')">👑 Lên Admin</button>`;
       else if (u.email !== ADMIN_EMAIL) ah += `<button class="admin-btn demote" onclick="adminDemote('${u.id}')">⬇️ Hạ Admin</button>`;
       ah += ib ? `<button class="admin-btn unban" onclick="adminUnban('${u.id}')">✅ Mở khóa</button>` : `<button class="admin-btn ban" onclick="adminBan('${u.id}')">🚫 Khóa</button>`;
-      ADMIN_CREDIT_AMOUNTS.forEach(a => { ah += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', ${a})">+${a} xu</button>`; });
-      ah += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -100)">-100 xu</button>`;
+      ADMIN_CREDIT_AMOUNTS.forEach(a => { ah += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', ${a})">+${a}</button>`; });
+      ah += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -100)">-100</button>`;
       if (ig) ah += `<button class="admin-btn reset" onclick="adminResetGolden('${u.id}')">🔒 Khóa VIP</button>`;
       if (u.email !== ADMIN_EMAIL) ah += `<button class="admin-btn delete" onclick="adminDeleteUser('${u.id}')">🗑️ Xóa</button>`;
-      return `
-        <div class="admin-user ${ib ? 'banned' : ''} ${ia ? 'is-admin-user' : ''}">
-          <div class="head">
-            <span class="email">${u.email || 'unknown'}</span>
-            ${ia ? '<span class="badge admin">ADMIN</span>' : ''}
-            ${ig ? '<span class="badge vip">GOLDEN</span>' : ''}
-            <span class="badge ${ib ? 'banned' : ''}">${ib ? 'ĐÃ KHÓA' : 'OK'}</span>
-          </div>
-          <div class="info">📅 ${cr}</div>
-          <div class="credits-line">💰 <span id="cred-${u.id}">${cDisp}</span> xu</div>
-          <div class="actions">${ah}</div>
-        </div>`;
+      return `<div class="admin-user ${ib ? 'banned' : ''} ${ia ? 'is-admin-user' : ''}">
+        <div class="head"><span class="email">${u.email || 'unknown'}</span>${ia ? '<span class="badge admin">ADMIN</span>' : ''}${ig ? '<span class="badge vip">GOLDEN</span>' : ''}<span class="badge ${ib ? 'banned' : ''}">${ib ? 'ĐÃ KHÓA' : 'OK'}</span></div>
+        <div class="info">📅 ${cr}</div>
+        <div class="credits-line">💰 <span id="cred-${u.id}">${cDisp}</span> xu</div>
+        <div class="actions">${ah}</div></div>`;
     }).join('');
   } catch (e) { box.innerHTML = '<div class="admin-empty" style="color:#ff6e9c">❌ Lỗi: ' + e.message + '</div>'; }
 }
@@ -1032,7 +1365,7 @@ async function adminUnban(uid) { await supabaseClient.from('profiles').update({ 
 async function adminAddCredit(uid, amt) {
   const { data } = await supabaseClient.from('profiles').select('credits, email, is_admin').eq('id', uid).single();
   const ia = data?.is_admin === true || data?.email === ADMIN_EMAIL;
-  if (ia) { alert('Admin có vô cực xu, không cần cộng/trừ!'); return; }
+  if (ia) { alert('Admin có vô cực xu!'); return; }
   const cur = data?.credits || 0; const nv = Math.max(0, cur + amt);
   await supabaseClient.from('profiles').update({ credits: nv }).eq('id', uid);
   const el = document.getElementById('cred-' + uid); if (el) el.textContent = nv.toLocaleString('vi-VN');
@@ -1089,6 +1422,12 @@ function showUploadStatus(text, color) {
 }
 
 document.getElementById('exportCsvBtn').addEventListener('click', exportToCSV);
+document.getElementById('shareBtn').addEventListener('click', shareResults);
+document.getElementById('backupBtn').addEventListener('click', backupData);
+document.getElementById('restoreBtn').addEventListener('click', () => document.getElementById('restoreInput').click());
+document.getElementById('restoreInput').addEventListener('change', e => {
+  if (e.target.files[0]) { restoreData(e.target.files[0]); e.target.value = ''; }
+});
 
 const uploadZone = document.getElementById('uploadZone');
 const csvInput = document.getElementById('csvInput');
@@ -1154,7 +1493,10 @@ function parseCSV(text) {
   rawData = rows;
 }
 
-function renderAll() { renderStats(); renderTop(); renderChart(); renderCompare(); renderTodayGolden(); }
+function renderAll() {
+  renderStats(); renderTop(); renderChart(); renderCompare(); renderTodayGolden();
+  renderMonthCompare(); renderGoal(); renderStreak(); renderRateList();
+}
 
 function renderStats() {
   if (!rawData.length) { ['s-total-views','s-total-likes','s-avg-views','s-max-views'].forEach(id => document.getElementById(id).textContent = '—'); return; }
@@ -1212,6 +1554,8 @@ document.querySelectorAll('.tab').forEach(tab => {
     if (tab.dataset.tab === 'hour') { renderGolden(); renderTodayGolden(); }
     if (tab.dataset.tab === 'account') renderAccount();
     if (tab.dataset.tab === 'money') renderPackages();
+    if (tab.dataset.tab === 'rate') renderRateList();
+    if (tab.dataset.tab === 'event') renderEventList();
   });
 });
 
@@ -1229,7 +1573,6 @@ function tick() {
   const gb = document.getElementById('golden');
   const txt = document.getElementById('goldenText');
   const cd = document.getElementById('countdown');
-
   const hourKey = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate() + '-' + now.getHours();
 
   if (g.active) {
@@ -1249,42 +1592,9 @@ function tick() {
   const ss = Math.floor((diff % 60000) / 1000);
   cd.textContent = (g.active ? '⏳ Còn ' : '⏳ Bắt đầu sau ') + pad(hh) + ':' + pad(mm) + ':' + pad(ss);
 
-  // Update today's golden slot in tab Giờ vàng mỗi khi sang giờ mới
   if (hourKey !== lastGoldenHourKey) {
     lastGoldenHourKey = hourKey;
     renderTodayGolden();
     if (userProfile && (userProfile.golden_unlocked || isCurrentAdmin())) renderGoldenAnalysis();
   }
 }
-
-tick(); setInterval(tick, 1000);
-
-const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v3.0';
-const UPDATE_CHECK_URL = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
-const CHECK_INTERVAL = 5 * 60 * 1000;
-
-async function checkForUpdate() {
-  try {
-    const res = await fetch(UPDATE_CHECK_URL + '?t=' + Date.now(), { cache: 'no-store' });
-    if (!res.ok) return;
-    const text = await res.text();
-    const match = text.match(/name="tool-version"\s+content="([^"]+)"/);
-    if (!match) return;
-    if (match[1] !== CURRENT_VERSION) showUpdateToast(match[1]);
-  } catch (e) {}
-}
-
-function showUpdateToast(v) {
-  if (document.getElementById('updateToast')) return;
-  const t = document.createElement('div'); t.id = 'updateToast';
-  t.style.cssText = `position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,0.4);z-index:99999;max-width:90vw;cursor:pointer;`;
-  t.innerHTML = `🔄 Có bản cập nhật mới (${v})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại trang</span>`;
-  t.onclick = () => { location.href = location.pathname + '?v=' + Date.now(); };
-  document.body.appendChild(t);
-}
-
-setTimeout(checkForUpdate, 3000);
-setInterval(checkForUpdate, CHECK_INTERVAL);
-</script>
-</body>
-</html>
