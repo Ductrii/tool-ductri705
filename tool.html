@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="tool-version" content="v1.0">
 <title>Tool by ductri705</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -394,14 +395,11 @@ async function applyDailyBonus() {
   const last = userProfile.last_daily_bonus ? new Date(userProfile.last_daily_bonus).getTime() : 0;
   const now = Date.now();
   if (now - last < DAILY_INTERVAL_MS) return;
-
   const newCredits = (userProfile.credits || 0) + DAILY_BONUS;
   const { error } = await supabaseClient.from('profiles').update({
-    credits: newCredits,
-    last_daily_bonus: new Date().toISOString()
+    credits: newCredits, last_daily_bonus: new Date().toISOString()
   }).eq('id', currentUser.id);
-
-  if (error) { console.error('Daily bonus error:', error); return; }
+  if (error) return;
   userProfile.credits = newCredits;
   userProfile.last_daily_bonus = new Date().toISOString();
   showDailyBonusToast();
@@ -489,9 +487,7 @@ function renderGolden() {
   const unlocked = document.getElementById('goldenUnlocked');
   const adminBadge = document.getElementById('adminBadge');
   if (!userProfile) return;
-
   const isAdmin = isCurrentAdmin();
-
   if (isAdmin || userProfile.golden_unlocked) {
     locked.classList.add('hidden');
     unlocked.classList.remove('hidden');
@@ -570,35 +566,23 @@ async function adminLoadUsers() {
     const { data, error } = await supabaseClient.from('profiles').select('*').order('created_at', { ascending: false });
     if (error) throw error;
     if (!data || !data.length) { box.innerHTML = '<div class="admin-empty">Chưa có user nào</div>'; return; }
-
     box.innerHTML = data.map(u => {
       const isBanned = u.banned === true;
       const isAdminUser = u.is_admin === true || u.email === ADMIN_EMAIL;
       const isGolden = u.golden_unlocked === true;
       const created = u.created_at ? new Date(u.created_at).toLocaleDateString('vi-VN') : '-';
       const creditsDisplay = isAdminUser ? '∞' : (u.credits || 0).toLocaleString('vi-VN');
-
       let actionsHtml = '';
-      if (!isAdminUser) {
-        actionsHtml += `<button class="admin-btn promote" onclick="adminPromote('${u.id}')">👑 Lên Admin (${PROMOTE_COST} xu)</button>`;
-      } else if (u.email !== ADMIN_EMAIL) {
-        actionsHtml += `<button class="admin-btn demote" onclick="adminDemote('${u.id}')">⬇️ Hạ Admin</button>`;
-      }
-
+      if (!isAdminUser) actionsHtml += `<button class="admin-btn promote" onclick="adminPromote('${u.id}')">👑 Lên Admin (${PROMOTE_COST} xu)</button>`;
+      else if (u.email !== ADMIN_EMAIL) actionsHtml += `<button class="admin-btn demote" onclick="adminDemote('${u.id}')">⬇️ Hạ Admin</button>`;
       actionsHtml += isBanned
         ? `<button class="admin-btn unban" onclick="adminUnban('${u.id}')">✅ Mở khóa</button>`
         : `<button class="admin-btn ban" onclick="adminBan('${u.id}')">🚫 Khóa</button>`;
-
       actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 10)">+10 xu</button>`;
       actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 50)">+50 xu</button>`;
       actionsHtml += `<button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -10)">-10 xu</button>`;
-
       if (isGolden) actionsHtml += `<button class="admin-btn reset" onclick="adminResetGolden('${u.id}')">🔒 Khóa</button>`;
-
-      if (u.email !== ADMIN_EMAIL) {
-        actionsHtml += `<button class="admin-btn delete" onclick="adminDeleteUser('${u.id}')">🗑️ Xóa tài khoản</button>`;
-      }
-
+      if (u.email !== ADMIN_EMAIL) actionsHtml += `<button class="admin-btn delete" onclick="adminDeleteUser('${u.id}')">🗑️ Xóa tài khoản</button>`;
       return `
         <div class="admin-user ${isBanned ? 'banned' : ''} ${isAdminUser ? 'is-admin-user' : ''}">
           <div class="head">
@@ -654,24 +638,16 @@ async function adminDemote(userId) {
   if (error) { alert('Lỗi: ' + error.message); return; }
   adminLoadUsers();
 }
-
 async function adminDeleteUser(userId) {
   if (!confirm('⚠️ CẢNH BÁO: Xóa tài khoản này sẽ xóa VĨNH VIỄN:\n• Tài khoản đăng nhập\n• Toàn bộ dữ liệu CSV\n• Mọi thông tin liên quan\n\nKHÔNG THỂ KHÔI PHỤC!\n\nTiếp tục?')) return;
-
   const confirmText = prompt('Gõ chính xác "XOA" để xác nhận xóa vĩnh viễn:');
-  if (confirmText !== 'XOA') {
-    alert('Đã hủy xóa.');
-    return;
-  }
-
+  if (confirmText !== 'XOA') { alert('Đã hủy xóa.'); return; }
   try {
     const { error } = await supabaseClient.rpc('delete_user', { target_user_id: userId });
     if (error) throw error;
     alert('✅ Đã xóa tài khoản thành công!');
     adminLoadUsers();
-  } catch (e) {
-    alert('❌ Lỗi: ' + e.message);
-  }
+  } catch (e) { alert('❌ Lỗi: ' + e.message); }
 }
 
 window.adminBan = adminBan;
@@ -693,9 +669,7 @@ async function saveDataToCloud() {
     if (error) throw error;
     showUploadStatus('☁️ Đã lưu lên cloud', '#4ade80');
     if (userProfile && (userProfile.golden_unlocked || isCurrentAdmin())) renderGoldenAnalysis();
-  } catch (e) {
-    showUploadStatus('❌ Lỗi lưu cloud: ' + e.message, '#ff6e9c');
-  }
+  } catch (e) { showUploadStatus('❌ Lỗi lưu cloud: ' + e.message, '#ff6e9c'); }
 }
 
 async function loadDataFromCloud() {
@@ -719,9 +693,7 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
     renderAll();
     if (userProfile && (userProfile.golden_unlocked || isCurrentAdmin())) renderGoldenAnalysis();
     showUploadStatus('🗑️ Đã xóa', '#ff6e9c');
-  } catch (e) {
-    showUploadStatus('❌ Lỗi: ' + e.message, '#ff6e9c');
-  }
+  } catch (e) { showUploadStatus('❌ Lỗi: ' + e.message, '#ff6e9c'); }
 });
 
 function showUploadStatus(text, color) {
@@ -741,9 +713,7 @@ document.getElementById('csvInput').addEventListener('change', e => {
       renderAll();
       await saveDataToCloud();
       showUploadSuccess();
-    } catch (err) {
-      showUploadStatus('❌ Lỗi: ' + err.message, '#ff6e9c');
-    }
+    } catch (err) { showUploadStatus('❌ Lỗi: ' + err.message, '#ff6e9c'); }
   };
   reader.readAsText(file, 'UTF-8');
 });
@@ -869,6 +839,36 @@ function tick() {
 
 tick();
 setInterval(tick, 1000);
+
+/* ============ AUTO UPDATE ============ */
+const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v1.0';
+const UPDATE_CHECK_URL = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
+const CHECK_INTERVAL = 5 * 60 * 1000;
+
+async function checkForUpdate() {
+  try {
+    const res = await fetch(UPDATE_CHECK_URL + '?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) return;
+    const text = await res.text();
+    const match = text.match(/name="tool-version"\s+content="([^"]+)"/);
+    if (!match) return;
+    const latestVersion = match[1];
+    if (latestVersion !== CURRENT_VERSION) showUpdateToast(latestVersion);
+  } catch (e) {}
+}
+
+function showUpdateToast(newVersion) {
+  if (document.getElementById('updateToast')) return;
+  const toast = document.createElement('div');
+  toast.id = 'updateToast';
+  toast.style.cssText = `position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,0.4);z-index:99999;max-width:90vw;cursor:pointer;animation:slideUp 0.4s ease;`;
+  toast.innerHTML = `🔄 Có bản cập nhật mới (${newVersion})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại trang</span>`;
+  toast.onclick = () => { location.href = location.pathname + '?v=' + Date.now(); };
+  document.body.appendChild(toast);
+}
+
+setTimeout(checkForUpdate, 3000);
+setInterval(checkForUpdate, CHECK_INTERVAL);
 </script>
 </body>
 </html>
