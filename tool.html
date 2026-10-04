@@ -2,13 +2,14 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="tool-version" content="v1.0">
 <title>Tool by ductri705</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { overscroll-behavior: none; }
   body { min-height: 100vh; background: radial-gradient(circle at top, #1a1a2e 0%, #0d0d12 70%); color: #e8e8f0; font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; }
   .wrap { width: 100%; max-width: 760px; }
   header { text-align: center; margin-bottom: 20px; }
@@ -41,12 +42,17 @@
   .golden strong { color: #6ea8ff; }
   .golden.active strong { color: #4ade80; }
   .countdown { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; color: #ffd700; margin-top: 6px; letter-spacing: 2px; }
-  .upload-zone { border: 2px dashed #3a3a44; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: 0.2s; }
-  .upload-zone:hover { border-color: #6ea8ff; background: #1a1a24; }
-  .upload-zone input { display: none; }
-  .upload-zone .icon { font-size: 32px; margin-bottom: 8px; }
-  .upload-zone .txt { font-size: 13px; color: #888; }
+  .upload-zone { border: 2px dashed #3a3a44; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: 0.2s; position: relative; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+  .upload-zone:hover, .upload-zone:focus { border-color: #6ea8ff; background: #1a1a24; outline: none; }
+  .upload-zone.dragover { border-color: #4ade80; background: linear-gradient(135deg, #1e2a1e, #1a1a24); transform: scale(1.02); }
+  .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .upload-zone .icon { font-size: 32px; margin-bottom: 8px; pointer-events: none; }
+  .upload-zone .txt { font-size: 13px; color: #888; pointer-events: none; }
   .upload-zone .txt b { color: #6ea8ff; }
+  .file-info { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 10px 12px; background: #1a2a3e; border: 1px solid #6ea8ff; border-radius: 10px; font-size: 12px; color: #aaa; }
+  .file-info-icon { font-size: 16px; }
+  .file-info-name { flex: 1; color: #6ea8ff; font-weight: 600; word-break: break-all; }
+  .file-info-size { color: #777; font-size: 11px; white-space: nowrap; }
   .tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
   .tab { flex: 1; min-width: 100px; padding: 10px; text-align: center; background: #1a1a24; border: 1px solid #26262e; border-radius: 10px; font-size: 12px; color: #888; cursor: pointer; user-select: none; transition: 0.2s; }
   .tab.active { background: #26263a; color: #6ea8ff; border-color: #6ea8ff; }
@@ -147,7 +153,7 @@
 
   <div id="authScreen" class="card hidden">
     <div class="auth-title" id="authTitle">Đăng nhập</div>
-    <input type="email" id="authEmail" placeholder="Email" autocomplete="email">
+    <input type="email" id="authEmail" placeholder="Email" autocomplete="email" inputmode="email">
     <input type="password" id="authPass" placeholder="Mật khẩu (từ 6 ký tự)" autocomplete="current-password">
     <button class="btn" id="authSubmit">Đăng nhập</button>
     <button class="btn btn-sec" id="authToggle">Chưa có tài khoản? Đăng ký</button>
@@ -176,11 +182,16 @@
 
     <div class="card">
       <div style="font-size:13px;color:#888;margin-bottom:12px">📤 Tải file <b style="color:#6ea8ff">Overview.csv</b> xuất từ TikTok Studio</div>
-      <label class="upload-zone" for="csvInput">
-        <input type="file" id="csvInput" accept=".csv">
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="csvInput" accept=".csv,text/csv,text/comma-separated-values,application/vnd.ms-excel,application/csv,text/plain">
         <div class="icon">📄</div>
-        <div class="txt">Bấm để chọn file CSV<br><b>hoặc kéo thả file vào đây</b></div>
-      </label>
+        <div class="txt" id="uploadHint">Bấm để chọn file CSV<br><b>hoặc kéo thả file vào đây</b></div>
+      </div>
+      <div id="fileInfo" class="file-info hidden">
+        <span class="file-info-icon">📎</span>
+        <span class="file-info-name" id="fileName">—</span>
+        <span class="file-info-size" id="fileSize">—</span>
+      </div>
       <div id="uploadStatus" style="margin-top:10px;font-size:12px;text-align:center"></div>
       <button class="btn btn-sec" id="clearDataBtn" style="margin-top:10px">🗑️ Xóa dữ liệu đã lưu</button>
     </div>
@@ -690,6 +701,7 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
   try {
     await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
     rawData = [];
+    document.getElementById('fileInfo').classList.add('hidden');
     renderAll();
     if (userProfile && (userProfile.golden_unlocked || isCurrentAdmin())) renderGoldenAnalysis();
     showUploadStatus('🗑️ Đã xóa', '#ff6e9c');
@@ -702,9 +714,27 @@ function showUploadStatus(text, color) {
   el.style.color = color || '#4ade80';
 }
 
-document.getElementById('csvInput').addEventListener('change', e => {
-  const file = e.target.files[0];
+/* ============ UPLOAD — ĐA THIẾT BỊ ============ */
+const uploadZone = document.getElementById('uploadZone');
+const csvInput = document.getElementById('csvInput');
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / 1024 / 1024).toFixed(2) + ' MB';
+}
+
+function handleFile(file) {
   if (!file) return;
+  const name = (file.name || '').toLowerCase();
+  const isValidExt = name.endsWith('.csv') || name.endsWith('.txt');
+  if (!isValidExt) {
+    showUploadStatus('❌ Chỉ nhận file .csv (bạn chọn: ' + name + ')', '#ff6e9c');
+    return;
+  }
+  document.getElementById('fileName').textContent = file.name;
+  document.getElementById('fileSize').textContent = formatFileSize(file.size);
+  document.getElementById('fileInfo').classList.remove('hidden');
   const reader = new FileReader();
   reader.onload = async ev => {
     try {
@@ -715,8 +745,73 @@ document.getElementById('csvInput').addEventListener('change', e => {
       showUploadSuccess();
     } catch (err) { showUploadStatus('❌ Lỗi: ' + err.message, '#ff6e9c'); }
   };
+  reader.onerror = () => showUploadStatus('❌ Không đọc được file', '#ff6e9c');
   reader.readAsText(file, 'UTF-8');
+}
+
+csvInput.addEventListener('change', e => {
+  const file = e.target.files[0];
+  handleFile(file);
+  e.target.value = '';
 });
+
+uploadZone.addEventListener('click', e => {
+  if (e.target !== csvInput) csvInput.click();
+});
+
+['dragenter', 'dragover'].forEach(evt => {
+  uploadZone.addEventListener(evt, e => {
+    e.preventDefault(); e.stopPropagation();
+    uploadZone.classList.add('dragover');
+  });
+});
+
+['dragleave', 'drop'].forEach(evt => {
+  uploadZone.addEventListener(evt, e => {
+    e.preventDefault(); e.stopPropagation();
+    if (evt === 'dragleave' && uploadZone.contains(e.relatedTarget)) return;
+    uploadZone.classList.remove('dragover');
+  });
+});
+
+uploadZone.addEventListener('drop', e => {
+  const file = e.dataTransfer.files[0];
+  handleFile(file);
+});
+
+['dragover', 'drop'].forEach(evt => {
+  window.addEventListener(evt, e => {
+    if (!uploadZone.contains(e.target)) e.preventDefault();
+  });
+});
+
+document.addEventListener('paste', e => {
+  const items = e.clipboardData?.items;
+  if (!items) return;
+  for (const item of items) {
+    if (item.type === 'text/csv' || item.type === 'text/plain' || item.kind === 'file') {
+      const file = item.getAsFile();
+      if (file && (file.name.endsWith('.csv') || file.type.includes('csv') || file.type === 'text/plain')) {
+        handleFile(file);
+        break;
+      }
+    }
+  }
+});
+
+(function detectDevice() {
+  const ua = navigator.userAgent;
+  const hint = document.getElementById('uploadHint');
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isAndroid = /Android/.test(ua);
+  const isDesktop = !isTouch && !isIOS && !isAndroid;
+  let text;
+  if (isIOS || isAndroid) text = 'Chạm để chọn file CSV<br><b>hoặc kéo thả từ Files</b>';
+  else if (isDesktop) text = 'Bấm để chọn file CSV<br><b>hoặc kéo thả / dán (Ctrl+V)</b>';
+  else text = 'Bấm để chọn file CSV<br><b>hoặc kéo thả file vào đây</b>';
+  hint.innerHTML = text;
+})();
 
 function parseCSV(text) {
   const lines = text.split(/\r?\n/).filter(l => l.trim());
