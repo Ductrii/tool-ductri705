@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v5.0">
+<meta name="tool-version" content="v6.0">
 <title>Tool by ductri705</title>
 <style>
 :root{--bg:#16161c;--bg2:#1a1a24;--bg3:#0d0d12;--bd:#26262e;--tx:#e8e8f0;--tx2:#aaa;--tx3:#777;--acc:#6ea8ff;--gold:#ffd700;--gr:#4ade80;--rd:#ff6e9c;--r:12px}
-[data-theme="light"]{--bg:#f5f5f8;--bg2:#ebebef;--bg3:#fff;--bd:#ddd;--tx:#1a1a24;--tx2:#666;--tx3:#999;--acc:#3b82f6;--gold:#d97706;--gr:#16a34a;--rd:#dc2626}
+[data-theme=light]{--bg:#f5f5f8;--bg2:#ebebef;--bg3:#fff;--bd:#ddd;--tx:#1a1a24;--tx2:#666;--tx3:#999;--acc:#3b82f6;--gold:#d97706;--gr:#16a34a;--rd:#dc2626}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{min-height:100vh;background:radial-gradient(circle at top,#1a1a2e 0%,#0d0d12 70%);color:var(--tx);font:14px/1.5 -apple-system,system-ui,sans-serif;padding:20px;display:flex;flex-direction:column;align-items:center;transition:.3s}
-[data-theme="light"] body{background:linear-gradient(180deg,#f5f5f8,#e5e5eb)}
-.wrap{width:100%;max-width:760px}
-h1{font-size:20px;font-weight:600;color:var(--acc);letter-spacing:2px;text-align:center}
+body{min-height:100vh;background:radial-gradient(circle at top,#1a1a2e,#0d0d12 70%);color:var(--tx);font:14px/1.5 -apple-system,system-ui,sans-serif;padding:20px;display:flex;flex-direction:column;align-items:center;transition:.3s}
+[data-theme=light] body{background:linear-gradient(180deg,#f5f5f8,#e5e5eb)}
+.w{width:100%;max-width:760px}
 header{text-align:center;margin-bottom:20px}
+h1{font-size:20px;font-weight:600;color:var(--acc);letter-spacing:2px}
 header p{font-size:12px;color:#666;margin-top:4px}
 .c{background:var(--bg);border:1px solid var(--bd);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 4px 30px rgba(0,0,0,.3)}
-input,textarea,select{width:100%;padding:12px 14px;margin-bottom:10px;background:var(--bg2);border:1px solid #2a2a34;border-radius:10px;color:var(--tx);font:14px inherit;outline:none}
+input,textarea{width:100%;padding:12px 14px;margin-bottom:10px;background:var(--bg2);border:1px solid #2a2a34;border-radius:10px;color:var(--tx);font:14px inherit;outline:none}
 input:focus,textarea:focus{border-color:var(--acc)}
 .b{width:100%;padding:12px;background:var(--acc);color:#fff;border:0;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;font-family:inherit}
 .b:hover{opacity:.9}.b:disabled{opacity:.5;cursor:wait}
@@ -30,12 +30,8 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .m{font-size:12px;text-align:center;margin-top:8px;min-height:16px}
 .m.e{color:var(--rd)}.m.o{color:var(--gr)}
 .ub{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding:10px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);font-size:13px;gap:8px;flex-wrap:wrap}
-.ub b{color:var(--acc)}
-.cr{color:var(--gold);font-weight:600}
-.cr.i{text-shadow:0 0 12px rgba(255,215,0,.6);font-size:16px}
-.lo{background:0;border:1px solid #3a3a44;color:var(--tx2);padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer}
-.lo:hover{color:var(--rd);border-color:var(--rd)}
-.ck{font-size:clamp(40px,11vw,68px);font-weight:200;text-align:center;font-variant-numeric:tabular-nums;color:var(--acc);text-shadow:0 0 24px rgba(110,168,255,.45);letter-spacing:3px}
+.ub b{color:var(--acc)}.cr{color:var(--gold);font-weight:600}
+.ck{font-size:clamp(40px,11vw,68px);font-weight:200;text-align:center;font-variant-numeric:tabular-nums;color:var(--acc);letter-spacing:3px}
 .cks{font-size:clamp(18px,4vw,24px);color:var(--rd)}
 .cd{text-align:center;margin-top:8px;color:#9a9aa0}
 .cz{text-align:center;margin-top:4px;color:#555;font-size:11px}
@@ -57,7 +53,6 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .tp .th{color:var(--gold);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
 .up{border:2px dashed #3a3a44;border-radius:var(--r);padding:24px;text-align:center;cursor:pointer;transition:.2s;position:relative}
 .up:hover,.up.dg{border-color:var(--acc);background:var(--bg2)}
-.up.dg{border-color:var(--gr)}
 .up input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;margin:0}
 .up .ic{font-size:32px;margin-bottom:8px;pointer-events:none}
 .up .tx{font-size:13px;color:#888;pointer-events:none}
@@ -66,10 +61,10 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .fi .fn{flex:1;color:var(--acc);font-weight:600;word-break:break-all}
 .fi .fs{color:#777;font-size:11px;white-space:nowrap}
 .tb{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-.tbb{flex:1;min-width:85px;padding:10px;text-align:center;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;font-size:12px;color:#888;cursor:pointer;user-select:none;transition:.2s}
+.tbb{flex:1;min-width:80px;padding:10px 6px;text-align:center;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;font-size:12px;color:#888;cursor:pointer;user-select:none;transition:.2s}
 .tbb.a{background:#26263a;color:var(--acc);border-color:var(--acc)}
 .tbb.g.a{background:#3a2a10;color:var(--gold);border-color:var(--gold)}
-.sts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.sts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
 .stt{background:var(--bg2);border-radius:10px;padding:12px;text-align:center}
 .stt .n{font-size:20px;font-weight:600;color:var(--acc);font-variant-numeric:tabular-nums}
 .stt .l{font-size:10px;color:var(--tx3);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
@@ -94,7 +89,7 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .ab{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
 .ab .b{margin:0}
 .fb{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.fbt{flex:1;min-width:70px;padding:8px;text-align:center;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;font-size:11px;color:#888;cursor:pointer;transition:.2s}
+.fbt{flex:1;min-width:60px;padding:8px;text-align:center;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;font-size:11px;color:#888;cursor:pointer;transition:.2s}
 .fbt.a{background:#26263a;color:var(--acc);border-color:var(--acc)}
 .ch{position:relative;height:320px}
 .ctr{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
@@ -108,12 +103,11 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .hmg{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
 .hmd{padding:10px 4px;text-align:center;border-radius:8px;font-size:10px;background:var(--bg3);color:#555;border:1px solid var(--bd);transition:.2s}
 .hmd .hl{font-weight:700;font-size:11px;margin-bottom:4px;color:var(--tx2)}
-.hmd .hv{font-size:10px;color:#888;font-variant-numeric:tabular-nums}
+.hmd .hv{font-size:10px;color:#888}
 .hmd.l1{background:#1a2a1a;border-color:#2a4a2a}.hmd.l1 .hl{color:var(--gr)}
-.hmd.l2{background:linear-gradient(135deg,#1e3a1e,#2a5a2a);border-color:#3a6a3a}.hmd.l2 .hl,.hmd.l2 .hv{color:#7be67b}
-.hmd.l3{background:linear-gradient(135deg,#22c55e,#16a34a);border-color:#4ade80}.hmd.l3 .hl,.hmd.l3 .hv{color:#0d0d12;font-weight:700}
+.hmd.l2{background:#1e3a1e;border-color:#3a6a3a}.hmd.l2 .hl,.hmd.l2 .hv{color:#7be67b}
+.hmd.l3{background:#22c55e;border-color:#4ade80}.hmd.l3 .hl,.hmd.l3 .hv{color:#0d0d12;font-weight:700}
 .hml{display:flex;justify-content:center;gap:12px;margin-top:10px;font-size:10px;color:#666}
-.hml span{display:flex;align-items:center;gap:4px}
 .hmdot{width:12px;height:12px;border-radius:3px}
 .hmdot.l1{background:#1a2a1a;border:1px solid #2a4a2a}
 .hmdot.l2{background:#2a5a2a;border:1px solid #3a6a3a}
@@ -121,8 +115,8 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .tv{display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg2);border-radius:12px;margin-bottom:10px;position:relative;overflow:hidden;transition:.2s;border:1px solid var(--bd)}
 .tv:hover{transform:translateX(4px);border-color:var(--acc)}
 .tv.r1{border-color:var(--gold);background:linear-gradient(135deg,#2a2010,var(--bg2))}
-.tv.r2{border-color:#c0c0c0;background:linear-gradient(135deg,#1e1e28,var(--bg2))}
-.tv.r3{border-color:#cd7f32;background:linear-gradient(135deg,#241a12,var(--bg2))}
+.tv.r2{border-color:#c0c0c0}
+.tv.r3{border-color:#cd7f32}
 .tvr{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;background:var(--bg3);color:#888;border:2px solid #3a3a44}
 .tv.r1 .tvr{background:linear-gradient(135deg,#ffd700,#ff9500);color:#0d0d12;border-color:#ffd700;font-size:20px}
 .tv.r2 .tvr{background:linear-gradient(135deg,#e0e0e0,#a0a0a0);color:#0d0d12;border-color:#c0c0c0;font-size:18px}
@@ -141,8 +135,7 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .lk .ic{font-size:40px;margin-bottom:10px}
 .lk .t{color:var(--gold);font-weight:600;font-size:15px;margin-bottom:8px}
 .lk .d{color:var(--tx2);font-size:12px;margin-bottom:16px;line-height:1.7}
-.ubt{width:100%;padding:12px;background:linear-gradient(90deg,var(--gold),#ffae00);color:var(--bg3);border:0;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
-.ubt:hover{transform:scale(1.02)}
+.ubt{width:100%;padding:12px;background:linear-gradient(90deg,var(--gold),#ffae00);color:var(--bg3);border:0;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
 .ubt:disabled{opacity:.5;cursor:not-allowed}
 .bdg{display:inline-block;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:600;margin-bottom:12px}
 .bdg.u{background:#1e2a1e;color:var(--gr);border:1px solid var(--gr)}
@@ -159,7 +152,7 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .au .nf{font-size:11px;color:var(--tx3);margin-bottom:10px}
 .au .crl{font-size:13px;color:var(--gold);font-weight:600;margin-bottom:10px}
 .au .ac{display:flex;gap:6px;flex-wrap:wrap}
-.abd{flex:1;min-width:60px;padding:8px 10px;border-radius:8px;border:1px solid #3a3a44;background:0;color:var(--tx2);font-size:11px;cursor:pointer;font-weight:600;transition:.2s}
+.abd{flex:1;min-width:55px;padding:8px 8px;border-radius:8px;border:1px solid #3a3a44;background:0;color:var(--tx2);font-size:11px;cursor:pointer;font-weight:600}
 .abd:hover{background:#26263a;color:var(--tx)}
 .abd.bn{border-color:var(--rd);color:var(--rd)}
 .abd.ub{border-color:var(--gr);color:var(--gr)}
@@ -171,30 +164,25 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .ahd{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 .at{color:var(--gold);font-weight:600;font-size:15px}
 .arf{background:0;border:1px solid #3a3a44;color:var(--tx2);padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer}
-.arf:hover{color:var(--acc);border-color:var(--acc)}
 .aib{padding:12px;background:#1a2a3e;border:1px solid var(--acc);border-radius:10px;margin-bottom:14px;font-size:12px;color:var(--tx2);line-height:1.6}
 .aib b{color:var(--acc)}
 .ir{display:flex;justify-content:space-between;padding:10px 12px;background:var(--bg2);border-radius:8px;margin-bottom:6px;font-size:13px}
 .ir .k{color:#888}.ir .v{color:var(--tx);font-weight:600}
 .nt{text-align:center;color:#555;font-size:11px;margin-top:12px}
 .sg{text-align:center;margin-top:16px;padding:20px 12px;font-size:12px;color:#444;border-top:1px solid #1e1e26;letter-spacing:1px;line-height:2}
-.sg b{color:var(--acc)}
-.sg .cl{color:var(--gold);font-size:13px;font-weight:600}
-.sg .lk2{color:var(--tx2)}
-.sg .vl{color:var(--acc);font-weight:600}
+.sg b{color:var(--acc)}.sg .cl{color:var(--gold);font-size:13px;font-weight:600}
+.sg .lk2{color:var(--tx2)}.sg .vl{color:var(--acc);font-weight:600}
 .hd{display:none!important}
 .ld{text-align:center;color:var(--acc);padding:40px;font-size:14px}
 .st2{font-size:12px;color:#888;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
-.mo{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;animation:fi .3s ease}
-@keyframes fi{from{opacity:0}to{opacity:1}}
-.mbx{background:linear-gradient(135deg,#1e1e2e,var(--bg));border:1px solid var(--acc);border-radius:18px;padding:24px;max-width:500px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(110,168,255,.3)}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px}
+.mbx{background:linear-gradient(135deg,#1e1e2e,var(--bg));border:1px solid var(--acc);border-radius:18px;padding:24px;max-width:500px;width:100%;max-height:85vh;overflow-y:auto}
 .mbx h2{color:var(--acc);font-size:20px;text-align:center;margin-bottom:8px}
 .mbx .sb{color:var(--gr);font-size:13px;text-align:center;margin-bottom:18px;font-weight:600}
 .stp{background:var(--bg3);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:13px;color:#ccc;line-height:1.5;border-left:3px solid var(--acc)}
 .stp b{color:var(--gold)}
-.mbt{width:100%;padding:12px;background:linear-gradient(90deg,var(--acc),var(--acc2,#8bb9ff));color:#fff;border:0;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px}
-.dt{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),#ffae00);color:#0d0d12;padding:14px 24px;border-radius:var(--r);font-size:14px;font-weight:700;text-align:center;box-shadow:0 8px 30px rgba(255,215,0,.5);z-index:9998;max-width:90vw;animation:sd .5s ease}
-@keyframes sd{from{transform:translate(-50%,-100px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+.mbt{width:100%;padding:12px;background:linear-gradient(90deg,var(--acc),#8bb9ff);color:#fff;border:0;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px}
+.dt{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),#ffae00);color:#0d0d12;padding:14px 24px;border-radius:var(--r);font-size:14px;font-weight:700;text-align:center;box-shadow:0 8px 30px rgba(255,215,0,.5);z-index:9998;max-width:90vw}
 .mbn{padding:16px;border-radius:var(--r);background:linear-gradient(135deg,#2a2010,var(--bg2));border:1px solid var(--gold);text-align:center;margin-bottom:16px}
 .mbn .t{color:var(--gold);font-weight:700;font-size:16px;margin-bottom:6px}
 .mbn .d{color:var(--tx2);font-size:12px;line-height:1.6}
@@ -211,188 +199,148 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .bi .k{color:#888}.bi .v{color:var(--acc);font-weight:700}
 .cp{background:0;border:1px solid var(--acc);color:var(--acc);padding:4px 8px;border-radius:6px;font-size:10px;cursor:pointer;margin-left:8px}
 .rt{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--bg2);border-radius:10px;margin-bottom:8px;font-size:13px;gap:8px}
-.ri{flex:1}
-.rd{font-weight:600;margin-bottom:3px}
+.ri{flex:1}.rd{font-weight:600;margin-bottom:3px}
 .rv{color:var(--acc);font-size:11px}
 .st2s{display:flex;gap:2px}
 .st2{font-size:20px;cursor:pointer;color:#3a3a44;transition:.15s;user-select:none}
 .st2.a{color:var(--gold);text-shadow:0 0 8px rgba(255,215,0,.5)}
 .er{display:flex;justify-content:space-between;padding:10px 12px;background:var(--bg2);border-radius:10px;margin-bottom:6px;font-size:13px}
 .en{color:var(--acc);font-weight:600}
-.ed{color:var(--gold);font-weight:700}
-.ed.sn{color:var(--rd)}
-
-/* POMODORO */
-.pom{text-align:center;padding:20px}
+.ed{color:var(--gold);font-weight:700}.ed.sn{color:var(--rd)}
+.pom{text-align:center;padding:20px 0}
 .pom-t{font-size:56px;font-weight:200;color:var(--acc);font-variant-numeric:tabular-nums;letter-spacing:4px;margin-bottom:8px}
 .pom-s{font-size:13px;color:#888;margin-bottom:16px}
 .pom-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.pom-btns button{padding:10px 20px;border-radius:10px;border:1px solid #3a3a44;background:var(--bg2);color:var(--tx);font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
-.pom-btns button:hover{border-color:var(--acc);color:var(--acc)}
+.pom-btns button{padding:10px 20px;border-radius:10px;border:1px solid #3a3a44;background:var(--bg2);color:var(--tx);font-size:13px;font-weight:600;cursor:pointer}
 .pom-btns button.primary{background:var(--acc);color:#fff;border-color:var(--acc)}
 .pom-btns button.danger{background:var(--rd);color:#fff;border-color:var(--rd)}
 .pom-mode{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
-.pom-mode button{padding:6px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--bg2);color:#888;font-size:12px;cursor:pointer;transition:.2s}
+.pom-mode button{padding:6px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--bg2);color:#888;font-size:12px;cursor:pointer}
 .pom-mode button.a{background:#26263a;color:var(--acc);border-color:var(--acc)}
-
-/* NOTES */
 .note-in{width:100%;padding:12px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;color:var(--tx);font:14px inherit;min-height:80px;resize:vertical;outline:none;margin-bottom:8px}
-.note-in:focus{border-color:var(--acc)}
 .note-item{padding:12px;background:var(--bg2);border-left:3px solid var(--gold);border-radius:10px;margin-bottom:8px;font-size:13px;line-height:1.6;position:relative}
 .note-item .date{font-size:10px;color:#666;margin-bottom:6px}
 .note-item .txt{color:#ccc;white-space:pre-wrap;word-break:break-word}
 .note-item .del{position:absolute;top:8px;right:8px;background:0;border:0;color:var(--rd);cursor:pointer;font-size:14px;padding:4px}
-
-/* ACHIEVEMENTS */
-.ach-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
-.ach{padding:14px 8px;border-radius:12px;text-align:center;background:var(--bg2);border:2px solid #26262e;opacity:.35;transition:.3s;cursor:help;position:relative}
+.ach-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:10px}
+.ach{padding:14px 8px;border-radius:12px;text-align:center;background:var(--bg2);border:2px solid #26262e;opacity:.35;transition:.3s;position:relative}
 .ach.un{opacity:1;border-color:var(--gold);background:linear-gradient(135deg,#2a2010,var(--bg2))}
 .ach.ic{font-size:28px;margin-bottom:6px;filter:grayscale(1)}
-.ach.un .ic{filter:none;animation:pop .5s ease}
-@keyframes pop{0%{transform:scale(0.5)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.ach.un .ic{filter:none}
 .ach .nm{font-size:10px;color:#888;font-weight:600}
 .ach.un .nm{color:var(--gold)}
 .ach .p{font-size:9px;color:#555;margin-top:2px}
-.ach.un .p{color:var(--tx2)}
-
-/* THEME BTN */
-.theme-btn{position:fixed;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:var(--bg);border:1px solid var(--bd);color:var(--tx);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.3)}
-.theme-btn:hover{border-color:var(--acc)}
+.tbtn{position:fixed;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:var(--bg);border:1px solid var(--bd);color:var(--tx);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100}
 </style>
 </head>
 <body>
-<button class="theme-btn" id="themeBtn" title="Đổi theme">🌙</button>
-<div class="wrap">
+<button class="tbtn" id="themeBtn">🌙</button>
+<div class="w">
+
 <header>
 <h1>⚡ TOOL BY DUCTRI705</h1>
-<p>Đồng hồ • Giờ vàng • Thống kê • Pomodoro • Cloud</p>
+<p>Đồng hồ • Giờ vàng • Cloud • Admin</p>
 </header>
 
-<div id="loadingScreen" class="c"><div class="ld">⏳ Đang tải...</div></div>
+<div id="ls" class="c"><div class="ld">⏳ Đang tải...</div></div>
 
-<div id="authScreen" class="c hd">
-<div class="t" id="authTitle">Đăng nhập</div>
-<input type="email" id="authEmail" placeholder="Email" autocomplete="email" inputmode="email">
-<input type="password" id="authPass" placeholder="Mật khẩu (từ 6 ký tự)" autocomplete="current-password">
-<button class="b" id="authSubmit">Đăng nhập</button>
-<button class="b bs" id="authToggle">Chưa có tài khoản? Đăng ký</button>
-<div class="m" id="authMsg"></div>
-<div class="nt">🎁 Đăng ký mới nhận 50 xu · Mỗi ngày +10 xu</div>
+<div id="as" class="c hd">
+<div class="t" id="aT">Đăng nhập</div>
+<input type="email" id="aE" placeholder="Email" inputmode="email">
+<input type="password" id="aP" placeholder="Mật khẩu (từ 6 ký tự)">
+<button class="b" id="aB">Đăng nhập</button>
+<button class="b bs" id="aTg">Chưa có tài khoản? Đăng ký</button>
+<div class="m" id="aM"></div>
+<div class="nt">🎁 Đăng ký nhận 50 xu · +10 xu/ngày</div>
 </div>
 
 <div id="app" class="hd">
 <div class="ub">
-<span>Xin chào, <b id="userEmail">bạn</b> 👋 <span class="cr" id="creditsBar">💰 <span id="userCredits">0</span> xu</span></span>
-<button class="lo" id="logoutBtn">Đăng xuất</button>
+<span>Xin chào, <b id="uE">bạn</b> 👋 <span class="cr" id="cB">💰 <span id="uC">0</span> xu</span></span>
+<button class="bs" style="width:auto;padding:6px 12px;font-size:12px" id="loB">Đăng xuất</button>
 </div>
 
 <div class="c">
-<div><span class="ck" id="time">--:--</span><span class="cks" id="sec">--</span></div>
-<div class="cd" id="date">Đang tải...</div>
-<div class="cz" id="zone"></div>
-<div class="gl" id="golden">
-<div id="goldenText">Đang kiểm tra...</div>
-<div class="cdn" id="countdown"></div>
-</div>
-<label class="tg"><input type="checkbox" id="soundToggle"> 🔔 Âm thanh khi vào giờ vàng</label>
+<div><span class="ck" id="t">--:--</span><span class="cks" id="s">--</span></div>
+<div class="cd" id="dt">Đang tải...</div>
+<div class="cz" id="zn"></div>
+<div class="gl" id="gl"><div id="glt">Đang kiểm tra...</div><div class="cdn" id="cdn"></div></div>
+<label class="tg"><input type="checkbox" id="sT"> 🔔 Âm thanh giờ vàng</label>
 <div class="mn">
-<div class="mb st">
-<div class="mn2" id="streakNum">0</div>
-<div class="ml">🔥 Chuỗi đăng bài</div>
-<div class="ms" id="streakSub">Ngày liên tiếp</div>
+<div class="mb st"><div class="mn2" id="skN">0</div><div class="ml">🔥 Chuỗi</div><div class="ms" id="skS">Ngày liên tiếp</div></div>
+<div class="mb ev"><div class="mn2" id="evN">—</div><div class="ml">⏰ Sự kiện</div><div class="ms" id="evS">Đang tải...</div></div>
 </div>
-<div class="mb ev">
-<div class="mn2" id="eventNum">—</div>
-<div class="ml">⏰ Sự kiện gần</div>
-<div class="ms" id="eventName">Đang tải...</div>
-</div>
-</div>
-<div class="tp">
-<div class="th">💡 Tip TikTok hôm nay</div>
-<div id="dailyTip">Đang tải tip...</div>
-</div>
+<div class="tp"><div class="th">💡 Tip TikTok</div><div id="tip">Đang tải...</div></div>
 </div>
 
 <div class="c">
 <div style="font-size:13px;color:#888;margin-bottom:12px">📤 Tải file <b style="color:var(--acc)">Overview.csv</b></div>
-<div class="up" id="uploadZone">
-<input type="file" id="csvInput" accept=".csv,text/csv,text/comma-separated-values,application/vnd.ms-excel,application/csv,text/plain">
+<div class="up" id="uz">
+<input type="file" id="ci" accept=".csv,text/csv,text/comma-separated-values,application/vnd.ms-excel,application/csv,text/plain">
 <div class="ic">📄</div>
-<div class="tx" id="uploadHint">Bấm để chọn file CSV<br><b>hoặc kéo thả file vào đây</b></div>
+<div class="tx" id="uh">Bấm chọn file CSV<br><b>hoặc kéo thả vào đây</b></div>
 </div>
-<div id="fileInfo" class="fi hd">
-<span>📎</span>
-<span class="fn" id="fileName">—</span>
-<span class="fs" id="fileSize">—</span>
-</div>
-<div id="uploadStatus" style="margin-top:10px;font-size:12px;text-align:center"></div>
-<button class="b bs" id="clearDataBtn" style="margin-top:10px">🗑️ Xóa dữ liệu đã lưu</button>
+<div id="fi" class="fi hd"><span>📎</span><span class="fn" id="fn">—</span><span class="fs" id="fs">—</span></div>
+<div id="us" style="margin-top:10px;font-size:12px;text-align:center"></div>
+<button class="b bs" id="clB" style="margin-top:10px">🗑️ Xóa dữ liệu</button>
 </div>
 
 <div class="c">
 <div class="tb">
-<div class="tbb a" data-tab="overview">Tổng quan</div>
-<div class="tbb" data-tab="chart">Biểu đồ</div>
-<div class="tbb" data-tab="top">Top viral</div>
-<div class="tbb" data-tab="hour">Giờ vàng</div>
-<div class="tbb" data-tab="pom">⏱️ Pomodoro</div>
-<div class="tbb" data-tab="notes">📝 Notes</div>
-<div class="tbb" data-tab="ach">🏆 Thành tựu</div>
-<div class="tbb g" data-tab="rate">⭐ Đánh giá</div>
-<div class="tbb" data-tab="event">⏰ Sự kiện</div>
-<div class="tbb" data-tab="account">⚙️ Tài khoản</div>
-<div class="tbb g" data-tab="money">💰 Nạp xu</div>
-<div class="tbb g hd" data-tab="admin" id="adminTab">👑 Admin</div>
+<div class="tbb a" data-tab="ov">Tổng quan</div>
+<div class="tbb" data-tab="ch">Biểu đồ</div>
+<div class="tbb" data-tab="tp">Top viral</div>
+<div class="tbb" data-tab="hr">Giờ vàng</div>
+<div class="tbb" data-tab="pm">⏱️ Pomodoro</div>
+<div class="tbb" data-tab="nt">📝 Notes</div>
+<div class="tbb g" data-tab="ac">🏆 Thành tựu</div>
+<div class="tbb g" data-tab="rt">⭐ Đánh giá</div>
+<div class="tbb" data-tab="ev">⏰ Sự kiện</div>
+<div class="tbb" data-tab="acc">⚙️ Tài khoản</div>
+<div class="tbb g" data-tab="mn">💰 Nạp xu</div>
+<div class="tbb g hd" data-tab="adm" id="admTab">👑 Admin</div>
 </div>
 
-<div id="tab-overview" class="tc">
-<div class="st2">📊 Thống kê từ file CSV</div>
+<!-- OVERVIEW -->
+<div id="tb-ov" class="tc">
+<div class="st2">📊 Thống kê CSV</div>
 <div class="sts">
-<div class="stt"><div class="n" id="s-total-views">—</div><div class="l">Tổng view</div></div>
-<div class="stt"><div class="n" id="s-total-likes">—</div><div class="l">Tổng like</div></div>
-<div class="stt"><div class="n" id="s-avg-views">—</div><div class="l">View TB/ngày</div></div>
-<div class="stt"><div class="n" id="s-max-views">—</div><div class="l">View cao nhất</div></div>
+<div class="stt"><div class="n" id="sV">—</div><div class="l">Tổng view</div></div>
+<div class="stt"><div class="n" id="sL">—</div><div class="l">Tổng like</div></div>
+<div class="stt"><div class="n" id="sA">—</div><div class="l">View TB</div></div>
+<div class="stt"><div class="n" id="sM">—</div><div class="l">View max</div></div>
 </div>
 <div class="gl2">
 <div class="glt">🎯 Mục tiêu view tháng</div>
-<div class="glb"><div class="glf" id="goalFill" style="width:0%"></div><div class="glx" id="goalText">0%</div></div>
-<div style="font-size:12px;color:var(--tx2);text-align:center" id="goalStatus">Chưa đặt mục tiêu</div>
-<div class="grw"><input type="number" id="goalInput" placeholder="VD: 100000" min="1000"><button onclick="saveGoal()">💾 Lưu</button></div>
+<div class="glb"><div class="glf" id="gf" style="width:0%"></div><div class="glx" id="gx">0%</div></div>
+<div style="font-size:12px;color:var(--tx2);text-align:center" id="gS">Chưa đặt</div>
+<div class="grw"><input type="number" id="gI" placeholder="VD: 100000"><button onclick="saveGoal()">💾 Lưu</button></div>
 </div>
 <div class="hm">
 <div class="hmt">🌡️ Phân bố view theo thứ</div>
-<div class="hmg" id="heatmapGrid"></div>
-<div class="hml">
-<span><span class="hmdot l1"></span>Thấp</span>
-<span><span class="hmdot l2"></span>TB</span>
-<span><span class="hmdot l3"></span>Cao</span>
+<div class="hmg" id="hmG"></div>
+<div class="hml"><span><span class="hmdot l1"></span>Thấp</span><span><span class="hmdot l2"></span>TB</span><span><span class="hmdot l3"></span>Cao</span></div>
 </div>
-</div>
-<div class="cb">
-<div class="ct">📈 Tuần này vs tuần trước</div>
-<div id="compareContent"><div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa có dữ liệu</div></div>
-</div>
-<div class="cb" style="margin-top:14px">
-<div class="ct">📊 Tháng này vs tháng trước</div>
-<div id="monthCompareContent"><div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa có dữ liệu</div></div>
-</div>
+<div class="cb"><div class="ct">📈 Tuần này vs tuần trước</div><div id="cmpC"><div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div></div></div>
+<div class="cb" style="margin-top:14px"><div class="ct">📊 Tháng này vs tháng trước</div><div id="mCmpC"><div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div></div></div>
 <div class="ab">
-<button class="b bg" id="exportCsvBtn">📥 Xuất CSV</button>
-<button class="b bb" id="shareBtn">📱 Share</button>
-<button class="b bp" id="backupBtn">💾 Backup</button>
-<button class="b bo" id="restoreBtn">📂 Restore</button>
+<button class="b bg" id="exB">📥 CSV</button>
+<button class="b bb" id="shB">📱 Share</button>
+<button class="b bp" id="bkB">💾 Backup</button>
+<button class="b bo" id="rsB">📂 Restore</button>
 </div>
-<input type="file" id="restoreInput" accept=".json" style="display:none">
+<input type="file" id="rI" accept=".json" style="display:none">
 </div>
 
-<div id="tab-chart" class="tc hd">
+<!-- CHART -->
+<div id="tb-ch" class="tc hd">
 <div class="ctr">
-<button class="cbtn a" data-chart-type="bar">📊 Cột</button>
-<button class="cbtn" data-chart-type="line">📈 Đường</button>
-<button class="cbtn" id="exportChartBtn">💾 PNG</button>
-<button class="cbtn" id="toggleAvgBtn">📏 Đường TB</button>
+<button class="cbtn a" data-ct="bar">📊 Cột</button>
+<button class="cbtn" data-ct="line">📈 Đường</button>
+<button class="cbtn" id="expCh">💾 PNG</button>
+<button class="cbtn a" id="togAv">📏 TB</button>
 </div>
-<input type="text" class="sr" id="searchChart" placeholder="🔍 Tìm ngày...">
+<input type="text" class="sr" id="sCh" placeholder="🔍 Tìm ngày...">
 <div class="fb">
 <div class="fbt a" data-days="7">7 ngày</div>
 <div class="fbt" data-days="30">30 ngày</div>
@@ -400,408 +348,448 @@ input:focus,textarea:focus{border-color:var(--acc)}
 <div class="fbt" data-days="365">365 ngày</div>
 <div class="fbt" data-days="0">Tất cả</div>
 </div>
-<div class="ch"><canvas id="chart"></canvas></div>
+<div class="ch"><canvas id="chC"></canvas></div>
 <div class="cb" style="margin-top:14px">
 <div class="ct">💞 Tỷ lệ tương tác</div>
 <div class="cg">
-<div class="ci" style="border-left:3px solid var(--acc)"><div class="v" id="pieLike">—</div><div class="l">Like/View</div></div>
-<div class="ci" style="border-left:3px solid var(--gr)"><div class="v" id="pieShare">—</div><div class="l">Share/View</div></div>
-<div class="ci" style="border-left:3px solid var(--gold)"><div class="v" id="pieComment">—</div><div class="l">Comment/View</div></div>
-<div class="ci" style="border-left:3px solid #a855f7"><div class="v" id="pieEngage">—</div><div class="l">Tổng tương tác</div></div>
+<div class="ci" style="border-left:3px solid var(--acc)"><div class="v" id="pL">—</div><div class="l">Like/View</div></div>
+<div class="ci" style="border-left:3px solid var(--gr)"><div class="v" id="pS">—</div><div class="l">Share/View</div></div>
+<div class="ci" style="border-left:3px solid var(--gold)"><div class="v" id="pC">—</div><div class="l">Cmt/View</div></div>
+<div class="ci" style="border-left:3px solid #a855f7"><div class="v" id="pE">—</div><div class="l">Tổng tương tác</div></div>
 </div>
 </div>
 </div>
 
-<div id="tab-top" class="tc hd">
+<!-- TOP -->
+<div id="tb-tp" class="tc hd">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
 <div style="color:var(--gold);font-weight:600;font-size:14px">🏆 TOP 10 NGÀY VIRAL</div>
-<button class="cbtn" id="copyTopBtn">📋 Copy</button>
+<button class="cbtn" id="cpTp">📋 Copy</button>
 </div>
-<div id="top-list"></div>
+<div id="tpL"></div>
 </div>
 
-<div id="tab-hour" class="tc hd">
+<!-- HOUR -->
+<div id="tb-hr" class="tc hd">
 <div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">⏰ Khung giờ vàng hôm nay</div>
-<div id="todayGoldenBox" style="padding:14px;background:var(--bg2);border-radius:12px;margin-bottom:14px;text-align:center;font-size:13px;line-height:1.7">Đang tải...</div>
-<div id="goldenLocked" class="lk">
+<div id="tgB" style="padding:14px;background:var(--bg2);border-radius:12px;margin-bottom:14px;text-align:center;font-size:13px;line-height:1.7">Đang tải...</div>
+<div id="gLk" class="lk">
 <div class="ic">🔒</div>
-<div class="t">PHÂN TÍCH TỪ DATA KÊNH BẠN</div>
-<div class="d">Mở khóa để xem:<br>• Thống kê chi tiết<br>• Xu hướng 7 ngày<br>• Top 5 ngày viral<br>• Chiến lược đề xuất</div>
-<button class="ubt" id="goldenUnlockBtn">🔓 Mở khóa — 5 xu</button>
+<div class="t">PHÂN TÍCH VIP</div>
+<div class="d">Mở khóa để xem:<br>• Thống kê chi tiết<br>• Xu hướng 7 ngày<br>• Top 5 ngày viral<br>• Chiến lược</div>
+<button class="ubt" id="gUB">🔓 Mở khóa — 5 xu</button>
 </div>
-<div id="goldenUnlocked" class="hd">
+<div id="gUn" class="hd">
 <span class="bdg u">✅ Đã mở khóa</span>
-<span class="bdg a hd" id="adminBadge">👑 Admin — miễn phí</span>
-<div style="color:var(--gr);font-weight:600;font-size:14px;margin-bottom:12px">📊 Phân tích chi tiết</div>
-<div id="vipContent"></div>
+<span class="bdg a hd" id="aBg">👑 Admin — free</span>
+<div id="vC"></div>
 </div>
 </div>
 
-<div id="tab-pom" class="tc hd">
-<div class="c" style="padding:0;background:transparent;border:0;box-shadow:none">
+<!-- POMODORO -->
+<div id="tb-pm" class="tc hd">
 <div class="pom">
 <div class="pom-mode">
-<button class="a" data-min="25">⏱️ 25 phút (Tập trung)</button>
-<button data-min="5">☕ 5 phút (Nghỉ ngắn)</button>
-<button data-min="15">🛋️ 15 phút (Nghỉ dài)</button>
+<button class="a" data-min="25">⏱️ 25 phút</button>
+<button data-min="5">☕ 5 phút</button>
+<button data-min="15">🛋️ 15 phút</button>
 </div>
-<div class="pom-t" id="pomTime">25:00</div>
-<div class="pom-s" id="pomStatus">Sẵn sàng — Bấm Bắt đầu để đếm ngược</div>
+<div class="pom-t" id="pmT">25:00</div>
+<div class="pom-s" id="pmS">Sẵn sàng</div>
 <div class="pom-btns">
-<button class="primary" id="pomStart">▶️ Bắt đầu</button>
-<button id="pomPause">⏸️ Tạm dừng</button>
-<button class="danger" id="pomReset">🔄 Reset</button>
-</div>
-<div class="tp" style="margin-top:16px;text-align:left">
-<div class="th">🍅 Pomodoro là gì?</div>
-Phương pháp quản lý thời gian: làm việc tập trung 25 phút, nghỉ 5 phút. Sau 4 lần → nghỉ dài 15 phút. Giúp tăng năng suất sáng tạo content TikTok!
-</div>
+<button class="primary" id="pmStart">▶️ Bắt đầu</button>
+<button id="pmPause">⏸️ Dừng</button>
+<button class="danger" id="pmReset">🔄 Reset</button>
 </div>
 </div>
 </div>
 
-<div id="tab-notes" class="tc hd">
-<div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">📝 Ghi chú nhanh</div>
-<div class="nt" style="margin-bottom:14px;text-align:left">Lưu ý tưởng content, hashtag, ý tưởng viral</div>
-<textarea class="note-in" id="noteInput" placeholder="Viết ghi chú của bạn..."></textarea>
-<button class="b" id="addNoteBtn">➕ Thêm ghi chú</button>
-<div id="notesList" style="margin-top:14px"></div>
+<!-- NOTES -->
+<div id="tb-nt" class="tc hd">
+<div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">📝 Ghi chú</div>
+<textarea class="note-in" id="ntI" placeholder="Viết ghi chú..."></textarea>
+<button class="b" id="ntA">➕ Thêm</button>
+<div id="ntL" style="margin-top:14px"></div>
 </div>
 
-<div id="tab-ach" class="tc hd">
+<!-- ACHIEVEMENTS -->
+<div id="tb-ac" class="tc hd">
 <div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">🏆 Thành tựu</div>
-<div class="nt" style="margin-bottom:14px;text-align:left">Mở khóa khi đạt các cột mốc</div>
-<div class="ach-g" id="achGrid"></div>
+<div id="acLk" class="lk">
+<div class="ic">🔒</div>
+<div class="t">TÍNH NĂNG VIP</div>
+<div class="d">Mở khóa 15 thành tựu:<br>• Mốc ngày đăng bài<br>• Mốc view 1K → 1M<br>• Chuỗi streak<br>• Đại gia, VIP, Admin</div>
+<button class="ubt" id="acUB">🔓 Mở khóa — 5 xu</button>
+</div>
+<div id="acUn" class="hd">
+<span class="bdg u">✅ Đã mở khóa</span>
+<span class="bdg a hd" id="acAB">👑 Admin</span>
+<div class="ach-g" id="acG"></div>
+</div>
 </div>
 
-<div id="tab-rate" class="tc hd">
-<div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">⭐ Đánh giá video theo ngày</div>
-<div class="nt" style="margin-bottom:14px;text-align:left">Chấm sao cho mỗi ngày</div>
-<div id="rateList"></div>
+<!-- RATING -->
+<div id="tb-rt" class="tc hd">
+<div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">⭐ Đánh giá video</div>
+<div id="rtL"></div>
 </div>
 
-<div id="tab-event" class="tc hd">
+<!-- EVENT -->
+<div id="tb-ev" class="tc hd">
 <div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">⏰ Đếm ngược sự kiện</div>
-<div class="nt" style="margin-bottom:14px;text-align:left">Lên content đúng dịp để tăng view</div>
-<div id="eventList"></div>
+<div id="evL"></div>
 </div>
 
-<div id="tab-account" class="tc hd">
-<div class="st2">👤 Thông tin tài khoản</div>
-<div class="ir"><span class="k">Email</span><span class="v" id="infoEmail">—</span></div>
-<div class="ir"><span class="k">Ngày tạo</span><span class="v" id="infoCreated">—</span></div>
-<div class="ir"><span class="k">Đăng nhập gần nhất</span><span class="v" id="infoLastLogin">—</span></div>
-<div class="ir"><span class="k">Số xu</span><span class="v" id="infoCredits">—</span></div>
-<div class="ir"><span class="k">Quyền</span><span class="v" id="infoRole">—</span></div>
+<!-- ACCOUNT -->
+<div id="tb-acc" class="tc hd">
+<div class="st2">👤 Tài khoản</div>
+<div class="ir"><span class="k">Email</span><span class="v" id="ifE">—</span></div>
+<div class="ir"><span class="k">Ngày tạo</span><span class="v" id="ifC">—</span></div>
+<div class="ir"><span class="k">Login cuối</span><span class="v" id="ifL">—</span></div>
+<div class="ir"><span class="k">Xu</span><span class="v" id="ifX">—</span></div>
+<div class="ir"><span class="k">Quyền</span><span class="v" id="ifR">—</span></div>
 <div class="st2" style="margin-top:20px">🔐 Đổi mật khẩu</div>
-<input type="password" id="oldPass" placeholder="Mật khẩu hiện tại">
-<input type="password" id="newPass1" placeholder="Mật khẩu mới (từ 6 ký tự)">
-<input type="password" id="newPass2" placeholder="Nhập lại mật khẩu mới">
-<button class="b" id="changePassBtn">🔑 Đổi mật khẩu</button>
-<div class="m" id="passMsg"></div>
+<input type="password" id="pO" placeholder="Mật khẩu mới (6+)">
+<input type="password" id="pN" placeholder="Nhập lại">
+<button class="b" id="pBtn">🔑 Đổi</button>
+<div class="m" id="pM"></div>
 </div>
 
-<div id="tab-money" class="tc hd">
-<div class="mbn">
-<div class="t">💰 NẠP XU ĐỂ MỞ KHÓA</div>
-<div class="d">Chuyển khoản theo QR bên dưới<br>Sau khi CK xong → gửi bill cho admin qua Zalo</div>
-</div>
-<div class="st2">🎁 Chọn gói nạp</div>
-<div class="pg" id="pkgGrid"></div>
-<div id="moneyDetail" class="hd">
-<div class="qr">
-<img src="IMG_0998.jpeg" alt="QR" onerror="this.parentNode.innerHTML='<div style=color:#ff6e9c;font-size:12px;padding:20px>Không tải được ảnh QR</div>'">
-</div>
+<!-- MONEY -->
+<div id="tb-mn" class="tc hd">
+<div class="mbn"><div class="t">💰 NẠP XU</div><div class="d">Chuyển khoản QR → gửi bill Zalo</div></div>
+<div class="st2">🎁 Gói nạp</div>
+<div class="pg" id="pkG"></div>
+<div id="mnD" class="hd">
+<div class="qr"><img src="IMG_0998.jpeg" alt="QR" onerror="this.parentNode.innerHTML='<div style=color:#ff6e9c;font-size:12px;padding:20px>Chưa có ảnh QR</div>'"></div>
 <div class="bi">
-<div class="row"><span class="k">Ngân hàng</span><span class="v">MB Bank</span></div>
-<div class="row"><span class="k">Số TK</span><span class="v">0865199199 <button class="cp" onclick="copyText('0865199199')">📋</button></span></div>
-<div class="row"><span class="k">Chủ TK</span><span class="v">DANG TRAN DUC TRI</span></div>
-<div class="row"><span class="k">Số tiền</span><span class="v" id="payAmount">—</span></div>
-<div class="row"><span class="k">Số xu nhận</span><span class="v" style="color:var(--gr)" id="payXu">—</span></div>
-<div class="row"><span class="k">Nội dung CK</span><span class="v" id="payContent">— <button class="cp" onclick="copyText(document.getElementById('payContent').textContent.trim())">📋</button></span></div>
+<div class="row"><span class="k">NH</span><span class="v">MB Bank</span></div>
+<div class="row"><span class="k">STK</span><span class="v">0865199199 <button class="cp" onclick="cp('0865199199')">📋</button></span></div>
+<div class="row"><span class="k">Tên</span><span class="v">DANG TRAN DUC TRI</span></div>
+<div class="row"><span class="k">Tiền</span><span class="v" id="payA">—</span></div>
+<div class="row"><span class="k">Xu</span><span class="v" style="color:var(--gr)" id="payX">—</span></div>
+<div class="row"><span class="k">ND</span><span class="v" id="payC">— <button class="cp" onclick="cp(document.getElementById('payC').textContent.trim())">📋</button></span></div>
 </div>
-<div style="padding:12px;background:#1a2a3e;border:1px solid var(--acc);border-radius:10px;font-size:12px;color:var(--tx2);line-height:1.7;margin-top:12px">
-✅ <b style="color:var(--acc)">Sau khi CK:</b><br>
-1. Chụp bill<br>
-2. Gửi Zalo <b style="color:var(--gr)">0865199199</b><br>
-3. Admin cộng xu trong 24h
-</div>
-<a href="https://zalo.me/0865199199" target="_blank" class="b bg" style="display:block;text-align:center;text-decoration:none;margin-top:12px">💬 Mở Zalo gửi bill</a>
+<a href="https://zalo.me/0865199199" target="_blank" class="b bg" style="display:block;text-align:center;text-decoration:none;margin-top:12px">💬 Zalo gửi bill</a>
 </div>
 </div>
 
-<div id="tab-admin" class="tc hd">
+<!-- ADMIN -->
+<div id="tb-adm" class="tc hd">
 <div class="ahd">
-<div class="at">👑 Quản lý User</div>
-<button class="arf" id="adminRefresh">🔄 Tải lại</button>
+<div class="at">👑 Quản lý</div>
+<button class="arf" id="adR">🔄</button>
 </div>
-<div class="aib">
-💡 <b>Promote:</b> tốn <b>5000 xu</b>. Admin có <b>vô cực xu</b>.<br>
-💡 <b>Cộng xu:</b> +100, +500, +1000, +2000, +3000, +5000
+<div id="adS" class="sts" style="margin-bottom:14px">
+<div class="stt"><div class="n" id="aTot">—</div><div class="l">Tổng</div></div>
+<div class="stt"><div class="n" id="aOn">—</div><div class="l">Online 24h</div></div>
+<div class="stt"><div class="n" id="aVIP">—</div><div class="l">VIP</div></div>
+<div class="stt"><div class="n" id="aBan">—</div><div class="l">Bị khóa</div></div>
 </div>
-<div id="adminList"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+<button class="b bg" id="aGV">👑 VIP tôi</button>
+<button class="b bo" id="aRV">🔒 Hủy VIP tôi</button>
+<button class="b bb" id="aEU">📥 Xuất user</button>
+<button class="b bp" id="aBC">💰 +50 all</button>
+</div>
+<div style="background:var(--bg2);border:1px solid var(--acc);border-radius:10px;padding:12px;margin-bottom:14px">
+<div style="font-size:12px;color:var(--acc);font-weight:600;margin-bottom:8px">📢 Thông báo</div>
+<input type="text" id="bcI" placeholder="Nội dung..." style="margin-bottom:8px">
+<button class="b" id="bcB" style="font-size:13px;padding:10px">📢 Gửi</button>
+</div>
+<input type="text" class="sr" id="adSr" placeholder="🔍 Tìm user..." style="margin-bottom:14px">
+<div id="adL"></div>
 </div>
 </div>
 
 <div class="sg">
-<span class="cl">🎉 Chúc mừng bạn đã dùng tool! 🎉</span><br><br>
+<span class="cl">🎉 Chúc mừng bạn!</span><br><br>
 <span class="lk2">Tool của</span> <b>@ductri705</b><br>
-<span class="lk2">📘 FB:</span> <span class="vl">Tri Dang</span><br>
-<span class="lk2">💬 Zalo:</span> <span class="vl">0865199199</span>
+<span class="lk2">FB:</span> <span class="vl">Tri Dang</span> · <span class="lk2">Zalo:</span> <span class="vl">0865199199</span>
 </div>
 </div>
 </div>
 
 <script>
-let chartLibLoaded=false,chartLibLoading=false;
-function loadChartJS(){
-  if(chartLibLoaded)return Promise.resolve();
-  if(chartLibLoading)return new Promise(r=>{const i=setInterval(()=>{if(chartLibLoaded){clearInterval(i);r()}},100)});
-  chartLibLoading=true;
-  return new Promise((res,rej)=>{
-    const s=document.createElement('script');
-    s.src='https://cdn.jsdelivr.net/npm/chart.js';
-    s.onload=()=>{chartLibLoaded=true;chartLibLoading=false;res()};
-    s.onerror=()=>{chartLibLoading=false;rej(new Error('Chart.js lỗi'))};
-    document.head.appendChild(s);
-  });
+let chLoad=false,chLoading=false;
+function loadCh(){
+  if(chLoad)return Promise.resolve();
+  if(chLoading)return new Promise(r=>{const i=setInterval(()=>{if(chLoad){clearInterval(i);r()}},100)});
+  chLoading=true;
+  return new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js';s.onload=()=>{chLoad=true;chLoading=false;res()};s.onerror=()=>{chLoading=false;rej()};document.head.appendChild(s)});
 }
-const sbScript=document.createElement('script');
-sbScript.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
-sbScript.onload=initApp;
-document.head.appendChild(sbScript);
+const sbS=document.createElement('script');
+sbS.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+sbS.onload=init;
+document.head.appendChild(sbS);
 
-function initApp(){
-const URL_SB="https://wkddmlxhqyvhxznycpgs.supabase.co";
-const KEY_SB="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGRtbHhocXl2aHh6bnljcGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODYzMzIsImV4cCI6MjEwNjY2MjMzMn0.ugXSLH3OhjAgLr6MzvYRviXztU_6oAviqvbj71keyK8";
-const ADMIN_EMAIL="duc116642@gmail.com";
+function init(){
+const SBU="https://wkddmlxhqyvhxznycpgs.supabase.co";
+const SBK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGRtbHhocXl2aHh6bnljcGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODYzMzIsImV4cCI6MjEwNjY2MjMzMn0.ugXSLH3OhjAgLr6MzvYRviXztU_6oAviqvbj71keyK8";
+const ADM_EM="duc116642@gmail.com";
 const GOLD=5,PROMOTE=5000,BONUS=10,DAY=86400000;
-const PKG=[{v:1000,x:10,l:'1.000đ'},{v:5000,x:100,l:'5.000đ'},{v:10000,x:500,l:'10.000đ'},{v:20000,x:1000,l:'20.000đ'},{v:30000,x:2000,l:'30.000đ'},{v:40000,x:3000,l:'40.000đ'},{v:50000,x:5000,l:'50.000đ'}];
+const PKGS=[{v:1000,x:10,l:'1.000đ'},{v:5000,x:100,l:'5.000đ'},{v:10000,x:500,l:'10.000đ'},{v:20000,x:1000,l:'20.000đ'},{v:30000,x:2000,l:'30.000đ'},{v:40000,x:3000,l:'40.000đ'},{v:50000,x:5000,l:'50.000đ'}];
 const ACR=[100,500,1000,2000,3000,5000];
-const TIPS=["Hook 3 giây đầu quyết định 80% view","Đăng đều 1-2 video/ngày để thuật toán ưu tiên","Dùng nhạc trending để tăng reach","Caption ngắn gọn, CTA rõ ràng cuối video","Trả lời comment bằng video để tăng tương tác gấp đôi","Dùng 3-5 hashtag liên quan","Video 15-30 giây dễ viral hơn video dài","Đăng vào 19-22h hoặc 11-13h","Không xóa video flop","Đọc comment để biết content tiếp theo","Xem analytics để biết video giữ chân người xem","Thumbnail rõ mặt, màu nổi","Text overlay lớn để giữ chân","Tránh nhạc bản quyền","Kết hợp trend + niche","Đặt câu hỏi cuối video","Video dọc 9:16 chuẩn","Follow top creator để học","Đăng Story kéo view","Ghim comment hay nhất","Filter trending nhẹ nhàng","Video có gương mặt tăng trust","Caption có emoji thu hút hơn","Âm thanh gốc tốt hơn nhạc có sẵn","Đăng lại video flop sau 1 tuần","Kết hợp 2-3 trend trong 1 video","Đừng quá dài dòng","Video ≥1 phút tăng watch time","Phân tích video viral đối thủ","Kiên trì 30 ngày"];
-const EVENTS=[{m:1,d:1,n:'🎊 Tết Dương lịch'},{m:2,d:14,n:'💝 Valentine'},{m:3,d:8,n:'🌹 Quốc tế Phụ nữ'},{m:4,d:30,n:'🇻🇳 Giải phóng miền Nam'},{m:5,d:1,n:'👷 Quốc tế Lao động'},{m:6,d:1,n:'🧒 Quốc tế Thiếu nhi'},{m:9,d:2,n:'🎆 Quốc khánh'},{m:10,d:20,n:'💐 Phụ nữ Việt Nam'},{m:12,d:24,n:'🎄 Đêm Giáng sinh'},{m:12,d:25,n:'🎅 Giáng sinh'},{m:12,d:31,n:'🎉 Đêm giao thừa'}];
+const TIPS=["Hook 3 giây đầu quyết định 80% view","Đăng đều 1-2 video/ngày","Dùng nhạc trending","Caption ngắn, CTA cuối video","Trả lời comment bằng video","3-5 hashtag liên quan","Video 15-30s dễ viral","Đăng 19-22h hoặc 11-13h","Không xóa video flop","Đọc comment để có ý tưởng","Xem analytics để biết retention","Thumbnail rõ mặt, sáng","Text overlay lớn","Tránh nhạc bản quyền","Kết hợp trend + niche","Đặt câu hỏi cuối video","Video dọc 9:16","Follow top creator","Đăng Story kéo view","Ghim comment hay","Filter nhẹ nhàng","Video có mặt tăng trust","Caption emoji","Âm thanh gốc > nhạc","Đăng lại video flop sau 1 tuần","2-3 trend/video","Ngắn gọn, súc tích","Video ≥1 phút tăng watch","Học video viral đối thủ","Kiên trì 30 ngày"];
+const EVS=[{m:1,d:1,n:'🎊 Tết Dương'},{m:2,d:14,n:'💝 Valentine'},{m:3,d:8,n:'🌹 8/3'},{m:4,d:30,n:'🇻🇳 30/4'},{m:5,d:1,n:'👷 1/5'},{m:6,d:1,n:'🧒 1/6'},{m:9,d:2,n:'🎆 2/9'},{m:10,d:20,n:'💐 20/10'},{m:12,d:24,n:'🎄 Giáng sinh'},{m:12,d:25,n:'🎅 Noel'},{m:12,d:31,n:'🎉 Giao thừa'}];
 const ACHS=[
-  {id:'first',ic:'🌱',n:'Khởi đầu',p:'Upload file CSV lần đầu',ck:()=>rawData.length>0},
-  {id:'d7',ic:'📅',n:'1 tuần',p:'Có 7 ngày dữ liệu',ck:()=>rawData.length>=7},
-  {id:'d30',ic:'📆',n:'1 tháng',p:'Có 30 ngày dữ liệu',ck:()=>rawData.length>=30},
-  {id:'d100',ic:'🗓️',n:'100 ngày',p:'Có 100 ngày dữ liệu',ck:()=>rawData.length>=100},
-  {id:'v1k',ic:'👀',n:'1K view',p:'Tổng view ≥ 1.000',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=1000},
-  {id:'v10k',ic:'🔥',n:'10K view',p:'Tổng view ≥ 10.000',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=10000},
-  {id:'v100k',ic:'💯',n:'100K view',p:'Tổng view ≥ 100.000',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=100000},
-  {id:'v1m',ic:'👑',n:'1M view',p:'Tổng view ≥ 1 triệu',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=1000000},
-  {id:'streak3',ic:'⚡',n:'Chuỗi 3 ngày',p:'Đăng 3 ngày liên tục',ck:()=>calcStreak()>=3},
-  {id:'streak7',ic:'🌟',n:'Chuỗi 7 ngày',p:'Đăng 7 ngày liên tục',ck:()=>calcStreak()>=7},
-  {id:'streak30',ic:'💎',n:'Chuỗi 30 ngày',p:'Đăng 30 ngày liên tục',ck:()=>calcStreak()>=30},
-  {id:'viral',ic:'🚀',n:'Viral 100K',p:'Có ngày ≥ 100K view',ck:()=>rawData.some(d=>d[1]>=100000)},
-  {id:'rich',ic:'💰',n:'Đại gia',p:'Sở hữu ≥ 1000 xu',ck:()=>userProfile&&(userProfile.credits||0)>=1000},
-  {id:'vip',ic:'⭐',n:'VIP',p:'Mở khóa phân tích',ck:()=>userProfile&&userProfile.golden_unlocked},
-  {id:'admin',ic:'👑',n:'Admin',p:'Trở thành Admin',ck:()=>isAdmin()}
+  {id:'1',i:'🌱',n:'Khởi đầu',p:'Upload CSV',ck:()=>rawData.length>0},
+  {id:'2',i:'📅',n:'1 tuần',p:'7 ngày data',ck:()=>rawData.length>=7},
+  {id:'3',i:'📆',n:'1 tháng',p:'30 ngày data',ck:()=>rawData.length>=30},
+  {id:'4',i:'🗓️',n:'100 ngày',p:'100 ngày data',ck:()=>rawData.length>=100},
+  {id:'5',i:'👀',n:'1K view',p:'Tổng ≥ 1K',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=1000},
+  {id:'6',i:'🔥',n:'10K view',p:'Tổng ≥ 10K',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=10000},
+  {id:'7',i:'💯',n:'100K view',p:'Tổng ≥ 100K',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=100000},
+  {id:'8',i:'👑',n:'1M view',p:'Tổng ≥ 1M',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=1000000},
+  {id:'9',i:'⚡',n:'Chuỗi 3',p:'3 ngày liền',ck:()=>calcStreak()>=3},
+  {id:'10',i:'🌟',n:'Chuỗi 7',p:'7 ngày liền',ck:()=>calcStreak()>=7},
+  {id:'11',i:'💎',n:'Chuỗi 30',p:'30 ngày liền',ck:()=>calcStreak()>=30},
+  {id:'12',i:'🚀',n:'Viral 100K',p:'Có ngày ≥ 100K',ck:()=>rawData.some(d=>d[1]>=100000)},
+  {id:'13',i:'💰',n:'Đại gia',p:'≥ 1000 xu',ck:()=>userProfile&&(userProfile.credits||0)>=1000},
+  {id:'14',i:'⭐',n:'VIP',p:'Mở khóa VIP',ck:()=>userProfile&&userProfile.golden_unlocked},
+  {id:'15',i:'👑',n:'Admin',p:'Là admin',ck:()=>isAdm()}
 ];
 
-const sb=supabase.createClient(URL_SB,KEY_SB);
-let currentUser=null,rawData=[],chartInst=null,userProfile=null,chartDays=7;
-let chartType='bar',showAvg=true,searchCh='';
-let soundEnabled=localStorage.getItem('soundEnabled')==='true';
-let lastGolden=false,lastHour=null;
-let pomTimer=null,pomSecs=25*60,pomTotal=25*60,pomRunning=false,pomMode=25;
+const sb=supabase.createClient(SBU,SBK);
+let currentUser=null,rawData=[],chInst=null,userProfile=null,chDays=7;
+let chType='bar',showAv=true,searchCh='';
+let snd=localStorage.getItem('snd')==='true',lastGl=false,lastHr=null;
+let pmTimer=null,pmSecs=25*60,pmTot=25*60,pmRun=false;
+let adCache=[];
 
-function isAdmin(){if(userProfile?.is_admin===true)return true;if(currentUser?.email===ADMIN_EMAIL)return true;return false}
-function copyText(t){navigator.clipboard.writeText(t).then(()=>alert('Đã copy!')).catch(()=>alert('Không copy'))}
-window.copyText=copyText;
-function pad(n){return String(n).padStart(2,'0')}
+const PAD=n=>String(n).padStart(2,'0');
 const DW=['CN','T2','T3','T4','T5','T6','T7'];
 const DWF=['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
 const MED=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
 
-function playSound(){try{const c=new(window.AudioContext||window.webkitAudioContext)();[523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;o.type='sine';const st=c.currentTime+i*.15;g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(.3,st+.02);g.gain.exponentialRampToValueAtTime(.001,st+.3);o.start(st);o.stop(st+.35)})}catch(e){}}
+function isAdm(){return userProfile?.is_admin===true||currentUser?.email===ADM_EM}
+function cp(t){navigator.clipboard.writeText(t).then(()=>alert('Đã copy!')).catch(()=>alert('Lỗi'))}
+window.cp=cp;
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function fmtV(n){if(n>=1e6)return (n/1e6).toFixed(2).replace(/\.00$/,'')+'M';if(n>=1000)return (n/1000).toFixed(1).replace(/\.0$/,'')+'K';return n.toLocaleString('vi-VN')}
 
-function fmtV(n){if(n>=1000000)return (n/1000000).toFixed(2).replace(/\.00$/,'')+'M';if(n>=1000)return (n/1000).toFixed(1).replace(/\.0$/,'')+'K';return n.toLocaleString('vi-VN')}
+function playSnd(){try{const c=new(window.AudioContext||window.webkitAudioContext)();[523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;o.type='sine';const st=c.currentTime+i*.15;g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(.3,st+.02);g.gain.exponentialRampToValueAtTime(.001,st+.3);o.start(st);o.stop(st+.35)})}catch(e){}}
 
-// ===== TIP =====
-function renderTip(){const d=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/DAY);document.getElementById('dailyTip').textContent=TIPS[d%TIPS.length]}
+function toast(msg,bg,time){const old=document.getElementById('gtoast');if(old)old.remove();const t=document.createElement('div');t.id='gtoast';t.className='dt';if(bg)t.style.background=bg;t.innerHTML=msg;document.body.appendChild(t);setTimeout(()=>{t.style.transition='opacity .5s';t.style.opacity='0';setTimeout(()=>t.remove(),500)},time||4000)}
 
-// ===== STREAK =====
-function calcStreak(){if(!rawData.length)return 0;const ds=rawData.map(d=>parseDate(d[0])).filter(t=>t).sort((a,b)=>b-a);if(!ds.length)return 0;let s=1;for(let i=1;i<ds.length;i++){if(ds[i-1]-ds[i]<=129600000)s++;else break}return s}
-function renderStreak(){const s=calcStreak();document.getElementById('streakNum').textContent=s;const sub=document.getElementById('streakSub');if(s>=30)sub.textContent='🏆 Siêu kiên trì!';else if(s>=14)sub.textContent='🔥 Đang bùng cháy!';else if(s>=7)sub.textContent='⚡ Rất tốt!';else if(s>=3)sub.textContent='👍 Đang lên!';else sub.textContent='Ngày liên tiếp'}
+// TIP
+function rTip(){const d=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/DAY);document.getElementById('tip').textContent=TIPS[d%TIPS.length]}
 
-// ===== EVENT =====
-function nextEvent(){const now=new Date(),t=new Date(now.getFullYear(),now.getMonth(),now.getDate());let r=null,mn=Infinity;EVENTS.forEach(e=>{let d=new Date(now.getFullYear(),e.m-1,e.d);if(d<t)d=new Date(now.getFullYear()+1,e.m-1,e.d);const ds=Math.ceil((d-t)/DAY);if(ds<mn){mn=ds;r={...e,days:ds,date:d}}});return r}
-function renderEventMini(){const e=nextEvent();if(!e)return;document.getElementById('eventNum').textContent=e.days===0?'Hôm nay!':e.days+' ngày';document.getElementById('eventName').textContent=e.n}
-function renderEventList(){const el=document.getElementById('eventList');if(!el)return;const now=new Date(),t=new Date(now.getFullYear(),now.getMonth(),now.getDate());const list=EVENTS.map(e=>{let d=new Date(now.getFullYear(),e.m-1,e.d);if(d<t)d=new Date(now.getFullYear()+1,e.m-1,e.d);return{...e,days:Math.ceil((d-t)/DAY),ds:d.toLocaleDateString('vi-VN')}}).sort((a,b)=>a.days-b.days);el.innerHTML=list.map(e=>`<div class="er"><div><div class="en">${e.n}</div><div style="font-size:11px;color:#888;margin-top:2px">${e.ds}</div></div><div class="ed ${e.days<=7?'sn':''}">${e.days===0?'HÔM NAY':e.days+' ngày'}</div></div>`).join('')}
+// STREAK
+function calcStreak(){if(!rawData.length)return 0;const ds=rawData.map(d=>pDate(d[0])).filter(t=>t).sort((a,b)=>b-a);if(!ds.length)return 0;let s=1;for(let i=1;i<ds.length;i++){if(ds[i-1]-ds[i]<=129600000)s++;else break}return s}
+function rStreak(){const s=calcStreak();document.getElementById('skN').textContent=s;const sub=document.getElementById('skS');sub.textContent=s>=30?'🏆 Siêu kiên trì!':s>=14?'🔥 Bùng cháy!':s>=7?'⚡ Rất tốt!':s>=3?'👍 Đang lên!':'Ngày liên tiếp'}
 
-// ===== GOAL =====
-function goalKey(){return currentUser?`goal_${currentUser.id}`:'goal'}
-function saveGoal(){const v=parseInt(document.getElementById('goalInput').value);if(!v||v<1000){alert('Nhập ≥ 1.000 view');return}localStorage.setItem(goalKey(),v);renderGoal();alert('✅ Đã lưu: '+v.toLocaleString('vi-VN')+' view')}
+// EVENT
+function nxtEv(){const now=new Date(),t=new Date(now.getFullYear(),now.getMonth(),now.getDate());let r=null,mn=Infinity;EVS.forEach(e=>{let d=new Date(now.getFullYear(),e.m-1,e.d);if(d<t)d=new Date(now.getFullYear()+1,e.m-1,e.d);const ds=Math.ceil((d-t)/DAY);if(ds<mn){mn=ds;r={...e,days:ds,date:d}}});return r}
+function rEvMini(){const e=nxtEv();if(!e)return;document.getElementById('evN').textContent=e.days===0?'Hôm nay!':e.days+' ngày';document.getElementById('evS').textContent=e.n}
+function rEvList(){const el=document.getElementById('evL');const now=new Date(),t=new Date(now.getFullYear(),now.getMonth(),now.getDate());const list=EVS.map(e=>{let d=new Date(now.getFullYear(),e.m-1,e.d);if(d<t)d=new Date(now.getFullYear()+1,e.m-1,e.d);return{...e,days:Math.ceil((d-t)/DAY),ds:d.toLocaleDateString('vi-VN')}}).sort((a,b)=>a.days-b.days);el.innerHTML=list.map(e=>`<div class="er"><div><div class="en">${e.n}</div><div style="font-size:11px;color:#888;margin-top:2px">${e.ds}</div></div><div class="ed ${e.days<=7?'sn':''}">${e.days===0?'HÔM NAY':e.days+' ngày'}</div></div>`).join('')}
+
+// GOAL
+function gKey(){return currentUser?`g_${currentUser.id}`:'g'}
+function saveGoal(){const v=parseInt(document.getElementById('gI').value);if(!v||v<1000){alert('≥1.000');return}localStorage.setItem(gKey(),v);rGoal();alert('✅ Đã lưu')}
 window.saveGoal=saveGoal;
-function renderGoal(){const g=parseInt(localStorage.getItem(goalKey())||0);const f=document.getElementById('goalFill'),t=document.getElementById('goalText'),s=document.getElementById('goalStatus');if(!g){f.style.width='0%';t.textContent='0%';s.textContent='Chưa đặt mục tiêu';return}const now=new Date();let mv=0;rawData.forEach(d=>{const ts=parseDate(d[0]);if(!ts)return;const dt=new Date(ts);if(dt.getMonth()===now.getMonth()&&dt.getFullYear()===now.getFullYear())mv+=d[1]});const p=Math.min(100,Math.round(mv/g*100));f.style.width=p+'%';t.textContent=p+'%';s.innerHTML=`<b style="color:var(--gr)">${mv.toLocaleString('vi-VN')}</b> / ${g.toLocaleString('vi-VN')} view`}
+function rGoal(){const g=parseInt(localStorage.getItem(gKey())||0);const f=document.getElementById('gf'),t=document.getElementById('gx'),s=document.getElementById('gS');if(!g){f.style.width='0%';t.textContent='0%';s.textContent='Chưa đặt';return}const now=new Date();let mv=0;rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const dt=new Date(ts);if(dt.getMonth()===now.getMonth()&&dt.getFullYear()===now.getFullYear())mv+=d[1]});const p=Math.min(100,Math.round(mv/g*100));f.style.width=p+'%';t.textContent=p+'%';s.innerHTML=`<b style="color:var(--gr)">${mv.toLocaleString('vi-VN')}</b> / ${g.toLocaleString('vi-VN')}`}
 
-// ===== HEATMAP =====
-function renderHeatmap(){const el=document.getElementById('heatmapGrid');if(!el)return;if(!rawData.length){el.innerHTML='<div style="grid-column:1/-1;text-align:center;color:#666;padding:14px;font-size:12px">Chưa có dữ liệu</div>';return}const b=Array.from({length:7},()=>({t:0,c:0}));rawData.forEach(d=>{const ts=parseDate(d[0]);if(!ts)return;const dw=new Date(ts).getDay();b[dw].t+=d[1];b[dw].c++});const avgs=b.map(x=>x.c>0?x.t/x.c:0);const mx=Math.max(...avgs,1);const mn=Math.min(...avgs.filter(a=>a>0),mx);el.innerHTML=b.map((x,i)=>{const a=avgs[i];let lv='';if(x.c===0)lv='';else if(a>=mx*.8)lv='l3';else if(a>=mn+(mx-mn)*.4)lv='l2';else lv='l1';return`<div class="hmd ${lv}"><div class="hl">${DW[i]}</div><div class="hv">${x.c>0?fmtV(Math.round(a)):'—'}</div></div>`}).join('')}
+// HEATMAP
+function rHeat(){const el=document.getElementById('hmG');if(!rawData.length){el.innerHTML='<div style="grid-column:1/-1;text-align:center;color:#666;padding:14px;font-size:12px">Chưa có dữ liệu</div>';return}const b=Array.from({length:7},()=>({t:0,c:0}));rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const dw=new Date(ts).getDay();b[dw].t+=d[1];b[dw].c++});const av=b.map(x=>x.c>0?x.t/x.c:0);const mx=Math.max(...av,1);const mn=Math.min(...av.filter(a=>a>0),mx);el.innerHTML=b.map((x,i)=>{const a=av[i];let lv='';if(x.c===0)lv='';else if(a>=mx*.8)lv='l3';else if(a>=mn+(mx-mn)*.4)lv='l2';else lv='l1';return`<div class="hmd ${lv}"><div class="hl">${DW[i]}</div><div class="hv">${x.c>0?fmtV(Math.round(a)):'—'}</div></div>`}).join('')}
 
-// ===== MONTH COMPARE =====
-function renderMonthCompare(){const box=document.getElementById('monthCompareContent');if(!box)return;if(rawData.length<2){box.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>';return}const now=new Date();let tm={v:0,l:0},lm={v:0,l:0};const thisM=now.getMonth(),thisY=now.getFullYear();const lastM=thisM===0?11:thisM-1,lastY=thisM===0?thisY-1:thisY;rawData.forEach(d=>{const ts=parseDate(d[0]);if(!ts)return;const dt=new Date(ts);if(dt.getMonth()===thisM&&dt.getFullYear()===thisY){tm.v+=d[1];tm.l+=d[2]}else if(dt.getMonth()===lastM&&dt.getFullYear()===lastY){lm.v+=d[1];lm.l+=d[2]}});if(tm.v===0&&lm.v===0){box.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Không có dữ liệu</div>';return}const vd=tm.v-lm.v,ld=tm.l-lm.l;const vp=lm.v>0?(vd/lm.v*100):(tm.v>0?100:0);const lp=lm.l>0?(ld/lm.l*100):(tm.l>0?100:0);const M=['Th1','Th2','Th3','Th4','Th5','Th6','Th7','Th8','Th9','Th10','Th11','Th12'];box.innerHTML=`<div class="cg"><div class="ci"><div class="v">${fmtV(tm.v)}</div><div class="l">${M[thisM]} view</div></div><div class="ci"><div class="v">${fmtV(lm.v)}</div><div class="l">${M[lastM]} view</div></div><div class="ci"><div class="v">${fmtV(tm.l)}</div><div class="l">${M[thisM]} like</div></div><div class="ci"><div class="v">${fmtV(lm.l)}</div><div class="l">${M[lastM]} like</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 View: ${vd>=0?'📈 Tăng':'📉 Giảm'} ${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:8px">❤️ Like: ${ld>=0?'📈 Tăng':'📉 Giảm'} ${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`}
+// MONTH COMPARE
+function rMonthCmp(){const b=document.getElementById('mCmpC');if(rawData.length<2){b.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>';return}const now=new Date();let tm={v:0,l:0},lm={v:0,l:0};const tM=now.getMonth(),tY=now.getFullYear();const lM=tM===0?11:tM-1,lY=tM===0?tY-1:tY;rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const dt=new Date(ts);if(dt.getMonth()===tM&&dt.getFullYear()===tY){tm.v+=d[1];tm.l+=d[2]}else if(dt.getMonth()===lM&&dt.getFullYear()===lY){lm.v+=d[1];lm.l+=d[2]}});if(!tm.v&&!lm.v){b.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Không có data</div>';return}const vd=tm.v-lm.v,ld=tm.l-lm.l;const vp=lm.v>0?(vd/lm.v*100):(tm.v>0?100:0);const lp=lm.l>0?(ld/lm.l*100):(tm.l>0?100:0);const M=['Th1','Th2','Th3','Th4','Th5','Th6','Th7','Th8','Th9','Th10','Th11','Th12'];b.innerHTML=`<div class="cg"><div class="ci"><div class="v">${fmtV(tm.v)}</div><div class="l">${M[tM]}</div></div><div class="ci"><div class="v">${fmtV(lm.v)}</div><div class="l">${M[lM]}</div></div><div class="ci"><div class="v">${fmtV(tm.l)}</div><div class="l">${M[tM]} like</div></div><div class="ci"><div class="v">${fmtV(lm.l)}</div><div class="l">${M[lM]} like</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 ${vd>=0?'📈 +':'📉 '}${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:8px">❤️ ${ld>=0?'📈 +':'📉 '}${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`}
 
-// ===== RATING =====
-function rateKey(d){return currentUser?`rate_${currentUser.id}_${d}`:`rate_${d}`}
-function renderRateList(){const el=document.getElementById('rateList');if(!el)return;if(!rawData.length){el.innerHTML='<div style="color:#666;text-align:center;padding:20px">Chưa có dữ liệu</div>';return}const sorted=[...rawData].sort((a,b)=>(parseDate(b[0])||0)-(parseDate(a[0])||0)).slice(0,30);el.innerHTML=sorted.map(d=>{const r=parseInt(localStorage.getItem(rateKey(d[0]))||0);return`<div class="rt"><div class="ri"><div class="rd">${d[0]}</div><div class="rv">${d[1].toLocaleString('vi-VN')} view</div></div><div class="st2s" data-date="${d[0]}">${[1,2,3,4,5].map(i=>`<span class="st2 ${i<=r?'a':''}" data-val="${i}">★</span>`).join('')}</div></div>`}).join('');el.querySelectorAll('.st2s').forEach(c=>{c.querySelectorAll('.st2').forEach(s=>s.addEventListener('click',()=>{const v=parseInt(s.dataset.val);localStorage.setItem(rateKey(c.dataset.date),v);c.querySelectorAll('.st2').forEach(x=>x.classList.toggle('a',parseInt(x.dataset.val)<=v))}))})}
+// RATING
+function rKey(d){return currentUser?`r_${currentUser.id}_${d}`:`r_${d}`}
+function rRate(){const el=document.getElementById('rtL');if(!rawData.length){el.innerHTML='<div style="color:#666;text-align:center;padding:20px">Chưa có dữ liệu</div>';return}const s=[...rawData].sort((a,b)=>(pDate(b[0])||0)-(pDate(a[0])||0)).slice(0,30);el.innerHTML=s.map(d=>{const r=parseInt(localStorage.getItem(rKey(d[0]))||0);return`<div class="rt"><div class="ri"><div class="rd">${d[0]}</div><div class="rv">${d[1].toLocaleString('vi-VN')} view</div></div><div class="st2s" data-d="${d[0]}">${[1,2,3,4,5].map(i=>`<span class="st2 ${i<=r?'a':''}" data-v="${i}">★</span>`).join('')}</div></div>`}).join('');el.querySelectorAll('.st2s').forEach(c=>{c.querySelectorAll('.st2').forEach(s=>s.addEventListener('click',()=>{const v=parseInt(s.dataset.v);localStorage.setItem(rKey(c.dataset.d),v);c.querySelectorAll('.st2').forEach(x=>x.classList.toggle('a',parseInt(x.dataset.v)<=v))}))})}
 
-// ===== BACKUP =====
-function backupData(){if(!currentUser)return;const rat={};rawData.forEach(d=>{const r=localStorage.getItem(rateKey(d[0]));if(r)rat[d[0]]=r});const b={v:'1.0',at:new Date().toISOString(),user:currentUser.email,rows:rawData,goal:localStorage.getItem(goalKey())||null,ratings:rat,notes:getNotes(),sound:soundEnabled,theme:localStorage.getItem('theme')||'dark'};const blob=new Blob([JSON.stringify(b,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`tool-backup-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
-function restoreData(file){const rd=new FileReader();rd.onload=async ev=>{try{const d=JSON.parse(ev.target.result);if(!d.rows||!Array.isArray(d.rows))throw new Error('File không hợp lệ');if(!confirm(`Khôi phục ${d.rows.length} dòng?`))return;rawData=d.rows;if(d.goal)localStorage.setItem(goalKey(),d.goal);if(d.ratings)Object.entries(d.ratings).forEach(([k,v])=>localStorage.setItem(rateKey(k),v));if(d.notes)saveNotes(d.notes);renderAll();await saveCloud();alert('✅ Khôi phục thành công!')}catch(e){alert('❌ '+e.message)}};rd.readAsText(file)}
+// NOTES
+function ntKey(){return currentUser?`nt_${currentUser.id}`:'nt'}
+function getNt(){try{return JSON.parse(localStorage.getItem(ntKey())||'[]')}catch(e){return[]}}
+function saveNt(n){localStorage.setItem(ntKey(),JSON.stringify(n))}
+function rNt(){const el=document.getElementById('ntL');const nt=getNt();if(!nt.length){el.innerHTML='<div style="color:#666;text-align:center;padding:20px;font-size:13px">Chưa có ghi chú</div>';return}el.innerHTML=nt.map((n,i)=>`<div class="note-item"><div class="date">📅 ${new Date(n.date).toLocaleString('vi-VN')}</div><div class="txt">${esc(n.text)}</div><button class="del" onclick="delNt(${i})">🗑️</button></div>`).join('')}
+function addNt(){const inp=document.getElementById('ntI');const t=inp.value.trim();if(!t)return;const nt=getNt();nt.unshift({text:t,date:Date.now()});saveNt(nt);inp.value='';rNt()}
+function delNt(i){if(!confirm('Xóa?'))return;const nt=getNt();nt.splice(i,1);saveNt(nt);rNt()}
+window.delNt=delNt;
 
-// ===== SHARE =====
-function shareResults(){if(!rawData.length){alert('Chưa có dữ liệu!');return}let tv=0,tl=0,mx=0,mxD='';rawData.forEach(d=>{tv+=d[1];tl+=d[2];if(d[1]>mx){mx=d[1];mxD=d[0]}});const avg=Math.round(tv/rawData.length),st=calcStreak();const text=`📊 THỐNG KÊ KÊNH TIKTOK\n━━━━━━━━━━━━━━\n📅 Số ngày: ${rawData.length}\n👀 Tổng view: ${tv.toLocaleString('vi-VN')}\n❤️ Tổng like: ${tl.toLocaleString('vi-VN')}\n📈 View TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Ngày viral: ${mxD} → ${mx.toLocaleString('vi-VN')} view\n🔥 Streak: ${st} ngày\n━━━━━━━━━━━━━━\nTool của @ductri705 🚀`;if(navigator.share){navigator.share({title:'Thống kê TikTok',text}).catch(()=>{})}else{navigator.clipboard.writeText(text).then(()=>alert('✅ Đã copy!')).catch(()=>prompt('Copy:',text))}}
+// ACHIEVEMENTS
+function rAch(){const lk=document.getElementById('acLk'),un=document.getElementById('acUn'),ab=document.getElementById('acAB');if(!lk||!un)return;const hasVIP=isAdm()||(userProfile&&userProfile.golden_unlocked===true);if(!hasVIP){lk.classList.remove('hd');un.classList.add('hd');const btn=document.getElementById('acUB');if(btn){const c=userProfile?.credits||0;if(c<GOLD){btn.textContent=`❌ Cần ${GOLD} xu — có ${c}`;btn.disabled=true}else{btn.textContent=`🔓 Mở khóa — ${GOLD} xu (có ${c})`;btn.disabled=false}}return}lk.classList.add('hd');un.classList.remove('hd');if(ab)ab.classList.toggle('hd',!isAdm());const el=document.getElementById('acG');const unl=JSON.parse(localStorage.getItem('unl_ach')||'[]');el.innerHTML=ACHS.map(a=>{let ok=false;try{ok=a.ck()}catch(e){}if(ok&&!unl.includes(a.id)){unl.push(a.id);localStorage.setItem('unl_ach',JSON.stringify(unl));setTimeout(()=>toast(`🏆 MỞ KHÓA!<br><span style="font-size:14px">${a.i} ${a.n}</span>`,'linear-gradient(135deg,#ffd700,#ff9500)',4500),500)}return`<div class="ach ${ok?'un':''}"><div class="ic">${a.i}</div><div class="nm">${a.n}</div><div class="p">${ok?'✅':'🔒 '+a.p}</div></div>`}).join('')}
 
-// ===== GOLDEN SLOT =====
-function seedR(s){const x=Math.sin(s)*10000;return x-Math.floor(x)}
-function getSlot(now){const dk=now.getFullYear()*10000+(now.getMonth()+1)*100+now.getDate();const hk=now.getHours(),seed=dk*100+hk;const sm=Math.floor(seedR(seed)*30);const dm=20+Math.floor(seedR(seed+1)*21);const st=new Date(now);st.setMinutes(sm,0,0);const en=new Date(st.getTime()+dm*60000);return{start:st,end:en,min:sm,dur:dm}}
-function fmtT(d){return pad(d.getHours())+':'+pad(d.getMinutes())}
-function getGolden(now){const s=getSlot(now),inS=now>=s.start&&now<s.end,hh=pad(now.getHours());if(inS)return{a:true,t:s.end,l:`🔥 GIỜ VÀNG ${hh}h`,d:`Khung ${fmtT(s.start)} – ${fmtT(s.end)} · Đăng ngay!`};if(now<s.start)return{a:false,t:s.start,l:`⏰ SẮP VÀO KHUNG VÀNG ${hh}h`,d:`Khung: ${fmtT(s.start)} – ${fmtT(s.end)}`};const nh=new Date(now);nh.setHours(now.getHours()+1,0,0,0);const ns=getSlot(nh);return{a:false,t:ns.start,l:`⏰ ĐÃ QUA KHUNG VÀNG ${hh}h`,d:`Khung sau: ${fmtT(ns.start)} – ${fmtT(ns.end)}`}}
-function renderTodayGolden(){const box=document.getElementById('todayGoldenBox');if(!box)return;const now=new Date(),s=getSlot(now),inS=now>=s.start&&now<s.end,hh=pad(now.getHours());box.innerHTML=`<div style="color:var(--gold);font-weight:700;font-size:15px;margin-bottom:8px">${inS?'🔥 ĐANG TRONG KHUNG VÀNG':'⏰ Khung giờ vàng '+hh+'h'}</div><div style="color:var(--gr);font-weight:600;font-size:16px;margin-bottom:8px">${fmtT(s.start)} – ${fmtT(s.end)}</div><div style="color:#888;font-size:11px">Kéo dài ${s.dur} phút · Tự đổi mỗi giờ</div>`}
+// POMODORO
+function rPm(){document.getElementById('pmT').textContent=PAD(Math.floor(pmSecs/60))+':'+PAD(pmSecs%60);const s=document.getElementById('pmS');if(pmRun){s.textContent='🟢 Đang chạy';s.style.color='var(--gr)'}else if(pmSecs<pmTot){s.textContent='⏸️ Tạm dừng';s.style.color='#888'}else{s.textContent='Sẵn sàng';s.style.color='#888'}}
+function startPm(){if(pmRun)return;pmRun=true;if(pmTimer)clearInterval(pmTimer);pmTimer=setInterval(()=>{pmSecs--;if(pmSecs<=0){clearInterval(pmTimer);pmRun=false;pmSecs=pmTot;playSnd();toast('⏰ Hết giờ!');rPm()}else rPm()},1000);rPm()}
+function pausePm(){if(pmTimer){clearInterval(pmTimer);pmTimer=null}pmRun=false;rPm()}
+function resetPm(){if(pmTimer)clearInterval(pmTimer);pmTimer=null;pmRun=false;pmSecs=pmTot;rPm()}
 
-// ===== EXPORT =====
-function exportCSV(){if(!rawData.length){alert('Chưa có dữ liệu!');return}const lines=['"Date","Video Views","Likes","Comments","Shares","Profile Views"'];rawData.forEach(d=>lines.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`));const csv='\ufeff'+lines.join('\n');const b=new Blob([csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`tiktok_${new Date().toISOString().slice(0,10)}.csv`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
+// THEME
+function setTh(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('th',t);document.getElementById('themeBtn').textContent=t==='light'?'☀️':'🌙'}
 
-function renderCompare(){const box=document.getElementById('compareContent');if(!box)return;if(rawData.length<2){box.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>';return}const now=Date.now(),wk=604800000;let tw={v:0,l:0},lw={v:0,l:0};rawData.forEach(d=>{const ts=parseDate(d[0]);if(!ts)return;const df=now-ts;if(df<=wk){tw.v+=d[1];tw.l+=d[2]}else if(df<=wk*2){lw.v+=d[1];lw.l+=d[2]}});const vd=tw.v-lw.v,ld=tw.l-lw.l;const vp=lw.v>0?(vd/lw.v*100):(tw.v>0?100:0);const lp=lw.l>0?(ld/lw.l*100):(tw.l>0?100:0);box.innerHTML=`<div class="cg"><div class="ci"><div class="v">${fmtV(tw.v)}</div><div class="l">View tuần này</div></div><div class="ci"><div class="v">${fmtV(lw.v)}</div><div class="l">View tuần trước</div></div><div class="ci"><div class="v">${fmtV(tw.l)}</div><div class="l">Like tuần này</div></div><div class="ci"><div class="v">${fmtV(lw.l)}</div><div class="l">Like tuần trước</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 View: ${vd>=0?'📈 Tăng':'📉 Giảm'} ${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:8px">❤️ Like: ${ld>=0?'📈 Tăng':'📉 Giảm'} ${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`}
+// ACCOUNT
+function rAcc(){if(!currentUser||!userProfile)return;document.getElementById('ifE').textContent=currentUser.email||'—';const cr=userProfile.created_at?new Date(userProfile.created_at).toLocaleString('vi-VN'):'—';document.getElementById('ifC').textContent=cr;document.getElementById('ifL').textContent=userProfile.last_login?new Date(userProfile.last_login).toLocaleString('vi-VN'):'Vừa login';document.getElementById('ifX').textContent=isAdm()?'∞':(userProfile.credits||0).toLocaleString('vi-VN')+' xu';document.getElementById('ifR').textContent=isAdm()?'👑 Admin':(userProfile.golden_unlocked?'⭐ VIP':'User')}
 
-function parseDate(s){if(!s)return null;const M={'tháng Mười':9,'tháng Mười Một':10,'tháng Mười Hai':11,'tháng Một':0,'tháng Hai':1,'tháng Ba':2,'tháng Tư':3,'tháng Năm':4,'tháng Sáu':5,'tháng Bảy':6,'tháng Tám':7,'tháng Chín':8};const m=s.match(/^(\d+)\s+(.+)$/);if(!m)return null;const d=parseInt(m[1]),mn=m[2].trim();if(!(mn in M))return null;return new Date(new Date().getFullYear(),M[mn],d).getTime()}
-
-// ===== NOTES =====
-function getNotesKey(){return currentUser?`notes_${currentUser.id}`:'notes'}
-function getNotes(){try{return JSON.parse(localStorage.getItem(getNotesKey())||'[]')}catch(e){return[]}}
-function saveNotes(n){localStorage.setItem(getNotesKey(),JSON.stringify(n))}
-function renderNotes(){const el=document.getElementById('notesList');if(!el)return;const notes=getNotes();if(!notes.length){el.innerHTML='<div style="color:#666;text-align:center;padding:20px;font-size:13px">Chưa có ghi chú nào</div>';return}el.innerHTML=notes.map((n,i)=>`<div class="note-item"><div class="date">📅 ${new Date(n.date).toLocaleString('vi-VN')}</div><div class="txt">${escapeHtml(n.text)}</div><button class="del" onclick="delNote(${i})">🗑️</button></div>`).join('')}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function addNote(){const inp=document.getElementById('noteInput');const t=inp.value.trim();if(!t)return;const notes=getNotes();notes.unshift({text:t,date:Date.now()});saveNotes(notes);inp.value='';renderNotes()}
-function delNote(i){if(!confirm('Xóa ghi chú?'))return;const notes=getNotes();notes.splice(i,1);saveNotes(notes);renderNotes()}
-window.delNote=delNote;
-document.getElementById('addNoteBtn').addEventListener('click',addNote);
-
-// ===== ACHIEVEMENTS =====
-function renderAch(){const el=document.getElementById('achGrid');if(!el)return;const unlocked=JSON.parse(localStorage.getItem('unlocked_ach')||'[]');el.innerHTML=ACHS.map(a=>{let ok=false;try{ok=a.ck()}catch(e){}if(ok&&!unlocked.includes(a.id)){unlocked.push(a.id);localStorage.setItem('unlocked_ach',JSON.stringify(unlocked));setTimeout(()=>showAchToast(a),500)}return`<div class="ach ${ok?'un':''}" title="${a.p}"><div class="ic">${a.ic}</div><div class="nm">${a.n}</div><div class="p">${ok?'✅ Đã mở':'🔒 '+a.p}</div></div>`}).join('')}
-function showAchToast(a){const t=document.createElement('div');t.className='dt';t.style.background='linear-gradient(135deg,#ffd700,#ff9500)';t.innerHTML=`🏆 MỞ KHÓA THÀNH TỰU!<br><span style="font-size:14px">${a.ic} ${a.n}</span><br><span style="font-size:11px;font-weight:400">${a.p}</span>`;document.body.appendChild(t);setTimeout(()=>{t.style.transition='opacity .5s';t.style.opacity='0';setTimeout(()=>t.remove(),500)},4500)}
-
-// ===== POMODORO =====
-function renderPom(){document.getElementById('pomTime').textContent=pad(Math.floor(pomSecs/60))+':'+pad(pomSecs%60);const s=document.getElementById('pomStatus');if(pomRunning){s.textContent='🟢 Đang chạy — Tập trung vào content!';s.style.color='var(--gr)'}else if(pomSecs<pomTotal){s.textContent='⏸️ Đã tạm dừng';s.style.color='#888'}else{s.textContent='Sẵn sàng — Bấm Bắt đầu';s.style.color='#888'}}
-function startPom(){if(pomRunning)return;pomRunning=true;if(pomTimer)clearInterval(pomTimer);pomTimer=setInterval(()=>{pomSecs--;if(pomSecs<=0){clearInterval(pomTimer);pomRunning=false;pomSecs=pomTotal;playSound();alert('⏰ Hết giờ! Nghỉ ngơi thôi 🎉');renderPom()}else{renderPom()}},1000);renderPom()}
-function pausePom(){if(pomTimer){clearInterval(pomTimer);pomTimer=null}pomRunning=false;renderPom()}
-function resetPom(){if(pomTimer)clearInterval(pomTimer);pomTimer=null;pomRunning=false;pomSecs=pomTotal;renderPom()}
-document.getElementById('pomStart').addEventListener('click',startPom);
-document.getElementById('pomPause').addEventListener('click',pausePom);
-document.getElementById('pomReset').addEventListener('click',resetPom);
-document.querySelectorAll('.pom-mode button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.pom-mode button').forEach(x=>x.classList.remove('a'));b.classList.add('a');pomMode=parseInt(b.dataset.min);pomTotal=pomMode*60;pomSecs=pomTotal;pausePom();renderPom()}));
-
-// ===== THEME =====
-function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);document.getElementById('themeBtn').textContent=t==='light'?'☀️':'🌙'}
-document.getElementById('themeBtn').addEventListener('click',()=>{const cur=localStorage.getItem('theme')||'dark';applyTheme(cur==='dark'?'light':'dark')});
-applyTheme(localStorage.getItem('theme')||'dark');
-
-// ===== ACCOUNT =====
-function renderAccount(){if(!currentUser||!userProfile)return;document.getElementById('infoEmail').textContent=currentUser.email||'—';const cr=userProfile.created_at?new Date(userProfile.created_at).toLocaleString('vi-VN'):(currentUser.created_at?new Date(currentUser.created_at).toLocaleString('vi-VN'):'—');document.getElementById('infoCreated').textContent=cr;document.getElementById('infoLastLogin').textContent=userProfile.last_login?new Date(userProfile.last_login).toLocaleString('vi-VN'):'Vừa đăng nhập';document.getElementById('infoCredits').textContent=isAdmin()?'∞ (vô hạn)':(userProfile.credits||0).toLocaleString('vi-VN')+' xu';document.getElementById('infoRole').textContent=isAdmin()?'👑 Admin':(userProfile.golden_unlocked?'⭐ VIP':'User thường')}
-
-document.getElementById('changePassBtn').addEventListener('click',async()=>{const p1=document.getElementById('newPass1').value,p2=document.getElementById('newPass2').value;const msg=document.getElementById('passMsg');msg.textContent='';msg.className='m';if(!p1||!p2){msg.textContent='Nhập đầy đủ';msg.classList.add('e');return}if(p1.length<6){msg.textContent='Tối thiểu 6 ký tự';msg.classList.add('e');return}if(p1!==p2){msg.textContent='Không khớp';msg.classList.add('e');return}const btn=document.getElementById('changePassBtn');btn.disabled=true;btn.textContent='⏳ Đang đổi...';try{const{error}=await sb.auth.updateUser({password:p1});if(error)throw error;msg.textContent='✅ Đổi thành công!';msg.classList.add('o');document.getElementById('oldPass').value='';document.getElementById('newPass1').value='';document.getElementById('newPass2').value=''}catch(e){msg.textContent='❌ '+e.message;msg.classList.add('e')}btn.disabled=false;btn.textContent='🔑 Đổi mật khẩu'});
-
-function renderPkgs(){document.getElementById('pkgGrid').innerHTML=PKG.map((p,i)=>`<div class="pc" onclick="selPkg(${i})"><div class="p">${p.l}</div><div class="a">↓</div><div class="x">+${p.x.toLocaleString('vi-VN')} xu</div></div>`).join('')}
-function selPkg(i){const p=PKG[i];if(!currentUser)return;const c='NAPXU '+currentUser.email.split('@')[0].toUpperCase().substring(0,10);document.getElementById('payAmount').textContent=p.l;document.getElementById('payXu').textContent='+'+p.x.toLocaleString('vi-VN')+' xu';document.getElementById('payContent').textContent=c;document.getElementById('moneyDetail').classList.remove('hd');document.getElementById('moneyDetail').scrollIntoView({behavior:'smooth'})}
+// PACKAGES
+function rPkgs(){document.getElementById('pkG').innerHTML=PKGS.map((p,i)=>`<div class="pc" onclick="selPkg(${i})"><div class="p">${p.l}</div><div class="a">↓</div><div class="x">+${p.x.toLocaleString('vi-VN')} xu</div></div>`).join('')}
+function selPkg(i){const p=PKGS[i];if(!currentUser)return;const c='NAPXU '+currentUser.email.split('@')[0].toUpperCase().substring(0,10);document.getElementById('payA').textContent=p.l;document.getElementById('payX').textContent='+'+p.x.toLocaleString('vi-VN')+' xu';document.getElementById('payC').textContent=c;document.getElementById('mnD').classList.remove('hd')}
 window.selPkg=selPkg;
 
+// AUTH UI
 let isReg=false;
-const aT=document.getElementById('authTitle'),aS=document.getElementById('authSubmit'),aTg=document.getElementById('authToggle'),aM=document.getElementById('authMsg');
-aTg.addEventListener('click',()=>{isReg=!isReg;aT.textContent=isReg?'Đăng ký':'Đăng nhập';aS.textContent=isReg?'Tạo tài khoản (+50 xu)':'Đăng nhập';aTg.textContent=isReg?'Đã có? Đăng nhập':'Chưa có? Đăng ký';aM.textContent=''});
-aS.addEventListener('click',async()=>{const em=document.getElementById('authEmail').value.trim(),pw=document.getElementById('authPass').value;if(!em||!pw){showMsg('Nhập đầy đủ','e');return}if(pw.length<6){showMsg('Mật khẩu từ 6 ký tự','e');return}aS.disabled=true;try{if(isReg){const{error}=await sb.auth.signUp({email:em,password:pw});if(error)throw error;showMsg('Đăng ký thành công! +50 xu 🎁','o');setTimeout(showRegModal,800)}else{const{error}=await sb.auth.signInWithPassword({email:em,password:pw});if(error)throw error}}catch(e){let m=e.message||'Lỗi';if(m.includes('already registered'))m='Email đã đăng ký';else if(m.includes('Invalid login'))m='Sai email hoặc mật khẩu';else if(m.includes('Password should be'))m='Mật khẩu yếu';showMsg(m,'e')}aS.disabled=false});
-function showMsg(t,ty){aM.textContent=t;aM.className='m '+(ty||'')}
+const aT=document.getElementById('aT'),aB=document.getElementById('aB'),aTg=document.getElementById('aTg'),aM=document.getElementById('aM');
+aTg.addEventListener('click',()=>{isReg=!isReg;aT.textContent=isReg?'Đăng ký':'Đăng nhập';aB.textContent=isReg?'Tạo tài khoản (+50 xu)':'Đăng nhập';aTg.textContent=isReg?'Đã có? Đăng nhập':'Chưa có? Đăng ký';aM.textContent=''});
+aB.addEventListener('click',async()=>{const em=document.getElementById('aE').value.trim(),pw=document.getElementById('aP').value;if(!em||!pw){sMsg('Nhập đầy đủ','e');return}if(pw.length<6){sMsg('Tối thiểu 6 ký tự','e');return}aB.disabled=true;try{if(isReg){const{error}=await sb.auth.signUp({email:em,password:pw});if(error)throw error;sMsg('Đăng ký! +50 xu 🎁','o');setTimeout(regMod,800)}else{const{error}=await sb.auth.signInWithPassword({email:em,password:pw});if(error)throw error}}catch(e){let m=e.message||'Lỗi';if(m.includes('already registered'))m='Email đã đăng ký';else if(m.includes('Invalid login'))m='Sai email hoặc MK';else if(m.includes('Password should be'))m='MK yếu';sMsg(m,'e')}aB.disabled=false});
+function sMsg(t,ty){aM.textContent=t;aM.className='m '+(ty||'')}
 
-document.getElementById('logoutBtn').addEventListener('click',async()=>{if(!confirm('Đăng xuất sẽ xóa dữ liệu CSV. Tiếp tục?'))return;if(currentUser){try{await sb.from('user_data').delete().eq('user_id',currentUser.id)}catch(e){}}rawData=[];userProfile=null;if(chartInst){chartInst.destroy();chartInst=null}await sb.auth.signOut()});
+document.getElementById('loB').addEventListener('click',async()=>{if(!confirm('Đăng xuất sẽ xóa data CSV?'))return;if(currentUser){try{await sb.from('user_data').delete().eq('user_id',currentUser.id)}catch(e){}}rawData=[];userProfile=null;if(chInst){chInst.destroy();chInst=null}await sb.auth.signOut()});
 
-sb.auth.onAuthStateChange(async(ev,ss)=>{document.getElementById('loadingScreen').classList.add('hd');rawData=[];if(chartInst){chartInst.destroy();chartInst=null}renderAll();if(ss?.user){currentUser=ss.user;document.getElementById('userEmail').textContent=ss.user.email;const{data:p}=await sb.from('profiles').select('*').eq('id',ss.user.id).single();if(p?.banned){await sb.auth.signOut();document.getElementById('authScreen').classList.remove('hd');document.getElementById('app').classList.add('hd');showMsg('❌ Tài khoản đã bị khóa','e');return}userProfile=p||{credits:0,golden_unlocked:false,is_admin:false};if(ss.user.email===ADMIN_EMAIL&&!userProfile.is_admin){userProfile.is_admin=true;await sb.from('profiles').update({is_admin:true}).eq('id',ss.user.id)}try{await sb.from('profiles').update({last_login:new Date().toISOString()}).eq('id',ss.user.id);userProfile.last_login=new Date().toISOString()}catch(e){}await applyDaily();updateCr();document.getElementById('authScreen').classList.add('hd');document.getElementById('app').classList.remove('hd');document.getElementById('adminTab').classList.toggle('hd',!isAdmin());renderGolden();renderAccount();renderPkgs();renderTip();renderStreak();renderEventMini();renderEventList();renderNotes();renderAch();await loadCloud();renderAll()}else{currentUser=null;userProfile=null;rawData=[];document.getElementById('authScreen').classList.remove('hd');document.getElementById('app').classList.add('hd');document.getElementById('authEmail').value='';document.getElementById('authPass').value='';aM.textContent='';document.getElementById('adminTab').classList.add('hd')}});
+// AUTH STATE
+sb.auth.onAuthStateChange(async(ev,ss)=>{document.getElementById('ls').classList.add('hd');rawData=[];if(chInst){chInst.destroy();chInst=null}rAll();if(ss?.user){currentUser=ss.user;document.getElementById('uE').textContent=ss.user.email;const{data:p}=await sb.from('profiles').select('*').eq('id',ss.user.id).single();if(p?.banned){await sb.auth.signOut();document.getElementById('as').classList.remove('hd');document.getElementById('app').classList.add('hd');sMsg('❌ Bị khóa','e');return}userProfile=p||{credits:0,golden_unlocked:false,is_admin:false};if(ss.user.email===ADM_EM&&!userProfile.is_admin){userProfile.is_admin=true;await sb.from('profiles').update({is_admin:true}).eq('id',ss.user.id)}try{await sb.from('profiles').update({last_login:new Date().toISOString()}).eq('id',ss.user.id);userProfile.last_login=new Date().toISOString()}catch(e){}await applyD();upCr();document.getElementById('as').classList.add('hd');document.getElementById('app').classList.remove('hd');document.getElementById('admTab').classList.toggle('hd',!isAdm());rGold();rAcc();rPkgs();rTip();rStreak();rEvMini();rEvList();rNt();rAch();await loadC();rAll();checkBc()}else{currentUser=null;userProfile=null;rawData=[];document.getElementById('as').classList.remove('hd');document.getElementById('app').classList.add('hd');document.getElementById('aE').value='';document.getElementById('aP').value='';aM.textContent='';document.getElementById('admTab').classList.add('hd')}});
 
-(async()=>{const{data:{session}}=await sb.auth.getSession();document.getElementById('loadingScreen').classList.add('hd');if(!session)document.getElementById('authScreen').classList.remove('hd');const st=document.getElementById('soundToggle');if(st)st.checked=soundEnabled})();
+(async()=>{const{data:{session}}=await sb.auth.getSession();document.getElementById('ls').classList.add('hd');if(!session)document.getElementById('as').classList.remove('hd');const st=document.getElementById('sT');if(st)st.checked=snd;setTh(localStorage.getItem('th')||'dark')})();
 
-document.getElementById('soundToggle').addEventListener('change',e=>{soundEnabled=e.target.checked;localStorage.setItem('soundEnabled',soundEnabled);if(soundEnabled)playSound()});
+document.getElementById('sT').addEventListener('change',e=>{snd=e.target.checked;localStorage.setItem('snd',snd);if(snd)playSnd()});
 
-async function applyDaily(){if(!currentUser||!userProfile)return;if(isAdmin())return;const last=userProfile.last_daily_bonus?new Date(userProfile.last_daily_bonus).getTime():0;if(Date.now()-last<DAY)return;const nc=(userProfile.credits||0)+BONUS;const{error}=await sb.from('profiles').update({credits:nc,last_daily_bonus:new Date().toISOString()}).eq('id',currentUser.id);if(error)return;userProfile.credits=nc;userProfile.last_daily_bonus=new Date().toISOString();const old=document.getElementById('dailyToast');if(old)old.remove();const t=document.createElement('div');t.id='dailyToast';t.className='dt';t.innerHTML=`🎁 Điểm danh!<br><span style="font-size:12px">+${BONUS} xu</span>`;document.body.appendChild(t);setTimeout(()=>{t.style.transition='opacity .5s';t.style.opacity='0';setTimeout(()=>t.remove(),500)},4000)}
+async function applyD(){if(!currentUser||!userProfile||isAdm())return;const last=userProfile.last_daily_bonus?new Date(userProfile.last_daily_bonus).getTime():0;if(Date.now()-last<DAY)return;const nc=(userProfile.credits||0)+BONUS;const{error}=await sb.from('profiles').update({credits:nc,last_daily_bonus:new Date().toISOString()}).eq('id',currentUser.id);if(error)return;userProfile.credits=nc;userProfile.last_daily_bonus=new Date().toISOString();toast(`🎁 Điểm danh!<br><span style="font-size:12px">+${BONUS} xu</span>`)}
 
-function updateCr(){const el=document.getElementById('userCredits'),bar=document.getElementById('creditsBar');if(isAdmin()){el.textContent='∞';bar.classList.add('i')}else{el.textContent=(userProfile?.credits||0).toLocaleString('vi-VN');bar.classList.remove('i')}}
+function upCr(){const el=document.getElementById('uC'),bar=document.getElementById('cB');if(isAdm()){el.textContent='∞'}else{el.textContent=(userProfile?.credits||0).toLocaleString('vi-VN')}}
 
-function showRegModal(){const old=document.getElementById('modalSuccess');if(old)old.remove();const m=document.createElement('div');m.id='modalSuccess';m.className='mo';m.innerHTML=`<div class="mbx"><h2>🎉 Chúc mừng!</h2><div class="sb">Tạo tài khoản thành công</div><div style="color:var(--tx);font-size:13px;margin-bottom:14px;line-height:1.6">Hướng dẫn lấy file <b style="color:var(--acc)">Overview.csv</b>:</div><div class="stp"><b>1:</b> Safari/Google</div><div class="stp"><b>2:</b> TikTok Studio</div><div class="stp"><b>3:</b> Đăng nhập TikTok</div><div class="stp"><b>4:</b> 3 chấm (…), tìm TikTok Studio</div><div class="stp"><b>5:</b> Bấm icon file có mũi tên đi lên</div><div class="stp"><b>6:</b> Chọn "365 ngày" → Tải về → Giải nén → Nhập</div><div style="color:var(--gr);font-size:13px;text-align:center;margin-top:16px;font-weight:600;line-height:1.7">🎊 Nhập thành công!<br><span style="font-size:12px;color:var(--tx2);font-weight:400">Tận hưởng tool 🚀</span></div><button class="mbt" onclick="document.getElementById('modalSuccess').remove()">Đã hiểu! 🚀</button></div>`;document.body.appendChild(m)}
+function regMod(){const old=document.getElementById('md1');if(old)old.remove();const m=document.createElement('div');m.id='md1';m.className='mo';m.innerHTML=`<div class="mbx"><h2>🎉 Chúc mừng!</h2><div class="sb">Tạo tài khoản thành công</div><div style="color:var(--tx);font-size:13px;margin-bottom:14px">Lấy file CSV:</div><div class="stp"><b>1:</b> Safari/Google</div><div class="stp"><b>2:</b> TikTok Studio</div><div class="stp"><b>3:</b> Đăng nhập TikTok</div><div class="stp"><b>4:</b> 3 chấm tìm TikTok Studio</div><div class="stp"><b>5:</b> Bấm icon tải xuống</div><div class="stp"><b>6:</b> Chọn 365 ngày → tải → giải nén → nhập</div><div style="color:var(--gr);font-size:13px;text-align:center;margin-top:16px;font-weight:600">🎊 Xong! 🚀</div><button class="mbt" onclick="document.getElementById('md1').remove()">OK! 🚀</button></div>`;document.body.appendChild(m)}
 
-function showUpModal(){const old=document.getElementById('modalUpload');if(old)old.remove();const m=document.createElement('div');m.id='modalUpload';m.className='mo';m.innerHTML=`<div class="mbx"><h2>🎉 Thành công!</h2><div class="sb">Đã nhập file</div><div style="color:var(--tx);font-size:13px;text-align:center;line-height:1.8;margin:16px 0">Dữ liệu đã lưu cloud ☁️<br>Tận hưởng tool!</div><div style="color:var(--gr);font-size:24px;text-align:center;margin:20px 0">🚀</div><button class="mbt" onclick="document.getElementById('modalUpload').remove()">Bắt đầu!</button></div>`;document.body.appendChild(m)}
+function upMod(){const old=document.getElementById('md2');if(old)old.remove();const m=document.createElement('div');m.id='md2';m.className='mo';m.innerHTML=`<div class="mbx"><h2>🎉 Thành công!</h2><div class="sb">Đã nhập file</div><div style="color:var(--tx);font-size:13px;text-align:center;line-height:1.8;margin:16px 0">Data đã lưu cloud ☁️</div><div style="color:var(--gr);font-size:24px;text-align:center;margin:20px 0">🚀</div><button class="mbt" onclick="document.getElementById('md2').remove()">OK!</button></div>`;document.body.appendChild(m)}
 
-function renderGolden(){const lk=document.getElementById('goldenLocked'),ul=document.getElementById('goldenUnlocked'),ab=document.getElementById('adminBadge');if(!userProfile)return;if(isAdmin()||userProfile.golden_unlocked){lk.classList.add('hd');ul.classList.remove('hd');ab.classList.toggle('hd',!isAdmin());renderAnalysis()}else{lk.classList.remove('hd');ul.classList.add('hd');ab.classList.add('hd');const btn=document.getElementById('goldenUnlockBtn'),c=userProfile.credits||0;if(c<GOLD){btn.textContent=`❌ Cần ${GOLD} xu — có ${c}`;btn.disabled=true}else{btn.textContent=`🔓 Mở khóa — ${GOLD} xu (có ${c})`;btn.disabled=false}}}
+function rGold(){const lk=document.getElementById('gLk'),un=document.getElementById('gUn'),ab=document.getElementById('aBg');if(!userProfile)return;if(isAdm()||userProfile.golden_unlocked){lk.classList.add('hd');un.classList.remove('hd');ab.classList.toggle('hd',!isAdm());rAn()}else{lk.classList.remove('hd');un.classList.add('hd');ab.classList.add('hd');const btn=document.getElementById('gUB'),c=userProfile.credits||0;if(c<GOLD){btn.textContent=`❌ Cần ${GOLD} xu`;btn.disabled=true}else{btn.textContent=`🔓 ${GOLD} xu (có ${c})`;btn.disabled=false}}}
 
-document.getElementById('goldenUnlockBtn').addEventListener('click',async()=>{if(!userProfile)return;if((userProfile.credits||0)<GOLD){alert('Không đủ xu!');return}if(!confirm(`Mở khóa? Tốn ${GOLD} xu.`))return;const nc=userProfile.credits-GOLD;const{error}=await sb.from('profiles').update({credits:nc,golden_unlocked:true}).eq('id',currentUser.id);if(error){alert('Lỗi');return}userProfile.credits=nc;userProfile.golden_unlocked=true;updateCr();renderGolden();renderAccount()});
+document.getElementById('gUB').addEventListener('click',async()=>{if(!userProfile)return;if((userProfile.credits||0)<GOLD){alert('Không đủ xu!');return}if(!confirm(`Mở khóa? ${GOLD} xu.`))return;const nc=userProfile.credits-GOLD;const{error}=await sb.from('profiles').update({credits:nc,golden_unlocked:true}).eq('id',currentUser.id);if(error){alert('Lỗi');return}userProfile.credits=nc;userProfile.golden_unlocked=true;upCr();rGold();rAcc();rAch();toast('👑 Đã mở VIP!')});
 
-function renderAnalysis(){const box=document.getElementById('vipContent');if(!box)return;if(!rawData.length){box.innerHTML='<div class="si">⚠️ Chưa có dữ liệu</div>';return}const n=rawData.length;const vs=rawData.map(d=>d[1]),ls=rawData.map(d=>d[2]),cs=rawData.map(d=>d[3]),ss=rawData.map(d=>d[4]);const tV=vs.reduce((a,b)=>a+b,0),tL=ls.reduce((a,b)=>a+b,0),tC=cs.reduce((a,b)=>a+b,0),tS=ss.reduce((a,b)=>a+b,0);const aV=tV/n;const sorted=[...vs].sort((a,b)=>a-b);const med=sorted.length%2===0?(sorted[sorted.length/2-1]+sorted[sorted.length/2])/2:sorted[Math.floor(sorted.length/2)];const varr=vs.reduce((a,v)=>a+Math.pow(v-aV,2),0)/n;const sd=Math.sqrt(varr),cv=aV>0?(sd/aV*100):0;const mx=Math.max(...vs),mn=Math.min(...vs);const mxD=rawData[vs.indexOf(mx)][0],mnD=rawData[vs.indexOf(mn)][0];const lr=tV>0?(tL/tV*100):0,sr=tV>0?(tS/tV*100):0,cr=tV>0?(tC/tV*100):0;const er=lr+sr+cr;const top5=[...rawData].sort((a,b)=>b[1]-a[1]).slice(0,5);let tr={text:'',cls:'s'};if(n>=14){const l7=vs.slice(-7).reduce((a,b)=>a+b,0),p7=vs.slice(-14,-7).reduce((a,b)=>a+b,0);const df=l7-p7,pct=p7>0?(df/p7*100):(l7>0?100:0);if(df>0)tr={text:`📈 LÊN — tăng ${pct.toFixed(1)}%`,cls:'u'};else if(df<0)tr={text:`📉 XUỐNG — giảm ${Math.abs(pct).toFixed(1)}%`,cls:'d'};else tr={text:'➡️ Đi ngang',cls:'s'}}else tr={text:'⚠️ Cần ≥ 14 ngày',cls:'s'};const dw=Array.from({length:7},()=>({t:0,c:0}));rawData.forEach(d=>{const ts=parseDate(d[0]);if(!ts)return;const dow=new Date(ts).getDay();dw[dow].t+=d[1];dw[dow].c++});let bd=0,bda=0;dw.forEach((d,i)=>{const a=d.c>0?d.t/d.c:0;if(a>bda){bda=a;bd=i}});let stab,sc,si;if(cv<50){stab='Rất ổn định';sc='var(--gr)';si='🟢'}else if(cv<100){stab='Ổn vừa';sc='var(--gold)';si='🟡'}else if(cv<200){stab='Biến động cao';sc='#ff9500';si='🟠'}else{stab='Rất biến động';sc='var(--rd)';si='🔴'}let ls2=0,cs2=0;const vt=aV*1.5;vs.forEach(v=>{if(v>=vt){cs2++;if(cs2>ls2)ls2=cs2}else cs2=0});let gr=0;if(n>=2&&vs[0]>0)gr=(Math.pow(vs[n-1]/vs[0],1/n)-1)*100;let st=[];if(lr>4)st.push(`✅ Like cực tốt (${lr.toFixed(2)}%)`);else if(lr>2)st.push(`👍 Like tốt (${lr.toFixed(2)}%)`);else st.push(`⚠️ Like thấp (${lr.toFixed(2)}%)`);if(sr>0.5)st.push(`🔥 Share cao (${sr.toFixed(3)}%)`);else if(sr<0.1)st.push(`💡 Share thấp (${sr.toFixed(3)}%)`);if(cr>0.3)st.push(`💬 Comment tốt (${cr.toFixed(3)}%)`);else st.push(`💭 Comment thấp (${cr.toFixed(3)}%)`);if(cv>150)st.push(`🎢 Biến động (CV ${cv.toFixed(0)}%)`);else if(cv<50)st.push(`🎯 Ổn định (CV ${cv.toFixed(0)}%)`);if(ls2>=3)st.push(`🔥 Chuỗi ${ls2} ngày viral`);st.push(`🎯 Ngày viral: ${mxD} (${mx.toLocaleString('vi-VN')})`);st.push(`📅 Ngày tốt: ${DW[bd]} (TB ${Math.round(bda).toLocaleString('vi-VN')})`);box.innerHTML=`<div class="si">📈 <b>XU HƯỚNG:</b><br><span style="color:${tr.cls==='u'?'var(--gr)':tr.cls==='d'?'var(--rd)':'var(--tx2)'};font-weight:700">${tr.text}</span></div><div class="si">📊 <b>THỐNG KÊ:</b><br>• TB: <b>${Math.round(aV).toLocaleString('vi-VN')}</b><br>• Trung vị: <b>${Math.round(med).toLocaleString('vi-VN')}</b><br>• Cao nhất: <b>${mx.toLocaleString('vi-VN')}</b> (${mxD})<br>• Thấp nhất: <b>${mn.toLocaleString('vi-VN')}</b> (${mnD})<br>• Độ lệch chuẩn: <b>${Math.round(sd).toLocaleString('vi-VN')}</b></div><div class="si">${si} <b>ỔN ĐỊNH:</b> <span style="color:${sc};font-weight:700">${stab}</span><br><span style="color:#888;font-size:11px">CV: ${cv.toFixed(0)}%</span></div><div class="si">💞 <b>TƯƠNG TÁC:</b><br>• Like/View: <b>${lr.toFixed(2)}%</b><br>• Share/View: <b>${sr.toFixed(3)}%</b><br>• Comment/View: <b>${cr.toFixed(3)}%</b><br>• Tổng: <b style="color:var(--gr)">${er.toFixed(2)}%</b></div><div class="si">🏆 <b>TOP 5:</b><br>${top5.map((d,i)=>`${['🥇','🥈','🥉','4️⃣','5️⃣'][i]} ${d[0]} — <b>${d[1].toLocaleString('vi-VN')}</b>`).join('<br>')}</div><div class="si">📅 <b>THEO THỨ:</b><br>${dw.map((d,i)=>{const a=d.c>0?Math.round(d.t/d.c):0;const bar=d.c>0?'█'.repeat(Math.min(10,Math.round(a/(bda||1)*10))):'';return `<span style="display:inline-block;width:30px;color:var(--acc)">${DW[i]}</span> ${bar} ${a.toLocaleString('vi-VN')}`}).join('<br>')}</div><div class="si">🔥 <b>CHUỖI VIRAL:</b> <span style="color:var(--gold);font-weight:700">${ls2} ngày</span></div>${gr!==0?`<div class="si">📈 <b>TĂNG TRƯỞNG:</b> <span style="color:${gr>0?'var(--gr)':'var(--rd)'};font-weight:700">${gr>0?'+':''}${gr.toFixed(2)}%/ngày</span></div>`:''}<div class="si">💡 <b>CHIẾN LƯỢC:</b><br>${st.map(s=>'• '+s).join('<br><br>')}</div>`}
+function rAn(){const box=document.getElementById('vC');if(!box)return;if(!rawData.length){box.innerHTML='<div class="si">⚠️ Chưa có dữ liệu</div>';return}const n=rawData.length;const vs=rawData.map(d=>d[1]),ls=rawData.map(d=>d[2]),cs=rawData.map(d=>d[3]),ss=rawData.map(d=>d[4]);const tV=vs.reduce((a,b)=>a+b,0),tL=ls.reduce((a,b)=>a+b,0),tC=cs.reduce((a,b)=>a+b,0),tS=ss.reduce((a,b)=>a+b,0);const aV=tV/n;const sr=[...vs].sort((a,b)=>a-b);const med=sr.length%2===0?(sr[sr.length/2-1]+sr[sr.length/2])/2:sr[Math.floor(sr.length/2)];const va=vs.reduce((a,v)=>a+Math.pow(v-aV,2),0)/n;const sd=Math.sqrt(va),cv=aV>0?(sd/aV*100):0;const mx=Math.max(...vs),mn=Math.min(...vs);const mxD=rawData[vs.indexOf(mx)][0],mnD=rawData[vs.indexOf(mn)][0];const lr=tV>0?(tL/tV*100):0,sr2=tV>0?(tS/tV*100):0,cr=tV>0?(tC/tV*100):0;const er=lr+sr2+cr;const top5=[...rawData].sort((a,b)=>b[1]-a[1]).slice(0,5);let tr={text:'',cls:'s'};if(n>=14){const l7=vs.slice(-7).reduce((a,b)=>a+b,0),p7=vs.slice(-14,-7).reduce((a,b)=>a+b,0);const df=l7-p7,pct=p7>0?(df/p7*100):(l7>0?100:0);if(df>0)tr={text:`📈 Tăng ${pct.toFixed(1)}%`,cls:'u'};else if(df<0)tr={text:`📉 Giảm ${Math.abs(pct).toFixed(1)}%`,cls:'d'};else tr={text:'➡️ Đi ngang',cls:'s'}}else tr={text:'⚠️ Cần ≥ 14 ngày',cls:'s'};const dw=Array.from({length:7},()=>({t:0,c:0}));rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const dow=new Date(ts).getDay();dw[dow].t+=d[1];dw[dow].c++});let bd=0,bda=0;dw.forEach((d,i)=>{const a=d.c>0?d.t/d.c:0;if(a>bda){bda=a;bd=i}});let stab,sc,si;if(cv<50){stab='Rất ổn định';sc='var(--gr)';si='🟢'}else if(cv<100){stab='Ổn';sc='var(--gold)';si='🟡'}else if(cv<200){stab='Biến động';sc='#ff9500';si='🟠'}else{stab='Rất biến động';sc='var(--rd)';si='🔴'}let ls2=0,cs2=0;const vt=aV*1.5;vs.forEach(v=>{if(v>=vt){cs2++;if(cs2>ls2)ls2=cs2}else cs2=0});let gr=0;if(n>=2&&vs[0]>0)gr=(Math.pow(vs[n-1]/vs[0],1/n)-1)*100;let st=[];if(lr>4)st.push(`✅ Like cao (${lr.toFixed(2)}%)`);else if(lr>2)st.push(`👍 Like tốt (${lr.toFixed(2)}%)`);else st.push(`⚠️ Like thấp (${lr.toFixed(2)}%)`);if(sr2>0.5)st.push(`🔥 Share cao (${sr2.toFixed(3)}%)`);else if(sr2<0.1)st.push(`💡 Share thấp (${sr2.toFixed(3)}%)`);if(cr>0.3)st.push(`💬 Comment tốt (${cr.toFixed(3)}%)`);else st.push(`💭 Comment thấp (${cr.toFixed(3)}%)`);if(cv>150)st.push(`🎢 Biến động (CV ${cv.toFixed(0)}%)`);else if(cv<50)st.push(`🎯 Ổn định (CV ${cv.toFixed(0)}%)`);if(ls2>=3)st.push(`🔥 Chuỗi ${ls2} ngày viral`);st.push(`🎯 Viral: ${mxD} (${mx.toLocaleString('vi-VN')})`);st.push(`📅 Ngày tốt: ${DW[bd]}`);box.innerHTML=`<div class="si">📈 <b>XU HƯỚNG:</b><br><span style="color:${tr.cls==='u'?'var(--gr)':tr.cls==='d'?'var(--rd)':'var(--tx2)'};font-weight:700">${tr.text}</span></div><div class="si">📊 <b>THỐNG KÊ:</b><br>• TB: <b>${Math.round(aV).toLocaleString('vi-VN')}</b><br>• Trung vị: <b>${Math.round(med).toLocaleString('vi-VN')}</b><br>• Max: <b>${mx.toLocaleString('vi-VN')}</b> (${mxD})<br>• Min: <b>${mn.toLocaleString('vi-VN')}</b> (${mnD})<br>• SD: <b>${Math.round(sd).toLocaleString('vi-VN')}</b></div><div class="si">${si} <b>ỔN ĐỊNH:</b> <span style="color:${sc};font-weight:700">${stab}</span><br><span style="color:#888;font-size:11px">CV ${cv.toFixed(0)}%</span></div><div class="si">💞 <b>TƯƠNG TÁC:</b><br>• Like/View: <b>${lr.toFixed(2)}%</b><br>• Share/View: <b>${sr2.toFixed(3)}%</b><br>• Cmt/View: <b>${cr.toFixed(3)}%</b><br>• Tổng: <b style="color:var(--gr)">${er.toFixed(2)}%</b></div><div class="si">🏆 <b>TOP 5:</b><br>${top5.map((d,i)=>`${['🥇','🥈','🥉','4️⃣','5️⃣'][i]} ${d[0]} — <b>${d[1].toLocaleString('vi-VN')}</b>`).join('<br>')}</div><div class="si">📅 <b>THEO THỨ:</b><br>${dw.map((d,i)=>{const a=d.c>0?Math.round(d.t/d.c):0;const bar=d.c>0?'█'.repeat(Math.min(10,Math.round(a/(bda||1)*10))):'';return `<span style="display:inline-block;width:30px;color:var(--acc)">${DW[i]}</span> ${bar} ${a.toLocaleString('vi-VN')}`}).join('<br>')}</div><div class="si">🔥 <b>CHUỖI VIRAL:</b> ${ls2} ngày</div>${gr!==0?`<div class="si">📈 <b>TĂNG:</b> <span style="color:${gr>0?'var(--gr)':'var(--rd)'};font-weight:700">${gr>0?'+':''}${gr.toFixed(2)}%/ngày</span></div>`:''}<div class="si">💡 <b>CHIẾN LƯỢC:</b><br>${st.map(s=>'• '+s).join('<br><br>')}</div>`}
 
-async function adminLoad(){const box=document.getElementById('adminList');box.innerHTML='<div style="text-align:center;color:var(--acc);padding:20px">⏳ Đang tải...</div>';try{const{data,error}=await sb.from('profiles').select('*').order('created_at',{ascending:false});if(error)throw error;if(!data?.length){box.innerHTML='<div style="text-align:center;color:#666;padding:20px">Chưa có user</div>';return}box.innerHTML=data.map(u=>{const ib=u.banned===true,ia=u.is_admin===true||u.email===ADMIN_EMAIL,ig=u.golden_unlocked===true;const cr=u.created_at?new Date(u.created_at).toLocaleDateString('vi-VN'):'-';const cd=ia?'∞':(u.credits||0).toLocaleString('vi-VN');let ah='';if(!ia)ah+=`<button class="abd pr" onclick="aProm('${u.id}')">👑 Admin</button>`;else if(u.email!==ADMIN_EMAIL)ah+=`<button class="abd dm" onclick="aDem('${u.id}')">⬇️ Hạ</button>`;ah+=ib?`<button class="abd ub" onclick="aUnb('${u.id}')">✅ Mở</button>`:`<button class="abd bn" onclick="aBan('${u.id}')">🚫 Khóa</button>`;ACR.forEach(a=>{ah+=`<button class="abd cr" onclick="aAdd('${u.id}',${a})">+${a}</button>`});ah+=`<button class="abd cr" onclick="aAdd('${u.id}',-100)">-100</button>`;if(ig)ah+=`<button class="abd rs" onclick="aRst('${u.id}')">🔒 VIP</button>`;if(u.email!==ADMIN_EMAIL)ah+=`<button class="abd dl" onclick="aDel('${u.id}')">🗑️ Xóa</button>`;return`<div class="au ${ib?'bn':''} ${ia?'ia':''}"><div class="h"><span class="em">${u.email||'unknown'}</span>${ia?'<span class="bg2 a">ADMIN</span>':''}${ig?'<span class="bg2 v">GOLDEN</span>':''}<span class="bg2 ${ib?'b':'a'}">${ib?'ĐÃ KHÓA':'OK'}</span></div><div class="nf">📅 ${cr}</div><div class="crl">💰 <span id="cred-${u.id}">${cd}</span> xu</div><div class="ac">${ah}</div></div>`}).join('')}catch(e){box.innerHTML=`<div style="color:var(--rd);text-align:center;padding:20px">❌ ${e.message}</div>`}}
+// ADMIN
+async function adLoad(){const box=document.getElementById('adL');box.innerHTML='<div style="text-align:center;color:var(--acc);padding:20px">⏳</div>';try{const{data,error}=await sb.from('profiles').select('*').order('created_at',{ascending:false});if(error)throw error;adCache=data||[];if(!data?.length){box.innerHTML='<div style="text-align:center;color:#666;padding:20px">Chưa có user</div>';return}const now=Date.now();document.getElementById('aTot').textContent=data.length;document.getElementById('aOn').textContent=data.filter(u=>u.last_login&&(now-new Date(u.last_login).getTime()<DAY)).length;document.getElementById('aVIP').textContent=data.filter(u=>u.golden_unlocked===true).length;document.getElementById('aBan').textContent=data.filter(u=>u.banned===true).length;rAdList(data)}catch(e){box.innerHTML=`<div style="color:var(--rd);text-align:center;padding:20px">❌ ${e.message}</div>`}}
 
-async function aBan(id){if(!confirm('Khóa?'))return;await sb.from('profiles').update({banned:true}).eq('id',id);adminLoad()}
-async function aUnb(id){await sb.from('profiles').update({banned:false}).eq('id',id);adminLoad()}
-async function aAdd(id,a){const{data}=await sb.from('profiles').select('credits,email,is_admin').eq('id',id).single();if(data?.is_admin===true||data?.email===ADMIN_EMAIL){alert('Admin có vô cực xu!');return}const c=data?.credits||0,nv=Math.max(0,c+a);await sb.from('profiles').update({credits:nv}).eq('id',id);const el=document.getElementById('cred-'+id);if(el)el.textContent=nv.toLocaleString('vi-VN')}
-async function aRst(id){if(!confirm('Khóa VIP?'))return;await sb.from('profiles').update({golden_unlocked:false}).eq('id',id);adminLoad()}
-async function aProm(id){if(!confirm(`Promote? Tốn ${PROMOTE.toLocaleString('vi-VN')} xu.`))return;await sb.from('profiles').update({is_admin:true}).eq('id',id);alert('✅ Đã promote!');adminLoad()}
-async function aDem(id){if(!confirm('Hạ xuống user thường?'))return;await sb.from('profiles').update({is_admin:false}).eq('id',id);adminLoad()}
-async function aDel(id){if(!confirm('⚠️ XÓA VĨNH VIỄN?'))return;const t=prompt('Gõ "XOA":');if(t!=='XOA'){alert('Hủy.');return}try{const{error}=await sb.rpc('delete_user',{target_user_id:id});if(error)throw error;alert('✅ Đã xóa!');adminLoad()}catch(e){alert('❌ '+e.message)}}
-window.aBan=aBan;window.aUnb=aUnb;window.aAdd=aAdd;window.aRst=aRst;window.aProm=aProm;window.aDem=aDem;window.aDel=aDel;
-document.getElementById('adminRefresh').addEventListener('click',adminLoad);
+function rAdList(data){const box=document.getElementById('adL');const q=(document.getElementById('adSr')?.value||'').toLowerCase().trim();if(q)data=data.filter(u=>(u.email||'').toLowerCase().includes(q));if(!data.length){box.innerHTML='<div style="text-align:center;color:#666;padding:20px">Không tìm thấy</div>';return}box.innerHTML=data.map(u=>{const ib=u.banned===true,ia=u.is_admin===true||u.email===ADM_EM,ig=u.golden_unlocked===true;const cr=u.created_at?new Date(u.created_at).toLocaleDateString('vi-VN'):'-';const cd=ia?'∞':(u.credits||0).toLocaleString('vi-VN');const ll=u.last_login?new Date(u.last_login).toLocaleDateString('vi-VN'):'Chưa';let ah='';if(!ia)ah+=`<button class="abd pr" onclick="aProm('${u.id}')">👑</button>`;else if(u.email!==ADM_EM)ah+=`<button class="abd dm" onclick="aDem('${u.id}')">⬇️</button>`;if(u.email!==ADM_EM){if(ig)ah+=`<button class="abd rs" onclick="aRvV('${u.id}')">🔒 Hủy VIP</button>`;else ah+=`<button class="abd cr" onclick="aGvV('${u.id}')">👑 Cấp VIP</button>`}ah+=ib?`<button class="abd ub" onclick="aUnb('${u.id}')">✅</button>`:`<button class="abd bn" onclick="aBan('${u.id}')">🚫</button>`;ACR.forEach(a=>{ah+=`<button class="abd cr" onclick="aAdd('${u.id}',${a})">+${a}</button>`});ah+=`<button class="abd cr" onclick="aAdd('${u.id}',-100)">-100</button>`;if(u.email!==ADM_EM)ah+=`<button class="abd dl" onclick="aDel('${u.id}')">🗑️</button>`;return`<div class="au ${ib?'bn':''} ${ia?'ia':''}"><div class="h"><span class="em">${u.email||'?'}</span>${ia?'<span class="bg2 a">ADMIN</span>':''}${ig?'<span class="bg2 v">VIP</span>':''}<span class="bg2 ${ib?'b':'a'}">${ib?'KHÓA':'OK'}</span></div><div class="nf">📅 ${cr} · 🕐 ${ll}</div><div class="crl">💰 <span id="cred-${u.id}">${cd}</span> xu</div><div class="ac">${ah}</div></div>`}).join('')}
 
-async function saveCloud(){if(!currentUser)return;try{await sb.from('user_data').delete().eq('user_id',currentUser.id);const{error}=await sb.from('user_data').insert({user_id:currentUser.id,rows:rawData,updated_at:new Date().toISOString()});if(error)throw error;showUpStat('☁️ Đã lưu cloud','var(--gr)');if(userProfile&&(userProfile.golden_unlocked||isAdmin()))renderAnalysis()}catch(e){showUpStat('❌ '+e.message,'var(--rd)')}}
+async function aBan(id){if(!confirm('Khóa?'))return;await sb.from('profiles').update({banned:true}).eq('id',id);adLoad()}
+async function aUnb(id){await sb.from('profiles').update({banned:false}).eq('id',id);adLoad()}
+async function aAdd(id,a){const{data}=await sb.from('profiles').select('credits,email,is_admin').eq('id',id).single();if(data?.is_admin===true||data?.email===ADM_EM){alert('Admin ∞ xu!');return}const c=data?.credits||0,nv=Math.max(0,c+a);await sb.from('profiles').update({credits:nv}).eq('id',id);const el=document.getElementById('cred-'+id);if(el)el.textContent=nv.toLocaleString('vi-VN')}
+async function aProm(id){if(!confirm(`Promote? Tốn ${PROMOTE.toLocaleString('vi-VN')} xu.`))return;await sb.from('profiles').update({is_admin:true}).eq('id',id);adLoad()}
+async function aDem(id){if(!confirm('Hạ?'))return;await sb.from('profiles').update({is_admin:false}).eq('id',id);adLoad()}
+async function aGvV(id){if(!confirm('Cấp VIP cho user?'))return;await sb.from('profiles').update({golden_unlocked:true}).eq('id',id);adLoad()}
+async function aRvV(id){if(!confirm('Hủy VIP user?'))return;await sb.from('profiles').update({golden_unlocked:false}).eq('id',id);adLoad()}
+async function aDel(id){if(!confirm('⚠️ XÓA VĨNH VIỄN?'))return;const t=prompt('Gõ XOA:');if(t!=='XOA')return;try{const{error}=await sb.rpc('delete_user',{target_user_id:id});if(error)throw error;alert('Đã xóa!');adLoad()}catch(e){alert('❌ '+e.message)}}
+window.aBan=aBan;window.aUnb=aUnb;window.aAdd=aAdd;window.aProm=aProm;window.aDem=aDem;window.aGvV=aGvV;window.aRvV=aRvV;window.aDel=aDel;
 
-async function loadCloud(){if(!currentUser)return;try{const{data,error}=await sb.from('user_data').select('rows').eq('user_id',currentUser.id).order('updated_at',{ascending:false}).limit(1);if(error)throw error;if(data?.length&&data[0].rows){rawData=data[0].rows;showUpStat('✅ Đã tải '+rawData.length+' dòng','var(--gr)')}}catch(e){}}
+document.getElementById('adR').addEventListener('click',adLoad);
+document.getElementById('adSr')?.addEventListener('input',()=>rAdList(adCache));
 
-document.getElementById('clearDataBtn').addEventListener('click',async()=>{if(!confirm('Xóa hết dữ liệu?'))return;if(!currentUser)return;try{await sb.from('user_data').delete().eq('user_id',currentUser.id);rawData=[];document.getElementById('fileInfo').classList.add('hd');renderAll();if(userProfile&&(userProfile.golden_unlocked||isAdmin()))renderAnalysis();showUpStat('🗑️ Đã xóa','var(--rd)')}catch(e){showUpStat('❌ '+e.message,'var(--rd)')}});
+// Admin: VIP self
+document.getElementById('aGV').addEventListener('click',async()=>{if(!currentUser)return;if(!confirm('Bật FULL VIP cho admin?\n✓ Phân tích giờ vàng\n✓ 15 thành tựu\n✓ Vô cực xu'))return;const{error}=await sb.from('profiles').update({golden_unlocked:true,is_admin:true}).eq('id',currentUser.id);if(error){alert('Lỗi');return}userProfile.golden_unlocked=true;userProfile.is_admin=true;upCr();rGold();rAcc();rAch();toast('👑 FULL VIP đã bật!')});
 
-function showUpStat(t,c){const el=document.getElementById('uploadStatus');el.textContent=t;el.style.color=c||'var(--gr)'}
+document.getElementById('aRV').addEventListener('click',async()=>{if(!currentUser)return;if(!confirm('Hủy VIP?'))return;const{error}=await sb.from('profiles').update({golden_unlocked:false}).eq('id',currentUser.id);if(error){alert('Lỗi');return}userProfile.golden_unlocked=false;rGold();rAcc();rAch();alert('Đã hủy VIP')});
 
-document.getElementById('exportCsvBtn').addEventListener('click',exportCSV);
-document.getElementById('shareBtn').addEventListener('click',shareResults);
-document.getElementById('backupBtn').addEventListener('click',backupData);
-document.getElementById('restoreBtn').addEventListener('click',()=>document.getElementById('restoreInput').click());
-document.getElementById('restoreInput').addEventListener('change',e=>{if(e.target.files[0]){restoreData(e.target.files[0]);e.target.value=''}});
+// Admin: Export user
+document.getElementById('aEU').addEventListener('click',()=>{if(!adCache.length){alert('Chưa có user');return}const ls=['"Email","Xu","VIP","Banned","Admin","Tạo","Login"'];adCache.forEach(u=>{const cr=u.created_at?new Date(u.created_at).toLocaleString('vi-VN'):'-';const ll=u.last_login?new Date(u.last_login).toLocaleString('vi-VN'):'-';ls.push(`"${u.email||''}","${u.credits||0}","${u.golden_unlocked?'Y':'N'}","${u.banned?'Y':'N'}","${u.is_admin?'Y':'N'}","${cr}","${ll}"`)});const csv='\ufeff'+ls.join('\n');const b=new Blob([csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`users_${new Date().toISOString().slice(0,10)}.csv`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)});
 
-const uz=document.getElementById('uploadZone'),ci=document.getElementById('csvInput');
-function fmtSize(b){if(b<1024)return b+' B';if(b<1048576)return (b/1024).toFixed(1)+' KB';return (b/1048576).toFixed(2)+' MB'}
-function handleFile(f){if(!f)return;const nm=(f.name||'').toLowerCase();if(!(nm.endsWith('.csv')||nm.endsWith('.txt'))){showUpStat('❌ Chỉ nhận .csv','var(--rd)');return}document.getElementById('fileName').textContent=f.name;document.getElementById('fileSize').textContent=fmtSize(f.size);document.getElementById('fileInfo').classList.remove('hd');const rd=new FileReader();rd.onload=async ev=>{try{parseCSV(ev.target.result);showUpStat('✅ Đã tải '+rawData.length+' dòng','var(--gr)');renderAll();await saveCloud();showUpModal()}catch(e){showUpStat('❌ '+e.message,'var(--rd)')}};rd.onerror=()=>showUpStat('❌ Không đọc được','var(--rd)');rd.readAsText(f,'UTF-8')}
+// Admin: Bulk credit
+document.getElementById('aBC').addEventListener('click',async()=>{const amt=parseInt(prompt('Cộng bao nhiêu xu cho TẤT CẢ user?','50'));if(!amt)return;const list=adCache.filter(u=>!u.is_admin&&u.email!==ADM_EM);if(!list.length){alert('Không có user');return}if(!confirm(`Cộng ${amt} xu cho ${list.length} user?`))return;let ok=0,f=0;for(const u of list){const nv=Math.max(0,(u.credits||0)+amt);const{error}=await sb.from('profiles').update({credits:nv}).eq('id',u.id);if(error)f++;else ok++}alert(`✅ ${ok} OK${f?`, ${f} lỗi`:''}`);adLoad()});
 
-ci.addEventListener('change',e=>{handleFile(e.target.files[0]);e.target.value=''});
+// Admin: Broadcast
+document.getElementById('bcB').addEventListener('click',()=>{const inp=document.getElementById('bcI');const msg=inp.value.trim();if(!msg){alert('Nhập nội dung');return}const b={text:msg,date:Date.now(),id:Math.random().toString(36).slice(2)};localStorage.setItem('bc',JSON.stringify(b));inp.value='';toast('📢 Đã gửi!');showBc(b)});
+
+function showBc(b){const old=document.getElementById('bcPop');if(old)old.remove();const el=document.createElement('div');el.id='bcPop';el.style.cssText='position:fixed;top:70px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6ea8ff,#4a87ff);color:#fff;padding:14px 22px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(110,168,255,.5);z-index:99999;max-width:90vw;cursor:pointer';el.innerHTML=`📢 <b>THÔNG BÁO</b><br>${esc(b.text)}<br><span style="font-size:10px;opacity:.8">Bấm để đóng</span>`;el.onclick=()=>el.remove();document.body.appendChild(el);setTimeout(()=>el.remove(),15000)}
+
+function checkBc(){try{const b=JSON.parse(localStorage.getItem('bc')||'null');if(!b)return;if(Date.now()-b.date>7*DAY)return;if(localStorage.getItem('bcSeen_'+b.id))return;setTimeout(()=>{showBc(b);localStorage.setItem('bcSeen_'+b.id,'1')},2000)}catch(e){}}
+
+// CLOUD DATA
+async function saveC(){if(!currentUser)return;try{await sb.from('user_data').delete().eq('user_id',currentUser.id);const{error}=await sb.from('user_data').insert({user_id:currentUser.id,rows:rawData,updated_at:new Date().toISOString()});if(error)throw error;upStat('☁️ Đã lưu cloud','var(--gr)');if(userProfile&&(userProfile.golden_unlocked||isAdm()))rAn()}catch(e){upStat('❌ '+e.message,'var(--rd)')}}
+
+async function loadC(){if(!currentUser)return;try{const{data,error}=await sb.from('user_data').select('rows').eq('user_id',currentUser.id).order('updated_at',{ascending:false}).limit(1);if(error)throw error;if(data?.length&&data[0].rows){rawData=data[0].rows;upStat('✅ Đã tải '+rawData.length+' dòng','var(--gr)')}}catch(e){}}
+
+document.getElementById('clB').addEventListener('click',async()=>{if(!confirm('Xóa hết?'))return;if(!currentUser)return;try{await sb.from('user_data').delete().eq('user_id',currentUser.id);rawData=[];document.getElementById('fi').classList.add('hd');rAll();if(userProfile&&(userProfile.golden_unlocked||isAdm()))rAn();upStat('🗑️ Đã xóa','var(--rd)')}catch(e){upStat('❌ '+e.message,'var(--rd)')}});
+
+function upStat(t,c){const el=document.getElementById('us');el.textContent=t;el.style.color=c||'var(--gr)'}
+
+// UPLOAD
+const uz=document.getElementById('uz'),ci=document.getElementById('ci');
+function fmtS(b){if(b<1024)return b+' B';if(b<1048576)return (b/1024).toFixed(1)+' KB';return (b/1048576).toFixed(2)+' MB'}
+function handleF(f){if(!f)return;const nm=(f.name||'').toLowerCase();if(!(nm.endsWith('.csv')||nm.endsWith('.txt'))){upStat('❌ Chỉ .csv','var(--rd)');return}document.getElementById('fn').textContent=f.name;document.getElementById('fs').textContent=fmtS(f.size);document.getElementById('fi').classList.remove('hd');const rd=new FileReader();rd.onload=async ev=>{try{parseCSV(ev.target.result);upStat('✅ '+rawData.length+' dòng','var(--gr)');rAll();await saveC();upMod()}catch(e){upStat('❌ '+e.message,'var(--rd)')}};rd.onerror=()=>upStat('❌ Lỗi đọc','var(--rd)');rd.readAsText(f,'UTF-8')}
+
+ci.addEventListener('change',e=>{handleF(e.target.files[0]);e.target.value=''});
 uz.addEventListener('click',e=>{if(e.target!==ci)ci.click()});
 ['dragenter','dragover'].forEach(ev=>uz.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();uz.classList.add('dg')}));
 ['dragleave','drop'].forEach(ev=>uz.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();if(ev==='dragleave'&&uz.contains(e.relatedTarget))return;uz.classList.remove('dg')}));
-uz.addEventListener('drop',e=>{handleFile(e.dataTransfer.files[0])});
+uz.addEventListener('drop',e=>{handleF(e.dataTransfer.files[0])});
 ['dragover','drop'].forEach(ev=>window.addEventListener(ev,e=>{if(!uz.contains(e.target))e.preventDefault()}));
-document.addEventListener('paste',e=>{const it=e.clipboardData?.items;if(!it)return;for(const i of it){if(i.type==='text/csv'||i.type==='text/plain'||i.kind==='file'){const f=i.getAsFile();if(f&&(f.name.endsWith('.csv')||f.type.includes('csv')||f.type==='text/plain')){handleFile(f);break}}}});
+document.addEventListener('paste',e=>{const it=e.clipboardData?.items;if(!it)return;for(const i of it){if(i.type==='text/csv'||i.type==='text/plain'||i.kind==='file'){const f=i.getAsFile();if(f&&(f.name.endsWith('.csv')||f.type.includes('csv')||f.type==='text/plain')){handleF(f);break}}}});
 
-(function(){const ua=navigator.userAgent;const h=document.getElementById('uploadHint');const ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);const and=/Android/.test(ua);h.innerHTML=(ios||and)?'Chạm để chọn file CSV<br><b>hoặc kéo thả từ Files</b>':'Bấm chọn file CSV<br><b>hoặc kéo thả / dán (Ctrl+V)</b>'})();
+(function(){const ua=navigator.userAgent;const h=document.getElementById('uh');const ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);const and=/Android/.test(ua);h.innerHTML=(ios||and)?'Chạm để chọn CSV<br><b>hoặc kéo thả từ Files</b>':'Chọn CSV<br><b>hoặc kéo thả / dán (Ctrl+V)</b>'})();
 
 function parseCSV(text){const ls=text.split(/\r?\n/).filter(l=>l.trim());if(ls.length<2)throw new Error('File rỗng');const rows=[];for(let i=1;i<ls.length;i++){const p=ls[i].replace(/^"|"$/g,'').split('","').map(s=>s.replace(/"/g,''));if(p.length<3)continue;const d=p[0],v=parseInt(p[1])||0,pv=parseInt(p[2])||0,l=parseInt(p[3])||0,c=parseInt(p[4])||0,s=parseInt(p[5])||0;if(!d)continue;rows.push([d,v,l,c,s,pv])}if(!rows.length)throw new Error('Không có dòng');rawData=rows}
 
-function renderAll(){renderStats();renderTop();renderChart();renderCompare();renderTodayGolden();renderMonthCompare();renderGoal();renderStreak();renderRateList();renderHeatmap();renderPieRates();renderAch()}
+function rAll(){rStat();rTop();rChart();rCmp();rTodayGl();rMonthCmp();rGoal();rStreak();rRate();rHeat();rPie();rAch()}
 
-function renderStats(){if(!rawData.length){['s-total-views','s-total-likes','s-avg-views','s-max-views'].forEach(id=>document.getElementById(id).textContent='—');return}let tv=0,tl=0,mx=0;rawData.forEach(d=>{tv+=d[1];tl+=d[2];if(d[1]>mx)mx=d[1]});document.getElementById('s-total-views').textContent=tv.toLocaleString('vi-VN');document.getElementById('s-total-likes').textContent=tl.toLocaleString('vi-VN');document.getElementById('s-avg-views').textContent=Math.round(tv/rawData.length).toLocaleString('vi-VN');document.getElementById('s-max-views').textContent=mx.toLocaleString('vi-VN')}
+function rStat(){if(!rawData.length){['sV','sL','sA','sM'].forEach(id=>document.getElementById(id).textContent='—');return}let tv=0,tl=0,mx=0;rawData.forEach(d=>{tv+=d[1];tl+=d[2];if(d[1]>mx)mx=d[1]});document.getElementById('sV').textContent=tv.toLocaleString('vi-VN');document.getElementById('sL').textContent=tl.toLocaleString('vi-VN');document.getElementById('sA').textContent=Math.round(tv/rawData.length).toLocaleString('vi-VN');document.getElementById('sM').textContent=mx.toLocaleString('vi-VN')}
 
-function renderPieRates(){if(!rawData.length){['pieLike','pieShare','pieComment','pieEngage'].forEach(id=>document.getElementById(id).textContent='—');return}let tv=0,tl=0,tc=0,ts=0;rawData.forEach(d=>{tv+=d[1];tl+=d[2];tc+=d[3];ts+=d[4]});const lr=tv>0?(tl/tv*100):0,sr=tv>0?(ts/tv*100):0,cr=tv>0?(tc/tv*100):0;document.getElementById('pieLike').textContent=lr.toFixed(2)+'%';document.getElementById('pieShare').textContent=sr.toFixed(3)+'%';document.getElementById('pieComment').textContent=cr.toFixed(3)+'%';document.getElementById('pieEngage').textContent=(lr+sr+cr).toFixed(2)+'%'}
+function rPie(){if(!rawData.length){['pL','pS','pC','pE'].forEach(id=>document.getElementById(id).textContent='—');return}let tv=0,tl=0,tc=0,ts=0;rawData.forEach(d=>{tv+=d[1];tl+=d[2];tc+=d[3];ts+=d[4]});const lr=tv>0?(tl/tv*100):0,sr=tv>0?(ts/tv*100):0,cr=tv>0?(tc/tv*100):0;document.getElementById('pL').textContent=lr.toFixed(2)+'%';document.getElementById('pS').textContent=sr.toFixed(3)+'%';document.getElementById('pC').textContent=cr.toFixed(3)+'%';document.getElementById('pE').textContent=(lr+sr+cr).toFixed(2)+'%'}
 
-function renderTop(){const box=document.getElementById('top-list');if(!rawData.length){box.innerHTML='<div style="color:#666;text-align:center;padding:20px">Chưa có dữ liệu</div>';return}const avg=rawData.reduce((a,d)=>a+d[1],0)/rawData.length;const sorted=[...rawData].sort((a,b)=>b[1]-a[1]).slice(0,10);const maxV=sorted[0][1];box.innerHTML=sorted.map((d,i)=>{const pct=avg>0?((d[1]-avg)/avg*100):0;const barW=(d[1]/maxV*100).toFixed(1);const pc=pct>=0?'u':'d';const pctText=(pct>=0?'+':'')+pct.toFixed(0)+'% so với TB';return`<div class="tv r${i+1}"><div class="tvr">${i<3?MED[i]:i+1}</div><div class="tvi"><div class="tvd">${d[0]}</div><div class="tvm"><span class="tvv">${d[1].toLocaleString('vi-VN')} view</span><span class="tvp ${pc}">${pctText}</span></div></div>${i===0?'<span class="tvc">👑</span>':''}<div class="tvb" style="width:${barW}%"></div></div>`}).join('')}
+function rTop(){const box=document.getElementById('tpL');if(!rawData.length){box.innerHTML='<div style="color:#666;text-align:center;padding:20px">Chưa có dữ liệu</div>';return}const avg=rawData.reduce((a,d)=>a+d[1],0)/rawData.length;const s=[...rawData].sort((a,b)=>b[1]-a[1]).slice(0,10);const mx=s[0][1];box.innerHTML=s.map((d,i)=>{const pct=avg>0?((d[1]-avg)/avg*100):0;const bw=(d[1]/mx*100).toFixed(1);const pc=pct>=0?'u':'d';const pt=(pct>=0?'+':'')+pct.toFixed(0)+'% TB';return`<div class="tv r${i+1}"><div class="tvr">${i<3?MED[i]:i+1}</div><div class="tvi"><div class="tvd">${d[0]}</div><div class="tvm"><span class="tvv">${d[1].toLocaleString('vi-VN')} view</span><span class="tvp ${pc}">${pt}</span></div></div>${i===0?'<span class="tvc">👑</span>':''}<div class="tvb" style="width:${bw}%"></div></div>`}).join('')}
 
-async function renderChart(){const ctx=document.getElementById('chart');if(chartInst){chartInst.destroy();chartInst=null}if(!rawData.length)return;try{await loadChartJS()}catch(e){return}let data=rawData;if(chartDays>0)data=rawData.slice(-chartDays);if(searchCh){const q=searchCh.toLowerCase();data=data.filter(d=>d[0].toLowerCase().includes(q))}const labels=data.map(d=>d[0]);const values=data.map(d=>d[1]);const avg=values.length?values.reduce((a,b)=>a+b,0)/values.length:0;const colors=values.map(v=>v>=avg*1.5?'#ff6e9c':'#6ea8ff');const datasets=[];if(chartType==='bar'){datasets.push({type:'bar',label:'View',data:values,backgroundColor:colors,borderRadius:6,borderSkipped:false,maxBarThickness:40})}else{datasets.push({type:'line',label:'View',data:values,borderColor:'#6ea8ff',backgroundColor:'rgba(110,168,255,0.15)',borderWidth:3,tension:0.35,fill:true,pointBackgroundColor:colors,pointBorderColor:'#16161c',pointBorderWidth:2,pointRadius:4,pointHoverRadius:7})}if(showAvg&&values.length){datasets.push({type:'line',label:'TB',data:values.map(()=>avg),borderColor:'#ffd700',borderWidth:2,borderDash:[6,6],pointRadius:0,pointHoverRadius:0,fill:false,tension:0})}chartInst=new Chart(ctx,{data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},animation:{duration:600,easing:'easeOutQuart'},plugins:{legend:{display:true,labels:{color:'#aaa',font:{size:11},boxWidth:12,boxHeight:12,usePointStyle:true,padding:12}},tooltip:{backgroundColor:'rgba(22,22,28,0.95)',borderColor:'#6ea8ff',borderWidth:1,titleColor:'#6ea8ff',bodyColor:'#e8e8f0',padding:12,cornerRadius:8,callbacks:{label:c=>{const v=c.parsed.y;const diff=v-avg;const pct=avg>0?(diff/avg*100):0;const sign=pct>=0?'+':'';return`👀 ${v.toLocaleString('vi-VN')} view (${sign}${pct.toFixed(0)}% so TB)`}}}},scales:{x:{ticks:{color:'#666',font:{size:9},maxRotation:90,autoSkip:true,maxTicksLimit:20},grid:{display:false}},y:{ticks:{color:'#666',font:{size:10},callback:v=>fmtV(v)},grid:{color:'#1e1e26',drawBorder:false}}}}})}
+async function rChart(){const ctx=document.getElementById('chC');if(chInst){chInst.destroy();chInst=null}if(!rawData.length)return;try{await loadCh()}catch(e){return}let data=rawData;if(chDays>0)data=rawData.slice(-chDays);if(searchCh){const q=searchCh.toLowerCase();data=data.filter(d=>d[0].toLowerCase().includes(q))}const labels=data.map(d=>d[0]);const vals=data.map(d=>d[1]);const avg=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0;const colors=vals.map(v=>v>=avg*1.5?'#ff6e9c':'#6ea8ff');const ds=[];if(chType==='bar'){ds.push({type:'bar',label:'View',data:vals,backgroundColor:colors,borderRadius:6,borderSkipped:false,maxBarThickness:40})}else{ds.push({type:'line',label:'View',data:vals,borderColor:'#6ea8ff',backgroundColor:'rgba(110,168,255,.15)',borderWidth:3,tension:.35,fill:true,pointBackgroundColor:colors,pointBorderColor:'#16161c',pointBorderWidth:2,pointRadius:4,pointHoverRadius:7})}if(showAv&&vals.length){ds.push({type:'line',label:'TB',data:vals.map(()=>avg),borderColor:'#ffd700',borderWidth:2,borderDash:[6,6],pointRadius:0,fill:false,tension:0})}chInst=new Chart(ctx,{data:{labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:true,labels:{color:'#aaa',font:{size:11},boxWidth:12,boxHeight:12,usePointStyle:true}},tooltip:{backgroundColor:'rgba(22,22,28,.95)',borderColor:'#6ea8ff',borderWidth:1,titleColor:'#6ea8ff',bodyColor:'#e8e8f0',padding:12,callbacks:{label:c=>{const v=c.parsed.y;const pct=avg>0?((v-avg)/avg*100):0;return`👀 ${v.toLocaleString('vi-VN')} (${pct>=0?'+':''}${pct.toFixed(0)}% TB)`}}}},scales:{x:{ticks:{color:'#666',font:{size:9},maxRotation:90,autoSkip:true,maxTicksLimit:20},grid:{display:false}},y:{ticks:{color:'#666',font:{size:10},callback:v=>fmtV(v)},grid:{color:'#1e1e26'}}}}});}
 
-document.querySelectorAll('.fbt').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.fbt').forEach(x=>x.classList.remove('a'));b.classList.add('a');chartDays=parseInt(b.dataset.days);renderChart()}));
-document.querySelectorAll('[data-chart-type]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-chart-type]').forEach(x=>x.classList.remove('a'));b.classList.add('a');chartType=b.dataset.chartType;renderChart()}));
-document.getElementById('toggleAvgBtn').addEventListener('click',()=>{showAvg=!showAvg;document.getElementById('toggleAvgBtn').classList.toggle('a',showAvg);renderChart()});
-document.getElementById('searchChart').addEventListener('input',e=>{searchCh=e.target.value.trim();renderChart()});
-document.getElementById('exportChartBtn').addEventListener('click',()=>{if(!chartInst){alert('Chưa có biểu đồ!');return}const url=chartInst.toBase64Image();const a=document.createElement('a');a.href=url;a.download=`chart-${new Date().toISOString().slice(0,10)}.png`;document.body.appendChild(a);a.click();document.body.removeChild(a)});
-document.getElementById('copyTopBtn').addEventListener('click',()=>{if(!rawData.length){alert('Chưa có dữ liệu!');return}const avg=rawData.reduce((a,d)=>a+d[1],0)/rawData.length;const sorted=[...rawData].sort((a,b)=>b[1]-a[1]).slice(0,10);let text='🏆 TOP 10 NGÀY VIRAL\n━━━━━━━━━━━━━━\n';sorted.forEach((d,i)=>{const pct=avg>0?((d[1]-avg)/avg*100):0;const sign=pct>=0?'+':'';text+=`${MED[i]} ${d[0]}\n   ${d[1].toLocaleString('vi-VN')} view (${sign}${pct.toFixed(0)}% TB)\n`});text+='━━━━━━━━━━━━━━\nTool của @ductri705';navigator.clipboard.writeText(text).then(()=>alert('✅ Đã copy!')).catch(()=>prompt('Copy:',text))});
+document.querySelectorAll('.fbt').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.fbt').forEach(x=>x.classList.remove('a'));b.classList.add('a');chDays=parseInt(b.dataset.days);rChart()}));
+document.querySelectorAll('[data-ct]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-ct]').forEach(x=>x.classList.remove('a'));b.classList.add('a');chType=b.dataset.ct;rChart()}));
+document.getElementById('togAv').addEventListener('click',()=>{showAv=!showAv;document.getElementById('togAv').classList.toggle('a',showAv);rChart()});
+document.getElementById('sCh').addEventListener('input',e=>{searchCh=e.target.value.trim();rChart()});
+document.getElementById('expCh').addEventListener('click',()=>{if(!chInst){alert('Chưa có biểu đồ');return}const url=chInst.toBase64Image();const a=document.createElement('a');a.href=url;a.download=`chart-${new Date().toISOString().slice(0,10)}.png`;document.body.appendChild(a);a.click();document.body.removeChild(a)});
+document.getElementById('cpTp').addEventListener('click',()=>{if(!rawData.length){alert('Chưa có data');return}const avg=rawData.reduce((a,d)=>a+d[1],0)/rawData.length;const s=[...rawData].sort((a,b)=>b[1]-a[1]).slice(0,10);let text='🏆 TOP 10 VIRAL\n━━━━━━━━━━━━━━\n';s.forEach((d,i)=>{const pct=avg>0?((d[1]-avg)/avg*100):0;text+=`${MED[i]} ${d[0]}\n   ${d[1].toLocaleString('vi-VN')} (${(pct>=0?'+':'')+pct.toFixed(0)}% TB)\n`});text+='━━━━━━━━━━━━━━\nTool @ductri705';navigator.clipboard.writeText(text).then(()=>alert('Đã copy!')).catch(()=>prompt('Copy:',text))});
 
-document.querySelectorAll('.tbb').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tbb').forEach(x=>x.classList.remove('a'));document.querySelectorAll('.tc').forEach(c=>c.classList.add('hd'));t.classList.add('a');document.getElementById('tab-'+t.dataset.tab).classList.remove('hd');if(t.dataset.tab==='chart')renderChart();if(t.dataset.tab==='admin')adminLoad();if(t.dataset.tab==='hour'){renderGolden();renderTodayGolden()}if(t.dataset.tab==='account')renderAccount();if(t.dataset.tab==='money')renderPkgs();if(t.dataset.tab==='rate')renderRateList();if(t.dataset.tab==='event')renderEventList();if(t.dataset.tab==='notes')renderNotes();if(t.dataset.tab==='ach')renderAch();if(t.dataset.tab==='pom')renderPom()}));
+document.querySelectorAll('.tbb').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tbb').forEach(x=>x.classList.remove('a'));document.querySelectorAll('.tc').forEach(c=>c.classList.add('hd'));t.classList.add('a');document.getElementById('tb-'+t.dataset.tab).classList.remove('hd');if(t.dataset.tab==='ch')rChart();if(t.dataset.tab==='adm')adLoad();if(t.dataset.tab==='hr'){rGold();rTodayGl()}if(t.dataset.tab==='acc')rAcc();if(t.dataset.tab==='mn')rPkgs();if(t.dataset.tab==='rt')rRate();if(t.dataset.tab==='ev')rEvList();if(t.dataset.tab==='nt')rNt();if(t.dataset.tab==='ac')rAch();if(t.dataset.tab==='pm')rPm()}));
 
-function tick(){const now=new Date();document.getElementById('time').textContent=pad(now.getHours())+':'+pad(now.getMinutes());document.getElementById('sec').textContent=pad(now.getSeconds());document.getElementById('date').textContent=DWF[now.getDay()]+', '+now.getDate()+'/'+pad(now.getMonth()+1)+'/'+now.getFullYear();document.getElementById('zone').textContent=Intl.DateTimeFormat().resolvedOptions().timeZone;const g=getGolden(now);const gb=document.getElementById('golden'),tx=document.getElementById('goldenText'),cd=document.getElementById('countdown');const hk=now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate()+'-'+now.getHours();if(g.a){gb.className='gl a';tx.innerHTML=`<strong>${g.l}</strong><br><span style="font-size:12px;color:#ffb9d0">${g.d}</span>`;if(!lastGolden&&soundEnabled)playSound();lastGolden=true}else{gb.className='gl';tx.innerHTML=`<strong>${g.l}</strong><br><span style="font-size:12px;color:var(--tx2)">${g.d}</span>`;lastGolden=false}const diff=g.t-now;const hh=Math.floor(diff/3600000),mm=Math.floor((diff%3600000)/60000),ss=Math.floor((diff%60000)/1000);cd.textContent=(g.a?'⏳ Còn ':'⏳ Bắt đầu sau ')+pad(hh)+':'+pad(mm)+':'+pad(ss);if(hk!==lastHour){lastHour=hk;renderTodayGolden();if(userProfile&&(userProfile.golden_unlocked||isAdmin()))renderAnalysis()}}
+function pDate(s){if(!s)return null;const M={'tháng Mười':9,'tháng Mười Một':10,'tháng Mười Hai':11,'tháng Một':0,'tháng Hai':1,'tháng Ba':2,'tháng Tư':3,'tháng Năm':4,'tháng Sáu':5,'tháng Bảy':6,'tháng Tám':7,'tháng Chín':8};const m=s.match(/^(\d+)\s+(.+)$/);if(!m)return null;const d=parseInt(m[1]),mn=m[2].trim();if(!(mn in M))return null;return new Date(new Date().getFullYear(),M[mn],d).getTime()}
+
+function rCmp(){const b=document.getElementById('cmpC');if(rawData.length<2){b.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>';return}const now=Date.now(),wk=604800000;let tw={v:0,l:0},lw={v:0,l:0};rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const df=now-ts;if(df<=wk){tw.v+=d[1];tw.l+=d[2]}else if(df<=wk*2){lw.v+=d[1];lw.l+=d[2]}});const vd=tw.v-lw.v,ld=tw.l-lw.l;const vp=lw.v>0?(vd/lw.v*100):(tw.v>0?100:0);const lp=lw.l>0?(ld/lw.l*100):(tw.l>0?100:0);b.innerHTML=`<div class="cg"><div class="ci"><div class="v">${fmtV(tw.v)}</div><div class="l">Tuần này</div></div><div class="ci"><div class="v">${fmtV(lw.v)}</div><div class="l">Tuần trước</div></div><div class="ci"><div class="v">${fmtV(tw.l)}</div><div class="l">Like nay</div></div><div class="ci"><div class="v">${fmtV(lw.l)}</div><div class="l">Like trước</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 ${vd>=0?'📈 +':'📉 '}${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:8px">❤️ ${ld>=0?'📈 +':'📉 '}${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`}
+
+function sR(s){const x=Math.sin(s)*10000;return x-Math.floor(x)}
+function getSl(now){const dk=now.getFullYear()*10000+(now.getMonth()+1)*100+now.getDate();const hk=now.getHours(),sd=dk*100+hk;const sm=Math.floor(sR(sd)*30);const dm=20+Math.floor(sR(sd+1)*21);const st=new Date(now);st.setMinutes(sm,0,0);const en=new Date(st.getTime()+dm*60000);return{start:st,end:en,min:sm,dur:dm}}
+function fT(d){return PAD(d.getHours())+':'+PAD(d.getMinutes())}
+function getGl(now){const s=getSl(now),iS=now>=s.start&&now<s.end,hh=PAD(now.getHours());if(iS)return{a:true,t:s.end,l:`🔥 GIỜ VÀNG ${hh}h`,d:`${fT(s.start)} – ${fT(s.end)} · Đăng ngay!`};if(now<s.start)return{a:false,t:s.start,l:`⏰ SẮP VÀO ${hh}h`,d:`Khung: ${fT(s.start)} – ${fT(s.end)}`};const nh=new Date(now);nh.setHours(now.getHours()+1,0,0,0);const ns=getSl(nh);return{a:false,t:ns.start,l:`⏰ QUA KHUNG ${hh}h`,d:`Khung sau: ${fT(ns.start)} – ${fT(ns.end)}`}}
+function rTodayGl(){const b=document.getElementById('tgB');if(!b)return;const now=new Date(),s=getSl(now),iS=now>=s.start&&now<s.end,hh=PAD(now.getHours());b.innerHTML=`<div style="color:var(--gold);font-weight:700;font-size:15px;margin-bottom:8px">${iS?'🔥 ĐANG TRONG KHUNG VÀNG':'⏰ Khung giờ vàng '+hh+'h'}</div><div style="color:var(--gr);font-weight:600;font-size:16px;margin-bottom:8px">${fT(s.start)} – ${fT(s.end)}</div><div style="color:#888;font-size:11px">Kéo dài ${s.dur} phút · Tự đổi mỗi giờ</div>`}
+
+// EXPORT CSV
+function exportCSV(){if(!rawData.length){alert('Chưa có data');return}const ls=['"Date","Video Views","Likes","Comments","Shares","Profile Views"'];rawData.forEach(d=>ls.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`));const csv='\ufeff'+ls.join('\n');const b=new Blob([csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`tiktok_${new Date().toISOString().slice(0,10)}.csv`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
+
+function share(){if(!rawData.length){alert('Chưa có data');return}let tv=0,tl=0,mx=0,mxD='';rawData.forEach(d=>{tv+=d[1];tl+=d[2];if(d[1]>mx){mx=d[1];mxD=d[0]}});const avg=Math.round(tv/rawData.length),st=calcStreak();const text=`📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rawData.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n🔥 Streak: ${st}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`;if(navigator.share){navigator.share({title:'TikTok Stats',text}).catch(()=>{})}else{navigator.clipboard.writeText(text).then(()=>alert('Đã copy!')).catch(()=>prompt('Copy:',text))}}
+
+function backup(){if(!currentUser)return;const rat={};rawData.forEach(d=>{const r=localStorage.getItem(rKey(d[0]));if(r)rat[d[0]]=r});const b={v:'1.0',at:new Date().toISOString(),user:currentUser.email,rows:rawData,goal:localStorage.getItem(gKey())||null,ratings:rat,notes:getNt(),snd,th:localStorage.getItem('th')||'dark'};const blob=new Blob([JSON.stringify(b,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`tool-backup-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
+
+function restore(file){const rd=new FileReader();rd.onload=async ev=>{try{const d=JSON.parse(ev.target.result);if(!d.rows||!Array.isArray(d.rows))throw new Error('File lỗi');if(!confirm(`Khôi phục ${d.rows.length} dòng?`))return;rawData=d.rows;if(d.goal)localStorage.setItem(gKey(),d.goal);if(d.ratings)Object.entries(d.ratings).forEach(([k,v])=>localStorage.setItem(rKey(k),v));if(d.notes)saveNt(d.notes);rAll();await saveC();alert('✅ Đã khôi phục!')}catch(e){alert('❌ '+e.message)}};rd.readAsText(file)}
+
+document.getElementById('exB').addEventListener('click',exportCSV);
+document.getElementById('shB').addEventListener('click',share);
+document.getElementById('bkB').addEventListener('click',backup);
+document.getElementById('rsB').addEventListener('click',()=>document.getElementById('rI').click());
+document.getElementById('rI').addEventListener('change',e=>{if(e.target.files[0]){restore(e.target.files[0]);e.target.value=''}});
+
+// PASSWORD
+document.getElementById('pBtn').addEventListener('click',async()=>{const p1=document.getElementById('pO').value,p2=document.getElementById('pN').value;const msg=document.getElementById('pM');msg.textContent='';msg.className='m';if(!p1||!p2){msg.textContent='Nhập đầy đủ';msg.classList.add('e');return}if(p1.length<6){msg.textContent='Từ 6 ký tự';msg.classList.add('e');return}if(p1!==p2){msg.textContent='Không khớp';msg.classList.add('e');return}const btn=document.getElementById('pBtn');btn.disabled=true;btn.textContent='⏳';try{const{error}=await sb.auth.updateUser({password:p1});if(error)throw error;msg.textContent='✅ Đổi thành công!';msg.classList.add('o');document.getElementById('pO').value='';document.getElementById('pN').value=''}catch(e){msg.textContent='❌ '+e.message;msg.classList.add('e')}btn.disabled=false;btn.textContent='🔑 Đổi'});
+
+// ACH UNLOCK BTN
+document.addEventListener('click',async e=>{if(e.target?.id==='acUB'){if(!userProfile)return;if((userProfile.credits||0)<GOLD){alert('Không đủ xu!');return}if(!confirm(`Mở khóa thành tựu? ${GOLD} xu.`))return;const nc=userProfile.credits-GOLD;const{error}=await sb.from('profiles').update({credits:nc,golden_unlocked:true}).eq('id',currentUser.id);if(error){alert('Lỗi');return}userProfile.credits=nc;userProfile.golden_unlocked=true;upCr();rAch();rAcc();rGold();toast('👑 Đã mở VIP!')}});
+
+// POMODORO EVENTS
+document.getElementById('pmStart').addEventListener('click',startPm);
+document.getElementById('pmPause').addEventListener('click',pausePm);
+document.getElementById('pmReset').addEventListener('click',resetPm);
+document.querySelectorAll('.pom-mode button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.pom-mode button').forEach(x=>x.classList.remove('a'));b.classList.add('a');const m=parseInt(b.dataset.min);pmTot=m*60;pmSecs=pmTot;pausePm();rPm()}));
+document.getElementById('ntA').addEventListener('click',addNt);
+
+// THEME BTN
+document.getElementById('themeBtn').addEventListener('click',()=>{const c=localStorage.getItem('th')||'dark';setTh(c==='dark'?'light':'dark')});
+
+function tick(){const now=new Date();document.getElementById('t').textContent=PAD(now.getHours())+':'+PAD(now.getMinutes());document.getElementById('s').textContent=PAD(now.getSeconds());document.getElementById('dt').textContent=DWF[now.getDay()]+', '+now.getDate()+'/'+PAD(now.getMonth()+1)+'/'+now.getFullYear();document.getElementById('zn').textContent=Intl.DateTimeFormat().resolvedOptions().timeZone;const g=getGl(now);const gb=document.getElementById('gl'),tx=document.getElementById('glt'),cd=document.getElementById('cdn');const hk=now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate()+'-'+now.getHours();if(g.a){gb.className='gl a';tx.innerHTML=`<strong>${g.l}</strong><br><span style="font-size:12px;color:#ffb9d0">${g.d}</span>`;if(!lastGl&&snd)playSnd();lastGl=true}else{gb.className='gl';tx.innerHTML=`<strong>${g.l}</strong><br><span style="font-size:12px;color:var(--tx2)">${g.d}</span>`;lastGl=false}const diff=g.t-now;const hh=Math.floor(diff/3600000),mm=Math.floor((diff%3600000)/60000),ss=Math.floor((diff%60000)/1000);cd.textContent=(g.a?'⏳ Còn ':'⏳ Bắt đầu sau ')+PAD(hh)+':'+PAD(mm)+':'+PAD(ss);if(hk!==lastHr){lastHr=hk;rTodayGl();if(userProfile&&(userProfile.golden_unlocked||isAdm()))rAn()}}
 tick();setInterval(tick,1000);
 
-const VER=document.querySelector('meta[name="tool-version"]')?.content||'v5.0';
-const UPD_URL='https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
-async function checkUpdate(){try{const r=await fetch(UPD_URL+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text();const m=t.match(/name="tool-version"\s+content="([^"]+)"/);if(!m)return;if(m[1]!==VER){if(document.getElementById('updateToast'))return;const el=document.createElement('div');el.id='updateToast';el.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,.4);z-index:99999;max-width:90vw;cursor:pointer';el.innerHTML=`🔄 Cập nhật mới (${m[1]})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại</span>`;el.onclick=()=>{location.href=location.pathname+'?v='+Date.now()};document.body.appendChild(el)}}catch(e){}}
-setTimeout(checkUpdate,3000);
-setInterval(checkUpdate,300000);
+// AUTO UPDATE
+const VER=document.querySelector('meta[name="tool-version"]')?.content||'v6.0';
+const UPD='https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
+async function cU(){try{const r=await fetch(UPD+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text();const m=t.match(/name="tool-version"\s+content="([^"]+)"/);if(!m)return;if(m[1]!==VER){if(document.getElementById('uT'))return;const el=document.createElement('div');el.id='uT';el.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,.4);z-index:99999;max-width:90vw;cursor:pointer';el.innerHTML=`🔄 Cập nhật mới (${m[1]})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại</span>`;el.onclick=()=>{location.href=location.pathname+'?v='+Date.now()};document.body.appendChild(el)}}catch(e){}}
+setTimeout(cU,3000);
+setInterval(cU,300000);
 }
 </script>
 </body>
