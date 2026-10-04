@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tool by ductri705</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -13,20 +14,15 @@
     color: #e8e8f0;
     font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: flex; flex-direction: column; align-items: center;
   }
   .wrap { width: 100%; max-width: 760px; }
   header { text-align: center; margin-bottom: 20px; }
   header h1 { font-size: 20px; font-weight: 600; color: #6ea8ff; letter-spacing: 2px; }
   header p { font-size: 12px; color: #666; margin-top: 4px; }
   .card {
-    background: #16161c;
-    border: 1px solid #26262e;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 14px;
+    background: #16161c; border: 1px solid #26262e;
+    border-radius: 16px; padding: 20px; margin-bottom: 14px;
     box-shadow: 0 4px 30px rgba(0,0,0,0.3);
   }
   #authScreen input {
@@ -42,10 +38,7 @@
   }
   .btn:hover { background: #8bb9ff; }
   .btn:disabled { opacity: 0.5; cursor: wait; }
-  .btn-sec {
-    background: transparent; border: 1px solid #3a3a44;
-    color: #aaa; margin-top: 8px;
-  }
+  .btn-sec { background: transparent; border: 1px solid #3a3a44; color: #aaa; margin-top: 8px; }
   .btn-sec:hover { background: #1a1a24; color: #e8e8f0; }
   .auth-title { font-size: 18px; font-weight: 600; margin-bottom: 14px; color: #6ea8ff; text-align: center; }
   .auth-msg { font-size: 12px; text-align: center; margin-top: 8px; min-height: 16px; }
@@ -83,8 +76,7 @@
   .golden strong { color: #6ea8ff; }
   .golden.active strong { color: #4ade80; }
   .countdown {
-    font-size: 22px; font-weight: 600;
-    font-variant-numeric: tabular-nums;
+    font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums;
     color: #ffd700; margin-top: 6px; letter-spacing: 2px;
   }
   .upload-zone {
@@ -104,6 +96,7 @@
     cursor: pointer; user-select: none; transition: 0.2s;
   }
   .tab.active { background: #26263a; color: #6ea8ff; border-color: #6ea8ff; }
+  .tab.admin-tab.active { background: #3a2a10; color: #ffd700; border-color: #ffd700; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
   .stat { background: #1a1a24; border-radius: 10px; padding: 12px; text-align: center; }
   .stat .num { font-size: 20px; font-weight: 600; color: #6ea8ff; font-variant-numeric: tabular-nums; }
@@ -128,6 +121,18 @@
   .hour-row.hot { border-left-color: #4ade80; }
   .hour-row .time { color: #6ea8ff; font-weight: 600; }
   .hour-row .desc { color: #aaa; font-size: 12px; }
+  .admin-link {
+    display: block; padding: 14px; background: #1a1a24;
+    border: 1px solid #6ea8ff; border-radius: 10px;
+    color: #6ea8ff; text-decoration: none; text-align: center;
+    font-weight: 600; margin-bottom: 10px; transition: 0.2s;
+  }
+  .admin-link:hover { background: #26263a; }
+  .admin-link.gold { border-color: #ffd700; color: #ffd700; }
+  .admin-note {
+    padding: 12px; background: #1a1a24; border-radius: 10px;
+    font-size: 12px; color: #888; margin-top: 8px; line-height: 1.6;
+  }
   .note { text-align: center; color: #555; font-size: 11px; margin-top: 12px; }
   .signature {
     text-align: center; margin-top: 16px; padding: 12px;
@@ -158,7 +163,7 @@
     <button class="btn" id="authSubmit">Đăng nhập</button>
     <button class="btn btn-sec" id="authToggle">Chưa có tài khoản? Đăng ký</button>
     <div class="auth-msg" id="authMsg"></div>
-    <div class="note">Tài khoản lưu trên Firebase — đăng nhập từ máy nào cũng được</div>
+    <div class="note">Tài khoản lưu trên Supabase — đăng nhập từ máy nào cũng được</div>
   </div>
 
   <div id="app" class="hidden">
@@ -198,6 +203,7 @@
         <div class="tab" data-tab="chart">Biểu đồ</div>
         <div class="tab" data-tab="top">Top viral</div>
         <div class="tab" data-tab="hour">Giờ vàng</div>
+        <div class="tab admin-tab hidden" data-tab="admin" id="adminTab">👑 Admin</div>
       </div>
 
       <div id="tab-overview" class="tab-content">
@@ -224,39 +230,54 @@
         <div class="hour-row"><div><div class="time">06:00 – 08:00</div><div class="desc">Giờ sáng — dân văn phòng check điện thoại</div></div></div>
         <div class="note" style="margin-top:14px">Khung giờ trên là trung bình toàn TikTok Việt Nam. Giờ vàng thật của kênh bạn phải xem trong TikTok Studio → Analytics → Người xem.</div>
       </div>
+
+      <div id="tab-admin" class="tab-content hidden">
+        <div style="font-size:13px;line-height:1.8;color:#bbb">
+          <p style="color:#ffd700;font-weight:600;margin-bottom:12px;font-size:15px">👑 Bảng điều khiển Admin</p>
+          <p style="margin-bottom:14px">Bạn đang đăng nhập với quyền admin. Quản lý qua Supabase Dashboard:</p>
+
+          <a href="https://supabase.com/dashboard/project/wkddmixhqyvhxznycpgs/auth/users" 
+             target="_blank" class="admin-link gold">
+            📋 Quản lý User
+          </a>
+
+          <a href="https://supabase.com/dashboard/project/wkddmixhqyvhxznycpgs/editor" 
+             target="_blank" class="admin-link">
+            🗄️ Xem Database
+          </a>
+
+          <a href="https://supabase.com/dashboard/project/wkddmixhqyvhxznycpgs/auth/providers" 
+             target="_blank" class="admin-link">
+            🔒 Cấu hình Auth
+          </a>
+
+          <div class="admin-note">
+            💡 <b>Lưu ý:</b> Tab Admin chỉ hiển thị với tài khoản <b>duc116642@gmail.com</b>.
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="signature">Tool by <b>ductri705</b></div>
   </div>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {
-  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  signOut, onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import {
-  getFirestore, doc, setDoc, getDoc, deleteDoc
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+<script>
+/* ============================================================
+   SUPABASE CONFIG — đã điền sẵn của bạn
+   ============================================================ */
+const SUPABASE_URL = "https://wkddmixhqyvhxznycpgs.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGRtbHhocXl2aHh6bnljcGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODYzMzIsImV4cCI6MjEwNjY2MjMzMn0.ugXSLH3OhjAgLr6MzvYRviXztU_6oAviqvbj71keyK8";
+const ADMIN_EMAIL = "duc116642@gmail.com";
+/* ============================================================ */
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDdlgjny_Ajpf8MlFNDmmGzkRsEsfBiTaE",
-  authDomain: "tool-ductri705.firebaseapp.com",
-  projectId: "tool-ductri705",
-  storageBucket: "tool-ductri705.firebasestorage.app",
-  messagingSenderId: "416431047072",
-  appId: "1:416431047072:web:4d10c9a083a6c13fc364c5"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentUser = null;
 let rawData = [];
 let chartInstance = null;
 
+/* ============ AUTH UI ============ */
 let isRegister = false;
 const authTitle = document.getElementById('authTitle');
 const authSubmit = document.getElementById('authSubmit');
@@ -279,18 +300,23 @@ authSubmit.addEventListener('click', async () => {
   authSubmit.disabled = true;
   try {
     if (isRegister) {
-      await createUserWithEmailAndPassword(auth, email, pass);
-      showMsg('Đăng ký thành công!', 'ok');
+      const { data, error } = await supabaseClient.auth.signUp({ email, password: pass });
+      if (error) throw error;
+      if (data.user && !data.session) {
+        showMsg('Đăng ký OK! Nhưng cần tắt "Confirm email" trong Supabase → Authentication → Providers → Email', 'err');
+      } else {
+        showMsg('Đăng ký thành công!', 'ok');
+      }
     } else {
-      await signInWithEmailAndPassword(auth, email, pass);
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
+      if (error) throw error;
     }
   } catch (e) {
-    let msg = 'Lỗi: ' + e.code;
-    if (e.code === 'auth/email-already-in-use') msg = 'Email này đã được đăng ký';
-    else if (e.code === 'auth/invalid-email') msg = 'Email không hợp lệ';
-    else if (e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') msg = 'Sai email hoặc mật khẩu';
-    else if (e.code === 'auth/weak-password') msg = 'Mật khẩu quá yếu';
-    else if (e.code === 'auth/user-not-found') msg = 'Tài khoản không tồn tại';
+    let msg = e.message || 'Lỗi không xác định';
+    if (msg.includes('already registered') || msg.includes('already been registered')) msg = 'Email này đã được đăng ký';
+    else if (msg.includes('Invalid login')) msg = 'Sai email hoặc mật khẩu';
+    else if (msg.includes('Password should be')) msg = 'Mật khẩu quá yếu';
+    else if (msg.includes('Email not confirmed')) msg = 'Email chưa xác nhận. Tắt "Confirm email" trong Supabase';
     showMsg(msg, 'err');
   }
   authSubmit.disabled = false;
@@ -302,16 +328,19 @@ function showMsg(text, type) {
 }
 
 document.getElementById('logoutBtn').addEventListener('click', async () => {
-  await signOut(auth);
+  await supabaseClient.auth.signOut();
 });
 
-onAuthStateChanged(auth, async (user) => {
+/* ============ AUTH STATE ============ */
+supabaseClient.auth.onAuthStateChange(async (event, session) => {
   document.getElementById('loadingScreen').classList.add('hidden');
-  if (user) {
-    currentUser = user;
+  if (session && session.user) {
+    currentUser = session.user;
     document.getElementById('authScreen').classList.add('hidden');
     document.getElementById('app').classList.remove('hidden');
-    document.getElementById('userEmail').textContent = user.email;
+    document.getElementById('userEmail').textContent = session.user.email;
+    const isAdmin = (session.user.email === ADMIN_EMAIL);
+    document.getElementById('adminTab').classList.toggle('hidden', !isAdmin);
     await loadDataFromCloud();
     renderAll();
   } else {
@@ -322,16 +351,30 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById('authEmail').value = '';
     document.getElementById('authPass').value = '';
     authMsg.textContent = '';
+    document.getElementById('adminTab').classList.add('hidden');
   }
 });
 
+/* Khởi động — check session */
+(async () => {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  document.getElementById('loadingScreen').classList.add('hidden');
+  if (!session) {
+    document.getElementById('authScreen').classList.remove('hidden');
+  }
+})();
+
+/* ============ CLOUD DATA ============ */
 async function saveDataToCloud() {
   if (!currentUser) return;
   try {
-    await setDoc(doc(db, 'users', currentUser.uid, 'data', 'overview'), {
+    await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
+    const { error } = await supabaseClient.from('user_data').insert({
+      user_id: currentUser.id,
       rows: rawData,
-      updatedAt: new Date().toISOString()
+      updated_at: new Date().toISOString()
     });
+    if (error) throw error;
     showUploadStatus('☁️ Đã lưu lên cloud', '#4ade80');
   } catch (e) {
     showUploadStatus('❌ Lỗi lưu cloud: ' + e.message, '#ff6e9c');
@@ -341,12 +384,16 @@ async function saveDataToCloud() {
 async function loadDataFromCloud() {
   if (!currentUser) return;
   try {
-    const snap = await getDoc(doc(db, 'users', currentUser.uid, 'data', 'overview'));
-    if (snap.exists()) {
-      rawData = snap.data().rows || [];
-      if (rawData.length) {
-        showUploadStatus('✅ Đã tải ' + rawData.length + ' dòng từ cloud', '#4ade80');
-      }
+    const { data, error } = await supabaseClient
+      .from('user_data')
+      .select('rows')
+      .eq('user_id', currentUser.id)
+      .order('updated_at', { ascending: false })
+      .limit(1);
+    if (error) throw error;
+    if (data && data.length && data[0].rows) {
+      rawData = data[0].rows;
+      showUploadStatus('✅ Đã tải ' + rawData.length + ' dòng từ cloud', '#4ade80');
     }
   } catch (e) {
     console.error(e);
@@ -357,7 +404,7 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
   if (!confirm('Xóa toàn bộ dữ liệu đã lưu?')) return;
   if (!currentUser) return;
   try {
-    await deleteDoc(doc(db, 'users', currentUser.uid, 'data', 'overview'));
+    await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
     rawData = [];
     renderAll();
     showUploadStatus('🗑️ Đã xóa dữ liệu', '#ff6e9c');
@@ -372,6 +419,7 @@ function showUploadStatus(text, color) {
   el.style.color = color || '#4ade80';
 }
 
+/* ============ CSV UPLOAD ============ */
 document.getElementById('csvInput').addEventListener('change', e => {
   const file = e.target.files[0];
   if (!file) return;
@@ -409,6 +457,7 @@ function parseCSV(text) {
   rawData = rows;
 }
 
+/* ============ RENDER ============ */
 function renderAll() {
   renderStats();
   renderTop();
@@ -475,6 +524,7 @@ function renderChart() {
   });
 }
 
+/* ============ TABS ============ */
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -485,6 +535,7 @@ document.querySelectorAll('.tab').forEach(tab => {
   });
 });
 
+/* ============ CLOCK ============ */
 const pad = n => String(n).padStart(2, '0');
 const days = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
 
