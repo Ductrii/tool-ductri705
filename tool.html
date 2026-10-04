@@ -128,6 +128,35 @@
     font-size: 12px; color: #ccc; line-height: 1.6;
     border-left: 3px solid #4ade80;
   }
+
+  /* LOCK BOX */
+  .lock-box {
+    margin-top: 20px; padding: 24px;
+    border: 2px dashed #ffd700; border-radius: 12px;
+    background: linear-gradient(135deg, #2a2010, #1a1a24);
+    text-align: center;
+  }
+  .lock-box .icon { font-size: 40px; margin-bottom: 10px; }
+  .lock-box .title { color: #ffd700; font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+  .lock-box .desc { color: #aaa; font-size: 12px; margin-bottom: 16px; line-height: 1.7; }
+  .unlock-btn {
+    width: 100%; padding: 12px;
+    background: linear-gradient(90deg, #ffd700, #ffae00);
+    color: #0d0d12; border: none; border-radius: 10px;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+    transition: 0.2s;
+  }
+  .unlock-btn:hover { transform: scale(1.02); }
+  .unlock-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .unlocked-badge {
+    display: inline-block; padding: 4px 10px;
+    background: #1e2a1e; color: #4ade80;
+    border: 1px solid #4ade80; border-radius: 8px;
+    font-size: 11px; font-weight: 600;
+    margin-bottom: 12px;
+  }
+
   .admin-user {
     background: #1a1a24; border: 1px solid #26262e;
     border-radius: 12px; padding: 14px; margin-bottom: 10px;
@@ -147,6 +176,7 @@
   }
   .admin-user .badge.banned { background: #ff6e9c; color: #0d0d12; }
   .admin-user .badge.admin { background: #ffd700; color: #0d0d12; }
+  .admin-user .badge.vip { background: #4ade80; color: #0d0d12; }
   .admin-user .info {
     font-size: 11px; color: #777; margin-bottom: 10px;
     font-variant-numeric: tabular-nums;
@@ -171,6 +201,8 @@
   .admin-btn.unban:hover { background: #1e2a1e; }
   .admin-btn.credit { border-color: #ffd700; color: #ffd700; }
   .admin-btn.credit:hover { background: #3a2a10; }
+  .admin-btn.reset { border-color: #6ea8ff; color: #6ea8ff; }
+  .admin-btn.reset:hover { background: #1a2a3e; }
   .admin-header {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 14px;
@@ -284,8 +316,26 @@
         <div class="hour-row"><div><div class="time">22:00 – 23:30</div><div class="desc">Giờ khuya — video dài dễ viral</div></div></div>
         <div class="hour-row"><div><div class="time">06:00 – 08:00</div><div class="desc">Giờ sáng — dân văn phòng check điện thoại</div></div></div>
 
-        <div style="color:#4ade80;font-weight:600;font-size:14px;margin-top:20px;margin-bottom:12px">📊 Phân tích từ data kênh bạn</div>
-        <div id="vipContent"></div>
+        <!-- PHẦN KHÓA -->
+        <div id="goldenLocked" class="lock-box">
+          <div class="icon">🔒</div>
+          <div class="title">PHÂN TÍCH TỪ DATA KÊNH BẠN</div>
+          <div class="desc">
+            Mở khóa để xem:<br>
+            • Tỷ lệ tương tác like/view, share/view, comment/view<br>
+            • Top 3 ngày viral của kênh<br>
+            • Chiến lược đăng bài đề xuất<br>
+            • Gợi ý khung giờ tối ưu riêng cho kênh
+          </div>
+          <button class="unlock-btn" id="goldenUnlockBtn">🔓 Mở khóa — 5 xu</button>
+        </div>
+
+        <!-- PHẦN ĐÃ MỞ KHÓA -->
+        <div id="goldenUnlocked" class="hidden">
+          <span class="unlocked-badge">✅ Đã mở khóa phân tích</span>
+          <div style="color:#4ade80;font-weight:600;font-size:14px;margin-bottom:12px">📊 Phân tích từ data kênh bạn</div>
+          <div id="vipContent"></div>
+        </div>
 
         <div class="note" style="margin-top:14px">Phân tích dựa trên file CSV bạn đã upload. Upload file mới để cập nhật.</div>
       </div>
@@ -307,6 +357,7 @@
 const SUPABASE_URL = "https://wkddmlxhqyvhxznycpgs.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGRtbHhocXl2aHh6bnljcGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODYzMzIsImV4cCI6MjEwNjY2MjMzMn0.ugXSLH3OhjAgLr6MzvYRviXztU_6oAviqvbj71keyK8";
 const ADMIN_EMAIL = "duc116642@gmail.com";
+const GOLDEN_COST = 5;
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -380,7 +431,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
       return;
     }
 
-    userProfile = profile || { credits: 0 };
+    userProfile = profile || { credits: 0, golden_unlocked: false };
     document.getElementById('userCredits').textContent = userProfile.credits || 0;
 
     document.getElementById('authScreen').classList.add('hidden');
@@ -389,6 +440,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     const isAdmin = (session.user.email === ADMIN_EMAIL);
     document.getElementById('adminTab').classList.toggle('hidden', !isAdmin);
 
+    renderGolden();
     await loadDataFromCloud();
     renderAll();
   } else {
@@ -410,13 +462,57 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   if (!session) document.getElementById('authScreen').classList.remove('hidden');
 })();
 
-/* ============ PHÂN TÍCH GIỜ VÀNG ============ */
+/* ============ GOLDEN — KHÓA/MỞ KHÓA ============ */
+function renderGolden() {
+  const locked = document.getElementById('goldenLocked');
+  const unlocked = document.getElementById('goldenUnlocked');
+  if (!userProfile) return;
+
+  if (userProfile.golden_unlocked) {
+    locked.classList.add('hidden');
+    unlocked.classList.remove('hidden');
+    renderGoldenAnalysis();
+  } else {
+    locked.classList.remove('hidden');
+    unlocked.classList.add('hidden');
+    const btn = document.getElementById('goldenUnlockBtn');
+    const credits = userProfile.credits || 0;
+    if (credits < GOLDEN_COST) {
+      btn.textContent = `❌ Cần ${GOLDEN_COST} xu — Bạn có ${credits} xu`;
+      btn.disabled = true;
+    } else {
+      btn.textContent = `🔓 Mở khóa — ${GOLDEN_COST} xu (bạn có ${credits} xu)`;
+      btn.disabled = false;
+    }
+  }
+}
+
+document.getElementById('goldenUnlockBtn').addEventListener('click', async () => {
+  if (!userProfile) return;
+  if ((userProfile.credits || 0) < GOLDEN_COST) { alert('Không đủ xu!'); return; }
+  if (!confirm(`Mở khóa phân tích giờ vàng? Tốn ${GOLDEN_COST} xu.`)) return;
+
+  const newCredits = userProfile.credits - GOLDEN_COST;
+  const { error } = await supabaseClient.from('profiles').update({
+    credits: newCredits,
+    golden_unlocked: true
+  }).eq('id', currentUser.id);
+
+  if (error) { alert('Lỗi: ' + error.message); return; }
+
+  userProfile.credits = newCredits;
+  userProfile.golden_unlocked = true;
+  document.getElementById('userCredits').textContent = newCredits;
+  renderGolden();
+});
+
+/* ============ PHÂN TÍCH ============ */
 function renderGoldenAnalysis() {
   const box = document.getElementById('vipContent');
   if (!box) return;
 
   if (!rawData.length) {
-    box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv ở trên để xem phân tích chi tiết.</div>';
+    box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv ở trên để xem phân tích.</div>';
     return;
   }
 
@@ -445,7 +541,7 @@ function renderGoldenAnalysis() {
   if (shareRate > 0.5) strategy.push(`🔥 Tỷ lệ share cao (${shareRate}%) — nội dung lan truyền tốt. Làm thêm dạng này.`);
   else if (shareRate < 0.1) strategy.push(`💡 Tỷ lệ share thấp (${shareRate}%) — thử nội dung "cảm xúc mạnh" hoặc "hữu ích".`);
 
-  strategy.push(`🎯 Ngày viral nhất: <b>${maxDay}</b> (${maxViews.toLocaleString('vi-VN')} view). Phân tích nội dung ngày đó để lặp lại công thức.`);
+  strategy.push(`🎯 Ngày viral nhất: <b>${maxDay}</b> (${maxViews.toLocaleString('vi-VN')} view). Phân tích nội dung ngày đó để lặp lại.`);
   strategy.push(`📊 Ngày tương tác tốt nhất: <b>${bestEngagementDay}</b> (tỷ lệ ${(bestEngagement*100).toFixed(2)}%).`);
 
   box.innerHTML = `
@@ -487,12 +583,14 @@ async function adminLoadUsers() {
     box.innerHTML = data.map(u => {
       const isBanned = u.banned === true;
       const isAdmin = u.email === ADMIN_EMAIL;
+      const isGolden = u.golden_unlocked === true;
       const created = u.created_at ? new Date(u.created_at).toLocaleDateString('vi-VN') : '-';
       return `
         <div class="admin-user ${isBanned ? 'banned' : ''}">
           <div class="head">
             <span class="email">${u.email || 'unknown'}</span>
             ${isAdmin ? '<span class="badge admin">ADMIN</span>' : ''}
+            ${isGolden ? '<span class="badge vip">ĐÃ MỞ KHÓA</span>' : ''}
             <span class="badge ${isBanned ? 'banned' : ''}">${isBanned ? 'ĐÃ KHÓA' : 'OK'}</span>
           </div>
           <div class="info">📅 Tạo: ${created} · ID: ${u.id.slice(0, 8)}...</div>
@@ -505,6 +603,7 @@ async function adminLoadUsers() {
             <button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 10)">+10 xu</button>
             <button class="admin-btn credit" onclick="adminAddCredit('${u.id}', 50)">+50 xu</button>
             <button class="admin-btn credit" onclick="adminAddCredit('${u.id}', -10)">-10 xu</button>
+            ${isGolden ? `<button class="admin-btn reset" onclick="adminResetGolden('${u.id}')">🔒 Khóa lại</button>` : ''}
           </div>
         </div>
       `;
@@ -538,12 +637,25 @@ async function adminAddCredit(userId, amount) {
   if (currentUser && currentUser.id === userId) {
     document.getElementById('userCredits').textContent = newVal;
     if (userProfile) userProfile.credits = newVal;
+    renderGolden();
   }
+}
+
+async function adminResetGolden(userId) {
+  if (!confirm('Khóa lại phần phân tích của user này? Họ sẽ phải trả 5 xu để mở lại.')) return;
+  const { error } = await supabaseClient.from('profiles').update({ golden_unlocked: false }).eq('id', userId);
+  if (error) { alert('Lỗi: ' + error.message); return; }
+  if (currentUser && currentUser.id === userId && userProfile) {
+    userProfile.golden_unlocked = false;
+    renderGolden();
+  }
+  adminLoadUsers();
 }
 
 window.adminBan = adminBan;
 window.adminUnban = adminUnban;
 window.adminAddCredit = adminAddCredit;
+window.adminResetGolden = adminResetGolden;
 
 document.getElementById('adminRefresh').addEventListener('click', adminLoadUsers);
 
@@ -557,7 +669,7 @@ async function saveDataToCloud() {
     });
     if (error) throw error;
     showUploadStatus('☁️ Đã lưu lên cloud', '#4ade80');
-    renderGoldenAnalysis();
+    if (userProfile && userProfile.golden_unlocked) renderGoldenAnalysis();
   } catch (e) {
     showUploadStatus('❌ Lỗi lưu cloud: ' + e.message, '#ff6e9c');
   }
@@ -585,7 +697,7 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
     await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
     rawData = [];
     renderAll();
-    renderGoldenAnalysis();
+    if (userProfile && userProfile.golden_unlocked) renderGoldenAnalysis();
     showUploadStatus('🗑️ Đã xóa dữ liệu', '#ff6e9c');
   } catch (e) {
     showUploadStatus('❌ Lỗi: ' + e.message, '#ff6e9c');
@@ -635,7 +747,7 @@ function parseCSV(text) {
   rawData = rows;
 }
 
-function renderAll() { renderStats(); renderTop(); renderChart(); renderGoldenAnalysis(); }
+function renderAll() { renderStats(); renderTop(); renderChart(); }
 
 function renderStats() {
   if (!rawData.length) {
@@ -704,7 +816,7 @@ document.querySelectorAll('.tab').forEach(tab => {
     document.getElementById('tab-' + tab.dataset.tab).classList.remove('hidden');
     if (tab.dataset.tab === 'chart') renderChart();
     if (tab.dataset.tab === 'admin') adminLoadUsers();
-    if (tab.dataset.tab === 'hour') renderGoldenAnalysis();
+    if (tab.dataset.tab === 'hour') renderGolden();
   });
 });
 
