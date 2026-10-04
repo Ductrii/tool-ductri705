@@ -28,7 +28,7 @@
   .user-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding: 10px 14px; background: #16161c; border: 1px solid #26262e; border-radius: 12px; font-size: 13px; gap: 8px; flex-wrap: wrap; }
   .user-bar b { color: #6ea8ff; }
   .user-bar .credits { color: #ffd700; font-weight: 600; }
-  .user-bar .credits.infinity { color: #ffd700; text-shadow: 0 0 12px rgba(255,215,0,0.6); }
+  .user-bar .credits.infinity { color: #ffd700; text-shadow: 0 0 12px rgba(255,215,0,0.6); font-size: 16px; }
   .logout { background: transparent; border: 1px solid #3a3a44; color: #aaa; padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
   .logout:hover { color: #ff6e9c; border-color: #ff6e9c; }
   .clock-time { font-size: clamp(40px, 11vw, 68px); font-weight: 200; text-align: center; font-variant-numeric: tabular-nums; color: #6ea8ff; text-shadow: 0 0 24px rgba(110,168,255,0.45); letter-spacing: 3px; }
@@ -101,6 +101,8 @@
   .admin-btn.promote:hover { background: #3a2a10; color: #fff; }
   .admin-btn.demote { border-color: #ff6e9c; color: #ff6e9c; }
   .admin-btn.demote:hover { background: #2a1a1e; }
+  .admin-btn.delete { border-color: #ff0000; color: #ff5555; background: linear-gradient(90deg, transparent, #3a1a1a); }
+  .admin-btn.delete:hover { background: #4a0a0a; color: #ff8888; }
   .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
   .admin-title { color: #ffd700; font-weight: 600; font-size: 15px; }
   .admin-refresh { background: transparent; border: 1px solid #3a3a44; color: #aaa; padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
@@ -234,8 +236,9 @@
           <button class="admin-refresh" id="adminRefresh">🔄 Tải lại</button>
         </div>
         <div class="admin-info-box">
-          💡 <b>Promote lên Admin:</b> tốn <b>5000 xu</b> từ tài khoản admin hiện tại. User được promote sẽ có <b>vô cực xu</b>.<br>
-          💡 <b>Mỗi ngày:</b> user được cộng <b>+10 xu</b> khi đăng nhập.
+          💡 <b>Promote lên Admin:</b> tốn <b>5000 xu</b>. Admin có <b>vô cực xu</b>.<br>
+          💡 <b>Mỗi ngày:</b> user được cộng <b>+10 xu</b> khi đăng nhập.<br>
+          💡 <b>Xóa tài khoản:</b> xóa vĩnh viễn, không thể khôi phục.
         </div>
         <div id="adminList"></div>
       </div>
@@ -267,13 +270,9 @@ let chartInstance = null;
 let userProfile = null;
 
 function isCurrentAdmin() {
-  if (!userProfile && !currentUser) return false;
-  return (userProfile && userProfile.is_admin === true) || (currentUser && currentUser.email === ADMIN_EMAIL);
-}
-
-function formatCredits(n) {
-  if (isCurrentAdmin()) return '∞';
-  return Number(n || 0).toLocaleString('vi-VN');
+  if (userProfile && userProfile.is_admin === true) return true;
+  if (currentUser && currentUser.email === ADMIN_EMAIL) return true;
+  return false;
 }
 
 let isRegister = false;
@@ -355,15 +354,12 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
 
     userProfile = profile || { credits: 0, golden_unlocked: false, is_admin: false };
 
-    // Admin gốc luôn được set is_admin = true
     if (session.user.email === ADMIN_EMAIL && !userProfile.is_admin) {
       userProfile.is_admin = true;
       await supabaseClient.from('profiles').update({ is_admin: true }).eq('id', session.user.id);
     }
 
-    // Daily bonus
     await applyDailyBonus();
-
     updateCreditsDisplay();
     document.getElementById('authScreen').classList.add('hidden');
     document.getElementById('app').classList.remove('hidden');
@@ -394,6 +390,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
 /* ============ DAILY BONUS ============ */
 async function applyDailyBonus() {
   if (!currentUser || !userProfile) return;
+  if (isCurrentAdmin()) return;
   const last = userProfile.last_daily_bonus ? new Date(userProfile.last_daily_bonus).getTime() : 0;
   const now = Date.now();
   if (now - last < DAILY_INTERVAL_MS) return;
@@ -407,7 +404,6 @@ async function applyDailyBonus() {
   if (error) { console.error('Daily bonus error:', error); return; }
   userProfile.credits = newCredits;
   userProfile.last_daily_bonus = new Date().toISOString();
-
   showDailyBonusToast();
 }
 
@@ -438,7 +434,7 @@ function updateCreditsDisplay() {
   }
 }
 
-/* ============ MODAL ĐĂNG KÝ ============ */
+/* ============ MODAL ============ */
 function showRegisterSuccess() {
   const old = document.getElementById('modalSuccess');
   if (old) old.remove();
@@ -599,6 +595,10 @@ async function adminLoadUsers() {
 
       if (isGolden) actionsHtml += `<button class="admin-btn reset" onclick="adminResetGolden('${u.id}')">🔒 Khóa</button>`;
 
+      if (u.email !== ADMIN_EMAIL) {
+        actionsHtml += `<button class="admin-btn delete" onclick="adminDeleteUser('${u.id}')">🗑️ Xóa tài khoản</button>`;
+      }
+
       return `
         <div class="admin-user ${isBanned ? 'banned' : ''} ${isAdminUser ? 'is-admin-user' : ''}">
           <div class="head">
@@ -641,37 +641,37 @@ async function adminResetGolden(userId) {
   await supabaseClient.from('profiles').update({ golden_unlocked: false }).eq('id', userId);
   adminLoadUsers();
 }
-
 async function adminPromote(userId) {
-  // Kiểm tra xu admin hiện tại (admin có ∞ nên luôn đủ)
-  const currentCredits = isCurrentAdmin() ? Infinity : (userProfile?.credits || 0);
-  if (currentCredits < PROMOTE_COST) {
-    alert(`Cần ${PROMOTE_COST.toLocaleString('vi-VN')} xu để promote. Bạn có ${currentCredits.toLocaleString('vi-VN')} xu.`);
-    return;
-  }
-  if (!confirm(`Promote user này lên Admin?\nTốn ${PROMOTE_COST.toLocaleString('vi-VN')} xu từ tài khoản của bạn.\n\nAdmin mới sẽ có vô cực xu.`)) return;
-
-  // Trừ xu của admin hiện tại (admin ∞ thì bỏ qua)
-  if (!isCurrentAdmin() && currentUser) {
-    const newCredits = currentCredits - PROMOTE_COST;
-    await supabaseClient.from('profiles').update({ credits: newCredits }).eq('id', currentUser.id);
-    userProfile.credits = newCredits;
-    updateCreditsDisplay();
-  }
-
-  // Set is_admin = true cho target
+  if (!confirm(`Promote user này lên Admin?\nTốn ${PROMOTE_COST.toLocaleString('vi-VN')} xu.\n\nAdmin mới sẽ có vô cực xu.`)) return;
   const { error } = await supabaseClient.from('profiles').update({ is_admin: true }).eq('id', userId);
   if (error) { alert('Lỗi: ' + error.message); return; }
-
   alert('✅ Đã promote lên Admin!');
   adminLoadUsers();
 }
-
 async function adminDemote(userId) {
   if (!confirm('Hạ user này xuống user thường? Họ sẽ không còn vô cực xu.')) return;
   const { error } = await supabaseClient.from('profiles').update({ is_admin: false }).eq('id', userId);
   if (error) { alert('Lỗi: ' + error.message); return; }
   adminLoadUsers();
+}
+
+async function adminDeleteUser(userId) {
+  if (!confirm('⚠️ CẢNH BÁO: Xóa tài khoản này sẽ xóa VĨNH VIỄN:\n• Tài khoản đăng nhập\n• Toàn bộ dữ liệu CSV\n• Mọi thông tin liên quan\n\nKHÔNG THỂ KHÔI PHỤC!\n\nTiếp tục?')) return;
+
+  const confirmText = prompt('Gõ chính xác "XOA" để xác nhận xóa vĩnh viễn:');
+  if (confirmText !== 'XOA') {
+    alert('Đã hủy xóa.');
+    return;
+  }
+
+  try {
+    const { error } = await supabaseClient.rpc('delete_user', { target_user_id: userId });
+    if (error) throw error;
+    alert('✅ Đã xóa tài khoản thành công!');
+    adminLoadUsers();
+  } catch (e) {
+    alert('❌ Lỗi: ' + e.message);
+  }
 }
 
 window.adminBan = adminBan;
@@ -680,6 +680,7 @@ window.adminAddCredit = adminAddCredit;
 window.adminResetGolden = adminResetGolden;
 window.adminPromote = adminPromote;
 window.adminDemote = adminDemote;
+window.adminDeleteUser = adminDeleteUser;
 
 document.getElementById('adminRefresh').addEventListener('click', adminLoadUsers);
 
