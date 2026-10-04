@@ -293,8 +293,6 @@
     font-size: 12px; color: #888;
     margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;
   }
-
-  /* MODAL */
   .modal-overlay {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.85);
@@ -409,7 +407,6 @@
       </div>
 
       <div id="tab-overview" class="tab-content">
-
         <div id="profileSection" class="profile-section hidden">
           <div class="section-head">
             <span class="section-title">📱 Thông tin kênh TikTok</span>
@@ -549,12 +546,39 @@ function showMsg(text, type) {
   authMsg.className = 'auth-msg ' + (type || '');
 }
 
+/* ============ ĐĂNG XUẤT - TỰ ĐỘNG XÓA DATA ============ */
 document.getElementById('logoutBtn').addEventListener('click', async () => {
+  if (!confirm('Đăng xuất sẽ xóa dữ liệu CSV đã lưu của bạn. Tiếp tục?')) return;
+  if (currentUser) {
+    try {
+      // Xóa data CSV trên cloud
+      await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
+      // Reset thông tin kênh về rỗng
+      await supabaseClient.from('profiles').update({
+        tiktok_username: null,
+        tiktok_followers: 0,
+        tiktok_likes: 0,
+        tiktok_following: 0
+      }).eq('id', currentUser.id);
+    } catch (e) { console.error('Lỗi xóa data:', e); }
+  }
+  // Reset state trong RAM
+  rawData = [];
+  userProfile = null;
+  if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
   await supabaseClient.auth.signOut();
 });
 
+/* ============ AUTH STATE ============ */
 supabaseClient.auth.onAuthStateChange(async (event, session) => {
   document.getElementById('loadingScreen').classList.add('hidden');
+
+  // Reset state cũ mỗi khi auth state thay đổi
+  rawData = [];
+  if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+  renderAll();
+  renderProfile();
+
   if (session && session.user) {
     currentUser = session.user;
     document.getElementById('userEmail').textContent = session.user.email;
@@ -614,7 +638,7 @@ function showRegisterSuccess() {
       <h2>🎉 Chúc mừng bạn!</h2>
       <div class="sub">Bạn đã tạo tài khoản thành công</div>
       <div style="color:#e8e8f0;font-size:13px;margin-bottom:14px;line-height:1.6">
-        Xin mời bạn xem hướng dẫn cách lấy file <b style="color:#6ea8ff">Overview.csv</b> từ TikTok Studio để tra giờ vàng:
+        Xin mời bạn xem hướng dẫn cách lấy file <b style="color:#6ea8ff">Overview.csv</b> từ TikTok Studio:
       </div>
       <div class="step"><b>Bước 1:</b> Vào Safari hoặc Google</div>
       <div class="step"><b>Bước 2:</b> Truy cập trang web TikTok Studio</div>
