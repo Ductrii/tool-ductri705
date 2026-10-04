@@ -153,6 +153,13 @@
     font-size: 11px; font-weight: 600;
     margin-bottom: 12px;
   }
+  .admin-badge {
+    display: inline-block; padding: 4px 10px;
+    background: #3a2a10; color: #ffd700;
+    border: 1px solid #ffd700; border-radius: 8px;
+    font-size: 11px; font-weight: 600;
+    margin-bottom: 12px; margin-left: 6px;
+  }
   .admin-user {
     background: #1a1a24; border: 1px solid #26262e;
     border-radius: 12px; padding: 14px; margin-bottom: 10px;
@@ -381,6 +388,7 @@
 
         <div id="goldenUnlocked" class="hidden">
           <span class="unlocked-badge">✅ Đã mở khóa phân tích</span>
+          <span class="admin-badge hidden" id="adminBadge">👑 Admin — miễn phí</span>
           <div style="color:#4ade80;font-weight:600;font-size:14px;margin-bottom:12px">📊 Phân tích từ data kênh bạn</div>
           <div id="vipContent"></div>
         </div>
@@ -482,7 +490,6 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 supabaseClient.auth.onAuthStateChange(async (event, session) => {
   document.getElementById('loadingScreen').classList.add('hidden');
 
-  // Reset state cũ mỗi khi auth state thay đổi
   rawData = [];
   if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
   renderAll();
@@ -591,19 +598,29 @@ function showUploadSuccess() {
   document.body.appendChild(modal);
 }
 
-/* ============ GOLDEN ============ */
+/* ============ GOLDEN — ADMIN MIỄN PHÍ, USER TRẢ 5 XU ============ */
 function renderGolden() {
   const locked = document.getElementById('goldenLocked');
   const unlocked = document.getElementById('goldenUnlocked');
+  const adminBadge = document.getElementById('adminBadge');
   if (!userProfile) return;
 
-  if (userProfile.golden_unlocked) {
+  // Kiểm tra admin
+  const isAdmin = currentUser && currentUser.email === ADMIN_EMAIL;
+
+  if (isAdmin || userProfile.golden_unlocked) {
     locked.classList.add('hidden');
     unlocked.classList.remove('hidden');
+    if (isAdmin) {
+      adminBadge.classList.remove('hidden');
+    } else {
+      adminBadge.classList.add('hidden');
+    }
     renderGoldenAnalysis();
   } else {
     locked.classList.remove('hidden');
     unlocked.classList.add('hidden');
+    adminBadge.classList.add('hidden');
     const btn = document.getElementById('goldenUnlockBtn');
     const credits = userProfile.credits || 0;
     if (credits < GOLDEN_COST) {
@@ -790,7 +807,9 @@ async function saveDataToCloud() {
     });
     if (error) throw error;
     showUploadStatus('☁️ Đã lưu lên cloud', '#4ade80');
-    if (userProfile && userProfile.golden_unlocked) renderGoldenAnalysis();
+    if (userProfile && (userProfile.golden_unlocked || (currentUser && currentUser.email === ADMIN_EMAIL))) {
+      renderGoldenAnalysis();
+    }
   } catch (e) {
     showUploadStatus('❌ Lỗi lưu cloud: ' + e.message, '#ff6e9c');
   }
@@ -818,7 +837,9 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
     await supabaseClient.from('user_data').delete().eq('user_id', currentUser.id);
     rawData = [];
     renderAll();
-    if (userProfile && userProfile.golden_unlocked) renderGoldenAnalysis();
+    if (userProfile && (userProfile.golden_unlocked || (currentUser && currentUser.email === ADMIN_EMAIL))) {
+      renderGoldenAnalysis();
+    }
     showUploadStatus('🗑️ Đã xóa', '#ff6e9c');
   } catch (e) {
     showUploadStatus('❌ Lỗi: ' + e.message, '#ff6e9c');
