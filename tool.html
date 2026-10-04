@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="tool-version" content="v2.3">
+<meta name="tool-version" content="v3.0">
 <title>Tool by ductri705</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -39,10 +39,10 @@
   .clock-sec { font-size: clamp(18px, 4vw, 24px); color: #ff6e9c; }
   .clock-date { text-align: center; margin-top: 8px; color: #9a9aa0; font-size: 14px; }
   .clock-zone { text-align: center; margin-top: 4px; color: #555; font-size: 11px; }
-  .golden { margin-top: 16px; padding: 14px; border-radius: 12px; background: #1a1a24; border-left: 3px solid #6ea8ff; font-size: 13px; line-height: 1.6; text-align: center; }
-  .golden.active { background: linear-gradient(90deg, #1e2a1e, #1a1a24); border-left-color: #4ade80; }
+  .golden { margin-top: 16px; padding: 14px; border-radius: 12px; background: #1a1a24; border-left: 3px solid #6ea8ff; font-size: 13px; line-height: 1.6; text-align: center; transition: 0.3s; }
+  .golden.active { background: linear-gradient(90deg, #2a1015, #1a1a24); border-left-color: #ff6e9c; }
   .golden strong { color: #6ea8ff; }
-  .golden.active strong { color: #4ade80; }
+  .golden.active strong { color: #ffd700; }
   .countdown { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; color: #ffd700; margin-top: 6px; letter-spacing: 2px; }
   .sound-toggle { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; font-size: 11px; color: #888; cursor: pointer; user-select: none; }
   .sound-toggle input { width: auto; margin: 0; }
@@ -279,16 +279,15 @@
       <div id="tab-top" class="tab-content hidden"><div id="top-list"></div></div>
 
       <div id="tab-hour" class="tab-content hidden">
-        <div style="color:#ffd700;font-weight:600;font-size:14px;margin-bottom:12px">⏰ Khung giờ vàng chung</div>
-        <div class="hour-row hot"><div><div class="time">11:00 – 13:00</div><div class="desc">Giờ nghỉ trưa — view ổn định</div></div></div>
-        <div class="hour-row hot"><div><div class="time">19:00 – 22:00</div><div class="desc">Giờ vàng — tương tác cao nhất</div></div></div>
-        <div class="hour-row"><div><div class="time">22:00 – 23:30</div><div class="desc">Giờ khuya — video dài dễ viral</div></div></div>
-        <div class="hour-row"><div><div class="time">06:00 – 08:00</div><div class="desc">Giờ sáng — dân văn phòng check điện thoại</div></div></div>
+        <div style="color:#ffd700;font-weight:600;font-size:14px;margin-bottom:12px">⏰ Khung giờ vàng hôm nay</div>
+        <div id="todayGoldenBox" style="padding:14px;background:#1a1a24;border-radius:12px;margin-bottom:14px;text-align:center;font-size:13px;line-height:1.7">
+          Đang tải...
+        </div>
 
         <div id="goldenLocked" class="lock-box">
           <div class="icon">🔒</div>
           <div class="title">PHÂN TÍCH TỪ DATA KÊNH BẠN</div>
-          <div class="desc">Mở khóa để xem:<br>• Tỷ lệ tương tác like/view, share/view, comment/view<br>• Top 3 ngày viral của kênh<br>• Chiến lược đăng bài đề xuất</div>
+          <div class="desc">Mở khóa để xem:<br>• Thống kê chi tiết (trung vị, độ lệch chuẩn)<br>• Xu hướng 7 ngày gần nhất<br>• Top 5 ngày viral + phân tích theo thứ<br>• Chiến lược đăng bài đề xuất</div>
           <button class="unlock-btn" id="goldenUnlockBtn">🔓 Mở khóa — 5 xu</button>
         </div>
 
@@ -321,7 +320,7 @@
           <div class="title">💰 NẠP XU ĐỂ MỞ KHÓA TÍNH NĂNG</div>
           <div class="desc">
             Chuyển khoản theo QR bên dưới<br>
-            Nội dung CK: <b style="color:#6ea8ff">EMAIL_CỦA_BẠN</b><br>
+            Nội dung CK sẽ tự động điền<br>
             Sau khi CK xong → gửi bill cho admin qua Zalo để được cộng xu
           </div>
         </div>
@@ -383,8 +382,6 @@ const PROMOTE_COST = 5000;
 const DAILY_BONUS = 10;
 const DAILY_INTERVAL_MS = 24 * 60 * 60 * 1000;
 
-const BANK_INFO = { bank: 'MB Bank', stk: '0865199199', owner: 'DANG TRAN DUC TRI' };
-
 const PACKAGES = [
   { vnd: 1000, xu: 10, label: '1.000đ' },
   { vnd: 5000, xu: 100, label: '5.000đ' },
@@ -406,6 +403,7 @@ let userProfile = null;
 let chartFilterDays = 7;
 let soundEnabled = localStorage.getItem('soundEnabled') === 'true';
 let lastGoldenState = false;
+let lastGoldenHourKey = null;
 
 function isCurrentAdmin() {
   if (userProfile && userProfile.is_admin === true) return true;
@@ -434,6 +432,88 @@ function playGoldenSound() {
   } catch (e) {}
 }
 
+/* ============ KHUNG GIỜ VÀNG RANDOM MỖI GIỜ ============ */
+function seededRandom(seed) {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+
+function getGoldenSlotForHour(now) {
+  const dayKey = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+  const hourKey = now.getHours();
+  const seed = dayKey * 100 + hourKey;
+
+  const startMin = Math.floor(seededRandom(seed) * 30);
+  const durationMin = 20 + Math.floor(seededRandom(seed + 1) * 21);
+
+  const start = new Date(now);
+  start.setMinutes(startMin, 0, 0);
+  const end = new Date(start.getTime() + durationMin * 60000);
+
+  return { start, end, startMin, durationMin };
+}
+
+function formatTime(d) {
+  return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+}
+
+function getNextGolden(now) {
+  const slot = getGoldenSlotForHour(now);
+  const inSlot = now >= slot.start && now < slot.end;
+  const hh = String(now.getHours()).padStart(2, '0');
+
+  if (inSlot) {
+    return {
+      active: true,
+      target: slot.end,
+      label: `🔥 GIỜ VÀNG ${hh}h`,
+      desc: `Khung ${formatTime(slot.start)} – ${formatTime(slot.end)} · Đăng ngay!`,
+      durationMin: slot.durationMin
+    };
+  } else if (now < slot.start) {
+    return {
+      active: false,
+      target: slot.start,
+      label: `⏰ SẮP VÀO KHUNG VÀNG ${hh}h`,
+      desc: `Khung sắp tới: ${formatTime(slot.start)} – ${formatTime(slot.end)}`,
+      durationMin: slot.durationMin
+    };
+  } else {
+    const nextHour = new Date(now);
+    nextHour.setHours(now.getHours() + 1, 0, 0, 0);
+    const nextSlot = getGoldenSlotForHour(nextHour);
+    return {
+      active: false,
+      target: nextSlot.start,
+      label: `⏰ ĐÃ QUA KHUNG VÀNG ${hh}h`,
+      desc: `Khung giờ sau: ${formatTime(nextSlot.start)} – ${formatTime(nextSlot.end)}`,
+      durationMin: nextSlot.durationMin
+    };
+  }
+}
+
+function renderTodayGolden() {
+  const box = document.getElementById('todayGoldenBox');
+  if (!box) return;
+  const now = new Date();
+  const slot = getGoldenSlotForHour(now);
+  const inSlot = now >= slot.start && now < slot.end;
+  const hh = String(now.getHours()).padStart(2, '0');
+
+  box.innerHTML = `
+    <div style="color:#ffd700;font-weight:700;font-size:15px;margin-bottom:8px">
+      ${inSlot ? '🔥 ĐANG TRONG KHUNG GIỜ VÀNG' : '⏰ Khung giờ vàng giờ ' + hh + 'h'}
+    </div>
+    <div style="color:#4ade80;font-weight:600;font-size:16px;margin-bottom:8px">
+      ${formatTime(slot.start)} – ${formatTime(slot.end)}
+    </div>
+    <div style="color:#888;font-size:11px">
+      Kéo dài ${slot.durationMin} phút · Tự động đổi mỗi giờ
+    </div>
+  `;
+}
+
+/* ============ EXPORT CSV ============ */
 function exportToCSV() {
   if (!rawData.length) { alert('Chưa có dữ liệu để xuất!'); return; }
   const lines = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"'];
@@ -737,7 +817,6 @@ document.getElementById('goldenUnlockBtn').addEventListener('click', async () =>
 function renderGoldenAnalysis() {
   const box = document.getElementById('vipContent');
   if (!box) return;
-
   if (!rawData.length) {
     box.innerHTML = '<div class="strategy-item">⚠️ Chưa có dữ liệu. Upload file Overview.csv để xem phân tích.</div>';
     return;
@@ -905,8 +984,7 @@ function renderGoldenAnalysis() {
     </div>
 
     <div class="strategy-item">
-      ⏰ <b>GIỜ VÀNG TỐI ƯU:</b> Đăng vào <b>19:00–21:00</b> (giờ vàng chính) và <b>11:00–13:00</b> (nghỉ trưa).<br>
-      <span style="color:#888;font-size:11px">Với ngày tốt nhất là ${daysOfWeek[bestDow]}, ưu tiên đăng nhiều vào ngày này.</span>
+      ⏰ <b>GIỜ VÀNG HÔM NAY:</b> ${document.getElementById('todayGoldenBox') ? document.getElementById('todayGoldenBox').innerHTML : 'Đang cập nhật...'}
     </div>
   `;
 }
@@ -1076,7 +1154,7 @@ function parseCSV(text) {
   rawData = rows;
 }
 
-function renderAll() { renderStats(); renderTop(); renderChart(); renderCompare(); }
+function renderAll() { renderStats(); renderTop(); renderChart(); renderCompare(); renderTodayGolden(); }
 
 function renderStats() {
   if (!rawData.length) { ['s-total-views','s-total-likes','s-avg-views','s-max-views'].forEach(id => document.getElementById(id).textContent = '—'); return; }
@@ -1131,7 +1209,7 @@ document.querySelectorAll('.tab').forEach(tab => {
     document.getElementById('tab-' + tab.dataset.tab).classList.remove('hidden');
     if (tab.dataset.tab === 'chart') renderChart();
     if (tab.dataset.tab === 'admin') adminLoadUsers();
-    if (tab.dataset.tab === 'hour') renderGolden();
+    if (tab.dataset.tab === 'hour') { renderGolden(); renderTodayGolden(); }
     if (tab.dataset.tab === 'account') renderAccount();
     if (tab.dataset.tab === 'money') renderPackages();
   });
@@ -1140,47 +1218,48 @@ document.querySelectorAll('.tab').forEach(tab => {
 const pad = n => String(n).padStart(2, '0');
 const days = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
 
-function getNextGolden(now) {
-  const h = now.getHours();
-  const g1 = h >= 11 && h < 13, g2 = h >= 19 && h < 22;
-  if (g1 || g2) {
-    const endH = g1 ? 13 : 22;
-    const end = new Date(now); end.setHours(endH, 0, 0, 0);
-    return { active: true, target: end, label: 'ĐANG GIỜ VÀNG' };
-  }
-  let target = new Date(now);
-  if (h < 11) target.setHours(11, 0, 0, 0);
-  else if (h < 19) target.setHours(19, 0, 0, 0);
-  else { target.setDate(target.getDate() + 1); target.setHours(11, 0, 0, 0); }
-  return { active: false, target, label: 'GIỜ VÀNG TIẾP THEO' };
-}
-
 function tick() {
   const now = new Date();
   document.getElementById('time').textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
   document.getElementById('sec').textContent = pad(now.getSeconds());
   document.getElementById('date').textContent = `${days[now.getDay()]}, ${now.getDate()}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
   document.getElementById('zone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   const g = getNextGolden(now);
-  const gb = document.getElementById('golden'); const txt = document.getElementById('goldenText'); const cd = document.getElementById('countdown');
+  const gb = document.getElementById('golden');
+  const txt = document.getElementById('goldenText');
+  const cd = document.getElementById('countdown');
+
+  const hourKey = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate() + '-' + now.getHours();
+
   if (g.active) {
     gb.className = 'golden active';
-    txt.innerHTML = '🔥 <strong>' + g.label + '</strong> — Đăng ngay!';
+    txt.innerHTML = `<strong>${g.label}</strong><br><span style="font-size:12px;color:#ffb9d0">${g.desc}</span>`;
     if (!lastGoldenState && soundEnabled) playGoldenSound();
     lastGoldenState = true;
   } else {
     gb.className = 'golden';
-    txt.innerHTML = '⏰ <strong>' + g.label + '</strong> — Khung tối ưu 11–13h & 19–22h';
+    txt.innerHTML = `<strong>${g.label}</strong><br><span style="font-size:12px;color:#aaa">${g.desc}</span>`;
     lastGoldenState = false;
   }
+
   const diff = g.target - now;
-  const hh = Math.floor(diff / 3600000); const mm = Math.floor((diff % 3600000) / 60000); const ss = Math.floor((diff % 60000) / 1000);
-  cd.textContent = (g.active ? 'Kết thúc sau ' : 'Còn ') + pad(hh) + ':' + pad(mm) + ':' + pad(ss);
+  const hh = Math.floor(diff / 3600000);
+  const mm = Math.floor((diff % 3600000) / 60000);
+  const ss = Math.floor((diff % 60000) / 1000);
+  cd.textContent = (g.active ? '⏳ Còn ' : '⏳ Bắt đầu sau ') + pad(hh) + ':' + pad(mm) + ':' + pad(ss);
+
+  // Update today's golden slot in tab Giờ vàng mỗi khi sang giờ mới
+  if (hourKey !== lastGoldenHourKey) {
+    lastGoldenHourKey = hourKey;
+    renderTodayGolden();
+    if (userProfile && (userProfile.golden_unlocked || isCurrentAdmin())) renderGoldenAnalysis();
+  }
 }
 
 tick(); setInterval(tick, 1000);
 
-const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v2.3';
+const CURRENT_VERSION = document.querySelector('meta[name="tool-version"]')?.content || 'v3.0';
 const UPDATE_CHECK_URL = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 const CHECK_INTERVAL = 5 * 60 * 1000;
 
