@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v11.6-final">
+<meta name="tool-version" content="v11.7-detail">
 <title>Tool by ductri705</title>
 <link rel="preconnect" href="https://wkddmlxhqyvhxznycpgs.supabase.co" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -52,13 +52,14 @@ input:focus{border-color:var(--acc)}
 .fi .fn{flex:1;color:var(--acc);font-weight:600;word-break:break-all}
 .fi .fs{color:#777;font-size:11px;white-space:nowrap}
 .tb{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.tbb{flex:1;min-width:75px;padding:9px 4px;text-align:center;background:var(--bg2);border:1px solid var(--bd);border-radius:9px;font-size:12px;color:#888;cursor:pointer;user-select:none;transition:.2s}
+.tbb{flex:1;min-width:60px;padding:9px 4px;text-align:center;background:var(--bg2);border:1px solid var(--bd);border-radius:9px;font-size:12px;color:#888;cursor:pointer;user-select:none;transition:.2s}
 .tbb.a{background:#26263a;color:var(--acc);border-color:var(--acc)}
 .tbb.g.a{background:#3a2a10;color:var(--gold);border-color:var(--gold)}
-.sts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
-.stt{background:var(--bg2);border-radius:9px;padding:10px;text-align:center}
-.stt .n{font-size:18px;font-weight:600;color:var(--acc);font-variant-numeric:tabular-nums}
-.stt .l{font-size:10px;color:var(--tx3);margin-top:3px;text-transform:uppercase;letter-spacing:1px}
+.sts{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:6px}
+.stt{background:var(--bg2);border-radius:9px;padding:8px 4px;text-align:center}
+.stt .n{font-size:14px;font-weight:600;color:var(--acc);font-variant-numeric:tabular-nums}
+.stt .l{font-size:9px;color:var(--tx3);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+.stt.g .n{color:var(--gr)}.stt.o .n{color:var(--gold)}.stt.p .n{color:#a855f7}.stt.r .n{color:var(--rd)}
 .cb{margin-top:12px;padding:12px;border-radius:var(--r);background:linear-gradient(135deg,#1e1e2e,var(--bg));border:1px solid #3a3a4e}
 .ct{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -80,7 +81,6 @@ input:focus{border-color:var(--acc)}
 .cbtn.a{background:#26263a;color:var(--acc);border-color:var(--acc)}
 .sr{flex:1;min-width:110px;padding:7px 11px;background:var(--bg2);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:12px;outline:none;margin:0}
 .tv{display:flex;align-items:center;gap:11px;padding:12px;background:var(--bg2);border-radius:11px;margin-bottom:8px;position:relative;overflow:hidden;transition:.2s;border:1px solid var(--bd)}
-.tv:hover{transform:translateX(3px);border-color:var(--acc)}
 .tv.r1{border-color:var(--gold);background:linear-gradient(135deg,#2a2010,var(--bg2))}
 .tv.r2{border-color:#c0c0c0}.tv.r3{border-color:#cd7f32}
 .tvr{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;background:var(--bg3);color:#888;border:2px solid #3a3a44}
@@ -95,6 +95,28 @@ input:focus{border-color:var(--acc)}
 .tvp.u{background:#1e3a1e;color:var(--gr)}.tvp.d{background:#3a1e1e;color:var(--rd)}
 .tvb{position:absolute;left:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--acc),var(--gr));transition:width .5s}
 .tvc{position:absolute;top:6px;right:6px;font-size:16px}
+/* Bảng dữ liệu */
+.dt-wrap{max-height:400px;overflow-y:auto;border:1px solid var(--bd);border-radius:9px;margin-top:10px}
+.dt-tbl{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums}
+.dt-tbl th{position:sticky;top:0;background:var(--bg3);color:var(--acc);padding:8px 4px;font-weight:600;text-align:right;border-bottom:1px solid var(--bd);font-size:10px;text-transform:uppercase;letter-spacing:.5px}
+.dt-tbl th:first-child{text-align:left}
+.dt-tbl td{padding:7px 4px;border-bottom:1px solid #1e1e26;text-align:right;color:var(--tx2)}
+.dt-tbl td:first-child{text-align:left;color:var(--tx);font-weight:500}
+.dt-tbl tr:hover td{background:rgba(110,168,255,.05)}
+/* Biểu đồ giờ vàng */
+.gh-chart{height:180px;position:relative;margin:10px 0}
+.gh-bar{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;height:100%;align-items:end}
+.gh-b{background:linear-gradient(180deg,var(--acc),#4a87ff);border-radius:3px 3px 0 0;min-height:3px;position:relative;transition:.3s;cursor:pointer}
+.gh-b.top{background:linear-gradient(180deg,var(--gold),#ff9500);box-shadow:0 0 8px rgba(255,215,0,.5)}
+.gh-b:hover{filter:brightness(1.3)}
+.gh-lbl{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;font-size:8px;color:var(--tx3);text-align:center;margin-top:3px;font-variant-numeric:tabular-nums}
+.gh-lbl span:nth-child(odd){opacity:0}
+.gh-list{margin-top:10px}
+.gh-row{display:flex;justify-content:space-between;padding:7px 10px;background:var(--bg2);border-radius:7px;margin-bottom:4px;font-size:12px;border-left:3px solid transparent}
+.gh-row.top3{border-left-color:var(--gold);background:linear-gradient(90deg,#2a2010,var(--bg2))}
+.gh-row .r-h{color:var(--acc);font-weight:600;width:50px}
+.gh-row .r-v{color:var(--tx);font-weight:600;flex:1;text-align:right}
+.gh-row .r-p{color:var(--gr);font-size:10px;margin-left:8px;width:45px;text-align:right}
 .au{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:12px;margin-bottom:8px}
 .au.bn{border-color:var(--rd);background:#2a1a1e}
 .au.ia{border-color:var(--gold)}
@@ -215,6 +237,7 @@ input:focus{border-color:var(--acc)}
 <div class="c">
 <div class="tb">
 <div class="tbb a" data-tab="ov">Tổng quan</div>
+<div class="tbb" data-tab="dt">Chi tiết</div>
 <div class="tbb" data-tab="ch">Biểu đồ</div>
 <div class="tbb" data-tab="tp">Top viral</div>
 <div class="tbb g" data-tab="cn">📊 Kênh</div>
@@ -223,13 +246,20 @@ input:focus{border-color:var(--acc)}
 <div class="tbb g hd" data-tab="adm" id="admTab">👑 Admin</div>
 </div>
 
+<!-- TAB TỔNG QUAN -->
 <div id="tb-ov" class="tc">
-<div class="st2">📊 Thống kê CSV</div>
-<div class="sts">
-<div class="stt"><div class="n" id="sV">—</div><div class="l">Tổng view</div></div>
-<div class="stt"><div class="n" id="sL">—</div><div class="l">Tổng like</div></div>
+<div class="st2">📊 Thống kê CSV (đầy đủ)</div>
+<div class="sts" style="grid-template-columns:repeat(3,1fr)">
+<div class="stt"><div class="n" id="sV">—</div><div class="l">Video Views</div></div>
+<div class="stt g"><div class="n" id="sL">—</div><div class="l">Likes</div></div>
+<div class="stt p"><div class="n" id="sC">—</div><div class="l">Comments</div></div>
+<div class="stt o"><div class="n" id="sS">—</div><div class="l">Shares</div></div>
+<div class="stt r"><div class="n" id="sP">—</div><div class="l">Profile Views</div></div>
 <div class="stt"><div class="n" id="sA">—</div><div class="l">View TB</div></div>
-<div class="stt"><div class="n" id="sM">—</div><div class="l">View max</div></div>
+</div>
+<div class="sts" style="grid-template-columns:repeat(2,1fr);margin-top:6px">
+<div class="stt"><div class="n" id="sM">—</div><div class="l">View MAX</div></div>
+<div class="stt"><div class="n" id="sD">—</div><div class="l">Số ngày</div></div>
 </div>
 <div class="cb"><div class="ct">📈 Tuần này vs trước</div><div id="cmpC"></div></div>
 <div class="cb" style="margin-top:12px"><div class="ct">📊 Tháng này vs trước</div><div id="mCmpC"></div></div>
@@ -242,6 +272,25 @@ input:focus{border-color:var(--acc)}
 <input type="file" id="rI" accept=".json" style="display:none">
 </div>
 
+<!-- TAB CHI TIẾT (MỚI) -->
+<div id="tb-dt" class="tc hd">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+<div class="st2" style="margin:0">📋 Dữ liệu theo ngày</div>
+<button class="cbtn" id="expDt">📋 Copy</button>
+</div>
+<input type="text" class="sr" id="dtSearch" placeholder="🔍 Tìm ngày..." style="margin-bottom:10px">
+<div id="dtInfo" style="font-size:11px;color:var(--tx3);margin-bottom:8px"></div>
+<div class="dt-wrap">
+<table class="dt-tbl" id="dtTbl">
+<thead><tr>
+<th>Ngày</th><th>Views</th><th>Likes</th><th>Comments</th><th>Shares</th><th>Profile</th>
+</tr></thead>
+<tbody id="dtBody"><tr><td colspan="6" style="text-align:center;color:#555;padding:20px">Chưa có dữ liệu</td></tr></tbody>
+</table>
+</div>
+</div>
+
+<!-- TAB BIỂU ĐỒ -->
 <div id="tb-ch" class="tc hd">
 <div class="ctr">
 <button class="cbtn a" data-ct="bar">📊 Cột</button>
@@ -260,6 +309,7 @@ input:focus{border-color:var(--acc)}
 <div class="ch"><canvas id="chC"></canvas></div>
 </div>
 
+<!-- TAB TOP VIRAL -->
 <div id="tb-tp" class="tc hd">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <div style="color:var(--gold);font-weight:600;font-size:13px">🏆 TOP 10 NGÀY VIRAL</div>
@@ -268,6 +318,7 @@ input:focus{border-color:var(--acc)}
 <div id="tpL"></div>
 </div>
 
+<!-- TAB KÊNH -->
 <div id="tb-cn" class="tc hd">
 <div class="st2">📊 Dữ liệu kênh</div>
 <div class="ch-card">
@@ -284,6 +335,7 @@ input:focus{border-color:var(--acc)}
 </div>
 </div>
 
+<!-- PHÂN TÍCH GIỜ VÀNG MỞ RỘNG -->
 <div class="st2">👀 Upload file Viewers (tự tìm giờ vàng)</div>
 <div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Analytics → Người xem. Format: <b>hour,viewers</b></div>
 <label class="up">
@@ -292,6 +344,17 @@ input:focus{border-color:var(--acc)}
 <div class="tx">Bấm chọn <b>file viewers</b> (hoặc ZIP)</div>
 </label>
 <div id="vStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
+
+<!-- BIỂU ĐỒ GIỜ VÀNG -->
+<div id="ghAnalysis" class="hd" style="margin-top:14px">
+<div class="st2">📊 Phân tích giờ vàng</div>
+<div class="gh-chart" id="ghChart">
+<div class="gh-bar" id="ghBars"></div>
+</div>
+<div class="gh-lbl" id="ghLbl"></div>
+<div class="st2" style="margin-top:14px">📋 Chi tiết viewers từng giờ</div>
+<div class="gh-list" id="ghList"></div>
+</div>
 
 <div class="st2" style="margin-top:18px">📹 Upload file Content (top video)</div>
 <div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Content. Format: <b>post time, link, views, likes, comments, shares</b></div>
@@ -318,6 +381,7 @@ input:focus{border-color:var(--acc)}
 <button class="b bg" id="svGh">💾 Lưu giờ vàng</button>
 </div>
 
+<!-- TAB TÀI KHOẢN -->
 <div id="tb-acc" class="tc hd">
 <div class="st2">👤 Tài khoản</div>
 <div class="ir"><span class="k">Email</span><span class="v" id="ifE">—</span></div>
@@ -332,6 +396,7 @@ input:focus{border-color:var(--acc)}
 <div class="m" id="pM"></div>
 </div>
 
+<!-- TAB NẠP -->
 <div id="tb-mn" class="tc hd">
 <div class="mbn"><div class="t">💰 NẠP XU</div><div class="d">Chuyển khoản QR → gửi bill Zalo để cộng xu</div></div>
 <div class="st2">🎁 Gói nạp</div>
@@ -350,6 +415,7 @@ input:focus{border-color:var(--acc)}
 </div>
 </div>
 
+<!-- TAB ADMIN -->
 <div id="tb-adm" class="tc hd">
 <div class="ahd">
 <div class="at">👑 Quản lý</div>
@@ -447,7 +513,7 @@ input:focus{border-color:var(--acc)}
   aB.addEventListener('click', window.__doAuth);
 })();
 
-/* SCRIPT 2: CACHE CHECK */
+/* SCRIPT 2: CACHE */
 (function(){
   try{
     const cachedUser = JSON.parse(localStorage.getItem('cache_user')||'null');
@@ -509,15 +575,14 @@ input:focus{border-color:var(--acc)}
 window.__initApp = function(){
 const SBU="https://wkddmlxhqyvhxznycpgs.supabase.co";
 const SBK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGRtbHhocXl2aHh6bnljcGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODYzMzIsImV4cCI6MjEwNjY2MjMzMn0.ugXSLH3OhjAgLr6MzvYRviXztU_6oAviqvbj71keyK8";
-const ADM="duc116642@gmail.com",GOLD=5,BONUS=10,DAY=86400000;
+const ADM="duc116642@gmail.com",BONUS=10,DAY=86400000;
 const PKGS=[{v:1000,x:10,l:'1.000đ'},{v:5000,x:100,l:'5.000đ'},{v:10000,x:500,l:'10.000đ'},{v:20000,x:1000,l:'20.000đ'},{v:30000,x:2000,l:'30.000đ'},{v:40000,x:3000,l:'40.000đ'},{v:50000,x:5000,l:'50.000đ'}];
 const ACR=[100,500,1000,2000,3000,5000];
 const MED=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
-const DW=['CN','T2','T3','T4','T5','T6','T7'];
 const sb = supabase.createClient(SBU,SBK);
 window.__sb = sb;
 const PAD = n => String(n).padStart(2,'0');
-let cu=null, rd=[], chi=null, up=null, chD=7, chT='bar', shAv=true, sch='', snd=localStorage.getItem('snd')==='true', lg=false, adC=[];
+let cu=null, rd=[], chi=null, up=null, chD=7, chT='bar', shAv=true, sch='', snd=localStorage.getItem('snd')==='true', lg=false, adC=[], dtSearch='';
 let cd = window.__cachedCh || {};
 let chLoad=false, chLoading=false;
 
@@ -587,7 +652,6 @@ function setSaveStatus(msg, ok){
   }, 3500);
 }
 
-/* ZIP READER */
 async function readFromZip(file){
   if(typeof JSZip === 'undefined'){
     throw new Error('Thư viện ZIP chưa tải xong. Đợi vài giây rồi thử lại.');
@@ -611,11 +675,7 @@ async function readFromZip(file){
 async function saveCd(){
   if(!cu) throw new Error('Chưa đăng nhập');
   try{ localStorage.setItem('cache_ch', JSON.stringify(cd)); }catch(e){}
-  const { data, error } = await sb.from('profiles')
-    .update({ channel_data: cd })
-    .eq('id', cu.id)
-    .select('channel_data')
-    .single();
+  const { data, error } = await sb.from('profiles').update({ channel_data: cd }).eq('id', cu.id).select('channel_data').single();
   if(error) throw error;
   if(data?.channel_data) cd = data.channel_data;
   return data;
@@ -636,6 +696,7 @@ function renderCh(){
   renderDetected();
   renderGt();
   renderContent();
+  renderGhAnalysis();
 }
 
 function renderGt(){
@@ -672,20 +733,130 @@ function renderDetected(){
   el.innerHTML = html;
 }
 
+/* ============================================================
+   PHÂN TÍCH GIỜ VÀNG MỞ RỘNG (MỚI)
+   ============================================================ */
+function renderGhAnalysis(){
+  const vd = cd.viewersData || [];
+  const box = document.getElementById('ghAnalysis');
+  if(!box) return;
+  if(!vd.length){ box.classList.add('hd'); return; }
+  box.classList.remove('hd');
+
+  // Map dữ liệu theo giờ
+  const map = {};
+  vd.forEach(x => { map[x.hour] = (map[x.hour]||0) + x.viewers; });
+  const hours = [];
+  for(let h=0; h<24; h++) hours.push({ h, v: map[h] || 0 });
+  const maxV = Math.max(...hours.map(x => x.v), 1);
+  const totalV = hours.reduce((a,x) => a + x.v, 0);
+  const avgV = totalV / 24;
+
+  // Top 3
+  const sorted = [...hours].sort((a,b) => b.v - a.v);
+  const top3h = sorted.slice(0,3).map(x => x.h);
+
+  // Vẽ cột
+  const bars = document.getElementById('ghBars');
+  bars.innerHTML = hours.map(x => {
+    const hPct = (x.v / maxV * 100).toFixed(1);
+    const isTop = top3h.includes(x.h);
+    return `<div class="gh-b ${isTop?'top':''}" style="height:${hPct}%" title="${PAD(x.h)}h: ${x.v.toLocaleString('vi-VN')} viewers"></div>`;
+  }).join('');
+
+  // Label giờ
+  const lbl = document.getElementById('ghLbl');
+  lbl.innerHTML = hours.map(x => `<span>${x.h}</span>`).join('');
+
+  // Chi tiết từng giờ
+  const list = document.getElementById('ghList');
+  list.innerHTML = sorted.map((x, i) => {
+    const pct = avgV > 0 ? ((x.v - avgV) / avgV * 100) : 0;
+    const pctStr = (pct>=0?'+':'') + pct.toFixed(0) + '%';
+    const cls = top3h.includes(x.h) ? 'top3' : '';
+    const rank = top3h.indexOf(x.h);
+    const medal = rank === 0 ? '🥇' : rank === 1 ? '🥈' : rank === 2 ? '🥉' : '  ';
+    return `<div class="gh-row ${cls}">
+      <span class="r-h">${medal} ${PAD(x.h)}h</span>
+      <span class="r-v">${x.v.toLocaleString('vi-VN')} viewers</span>
+      <span class="r-p">${pctStr}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ============================================================
+   BẢNG CHI TIẾT THEO NGÀY (MỚI)
+   ============================================================ */
+function renderDetail(){
+  const body = document.getElementById('dtBody');
+  const info = document.getElementById('dtInfo');
+  if(!body) return;
+  if(!rd.length){
+    body.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#555;padding:20px">Chưa có dữ liệu</td></tr>';
+    info.textContent = '';
+    return;
+  }
+  let data = rd;
+  if(dtSearch){
+    const q = dtSearch.toLowerCase();
+    data = rd.filter(x => x[0].toLowerCase().includes(q));
+  }
+  if(!data.length){
+    body.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#555;padding:20px">Không tìm thấy</td></tr>';
+    info.textContent = '';
+    return;
+  }
+  // Sắp xếp ngày mới nhất lên đầu
+  const sorted = [...data].reverse();
+  body.innerHTML = sorted.map(d => {
+    const dt = d[0], v = d[1], li = d[2], c = d[3], s = d[4], pv = d[5];
+    return `<tr>
+      <td>${esc(dt)}</td>
+      <td>${v.toLocaleString('vi-VN')}</td>
+      <td>${li.toLocaleString('vi-VN')}</td>
+      <td>${c.toLocaleString('vi-VN')}</td>
+      <td>${s.toLocaleString('vi-VN')}</td>
+      <td>${pv.toLocaleString('vi-VN')}</td>
+    </tr>`;
+  }).join('');
+  info.textContent = `Hiển thị ${data.length} / ${rd.length} ngày`;
+}
+
+/* ============================================================
+   RENDER OVERVIEW MỞ RỘNG
+   ============================================================ */
+function renderOverview(){
+  if(!rd.length){
+    ['sV','sL','sC','sS','sP','sA','sM','sD'].forEach(id => {
+      const el = document.getElementById(id);
+      if(el) el.textContent = '—';
+    });
+    return;
+  }
+  let tv=0, tl=0, tc=0, ts=0, tp=0, mx=0;
+  rd.forEach(d => { tv += d[1]; tl += d[2]; tc += d[3]; ts += d[4]; tp += d[5]; if(d[1] > mx) mx = d[1]; });
+  document.getElementById('sV').textContent = fV(tv);
+  document.getElementById('sL').textContent = fV(tl);
+  document.getElementById('sC').textContent = fV(tc);
+  document.getElementById('sS').textContent = fV(ts);
+  document.getElementById('sP').textContent = fV(tp);
+  document.getElementById('sA').textContent = fV(Math.round(tv/rd.length));
+  document.getElementById('sM').textContent = fV(mx);
+  document.getElementById('sD').textContent = rd.length.toLocaleString('vi-VN');
+}
+
+/* ================= BUTTONS ================= */
 document.getElementById('svCh').addEventListener('click', async () => {
   if(!cu){ setSaveStatus('❌ Chưa đăng nhập', false); return; }
-  const uVal = document.getElementById('inU').value.trim();
-  const lVal = parseInt(document.getElementById('inL').value) || 0;
-  const fVal = parseInt(document.getElementById('inFo').value) || 0;
-  cd.username = uVal;
-  cd.likes = lVal;
-  cd.following = fVal;
+  cd.username = document.getElementById('inU').value.trim();
+  cd.likes = parseInt(document.getElementById('inL').value) || 0;
+  cd.following = parseInt(document.getElementById('inFo').value) || 0;
   const btn = document.getElementById('svCh');
   btn.disabled = true;
   setSaveStatus('⏳ Đang lưu...', false);
   try{
     await saveCd();
-    setSaveStatus('✅ Đã lưu: ' + (uVal || '(trống)'), true);
+    setSaveStatus('✅ Đã lưu: ' + (cd.username || '(trống)'), true);
     renderCh();
     tS('✅ Đã lưu kênh!');
   } catch(err){
@@ -730,12 +901,10 @@ document.getElementById('rlCh').addEventListener('click', async () => {
       }
     }, 1500);
   }
-  const elU = document.getElementById('inU');
-  const elL = document.getElementById('inL');
-  const elF = document.getElementById('inFo');
-  if(elU) elU.addEventListener('input', scheduleSave);
-  if(elL) elL.addEventListener('input', scheduleSave);
-  if(elF) elF.addEventListener('input', scheduleSave);
+  ['inU','inL','inFo'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('input', scheduleSave);
+  });
 })();
 
 document.getElementById('ghInput').innerHTML = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23].map(h => `<div class="gh-t" data-h="${PAD(h)}">${h}h</div>`).join('');
@@ -758,6 +927,7 @@ document.getElementById('svGh').addEventListener('click', async () => {
   }
 });
 
+/* ================= SPLIT CSV ================= */
 function splitCSVLine(line){
   const out = [];
   let cur = '';
@@ -778,6 +948,7 @@ function splitCSVLine(line){
   return out;
 }
 
+/* ================= UPLOAD VIEWERS ================= */
 document.getElementById('fViewers').addEventListener('change', async function(e){
   const f = e.target.files && e.target.files[0];
   const st = document.getElementById('vStatus');
@@ -785,11 +956,11 @@ document.getElementById('fViewers').addEventListener('change', async function(e)
   const nm = (f.name || '').toLowerCase();
   const isZip = nm.endsWith('.zip') || f.type.includes('zip');
   try{
-    let txt = '', srcName = f.name;
+    let txt = '';
     if(isZip){
       st.innerHTML = '<span style="color:var(--acc)">📦 Đang mở ZIP...</span>';
       const z = await readFromZip(f);
-      txt = z.txt; srcName = z.name;
+      txt = z.txt;
     } else {
       st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
       txt = await new Promise((res, rej) => {
@@ -843,6 +1014,7 @@ function parseViewersFile(txt){
   return result;
 }
 
+/* ================= UPLOAD CONTENT ================= */
 document.getElementById('fContent').addEventListener('change', async function(e){
   const f = e.target.files && e.target.files[0];
   const st = document.getElementById('ctStatus');
@@ -850,11 +1022,11 @@ document.getElementById('fContent').addEventListener('change', async function(e)
   const nm = (f.name || '').toLowerCase();
   const isZip = nm.endsWith('.zip') || f.type.includes('zip');
   try{
-    let txt = '', srcName = f.name;
+    let txt = '';
     if(isZip){
       st.innerHTML = '<span style="color:var(--acc)">📦 Đang mở ZIP...</span>';
       const z = await readFromZip(f);
-      txt = z.txt; srcName = z.name;
+      txt = z.txt;
     } else {
       st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
       txt = await new Promise((res, rej) => {
@@ -992,11 +1164,7 @@ document.getElementById('loB').addEventListener('click', async () => {
   rd=[]; up=null; cd={};
   if(chi){ chi.destroy(); chi=null }
   try{
-    localStorage.removeItem('cache_user');
-    localStorage.removeItem('cache_profile');
-    localStorage.removeItem('cache_data');
-    localStorage.removeItem('cache_ch');
-    localStorage.removeItem('updShown');
+    ['cache_user','cache_profile','cache_data','cache_ch','updShown'].forEach(k => localStorage.removeItem(k));
   }catch(e){}
   await sb.auth.signOut();
 });
@@ -1015,11 +1183,8 @@ sb.auth.onAuthStateChange(async (ev, ss) => {
       return;
     }
     up = p || { credits: 0, is_admin: false };
-    if(p?.channel_data && Object.keys(p.channel_data).length > 0){
-      cd = p.channel_data;
-    } else if(!cd || Object.keys(cd).length === 0){
-      cd = window.__cachedCh || {};
-    }
+    if(p?.channel_data && Object.keys(p.channel_data).length > 0) cd = p.channel_data;
+    else if(!cd || Object.keys(cd).length === 0) cd = window.__cachedCh || {};
     try{
       localStorage.setItem('cache_user', JSON.stringify({ email: cu.email }));
       localStorage.setItem('cache_profile', JSON.stringify(up));
@@ -1045,10 +1210,7 @@ sb.auth.onAuthStateChange(async (ev, ss) => {
   } else {
     cu=null; up=null; cd={}; rd=[];
     try{
-      localStorage.removeItem('cache_user');
-      localStorage.removeItem('cache_profile');
-      localStorage.removeItem('cache_data');
-      localStorage.removeItem('cache_ch');
+      ['cache_user','cache_profile','cache_data','cache_ch'].forEach(k => localStorage.removeItem(k));
     }catch(e){}
     document.getElementById('as').classList.remove('hd');
     document.getElementById('app').classList.add('hd');
@@ -1090,8 +1252,7 @@ function uC(){ document.getElementById('uC').textContent = isA() ? '∞' : (up?.
 function rAcc(){
   if(!cu || !up) return;
   document.getElementById('ifE').textContent = cu.email || '—';
-  const c = up.created_at ? new Date(up.created_at).toLocaleString('vi-VN') : '—';
-  document.getElementById('ifC').textContent = c;
+  document.getElementById('ifC').textContent = up.created_at ? new Date(up.created_at).toLocaleString('vi-VN') : '—';
   document.getElementById('ifL').textContent = up.last_login ? new Date(up.last_login).toLocaleString('vi-VN') : 'Vừa login';
   document.getElementById('ifX').textContent = isA() ? '∞' : (up.credits||0).toLocaleString('vi-VN') + ' xu';
   document.getElementById('ifR').textContent = isA() ? '👑 Admin' : 'User';
@@ -1200,6 +1361,7 @@ document.getElementById('clB').addEventListener('click', async () => {
 
 function uS(t,c){ const el = document.getElementById('us'); el.textContent = t; el.style.color = c || 'var(--gr)' }
 
+/* ================= UPLOAD OVERVIEW ================= */
 const uz = document.querySelector('.up[for="ci"]');
 const ci = document.getElementById('ci');
 
@@ -1255,28 +1417,26 @@ function pCSV(t){
   const l = t.split(/\r?\n/).filter(x => x.trim());
   if(l.length < 2) throw new Error('File rỗng');
   const r = [];
+  // Bỏ qua header dòng 1
   for(let i=1; i<l.length; i++){
     const p = l[i].replace(/^"|"$/g,'').split('","').map(s => s.replace(/"/g,''));
     if(p.length < 3) continue;
-    const d = p[0], v = parseInt(p[1])||0, pv = parseInt(p[2])||0, li = parseInt(p[3])||0, c = parseInt(p[4])||0, s = parseInt(p[5])||0;
+    const d = p[0];
+    const v = parseInt(p[1])||0;
+    const pv = parseInt(p[2])||0;   // Profile Views
+    const li = parseInt(p[3])||0;   // Likes
+    const c = parseInt(p[4])||0;    // Comments
+    const s = parseInt(p[5])||0;    // Shares
     if(!d) continue;
+    // rd format: [date, videoViews, likes, comments, shares, profileViews]
     r.push([d, v, li, c, s, pv]);
   }
   if(!r.length) throw new Error('Không có dòng');
   rd = r;
 }
 
-function rAll(){ rSt(); rTp(); rCh(); rCmp(); rMCmp() }
-
-function rSt(){
-  if(!rd.length){ ['sV','sL','sA','sM'].forEach(id => document.getElementById(id).textContent = '—'); return; }
-  let tv=0, tl=0, mx=0;
-  rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx) mx = d[1]; });
-  document.getElementById('sV').textContent = tv.toLocaleString('vi-VN');
-  document.getElementById('sL').textContent = tl.toLocaleString('vi-VN');
-  document.getElementById('sA').textContent = Math.round(tv/rd.length).toLocaleString('vi-VN');
-  document.getElementById('sM').textContent = mx.toLocaleString('vi-VN');
-}
+/* ================= RENDER ALL ================= */
+function rAll(){ renderOverview(); renderDetail(); rTp(); rCh(); rCmp(); rMCmp() }
 
 function rTp(){
   const b = document.getElementById('tpL');
@@ -1365,6 +1525,14 @@ document.getElementById('expCh').addEventListener('click', () => {
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 });
 
+document.getElementById('dtSearch').addEventListener('input', e => { dtSearch = e.target.value.trim(); renderDetail() });
+document.getElementById('expDt').addEventListener('click', () => {
+  if(!rd.length){ alert('Chưa có data'); return; }
+  let t = 'Ngày\tViews\tLikes\tComments\tShares\tProfile\n';
+  rd.forEach(d => { t += `${d[0]}\t${d[1]}\t${d[2]}\t${d[3]}\t${d[4]}\t${d[5]}\n` });
+  navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t));
+});
+
 document.getElementById('cpTp').addEventListener('click', () => {
   if(!rd.length){ alert('Chưa có data'); return; }
   const avg = rd.reduce((a,d) => a+d[1], 0)/rd.length;
@@ -1377,10 +1545,11 @@ document.getElementById('cpTp').addEventListener('click', () => {
 
 window.__onTabChange = function(tab){
   if(tab === 'ch') rCh();
+  if(tab === 'dt') renderDetail();
   if(tab === 'adm') adLoad();
   if(tab === 'acc') rAcc();
   if(tab === 'mn') rPk();
-  if(tab === 'cn'){ renderCh(); renderContent(); }
+  if(tab === 'cn'){ renderCh(); renderContent(); renderGhAnalysis(); }
 };
 
 function rCmp(){
@@ -1494,8 +1663,8 @@ document.getElementById('pBtn').addEventListener('click', async () => {
 
 setInterval(renderGt, 60000);
 
-/* AUTO UPDATE — không spam nữa */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.6-final';
+/* AUTO UPDATE — không spam */
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.7-detail';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 async function cU(){
   try{
