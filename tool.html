@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v10.0-fast">
+<meta name="tool-version" content="v11.0-fastest">
 <title>Tool by ductri705</title>
 <link rel="preconnect" href="https://wkddmlxhqyvhxznycpgs.supabase.co" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -42,9 +42,7 @@ input:focus{border-color:var(--acc)}
 .cdn{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--gold);margin-top:4px;letter-spacing:2px}
 .tg{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;font-size:11px;color:#888;cursor:pointer;user-select:none}
 .tg input{width:auto;margin:0}
-.tp{margin-top:10px;padding:10px 12px;background:linear-gradient(135deg,#1e2a3e,var(--bg));border-left:3px solid var(--gold);border-radius:9px;font-size:12px;color:#ccc;line-height:1.5}
-.tp .th{color:var(--gold);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.up{border:2px dashed #3a3a44;border-radius:var(--r);padding:22px;text-align:center;cursor:pointer;transition:.2s;position:relative}
+.up{border:2px dashed #3a3a44;border-radius:var(--r);padding:22px;text-align:center;cursor:pointer;transition:.2s;position:relative;display:block}
 .up:hover,.up.dg{border-color:var(--acc);background:var(--bg2)}
 .up input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;margin:0}
 .up .ic{font-size:30px;margin-bottom:6px;pointer-events:none}
@@ -168,9 +166,7 @@ input:focus{border-color:var(--acc)}
 .fh-row .fh-d{color:var(--tx3);width:85px}
 .fh-row .fh-i{flex:1;padding:6px 9px;background:var(--bg2);border:1px solid var(--bd);border-radius:5px;color:var(--tx);outline:none;font-size:12px;margin:0}
 .fh-row .fh-x{background:0;border:0;color:var(--rd);cursor:pointer;font-size:14px;padding:4px}
-.skel{text-align:center;color:var(--acc);padding:40px;font-size:14px}
-.skel::after{content:"";display:inline-block;width:20px;height:20px;margin-left:8px;border:2px solid var(--bd);border-top-color:var(--acc);border-radius:50%;animation:sp 1s linear infinite;vertical-align:middle}
-@keyframes sp{to{transform:rotate(360deg)}}
+.det{background:var(--bg2);border:1px solid var(--bd);border-radius:9px;padding:11px;font-size:12px;color:var(--tx2);line-height:1.6;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -181,12 +177,11 @@ input:focus{border-color:var(--acc)}
 <p>Đồng hồ • Giờ vàng thật • Thống kê TikTok • Cloud</p>
 </header>
 
-<!-- AUTH SCREEN: HIỆN NGAY KHÔNG CHỜ SUPABASE -->
 <div id="as" class="c">
 <div class="t" id="aT">Đăng nhập</div>
 <input type="email" id="aE" placeholder="Email" inputmode="email" autocomplete="email">
 <input type="password" id="aP" placeholder="Mật khẩu (từ 6 ký tự)" autocomplete="current-password">
-<button class="b" id="aB" disabled>⏳ Đang khởi động...</button>
+<button class="b" id="aB">Đăng nhập</button>
 <button class="b bs" id="aTg">Chưa có tài khoản? Đăng ký</button>
 <div class="m" id="aM"></div>
 <div class="nt">🎁 Đăng ký nhận 50 xu · +10 xu/ngày</div>
@@ -208,11 +203,11 @@ input:focus{border-color:var(--acc)}
 
 <div class="c">
 <div style="font-size:13px;color:#888;margin-bottom:10px">📤 Tải file <b style="color:var(--acc)">Overview.csv</b></div>
-<div class="up" id="uz">
+<label class="up" for="ci">
 <input type="file" id="ci" accept=".csv,text/csv,text/comma-separated-values,application/vnd.ms-excel,application/csv,text/plain">
 <div class="ic">📄</div>
 <div class="tx" id="uh">Bấm chọn file CSV<br><b>hoặc kéo thả vào đây</b></div>
-</div>
+</label>
 <div id="fi" class="fi hd"><span>📎</span><span class="fn" id="fn">—</span><span class="fs" id="fs">—</span></div>
 <div id="us" style="margin-top:8px;font-size:12px;text-align:center"></div>
 <button class="b bs" id="clB" style="margin-top:8px">🗑️ Xóa dữ liệu</button>
@@ -290,23 +285,38 @@ input:focus{border-color:var(--acc)}
 <div class="ch-s2"><div class="cn" id="chFo">0</div><div class="cl">Follow</div></div>
 </div>
 </div>
-<div class="st2">✏️ Cập nhật</div>
+
+<div class="st2">👀 Upload file Viewers (tự tìm giờ vàng)</div>
+<div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Analytics → Người xem. Format: <b>hour,viewers</b></div>
+<label class="up" for="fViewers">
+<input type="file" id="fViewers" accept=".csv,.json,.txt">
+<div class="ic">👀</div>
+<div class="tx">Bấm chọn <b>file viewers</b></div>
+</label>
+<div id="vStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
+
+<div class="st2" style="margin-top:18px">👥 Upload file Followers (tăng trưởng)</div>
+<div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Người theo dõi. Format: <b>date,followers</b></div>
+<label class="up" for="fFollowers">
+<input type="file" id="fFollowers" accept=".csv,.json,.txt">
+<div class="ic">👥</div>
+<div class="tx">Bấm chọn <b>file followers</b></div>
+</label>
+<div id="fStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
+
+<div class="st2" style="margin-top:18px">✏️ Hoặc nhập tay</div>
 <input type="text" id="inU" placeholder="Tên TK (VD: @ductri705)">
 <input type="number" id="inF" placeholder="Số follower">
 <input type="number" id="inL" placeholder="Tổng tim">
 <input type="number" id="inFo" placeholder="Đang follow">
-<button class="b" id="svCh">💾 Lưu</button>
-<div class="st2" style="margin-top:18px">🎯 Giờ vàng thật (chọn nhiều)</div>
-<div class="nt" style="margin-bottom:8px;text-align:left">Lấy từ TikTok Studio → Analytics → Người theo dõi → giờ UTC + 7 = giờ VN</div>
+<button class="b" id="svCh">💾 Lưu thông tin</button>
+
+<div class="st2" style="margin-top:18px">🎯 Giờ vàng đã nhận diện</div>
+<div id="ghDetected" class="det">Chưa có dữ liệu</div>
+<div class="nt" style="margin-bottom:8px;text-align:left">Chọn tay nếu muốn override:</div>
 <div class="gh-in" id="ghInput"></div>
 <button class="b bg" id="svGh">💾 Lưu giờ vàng</button>
-<div class="st2" style="margin-top:18px">📈 Lịch sử follower</div>
-<div id="fhList"></div>
-<div class="fh-row" style="margin-top:8px">
-<input type="date" class="fh-i" id="fhDate">
-<input type="number" class="fh-i" id="fhCount" placeholder="Số follower">
-<button class="b" style="width:auto;padding:8px 14px;margin:0" id="fhAdd">➕</button>
-</div>
+
 <div id="grBox" style="margin-top:16px"></div>
 </div>
 
@@ -360,80 +370,156 @@ input:focus{border-color:var(--acc)}
 </div>
 </div>
 
-<!-- SCRIPT: XỬ LÝ UI CƠ BẢN TRƯỚC, KHÔNG CHỜ SDK -->
 <script>
-/* ===== UI CƠ BẢN CHẠY NGAY (không cần SDK) ===== */
+/* =====================================================
+   SCRIPT 1: UI CƠ BẢN — chạy ngay, không cần Supabase
+   ===================================================== */
 (function(){
-  const PAD=n=>String(n).padStart(2,'0');
-  const DWF=['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
-  
+  const PAD = n => String(n).padStart(2,'0');
+  const DWF = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
+
   // Theme
-  function setT(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('th',t);const b=document.getElementById('tbtn');if(b)b.textContent=t==='light'?'☀️':'🌙'}
+  function setT(t){
+    document.documentElement.setAttribute('data-theme',t);
+    localStorage.setItem('th',t);
+    const b = document.getElementById('tbtn');
+    if(b) b.textContent = t==='light' ? '☀️' : '🌙';
+  }
   setT(localStorage.getItem('th')||'dark');
-  document.getElementById('tbtn').addEventListener('click',()=>{setT((localStorage.getItem('th')||'dark')==='dark'?'light':'dark')});
-  
+  document.getElementById('tbtn').addEventListener('click',()=>{
+    setT((localStorage.getItem('th')||'dark')==='dark' ? 'light' : 'dark');
+  });
+
   // Clock chạy ngay
   function tickClock(){
-    const n=new Date();
-    const tEl=document.getElementById('t');
-    if(tEl){tEl.textContent=PAD(n.getHours())+':'+PAD(n.getMinutes());document.getElementById('s').textContent=PAD(n.getSeconds());document.getElementById('dt').textContent=DWF[n.getDay()]+', '+n.getDate()+'/'+PAD(n.getMonth()+1)+'/'+n.getFullYear();document.getElementById('zn').textContent=Intl.DateTimeFormat().resolvedOptions().timeZone}
+    const n = new Date();
+    const tEl = document.getElementById('t');
+    if(!tEl) return;
+    tEl.textContent = PAD(n.getHours())+':'+PAD(n.getMinutes());
+    document.getElementById('s').textContent = PAD(n.getSeconds());
+    document.getElementById('dt').textContent = DWF[n.getDay()]+', '+n.getDate()+'/'+PAD(n.getMonth()+1)+'/'+n.getFullYear();
+    document.getElementById('zn').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
   }
-  tickClock();setInterval(tickClock,1000);
-  
+  tickClock(); setInterval(tickClock, 1000);
+
   // Sound toggle
-  const st=document.getElementById('sT');
-  if(st){st.checked=localStorage.getItem('snd')==='true';st.addEventListener('change',e=>{localStorage.setItem('snd',e.target.checked)})}
-  
+  const st = document.getElementById('sT');
+  if(st){
+    st.checked = localStorage.getItem('snd')==='true';
+    st.addEventListener('change', e => localStorage.setItem('snd', e.target.checked));
+  }
+
   // Tab switching
-  document.querySelectorAll('.tbb').forEach(t=>t.addEventListener('click',()=>{
-    document.querySelectorAll('.tbb').forEach(x=>x.classList.remove('a'));
-    document.querySelectorAll('.tc').forEach(c=>c.classList.add('hd'));
+  document.querySelectorAll('.tbb').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tbb').forEach(x => x.classList.remove('a'));
+    document.querySelectorAll('.tc').forEach(c => c.classList.add('hd'));
     t.classList.add('a');
     document.getElementById('tb-'+t.dataset.tab).classList.remove('hd');
-    if(window.__onTabChange)window.__onTabChange(t.dataset.tab);
+    if(window.__onTabChange) window.__onTabChange(t.dataset.tab);
   }));
-  
-  // Auth UI
-  let isR=false;
-  const aT=document.getElementById('aT'),aB=document.getElementById('aB'),aTg=document.getElementById('aTg'),aM=document.getElementById('aM');
-  aTg.addEventListener('click',()=>{isR=!isR;aT.textContent=isR?'Đăng ký':'Đăng nhập';aB.textContent=isR?'Tạo TK (+50 xu)':'Đăng nhập';aTg.textContent=isR?'Đã có? Đăng nhập':'Chưa có? Đăng ký';aM.textContent=''});
-  
-  window.__authReady=false;
-  window.__doAuth=async()=>{
-    if(!window.__sb){aM.textContent='Đang kết nối...';aM.className='m e';return}
-    const e=document.getElementById('aE').value.trim(),p=document.getElementById('aP').value;
-    if(!e||!p){aM.textContent='Nhập đầy đủ';aM.className='m e';return}
-    if(p.length<6){aM.textContent='Tối thiểu 6 ký tự';aM.className='m e';return}
-    aB.disabled=true;aB.textContent='⏳ Đang xử lý...';
+
+  // Auth form
+  let isR = false;
+  const aT = document.getElementById('aT');
+  const aB = document.getElementById('aB');
+  const aTg = document.getElementById('aTg');
+  const aM = document.getElementById('aM');
+
+  aTg.addEventListener('click', () => {
+    isR = !isR;
+    aT.textContent = isR ? 'Đăng ký' : 'Đăng nhập';
+    aB.textContent = isR ? 'Tạo TK (+50 xu)' : 'Đăng nhập';
+    aTg.textContent = isR ? 'Đã có? Đăng nhập' : 'Chưa có? Đăng ký';
+    aM.textContent = '';
+  });
+
+  window.__doAuth = async () => {
+    if(!window.__sb){ aM.textContent = 'Đang kết nối...'; aM.className = 'm e'; return; }
+    const e = document.getElementById('aE').value.trim();
+    const p = document.getElementById('aP').value;
+    if(!e || !p){ aM.textContent = 'Nhập đầy đủ'; aM.className = 'm e'; return; }
+    if(p.length < 6){ aM.textContent = 'Tối thiểu 6 ký tự'; aM.className = 'm e'; return; }
+    aB.disabled = true; aB.textContent = '⏳ Đang xử lý...';
     try{
-      if(isR){const{error}=await window.__sb.auth.signUp({email:e,password:p});if(error)throw error;aM.textContent='Đăng ký! +50 xu 🎁';aM.className='m o';setTimeout(()=>window.__regModal&&window.__regModal(),800)}
-      else{const{error}=await window.__sb.auth.signInWithPassword({email:e,password:p});if(error)throw error}
-    }catch(err){let m=err.message||'Lỗi';if(m.includes('already registered'))m='Email đã đăng ký';else if(m.includes('Invalid login'))m='Sai email hoặc MK';else if(m.includes('Password should be'))m='MK yếu';aM.textContent=m;aM.className='m e'}
-    aB.disabled=false;aB.textContent=isR?'Tạo TK (+50 xu)':'Đăng nhập';
+      if(isR){
+        const { error } = await window.__sb.auth.signUp({ email: e, password: p });
+        if(error) throw error;
+        aM.textContent = 'Đăng ký! +50 xu 🎁'; aM.className = 'm o';
+        setTimeout(() => window.__regModal && window.__regModal(), 800);
+      } else {
+        const { error } = await window.__sb.auth.signInWithPassword({ email: e, password: p });
+        if(error) throw error;
+      }
+    } catch(err){
+      let m = err.message || 'Lỗi';
+      if(m.includes('already registered')) m = 'Email đã đăng ký';
+      else if(m.includes('Invalid login')) m = 'Sai email hoặc MK';
+      else if(m.includes('Password should be')) m = 'MK yếu';
+      aM.textContent = m; aM.className = 'm e';
+    }
+    aB.disabled = false;
+    aB.textContent = isR ? 'Tạo TK (+50 xu)' : 'Đăng nhập';
   };
-  aB.addEventListener('click',window.__doAuth);
-  aB.disabled=false;aB.textContent='Đăng nhập';
+  aB.addEventListener('click', window.__doAuth);
 })();
 
-/* ===== LOAD SUPABASE SDK SAU (không block UI) ===== */
+/* =====================================================
+   SCRIPT 2: CACHE CHECK — vào tool luôn nếu có cache
+   ===================================================== */
 (function(){
-  const s=document.createElement('script');
-  s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
-  s.async=true;
-  s.onload=function(){ if(window.__initApp) window.__initApp(); };
-  s.onerror=function(){
-    const aM=document.getElementById('aM');
-    if(aM){aM.textContent='Lỗi tải SDK. Kiểm tra mạng.';aM.className='m e'}
-    const aB=document.getElementById('aB');
-    if(aB){aB.textContent='Thử lại';aB.onclick=()=>location.reload()}
+  try{
+    const cachedUser = JSON.parse(localStorage.getItem('cache_user')||'null');
+    const cachedProfile = JSON.parse(localStorage.getItem('cache_profile')||'null');
+    const cachedCh = JSON.parse(localStorage.getItem('cache_ch')||'{}');
+    const cachedData = JSON.parse(localStorage.getItem('cache_data')||'[]');
+
+    if(cachedUser && cachedUser.email){
+      // Có cache → hiện app ngay, ẩn form login
+      document.getElementById('as').classList.add('hd');
+      document.getElementById('app').classList.remove('hd');
+      document.getElementById('uE').textContent = cachedUser.email;
+      document.getElementById('uC').textContent = cachedProfile?.is_admin ? '∞' : ((cachedProfile?.credits||0).toLocaleString('vi-VN'));
+
+      // Lưu tạm vào window để Script 3 dùng
+      window.__cachedProfile = cachedProfile || {};
+      window.__cachedCh = cachedCh || {};
+      window.__cachedData = cachedData || [];
+      window.__cachedUser = cachedUser;
+    }
+  } catch(e){}
+})();
+
+/* =====================================================
+   SCRIPT 3: LOAD SUPABASE ASYNC
+   ===================================================== */
+(function(){
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+  s.async = true;
+  s.onload = function(){ if(window.__initApp) window.__initApp(); };
+  s.onerror = function(){
+    // Fallback: thử unpkg
+    const s2 = document.createElement('script');
+    s2.src = 'https://unpkg.com/@supabase/supabase-js@2';
+    s2.async = true;
+    s2.onload = function(){ if(window.__initApp) window.__initApp(); };
+    s2.onerror = function(){
+      const aM = document.getElementById('aM');
+      if(aM){ aM.textContent = 'Lỗi tải SDK. Kiểm tra mạng.'; aM.className = 'm e'; }
+      const aB = document.getElementById('aB');
+      if(aB){ aB.textContent = 'Thử lại'; aB.onclick = () => location.reload(); }
+    };
+    document.head.appendChild(s2);
   };
   document.head.appendChild(s);
 })();
 </script>
 
 <script>
-/* ===== LOGIC CHÍNH — chạy sau khi SDK load xong ===== */
-window.__initApp=function(){
+/* =====================================================
+   SCRIPT 4: LOGIC CHÍNH
+   ===================================================== */
+window.__initApp = function(){
 const SBU="https://wkddmlxhqyvhxznycpgs.supabase.co";
 const SBK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGRtbHhocXl2aHh6bnljcGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODYzMzIsImV4cCI6MjEwNjY2MjMzMn0.ugXSLH3OhjAgLr6MzvYRviXztU_6oAviqvbj71keyK8";
 const ADM="duc116642@gmail.com",GOLD=5,BONUS=10,DAY=86400000;
@@ -441,211 +527,837 @@ const PKGS=[{v:1000,x:10,l:'1.000đ'},{v:5000,x:100,l:'5.000đ'},{v:10000,x:500,
 const ACR=[100,500,1000,2000,3000,5000];
 const MED=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
 const DW=['CN','T2','T3','T4','T5','T6','T7'];
-const DWF=['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
-const sb=supabase.createClient(SBU,SBK);
-window.__sb=sb;
-const PAD=n=>String(n).padStart(2,'0');
-let cu=null,rd=[],chi=null,up=null,chD=7,chT='bar',shAv=true,sch='',snd=localStorage.getItem('snd')==='true',lg=false,adC=[],cd={};
-let chLoad=false,chLoading=false;
-function loadCh(){if(chLoad)return Promise.resolve();if(chLoading)return new Promise(r=>{const i=setInterval(()=>{if(chLoad){clearInterval(i);r()}},100)});chLoading=true;return new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js';s.async=true;s.onload=()=>{chLoad=true;chLoading=false;res()};s.onerror=()=>{chLoading=false;rej()};document.head.appendChild(s)})}
+const sb = supabase.createClient(SBU,SBK);
+window.__sb = sb;
+const PAD = n => String(n).padStart(2,'0');
+let cu=null, rd=[], chi=null, up=null, chD=7, chT='bar', shAv=true, sch='', snd=localStorage.getItem('snd')==='true', lg=false, adC=[], cd={};
+let chLoad=false, chLoading=false;
 
-function isA(){return up?.is_admin===true||cu?.email===ADM}
-function cp(t){navigator.clipboard.writeText(t).then(()=>alert('Đã copy!')).catch(()=>alert('Lỗi'))}
-window.cp=cp;
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function fV(n){if(n>=1e6)return (n/1e6).toFixed(2).replace(/\.00$/,'')+'M';if(n>=1000)return (n/1000).toFixed(1).replace(/\.0$/,'')+'K';return n.toLocaleString('vi-VN')}
-function pS(){try{const c=new(window.AudioContext||window.webkitAudioContext)();[523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;o.type='sine';const st=c.currentTime+i*.15;g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(.3,st+.02);g.gain.exponentialRampToValueAtTime(.001,st+.3);o.start(st);o.stop(st+.35)})}catch(e){}}
-function tS(msg,bg,t){const o=document.getElementById('gt');if(o)o.remove();const d=document.createElement('div');d.id='gt';d.className='dt';if(bg)d.style.background=bg;d.innerHTML=msg;document.body.appendChild(d);setTimeout(()=>{d.style.transition='opacity .5s';d.style.opacity='0';setTimeout(()=>d.remove(),500)},t||4000)}
-function pD(s){if(!s)return null;const M={'tháng Mười':9,'tháng Mười Một':10,'tháng Mười Hai':11,'tháng Một':0,'tháng Hai':1,'tháng Ba':2,'tháng Tư':3,'tháng Năm':4,'tháng Sáu':5,'tháng Bảy':6,'tháng Tám':7,'tháng Chín':8};const m=s.match(/^(\d+)\s+(.+)$/);if(!m)return null;const d=parseInt(m[1]),mn=m[2].trim();if(!(mn in M))return null;return new Date(new Date().getFullYear(),M[mn],d).getTime()}
+function loadCh(){
+  if(chLoad) return Promise.resolve();
+  if(chLoading) return new Promise(r => { const i = setInterval(() => { if(chLoad){clearInterval(i);r()} }, 100) });
+  chLoading = true;
+  return new Promise((res,rej) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+    s.async = true;
+    s.onload = () => { chLoad=true; chLoading=false; res() };
+    s.onerror = () => { chLoading=false; rej() };
+    document.head.appendChild(s);
+  });
+}
 
+function isA(){ return up?.is_admin===true || cu?.email===ADM }
+function cp(t){ navigator.clipboard.writeText(t).then(()=>alert('Đã copy!')).catch(()=>alert('Lỗi')) }
+window.cp = cp;
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) }
+function fV(n){
+  if(n>=1e6) return (n/1e6).toFixed(2).replace(/\.00$/,'')+'M';
+  if(n>=1000) return (n/1000).toFixed(1).replace(/\.0$/,'')+'K';
+  return n.toLocaleString('vi-VN');
+}
+function pS(){
+  try{
+    const c = new (window.AudioContext || window.webkitAudioContext)();
+    [523.25,659.25,783.99,1046.5].forEach((f,i)=>{
+      const o = c.createOscillator(), g = c.createGain();
+      o.connect(g); g.connect(c.destination);
+      o.frequency.value = f; o.type = 'sine';
+      const st = c.currentTime + i*0.15;
+      g.gain.setValueAtTime(0, st);
+      g.gain.linearRampToValueAtTime(0.3, st+0.02);
+      g.gain.exponentialRampToValueAtTime(0.001, st+0.3);
+      o.start(st); o.stop(st+0.35);
+    });
+  } catch(e){}
+}
+function tS(msg,bg,t){
+  const o = document.getElementById('gt'); if(o) o.remove();
+  const d = document.createElement('div'); d.id = 'gt'; d.className = 'dt';
+  if(bg) d.style.background = bg;
+  d.innerHTML = msg;
+  document.body.appendChild(d);
+  setTimeout(() => { d.style.transition='opacity .5s'; d.style.opacity='0'; setTimeout(()=>d.remove(),500) }, t||4000);
+}
+function pD(s){
+  if(!s) return null;
+  const M = {'tháng Mười':9,'tháng Mười Một':10,'tháng Mười Hai':11,'tháng Một':0,'tháng Hai':1,'tháng Ba':2,'tháng Tư':3,'tháng Năm':4,'tháng Sáu':5,'tháng Bảy':6,'tháng Tám':7,'tháng Chín':8};
+  const m = s.match(/^(\d+)\s+(.+)$/); if(!m) return null;
+  const d = parseInt(m[1]), mn = m[2].trim();
+  if(!(mn in M)) return null;
+  return new Date(new Date().getFullYear(), M[mn], d).getTime();
+}
+
+/* ================= CHANNEL ================= */
 function renderCh(){
-document.getElementById('chN').textContent=cd.username||'@chưa-nhập';
-document.getElementById('chA').textContent=(cd.username||'@').replace('@','').charAt(0).toUpperCase()||'@';
-document.getElementById('chF').textContent=fV(cd.followers||0);
-document.getElementById('chL').textContent=fV(cd.likes||0);
-document.getElementById('chFo').textContent=fV(cd.following||0);
-document.getElementById('inU').value=cd.username||'';
-document.getElementById('inF').value=cd.followers||'';
-document.getElementById('inL').value=cd.likes||'';
-document.getElementById('inFo').value=cd.following||'';
-document.querySelectorAll('.gh-t').forEach(t=>t.classList.toggle('on',(cd.goldenHours||[]).includes(t.dataset.h)));
-renderFh();renderGr();renderGt();
+  document.getElementById('chN').textContent = cd.username || '@chưa-nhập';
+  document.getElementById('chA').textContent = (cd.username||'@').replace('@','').charAt(0).toUpperCase() || '@';
+  document.getElementById('chF').textContent = fV(cd.followers || 0);
+  document.getElementById('chL').textContent = fV(cd.likes || 0);
+  document.getElementById('chFo').textContent = fV(cd.following || 0);
+  document.getElementById('inU').value = cd.username || '';
+  document.getElementById('inF').value = cd.followers || '';
+  document.getElementById('inL').value = cd.likes || '';
+  document.getElementById('inFo').value = cd.following || '';
+  document.querySelectorAll('.gh-t').forEach(t => t.classList.toggle('on', (cd.goldenHours||[]).includes(t.dataset.h)));
+  renderDetected();
+  renderFh();
+  renderGr();
+  renderGt();
 }
+
 function renderGt(){
-const gh=cd.goldenHours||[];
-const el=document.getElementById('glt');
-const curH=PAD(new Date().getHours());
-const inG=gh.includes(curH);
-if(inG){document.getElementById('gl').className='gl a';el.innerHTML=`<strong>🎯 ĐANG TRONG GIỜ VÀNG (${curH}h)</strong><br><span style="font-size:12px;color:#ffb9d0">Đăng ngay!</span>`;if(!lg&&snd)pS();lg=true}
-else{document.getElementById('gl').className='gl';if(!gh.length)el.innerHTML='Nhập giờ vàng ở tab <b>📊 Kênh</b>';else el.innerHTML=`Giờ vàng kênh: <b style="color:var(--gold)">${gh.sort().map(h=>h+'h').join(', ')}</b>`;lg=false}
-}
-function renderFh(){
-const el=document.getElementById('fhList');
-const h=(cd.followerHistory||[]).slice().sort((a,b)=>a.date.localeCompare(b.date));
-if(!h.length){el.innerHTML='<div style="color:#666;text-align:center;padding:12px;font-size:12px">Chưa có dữ liệu</div>';return}
-el.innerHTML=h.map((x,i)=>`<div class="fh-row"><span class="fh-d">${x.date}</span><input type="number" class="fh-i" value="${x.count}" onchange="ufh(${i},this.value)"><button class="fh-x" onclick="dfh(${i})">🗑️</button></div>`).join('');
-}
-function renderGr(){
-const box=document.getElementById('grBox');
-const h=(cd.followerHistory||[]).slice().sort((a,b)=>a.date.localeCompare(b.date));
-if(h.length<2){box.innerHTML='<div class="nt">Cần ≥ 2 ngày để tính</div>';return}
-const f=h[0].count,l=h[h.length-1].count,diff=l-f,days=h.length,per=Math.round(diff/days),pct=f>0?((diff/f*100)).toFixed(1):0;
-const cls=diff>0?'u':diff<0?'d':'s';
-box.innerHTML=`<div class="st2">📈 Tăng trưởng</div><div class="cdf ${cls}">${diff>=0?'📈 +':'📉 '}${diff.toLocaleString('vi-VN')} trong ${days} ngày</div><div class="cg" style="margin-top:8px"><div class="ci"><div class="v">${per>=0?'+':''}${per.toLocaleString('vi-VN')}</div><div class="l">TB/ngày</div></div><div class="ci"><div class="v">${pct}%</div><div class="l">Tăng</div></div></div>`;
-}
-window.ufh=(i,v)=>{const h=cd.followerHistory||[];h[i].count=parseInt(v)||0;saveCd().then(renderCh)};
-window.dfh=(i)=>{if(!confirm('Xóa?'))return;const h=cd.followerHistory||[];h.splice(i,1);saveCd().then(renderCh)};
-async function saveCd(){if(!cu)return;try{localStorage.setItem('cache_ch',JSON.stringify(cd))}catch(e){}return sb.from('profiles').update({channel_data:cd}).eq('id',cu.id)}
-
-document.getElementById('ghInput').innerHTML=[6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23].map(h=>`<div class="gh-t" data-h="${PAD(h)}">${h}h</div>`).join('');
-document.querySelectorAll('.gh-t').forEach(t=>t.addEventListener('click',()=>{
-const h=t.dataset.h;let gh=cd.goldenHours||[];
-if(gh.includes(h))gh=gh.filter(x=>x!==h);else gh.push(h);
-cd.goldenHours=gh;t.classList.toggle('on');
-}));
-document.getElementById('svCh').addEventListener('click',async()=>{
-cd.username=document.getElementById('inU').value.trim()||'';
-cd.followers=parseInt(document.getElementById('inF').value)||0;
-cd.likes=parseInt(document.getElementById('inL').value)||0;
-cd.following=parseInt(document.getElementById('inFo').value)||0;
-const{error}=await saveCd();
-if(error){alert('Lỗi: '+error.message);return}
-renderCh();tS('✅ Đã lưu kênh!');
-});
-document.getElementById('svGh').addEventListener('click',async()=>{
-const{error}=await saveCd();
-if(error){alert('Lỗi');return}
-renderGt();tS('🎯 Đã lưu giờ vàng!');
-});
-document.getElementById('fhAdd').addEventListener('click',async()=>{
-const d=document.getElementById('fhDate').value,c=parseInt(document.getElementById('fhCount').value);
-if(!d||!c){alert('Nhập ngày và số');return}
-let h=cd.followerHistory||[];const i=h.findIndex(x=>x.date===d);
-if(i>=0)h[i].count=c;else h.push({date:d,count:c});
-cd.followerHistory=h;
-const{error}=await saveCd();
-if(error){alert('Lỗi');return}
-document.getElementById('fhCount').value='';renderCh();tS('✅ Đã thêm!');
-});
-
-window.__regModal=function(){const o=document.getElementById('m1');if(o)o.remove();const m=document.createElement('div');m.id='m1';m.className='mo';m.innerHTML=`<div class="mbx"><h2>🎉 Chúc mừng!</h2><div class="sb">Tạo tài khoản thành công</div><div style="color:var(--tx);font-size:13px;margin-bottom:12px">Lấy file CSV:</div><div class="stp"><b>1:</b> Safari/Google</div><div class="stp"><b>2:</b> TikTok Studio</div><div class="stp"><b>3:</b> Đăng nhập TikTok</div><div class="stp"><b>4:</b> 3 chấm → TikTok Studio</div><div class="stp"><b>5:</b> Icon tải xuống</div><div class="stp"><b>6:</b> 365 ngày → tải → giải nén → nhập</div><div style="color:var(--gr);font-size:13px;text-align:center;margin-top:14px;font-weight:600">🎊 Xong! 🚀</div><button class="mbt" onclick="document.getElementById('m1').remove()">OK! 🚀</button></div>`;document.body.appendChild(m)};
-
-document.getElementById('loB').addEventListener('click',async()=>{if(!confirm('Đăng xuất sẽ xóa data?'))return;if(cu){try{await sb.from('user_data').delete().eq('user_id',cu.id)}catch(e){}}rd=[];up=null;cd={};if(chi){chi.destroy();chi=null}try{localStorage.removeItem('cache_user');localStorage.removeItem('cache_profile');localStorage.removeItem('cache_data');localStorage.removeItem('cache_ch')}catch(e){}await sb.auth.signOut()});
-
-sb.auth.onAuthStateChange(async(ev,ss)=>{
-  // Hiện UI từ cache ngay
-  if(ss?.user){
-    try{const cu_cache=JSON.parse(localStorage.getItem('cache_user')||'null');
-      if(cu_cache && cu_cache.email===ss.user.email){
-        cu=ss.user;up=JSON.parse(localStorage.getItem('cache_profile')||'{}');cd=JSON.parse(localStorage.getItem('cache_ch')||'{}');rd=JSON.parse(localStorage.getItem('cache_data')||'[]');
-        document.getElementById('uE').textContent=ss.user.email;uC();
-        document.getElementById('as').classList.add('hd');document.getElementById('app').classList.remove('hd');
-        document.getElementById('admTab').classList.toggle('hd',!isA());
-        rAcc();rPk();renderCh();rAll();
-      }
-    }catch(e){}
+  const gh = cd.goldenHours || [];
+  const el = document.getElementById('glt');
+  const curH = PAD(new Date().getHours());
+  const inG = gh.includes(curH);
+  if(inG){
+    document.getElementById('gl').className = 'gl a';
+    el.innerHTML = `<strong>🎯 ĐANG TRONG GIỜ VÀNG (${curH}h)</strong><br><span style="font-size:12px;color:#ffb9d0">Đăng ngay!</span>`;
+    if(!lg && snd) pS();
+    lg = true;
+  } else {
+    document.getElementById('gl').className = 'gl';
+    if(!gh.length){
+      el.innerHTML = 'Nhập giờ vàng ở tab <b>📊 Kênh</b>';
+    } else {
+      el.innerHTML = `Giờ vàng kênh: <b style="color:var(--gold)">${gh.sort().map(h=>h+'h').join(', ')}</b>`;
+    }
+    lg = false;
   }
-  
+}
+
+function renderDetected(){
+  const el = document.getElementById('ghDetected'); if(!el) return;
+  const gh = cd.goldenHours || [];
+  const vd = cd.viewersData || [];
+  if(!gh.length){ el.innerHTML = 'Chưa có dữ liệu'; return; }
+  let html = `Top giờ vàng: <b style="color:var(--gold)">${gh.sort().map(h=>h+'h').join(', ')}</b>`;
+  if(vd.length){
+    const sorted = [...vd].sort((a,b) => b.viewers - a.viewers).slice(0,3);
+    html += '<br><span style="font-size:11px;color:var(--tx3)">Dựa trên viewers: ' + sorted.map(x => `${PAD(x.hour)}h (${x.viewers.toLocaleString('vi-VN')})`).join(', ') + '</span>';
+  }
+  el.innerHTML = html;
+}
+
+function renderFh(){
+  const el = document.getElementById('fhList');
+  const h = (cd.followerHistory||[]).slice().sort((a,b) => a.date.localeCompare(b.date));
+  if(!h.length){ el.innerHTML = '<div style="color:#666;text-align:center;padding:12px;font-size:12px">Chưa có dữ liệu</div>'; return; }
+  el.innerHTML = h.map((x,i) => `<div class="fh-row"><span class="fh-d">${x.date}</span><input type="number" class="fh-i" value="${x.count}" onchange="ufh(${i},this.value)"><button class="fh-x" onclick="dfh(${i})">🗑️</button></div>`).join('');
+}
+
+function renderGr(){
+  const box = document.getElementById('grBox');
+  const h = (cd.followerHistory||[]).slice().sort((a,b) => a.date.localeCompare(b.date));
+  if(h.length < 2){ box.innerHTML = '<div class="nt">Cần ≥ 2 ngày để tính</div>'; return; }
+  const f = h[0].count, l = h[h.length-1].count, diff = l-f, days = h.length, per = Math.round(diff/days);
+  const pct = f>0 ? ((diff/f*100)).toFixed(1) : 0;
+  const cls = diff>0 ? 'u' : diff<0 ? 'd' : 's';
+  box.innerHTML = `<div class="st2">📈 Tăng trưởng</div><div class="cdf ${cls}">${diff>=0?'📈 +':'📉 '}${diff.toLocaleString('vi-VN')} trong ${days} ngày</div><div class="cg" style="margin-top:8px"><div class="ci"><div class="v">${per>=0?'+':''}${per.toLocaleString('vi-VN')}</div><div class="l">TB/ngày</div></div><div class="ci"><div class="v">${pct}%</div><div class="l">Tăng</div></div></div>`;
+}
+
+window.ufh = (i,v) => { const h = cd.followerHistory||[]; h[i].count = parseInt(v)||0; saveCd().then(renderCh) };
+window.dfh = (i) => { if(!confirm('Xóa?')) return; const h = cd.followerHistory||[]; h.splice(i,1); saveCd().then(renderCh) };
+
+async function saveCd(){
+  if(!cu) return;
+  try{ localStorage.setItem('cache_ch', JSON.stringify(cd)) }catch(e){}
+  return sb.from('profiles').update({ channel_data: cd }).eq('id', cu.id);
+}
+
+document.getElementById('ghInput').innerHTML = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23].map(h => `<div class="gh-t" data-h="${PAD(h)}">${h}h</div>`).join('');
+document.querySelectorAll('.gh-t').forEach(t => t.addEventListener('click', () => {
+  const h = t.dataset.h;
+  let gh = cd.goldenHours || [];
+  if(gh.includes(h)) gh = gh.filter(x => x !== h);
+  else gh.push(h);
+  cd.goldenHours = gh;
+  t.classList.toggle('on');
+}));
+
+document.getElementById('svCh').addEventListener('click', async () => {
+  cd.username = document.getElementById('inU').value.trim() || '';
+  cd.followers = parseInt(document.getElementById('inF').value) || 0;
+  cd.likes = parseInt(document.getElementById('inL').value) || 0;
+  cd.following = parseInt(document.getElementById('inFo').value) || 0;
+  const { error } = await saveCd();
+  if(error){ alert('Lỗi: '+error.message); return; }
+  renderCh();
+  tS('✅ Đã lưu kênh!');
+});
+
+document.getElementById('svGh').addEventListener('click', async () => {
+  const { error } = await saveCd();
+  if(error){ alert('Lỗi'); return; }
+  renderGt();
+  tS('🎯 Đã lưu giờ vàng!');
+});
+
+document.getElementById('fhAdd').addEventListener('click', async () => {
+  const d = document.getElementById('fhDate').value;
+  const c = parseInt(document.getElementById('fhCount').value);
+  if(!d || !c){ alert('Nhập ngày và số'); return; }
+  let h = cd.followerHistory || [];
+  const i = h.findIndex(x => x.date === d);
+  if(i >= 0) h[i].count = c;
+  else h.push({ date: d, count: c });
+  cd.followerHistory = h;
+  const { error } = await saveCd();
+  if(error){ alert('Lỗi'); return; }
+  document.getElementById('fhCount').value = '';
+  renderCh();
+  tS('✅ Đã thêm!');
+});
+
+/* ================= UPLOAD VIEWERS ================= */
+document.getElementById('fViewers').addEventListener('change', function(e){
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = async ev => {
+    try{
+      const txt = ev.target.result;
+      const hourData = parseViewersFile(txt);
+      if(!hourData.length) throw new Error('Không đọc được dữ liệu');
+      const sorted = [...hourData].sort((a,b) => b.viewers - a.viewers);
+      const top3 = sorted.slice(0,3).map(x => PAD(x.hour));
+      cd.viewersData = hourData;
+      cd.goldenHours = top3;
+      await saveCd();
+      document.getElementById('vStatus').innerHTML = `<span style="color:var(--gr)">✅ Đọc ${hourData.length} giờ — Top 3: <b>${top3.map(h=>h+'h').join(', ')}</b></span>`;
+      renderCh();
+      renderGt();
+      tS('🎯 Đã phân tích file Viewers!');
+    } catch(err){
+      document.getElementById('vStatus').innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
+    }
+  };
+  r.readAsText(f, 'UTF-8');
+});
+
+function parseViewersFile(txt){
+  const result = [];
+  try{
+    const j = JSON.parse(txt);
+    if(Array.isArray(j)){
+      j.forEach(x => {
+        const h = parseInt(x.hour ?? x.h ?? x[0]);
+        const v = parseInt(x.viewers ?? x.v ?? x[1]);
+        if(!isNaN(h) && !isNaN(v) && h >= 0 && h <= 23) result.push({ hour: h, viewers: v });
+      });
+      if(result.length) return result;
+    }
+  } catch(e){}
+  const lines = txt.split(/\r?\n/).filter(l => l.trim());
+  for(let i = 0; i < lines.length; i++){
+    const parts = lines[i].replace(/^"|"$/g,'').split(/[,\t;]/).map(s => s.trim().replace(/^"|"$/g,''));
+    if(parts.length < 2) continue;
+    const h = parseInt(parts[0]);
+    const v = parseInt(parts[1]);
+    if(!isNaN(h) && !isNaN(v) && h >= 0 && h <= 23){
+      result.push({ hour: h, viewers: v });
+    }
+  }
+  return result;
+}
+
+/* ================= UPLOAD FOLLOWERS ================= */
+document.getElementById('fFollowers').addEventListener('change', function(e){
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = async ev => {
+    try{
+      const txt = ev.target.result;
+      const fd = parseFollowersFile(txt);
+      if(!fd.length) throw new Error('Không đọc được dữ liệu');
+      cd.followerHistory = fd;
+      if(fd.length > 0) cd.followers = fd[fd.length-1].count;
+      await saveCd();
+      document.getElementById('fStatus').innerHTML = `<span style="color:var(--gr)">✅ Đọc ${fd.length} ngày dữ liệu</span>`;
+      renderCh();
+      tS('📈 Đã phân tích file Followers!');
+    } catch(err){
+      document.getElementById('fStatus').innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
+    }
+  };
+  r.readAsText(f, 'UTF-8');
+});
+
+function parseFollowersFile(txt){
+  const result = [];
+  try{
+    const j = JSON.parse(txt);
+    if(Array.isArray(j)){
+      j.forEach(x => {
+        const d = x.date ?? x.d ?? x[0];
+        const c = parseInt(x.followers ?? x.count ?? x.c ?? x[1]);
+        if(d && !isNaN(c)) result.push({ date: normalizeDate(d), count: c });
+      });
+      if(result.length) return result;
+    }
+  } catch(e){}
+  const lines = txt.split(/\r?\n/).filter(l => l.trim());
+  for(let i = 0; i < lines.length; i++){
+    const parts = lines[i].replace(/^"|"$/g,'').split(/[,\t;]/).map(s => s.trim().replace(/^"|"$/g,''));
+    if(parts.length < 2) continue;
+    const d = normalizeDate(parts[0]);
+    const c = parseInt(parts[1]);
+    if(d && !isNaN(c)) result.push({ date: d, count: c });
+  }
+  result.sort((a,b) => a.date.localeCompare(b.date));
+  return result;
+}
+
+function normalizeDate(s){
+  if(!s) return null;
+  s = String(s).trim();
+  if(/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0,10);
+  let m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+  if(m) return `${m[3]}-${PAD(m[1])}-${PAD(m[2])}`;
+  return null;
+}
+
+/* ================= REG MODAL ================= */
+window.__regModal = function(){
+  const o = document.getElementById('m1'); if(o) o.remove();
+  const m = document.createElement('div'); m.id = 'm1'; m.className = 'mo';
+  m.innerHTML = `<div class="mbx"><h2>🎉 Chúc mừng!</h2><div class="sb">Tạo tài khoản thành công</div><div style="color:var(--tx);font-size:13px;margin-bottom:12px">Lấy file CSV:</div><div class="stp"><b>1:</b> Safari/Google</div><div class="stp"><b>2:</b> TikTok Studio</div><div class="stp"><b>3:</b> Đăng nhập TikTok</div><div class="stp"><b>4:</b> 3 chấm → TikTok Studio</div><div class="stp"><b>5:</b> Icon tải xuống</div><div class="stp"><b>6:</b> 365 ngày → tải → giải nén → nhập</div><div style="color:var(--gr);font-size:13px;text-align:center;margin-top:14px;font-weight:600">🎊 Xong! 🚀</div><button class="mbt" onclick="document.getElementById('m1').remove()">OK! 🚀</button></div>`;
+  document.body.appendChild(m);
+};
+
+/* ================= LOGOUT ================= */
+document.getElementById('loB').addEventListener('click', async () => {
+  if(!confirm('Đăng xuất sẽ xóa data?')) return;
+  if(cu){ try{ await sb.from('user_data').delete().eq('user_id', cu.id) }catch(e){} }
+  rd=[]; up=null; cd={};
+  if(chi){ chi.destroy(); chi=null }
+  try{
+    localStorage.removeItem('cache_user');
+    localStorage.removeItem('cache_profile');
+    localStorage.removeItem('cache_data');
+    localStorage.removeItem('cache_ch');
+  }catch(e){}
+  await sb.auth.signOut();
+});
+
+/* ================= AUTH STATE ================= */
+sb.auth.onAuthStateChange(async (ev, ss) => {
   if(ss?.user){
-    cu=ss.user;document.getElementById('uE').textContent=ss.user.email;
-    const{data:p}=await sb.from('profiles').select('*').eq('id',ss.user.id).single();
-    if(p?.banned){await sb.auth.signOut();document.getElementById('as').classList.remove('hd');document.getElementById('app').classList.add('hd');const aM=document.getElementById('aM');aM.textContent='❌ Bị khóa';aM.className='m e';return}
-    up=p||{credits:0,is_admin:false};cd=p?.channel_data||{};
-    try{localStorage.setItem('cache_user',JSON.stringify({email:cu.email}));localStorage.setItem('cache_profile',JSON.stringify(up));localStorage.setItem('cache_ch',JSON.stringify(cd))}catch(e){}
-    if(ss.user.email===ADM&&!up.is_admin){up.is_admin=true;await sb.from('profiles').update({is_admin:true}).eq('id',ss.user.id)}
-    try{await sb.from('profiles').update({last_login:new Date().toISOString()}).eq('id',ss.user.id);up.last_login=new Date().toISOString()}catch(e){}
-    await daily();uC();
-    document.getElementById('as').classList.add('hd');document.getElementById('app').classList.remove('hd');
-    document.getElementById('admTab').classList.toggle('hd',!isA());
-    rAcc();rPk();renderCh();await loadC();
-    try{localStorage.setItem('cache_data',JSON.stringify(rd))}catch(e){}
+    cu = ss.user;
+    document.getElementById('uE').textContent = ss.user.email;
+    const { data: p } = await sb.from('profiles').select('*').eq('id', ss.user.id).single();
+    if(p?.banned){
+      await sb.auth.signOut();
+      document.getElementById('as').classList.remove('hd');
+      document.getElementById('app').classList.add('hd');
+      const aM = document.getElementById('aM');
+      if(aM){ aM.textContent = '❌ Bị khóa'; aM.className = 'm e'; }
+      return;
+    }
+    up = p || { credits: 0, is_admin: false };
+    cd = p?.channel_data || {};
+    try{
+      localStorage.setItem('cache_user', JSON.stringify({ email: cu.email }));
+      localStorage.setItem('cache_profile', JSON.stringify(up));
+      localStorage.setItem('cache_ch', JSON.stringify(cd));
+    }catch(e){}
+    if(ss.user.email === ADM && !up.is_admin){
+      up.is_admin = true;
+      await sb.from('profiles').update({ is_admin: true }).eq('id', ss.user.id);
+    }
+    try{
+      await sb.from('profiles').update({ last_login: new Date().toISOString() }).eq('id', ss.user.id);
+      up.last_login = new Date().toISOString();
+    }catch(e){}
+    await daily();
+    uC();
+    document.getElementById('as').classList.add('hd');
+    document.getElementById('app').classList.remove('hd');
+    document.getElementById('admTab').classList.toggle('hd', !isA());
+    rAcc(); rPk(); renderCh();
+    await loadC();
+    try{ localStorage.setItem('cache_data', JSON.stringify(rd)) }catch(e){}
     rAll();
-  }else{
-    cu=null;up=null;cd={};rd=[];
-    try{localStorage.removeItem('cache_user');localStorage.removeItem('cache_profile');localStorage.removeItem('cache_data');localStorage.removeItem('cache_ch')}catch(e){}
-    document.getElementById('as').classList.remove('hd');document.getElementById('app').classList.add('hd');
-    document.getElementById('aE').value='';document.getElementById('aP').value='';
-    const aM=document.getElementById('aM');if(aM){aM.textContent='';aM.className='m'}
+  } else {
+    cu=null; up=null; cd={}; rd=[];
+    try{
+      localStorage.removeItem('cache_user');
+      localStorage.removeItem('cache_profile');
+      localStorage.removeItem('cache_data');
+      localStorage.removeItem('cache_ch');
+    }catch(e){}
+    document.getElementById('as').classList.remove('hd');
+    document.getElementById('app').classList.add('hd');
+    document.getElementById('aE').value = '';
+    document.getElementById('aP').value = '';
+    const aM = document.getElementById('aM');
+    if(aM){ aM.textContent = ''; aM.className = 'm'; }
     document.getElementById('admTab').classList.add('hd');
   }
 });
 
-(async()=>{try{const{data:{session}}=await sb.auth.getSession();if(!session)document.getElementById('as').classList.remove('hd')}catch(e){document.getElementById('as').classList.remove('hd')}})();
+(async () => {
+  try{
+    const { data: { session } } = await sb.auth.getSession();
+    if(!session){
+      document.getElementById('as').classList.remove('hd');
+      document.getElementById('app').classList.add('hd');
+    }
+  } catch(e){
+    document.getElementById('as').classList.remove('hd');
+  }
+})();
 
-async function daily(){if(!cu||!up||isA())return;const l=up.last_daily_bonus?new Date(up.last_daily_bonus).getTime():0;if(Date.now()-l<DAY)return;const n=(up.credits||0)+BONUS;const{error}=await sb.from('profiles').update({credits:n,last_daily_bonus:new Date().toISOString()}).eq('id',cu.id);if(error)return;up.credits=n;up.last_daily_bonus=new Date().toISOString();tS(`🎁 Điểm danh!<br><span style="font-size:12px">+${BONUS} xu</span>`)}
-function uC(){document.getElementById('uC').textContent=isA()?'∞':(up?.credits||0).toLocaleString('vi-VN')}
+async function daily(){
+  if(!cu || !up || isA()) return;
+  const l = up.last_daily_bonus ? new Date(up.last_daily_bonus).getTime() : 0;
+  if(Date.now() - l < DAY) return;
+  const n = (up.credits||0) + BONUS;
+  const { error } = await sb.from('profiles').update({ credits: n, last_daily_bonus: new Date().toISOString() }).eq('id', cu.id);
+  if(error) return;
+  up.credits = n;
+  up.last_daily_bonus = new Date().toISOString();
+  try{ localStorage.setItem('cache_profile', JSON.stringify(up)) }catch(e){}
+  tS(`🎁 Điểm danh!<br><span style="font-size:12px">+${BONUS} xu</span>`);
+}
 
-function rAcc(){if(!cu||!up)return;document.getElementById('ifE').textContent=cu.email||'—';const c=up.created_at?new Date(up.created_at).toLocaleString('vi-VN'):'—';document.getElementById('ifC').textContent=c;document.getElementById('ifL').textContent=up.last_login?new Date(up.last_login).toLocaleString('vi-VN'):'Vừa login';document.getElementById('ifX').textContent=isA()?'∞':(up.credits||0).toLocaleString('vi-VN')+' xu';document.getElementById('ifR').textContent=isA()?'👑 Admin':'User'}
-function rPk(){document.getElementById('pkG').innerHTML=PKGS.map((p,i)=>`<div class="pc" onclick="selP(${i})"><div class="p">${p.l}</div><div class="a">↓</div><div class="x">+${p.x.toLocaleString('vi-VN')} xu</div></div>`).join('')}
-window.selP=(i)=>{const p=PKGS[i];if(!cu)return;const c='NAPXU '+cu.email.split('@')[0].toUpperCase().substring(0,10);document.getElementById('payA').textContent=p.l;document.getElementById('payX').textContent='+'+p.x.toLocaleString('vi-VN')+' xu';document.getElementById('payC').textContent=c;document.getElementById('mnD').classList.remove('hd')};
+function uC(){ document.getElementById('uC').textContent = isA() ? '∞' : (up?.credits||0).toLocaleString('vi-VN') }
 
-async function adLoad(){const b=document.getElementById('adL');b.innerHTML='<div style="text-align:center;color:var(--acc);padding:18px">⏳</div>';try{const{data,error}=await sb.from('profiles').select('*').order('created_at',{ascending:false});if(error)throw error;adC=data||[];if(!data?.length){b.innerHTML='<div style="text-align:center;color:#666;padding:18px">Chưa có user</div>';return}rAdL(data)}catch(e){b.innerHTML=`<div style="color:var(--rd);text-align:center;padding:18px">❌ ${e.message}</div>`}}
-function rAdL(data){const b=document.getElementById('adL');const q=(document.getElementById('adSr')?.value||'').toLowerCase().trim();if(q)data=data.filter(u=>(u.email||'').toLowerCase().includes(q));if(!data.length){b.innerHTML='<div style="text-align:center;color:#666;padding:18px">Không tìm thấy</div>';return}b.innerHTML=data.map(u=>{const ib=u.banned===true,ia=u.is_admin===true||u.email===ADM;const cr=u.created_at?new Date(u.created_at).toLocaleDateString('vi-VN'):'-';const cDisplay=ia?'∞':(u.credits||0).toLocaleString('vi-VN');let ah='';if(!ia)ah+=`<button class="abd pr" onclick="aP('${u.id}')">👑</button>`;else if(u.email!==ADM)ah+=`<button class="abd dm" onclick="aD('${u.id}')">⬇️</button>`;ah+=ib?`<button class="abd ub" onclick="aU('${u.id}')">✅</button>`:`<button class="abd bn" onclick="aB('${u.id}')">🚫</button>`;ACR.forEach(a=>{ah+=`<button class="abd cr" onclick="aA('${u.id}',${a})">+${a}</button>`});ah+=`<button class="abd cr" onclick="aA('${u.id}',-100)">-100</button>`;if(u.email!==ADM)ah+=`<button class="abd dl" onclick="aX('${u.id}')">🗑️</button>`;return`<div class="au ${ib?'bn':''} ${ia?'ia':''}"><div class="h"><span class="em">${u.email||'?'}</span>${ia?'<span class="bg2 a">ADMIN</span>':''}<span class="bg2 ${ib?'b':'a'}">${ib?'KHÓA':'OK'}</span></div><div class="nf">📅 ${cr}</div><div class="crl">💰 <span id="cd-${u.id}">${cDisplay}</span> xu</div><div class="ac">${ah}</div></div>`}).join('')}
-async function aB(id){if(!confirm('Khóa?'))return;await sb.from('profiles').update({banned:true}).eq('id',id);adLoad()}
-async function aU(id){await sb.from('profiles').update({banned:false}).eq('id',id);adLoad()}
-async function aA(id,a){const{data}=await sb.from('profiles').select('credits,email,is_admin').eq('id',id).single();if(data?.is_admin===true||data?.email===ADM){alert('Admin ∞ xu!');return}const c=data?.credits||0,n=Math.max(0,c+a);await sb.from('profiles').update({credits:n}).eq('id',id);const el=document.getElementById('cd-'+id);if(el)el.textContent=n.toLocaleString('vi-VN')}
-async function aP(id){if(!confirm('Promote?'))return;await sb.from('profiles').update({is_admin:true}).eq('id',id);adLoad()}
-async function aD(id){if(!confirm('Hạ?'))return;await sb.from('profiles').update({is_admin:false}).eq('id',id);adLoad()}
-async function aX(id){if(!confirm('⚠️ XÓA?'))return;const t=prompt('Gõ XOA:');if(t!=='XOA')return;try{const{error}=await sb.rpc('delete_user',{target_user_id:id});if(error)throw error;alert('Đã xóa!');adLoad()}catch(e){alert('❌ '+e.message)}}
-window.aB=aB;window.aU=aU;window.aA=aA;window.aP=aP;window.aD=aD;window.aX=aX;
-document.getElementById('adR').addEventListener('click',adLoad);
-document.getElementById('adSr')?.addEventListener('input',()=>rAdL(adC));
+function rAcc(){
+  if(!cu || !up) return;
+  document.getElementById('ifE').textContent = cu.email || '—';
+  const c = up.created_at ? new Date(up.created_at).toLocaleString('vi-VN') : '—';
+  document.getElementById('ifC').textContent = c;
+  document.getElementById('ifL').textContent = up.last_login ? new Date(up.last_login).toLocaleString('vi-VN') : 'Vừa login';
+  document.getElementById('ifX').textContent = isA() ? '∞' : (up.credits||0).toLocaleString('vi-VN') + ' xu';
+  document.getElementById('ifR').textContent = isA() ? '👑 Admin' : 'User';
+}
 
-async function saveC(){if(!cu)return;try{await sb.from('user_data').delete().eq('user_id',cu.id);const{error}=await sb.from('user_data').insert({user_id:cu.id,rows:rd,updated_at:new Date().toISOString()});if(error)throw error;try{localStorage.setItem('cache_data',JSON.stringify(rd))}catch(e){};uS('☁️ Đã lưu','var(--gr)')}catch(e){uS('❌ '+e.message,'var(--rd)')}}
-async function loadC(){if(!cu)return;try{const{data,error}=await sb.from('user_data').select('rows').eq('user_id',cu.id).order('updated_at',{ascending:false}).limit(1);if(error)throw error;if(data?.length&&data[0].rows){rd=data[0].rows;uS('✅ Đã tải '+rd.length+' dòng','var(--gr)')}}catch(e){}}
-document.getElementById('clB').addEventListener('click',async()=>{if(!confirm('Xóa hết?'))return;if(!cu)return;try{await sb.from('user_data').delete().eq('user_id',cu.id);rd=[];document.getElementById('fi').classList.add('hd');try{localStorage.removeItem('cache_data')}catch(e){}rAll();uS('🗑️ Đã xóa','var(--rd)')}catch(e){uS('❌ '+e.message,'var(--rd)')}});
-function uS(t,c){const el=document.getElementById('us');el.textContent=t;el.style.color=c||'var(--gr)'}
+function rPk(){
+  document.getElementById('pkG').innerHTML = PKGS.map((p,i) => `<div class="pc" onclick="selP(${i})"><div class="p">${p.l}</div><div class="a">↓</div><div class="x">+${p.x.toLocaleString('vi-VN')} xu</div></div>`).join('');
+}
 
-const uz=document.getElementById('uz'),ci=document.getElementById('ci');
-function fSz(b){if(b<1024)return b+' B';if(b<1048576)return (b/1024).toFixed(1)+' KB';return (b/1048576).toFixed(2)+' MB'}
-function hF(f){if(!f)return;const nm=(f.name||'').toLowerCase();if(!(nm.endsWith('.csv')||nm.endsWith('.txt'))){uS('❌ Chỉ .csv','var(--rd)');return}document.getElementById('fn').textContent=f.name;document.getElementById('fs').textContent=fSz(f.size);document.getElementById('fi').classList.remove('hd');const r=new FileReader();r.onload=async ev=>{try{pCSV(ev.target.result);uS('✅ '+rd.length+' dòng','var(--gr)');rAll();await saveC();const o=document.getElementById('m2');if(o)o.remove();const m=document.createElement('div');m.id='m2';m.className='mo';m.innerHTML=`<div class="mbx"><h2>🎉 Thành công!</h2><div class="sb">Đã nhập file</div><div style="color:var(--tx);font-size:13px;text-align:center;line-height:1.7;margin:14px 0">Data lưu cloud ☁️</div><div style="color:var(--gr);font-size:24px;text-align:center;margin:18px 0">🚀</div><button class="mbt" onclick="document.getElementById('m2').remove()">OK!</button></div>`;document.body.appendChild(m)}catch(e){uS('❌ '+e.message,'var(--rd)')}};r.onerror=()=>uS('❌ Lỗi đọc','var(--rd)');r.readAsText(f,'UTF-8')}
-ci.addEventListener('change',e=>{hF(e.target.files[0]);e.target.value=''});
-uz.addEventListener('click',e=>{if(e.target!==ci)ci.click()});
-['dragenter','dragover'].forEach(ev=>uz.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();uz.classList.add('dg')}));
-['dragleave','drop'].forEach(ev=>uz.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();if(ev==='dragleave'&&uz.contains(e.relatedTarget))return;uz.classList.remove('dg')}));
-uz.addEventListener('drop',e=>{hF(e.dataTransfer.files[0])});
-['dragover','drop'].forEach(ev=>window.addEventListener(ev,e=>{if(!uz.contains(e.target))e.preventDefault()}));
-document.addEventListener('paste',e=>{const it=e.clipboardData?.items;if(!it)return;for(const i of it){if(i.type==='text/csv'||i.type==='text/plain'||i.kind==='file'){const f=i.getAsFile();if(f&&(f.name.endsWith('.csv')||f.type.includes('csv')||f.type==='text/plain')){hF(f);break}}}});
-(function(){const ua=navigator.userAgent;const h=document.getElementById('uh');if(!h)return;const ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);const and=/Android/.test(ua);h.innerHTML=(ios||and)?'Chạm chọn CSV<br><b>hoặc kéo thả từ Files</b>':'Chọn CSV<br><b>hoặc kéo thả / dán Ctrl+V</b>'})();
-
-function pCSV(t){const l=t.split(/\r?\n/).filter(x=>x.trim());if(l.length<2)throw new Error('File rỗng');const r=[];for(let i=1;i<l.length;i++){const p=l[i].replace(/^"|"$/g,'').split('","').map(s=>s.replace(/"/g,''));if(p.length<3)continue;const d=p[0],v=parseInt(p[1])||0,pv=parseInt(p[2])||0,li=parseInt(p[3])||0,c=parseInt(p[4])||0,s=parseInt(p[5])||0;if(!d)continue;r.push([d,v,li,c,s,pv])}if(!r.length)throw new Error('Không có dòng');rd=r}
-
-function rAll(){rSt();rTp();rCh();rCmp();rMCmp()}
-function rSt(){if(!rd.length){['sV','sL','sA','sM'].forEach(id=>document.getElementById(id).textContent='—');return}let tv=0,tl=0,mx=0;rd.forEach(d=>{tv+=d[1];tl+=d[2];if(d[1]>mx)mx=d[1]});document.getElementById('sV').textContent=tv.toLocaleString('vi-VN');document.getElementById('sL').textContent=tl.toLocaleString('vi-VN');document.getElementById('sA').textContent=Math.round(tv/rd.length).toLocaleString('vi-VN');document.getElementById('sM').textContent=mx.toLocaleString('vi-VN')}
-function rTp(){const b=document.getElementById('tpL');if(!rd.length){b.innerHTML='<div style="color:#666;text-align:center;padding:18px">Chưa có dữ liệu</div>';return}const avg=rd.reduce((a,d)=>a+d[1],0)/rd.length;const s=[...rd].sort((a,b)=>b[1]-a[1]).slice(0,10);const mx=s[0][1];b.innerHTML=s.map((d,i)=>{const pct=avg>0?((d[1]-avg)/avg*100):0;const bw=(d[1]/mx*100).toFixed(1);const pc=pct>=0?'u':'d';const pt=(pct>=0?'+':'')+pct.toFixed(0)+'% TB';return`<div class="tv r${i+1}"><div class="tvr">${i<3?MED[i]:i+1}</div><div class="tvi"><div class="tvd">${d[0]}</div><div class="tvm"><span class="tvv">${d[1].toLocaleString('vi-VN')} view</span><span class="tvp ${pc}">${pt}</span></div></div>${i===0?'<span class="tvc">👑</span>':''}<div class="tvb" style="width:${bw}%"></div></div>`}).join('')}
-async function rCh(){const c=document.getElementById('chC');if(chi){chi.destroy();chi=null}if(!rd.length)return;try{await loadCh()}catch(e){return}let d=rd;if(chD>0)d=rd.slice(-chD);if(sch){const q=sch.toLowerCase();d=d.filter(x=>x[0].toLowerCase().includes(q))}const lb=d.map(x=>x[0]),vl=d.map(x=>x[1]);const avg=vl.length?vl.reduce((a,b)=>a+b,0)/vl.length:0;const col=vl.map(v=>v>=avg*1.5?'#ff6e9c':'#6ea8ff');const ds=[];if(chT==='bar'){ds.push({type:'bar',label:'View',data:vl,backgroundColor:col,borderRadius:6,maxBarThickness:40})}else{ds.push({type:'line',label:'View',data:vl,borderColor:'#6ea8ff',backgroundColor:'rgba(110,168,255,.15)',borderWidth:3,tension:.35,fill:true,pointBackgroundColor:col,pointBorderColor:'#16161c',pointBorderWidth:2,pointRadius:4})}if(shAv&&vl.length){ds.push({type:'line',label:'TB',data:vl.map(()=>avg),borderColor:'#ffd700',borderWidth:2,borderDash:[6,6],pointRadius:0,fill:false})}chi=new Chart(c,{data:{labels:lb,datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:true,labels:{color:'#aaa',font:{size:11},boxWidth:12,boxHeight:12,usePointStyle:true}},tooltip:{backgroundColor:'rgba(22,22,28,.95)',borderColor:'#6ea8ff',borderWidth:1,titleColor:'#6ea8ff',bodyColor:'#e8e8f0',padding:12,callbacks:{label:c=>{const v=c.parsed.y;const pct=avg>0?((v-avg)/avg*100):0;return`👀 ${v.toLocaleString('vi-VN')} (${pct>=0?'+':''}${pct.toFixed(0)}% TB)`}}}},scales:{x:{ticks:{color:'#666',font:{size:9},maxRotation:90,autoSkip:true,maxTicksLimit:20},grid:{display:false}},y:{ticks:{color:'#666',font:{size:10},callback:v=>fV(v)},grid:{color:'#1e1e26'}}}}})}
-document.querySelectorAll('.fbt').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.fbt').forEach(x=>x.classList.remove('a'));b.classList.add('a');chD=parseInt(b.dataset.days);rCh()}));
-document.querySelectorAll('[data-ct]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-ct]').forEach(x=>x.classList.remove('a'));b.classList.add('a');chT=b.dataset.ct;rCh()}));
-document.getElementById('togAv').addEventListener('click',()=>{shAv=!shAv;document.getElementById('togAv').classList.toggle('a',shAv);rCh()});
-document.getElementById('sCh').addEventListener('input',e=>{sch=e.target.value.trim();rCh()});
-document.getElementById('expCh').addEventListener('click',()=>{if(!chi){alert('Chưa có biểu đồ');return}const u=chi.toBase64Image();const a=document.createElement('a');a.href=u;a.download=`chart-${new Date().toISOString().slice(0,10)}.png`;document.body.appendChild(a);a.click();document.body.removeChild(a)});
-document.getElementById('cpTp').addEventListener('click',()=>{if(!rd.length){alert('Chưa có data');return}const avg=rd.reduce((a,d)=>a+d[1],0)/rd.length;const s=[...rd].sort((a,b)=>b[1]-a[1]).slice(0,10);let t='🏆 TOP 10 VIRAL\n━━━━━━━━━━━━━━\n';s.forEach((d,i)=>{const pct=avg>0?((d[1]-avg)/avg*100):0;t+=`${MED[i]} ${d[0]}\n   ${d[1].toLocaleString('vi-VN')} (${(pct>=0?'+':'')+pct.toFixed(0)}% TB)\n`});t+='━━━━━━━━━━━━━━\nTool @ductri705';navigator.clipboard.writeText(t).then(()=>alert('Đã copy!')).catch(()=>prompt('Copy:',t))});
-
-window.__onTabChange=function(tab){
-  if(tab==='ch')rCh();
-  if(tab==='adm')adLoad();
-  if(tab==='acc')rAcc();
-  if(tab==='mn')rPk();
-  if(tab==='cn')renderCh();
+window.selP = (i) => {
+  const p = PKGS[i]; if(!cu) return;
+  const c = 'NAPXU ' + cu.email.split('@')[0].toUpperCase().substring(0,10);
+  document.getElementById('payA').textContent = p.l;
+  document.getElementById('payX').textContent = '+' + p.x.toLocaleString('vi-VN') + ' xu';
+  document.getElementById('payC').textContent = c;
+  document.getElementById('mnD').classList.remove('hd');
 };
 
-function rCmp(){const b=document.getElementById('cmpC');if(rd.length<2){b.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>';return}const now=Date.now(),wk=604800000;let tw={v:0,l:0},lw={v:0,l:0};rd.forEach(d=>{const ts=pD(d[0]);if(!ts)return;const df=now-ts;if(df<=wk){tw.v+=d[1];tw.l+=d[2]}else if(df<=wk*2){lw.v+=d[1];lw.l+=d[2]}});const vd=tw.v-lw.v,ld=tw.l-lw.l;const vp=lw.v>0?(vd/lw.v*100):(tw.v>0?100:0);const lp=lw.l>0?(ld/lw.l*100):(tw.l>0?100:0);b.innerHTML=`<div class="cg"><div class="ci"><div class="v">${fV(tw.v)}</div><div class="l">Tuần này</div></div><div class="ci"><div class="v">${fV(lw.v)}</div><div class="l">Trước</div></div><div class="ci"><div class="v">${fV(tw.l)}</div><div class="l">Like nay</div></div><div class="ci"><div class="v">${fV(lw.l)}</div><div class="l">Like trước</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 ${vd>=0?'📈 +':'📉 '}${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:6px">❤️ ${ld>=0?'📈 +':'📉 '}${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`}
-function rMCmp(){const b=document.getElementById('mCmpC');if(rd.length<2){b.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>';return}const now=new Date();let tm={v:0,l:0},lm={v:0,l:0};const tM=now.getMonth(),tY=now.getFullYear();const lM=tM===0?11:tM-1,lY=tM===0?tY-1:tY;rd.forEach(d=>{const ts=pD(d[0]);if(!ts)return;const dt=new Date(ts);if(dt.getMonth()===tM&&dt.getFullYear()===tY){tm.v+=d[1];tm.l+=d[2]}else if(dt.getMonth()===lM&&dt.getFullYear()===lY){lm.v+=d[1];lm.l+=d[2]}});if(!tm.v&&!lm.v){b.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Không có data</div>';return}const vd=tm.v-lm.v,ld=tm.l-lm.l;const vp=lm.v>0?(vd/lm.v*100):(tm.v>0?100:0);const lp=lm.l>0?(ld/lm.l*100):(tm.l>0?100:0);b.innerHTML=`<div class="cg"><div class="ci"><div class="v">${fV(tm.v)}</div><div class="l">Tháng này</div></div><div class="ci"><div class="v">${fV(lm.v)}</div><div class="l">Trước</div></div><div class="ci"><div class="v">${fV(tm.l)}</div><div class="l">Like nay</div></div><div class="ci"><div class="v">${fV(lm.l)}</div><div class="l">Like trước</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 ${vd>=0?'📈 +':'📉 '}${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:6px">❤️ ${ld>=0?'📈 +':'📉 '}${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`}
+/* ================= ADMIN ================= */
+async function adLoad(){
+  const b = document.getElementById('adL');
+  b.innerHTML = '<div style="text-align:center;color:var(--acc);padding:18px">⏳</div>';
+  try{
+    const { data, error } = await sb.from('profiles').select('*').order('created_at', { ascending: false });
+    if(error) throw error;
+    adC = data || [];
+    if(!data?.length){ b.innerHTML = '<div style="text-align:center;color:#666;padding:18px">Chưa có user</div>'; return; }
+    rAdL(data);
+  } catch(e){
+    b.innerHTML = `<div style="color:var(--rd);text-align:center;padding:18px">❌ ${e.message}</div>`;
+  }
+}
 
-document.getElementById('exB').addEventListener('click',()=>{if(!rd.length){alert('Chưa có data');return}const l=['"Date","Video Views","Likes","Comments","Shares","Profile Views"'];rd.forEach(d=>l.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`));const c='\ufeff'+l.join('\n');const b=new Blob([c],{type:'text/csv;charset=utf-8'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=`tiktok_${new Date().toISOString().slice(0,10)}.csv`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)});
-document.getElementById('shB').addEventListener('click',()=>{if(!rd.length){alert('Chưa có data');return}let tv=0,tl=0,mx=0,mxD='';rd.forEach(d=>{tv+=d[1];tl+=d[2];if(d[1]>mx){mx=d[1];mxD=d[0]}});const avg=Math.round(tv/rd.length);const t=`📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rd.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`;if(navigator.share)navigator.share({title:'TikTok Stats',text:t}).catch(()=>{});else navigator.clipboard.writeText(t).then(()=>alert('Đã copy!')).catch(()=>prompt('Copy:',t))});
-document.getElementById('bkB').addEventListener('click',()=>{if(!cu)return;const b={v:'4.0',at:new Date().toISOString(),user:cu.email,rows:rd,channelData:cd,snd,th:localStorage.getItem('th')||'dark'};const bl=new Blob([JSON.stringify(b,null,2)],{type:'application/json'});const u=URL.createObjectURL(bl);const a=document.createElement('a');a.href=u;a.download=`tool-backup-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)});
-document.getElementById('rsB').addEventListener('click',()=>document.getElementById('rI').click());
-document.getElementById('rI').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=async ev=>{try{const d=JSON.parse(ev.target.result);if(!d.rows||!Array.isArray(d.rows))throw new Error('File lỗi');if(!confirm(`Khôi phục ${d.rows.length} dòng?`))return;rd=d.rows;if(d.channelData){cd=d.channelData;await saveCd();renderCh()}rAll();await saveC();alert('✅ Đã khôi phục!')}catch(err){alert('❌ '+err.message)}};r.readAsText(f);e.target.value=''});
-document.getElementById('pBtn').addEventListener('click',async()=>{const p1=document.getElementById('pO').value,p2=document.getElementById('pN').value;const m=document.getElementById('pM');m.textContent='';m.className='m';if(!p1||!p2){m.textContent='Nhập đầy đủ';m.classList.add('e');return}if(p1.length<6){m.textContent='Từ 6 ký tự';m.classList.add('e');return}if(p1!==p2){m.textContent='Không khớp';m.classList.add('e');return}const b=document.getElementById('pBtn');b.disabled=true;b.textContent='⏳';try{const{error}=await sb.auth.updateUser({password:p1});if(error)throw error;m.textContent='✅ Đổi thành công!';m.classList.add('o');document.getElementById('pO').value='';document.getElementById('pN').value=''}catch(e){m.textContent='❌ '+e.message;m.classList.add('e')}b.disabled=false;b.textContent='🔑 Đổi'});
+function rAdL(data){
+  const b = document.getElementById('adL');
+  const q = (document.getElementById('adSr')?.value || '').toLowerCase().trim();
+  if(q) data = data.filter(u => (u.email||'').toLowerCase().includes(q));
+  if(!data.length){ b.innerHTML = '<div style="text-align:center;color:#666;padding:18px">Không tìm thấy</div>'; return; }
+  b.innerHTML = data.map(u => {
+    const ib = u.banned === true, ia = u.is_admin === true || u.email === ADM;
+    const cr = u.created_at ? new Date(u.created_at).toLocaleDateString('vi-VN') : '-';
+    const cDisplay = ia ? '∞' : (u.credits||0).toLocaleString('vi-VN');
+    let ah = '';
+    if(!ia) ah += `<button class="abd pr" onclick="aP('${u.id}')">👑</button>`;
+    else if(u.email !== ADM) ah += `<button class="abd dm" onclick="aD('${u.id}')">⬇️</button>`;
+    ah += ib ? `<button class="abd ub" onclick="aU('${u.id}')">✅</button>` : `<button class="abd bn" onclick="aB('${u.id}')">🚫</button>`;
+    ACR.forEach(a => { ah += `<button class="abd cr" onclick="aA('${u.id}',${a})">+${a}</button>` });
+    ah += `<button class="abd cr" onclick="aA('${u.id}',-100)">-100</button>`;
+    if(u.email !== ADM) ah += `<button class="abd dl" onclick="aX('${u.id}')">🗑️</button>`;
+    return `<div class="au ${ib?'bn':''} ${ia?'ia':''}"><div class="h"><span class="em">${u.email||'?'}</span>${ia?'<span class="bg2 a">ADMIN</span>':''}<span class="bg2 ${ib?'b':'a'}">${ib?'KHÓA':'OK'}</span></div><div class="nf">📅 ${cr}</div><div class="crl">💰 <span id="cd-${u.id}">${cDisplay}</span> xu</div><div class="ac">${ah}</div></div>`;
+  }).join('');
+}
 
-setInterval(renderGt,60000);
+async function aB(id){ if(!confirm('Khóa?')) return; await sb.from('profiles').update({banned:true}).eq('id',id); adLoad() }
+async function aU(id){ await sb.from('profiles').update({banned:false}).eq('id',id); adLoad() }
+async function aA(id,a){
+  const { data } = await sb.from('profiles').select('credits,email,is_admin').eq('id',id).single();
+  if(data?.is_admin===true || data?.email===ADM){ alert('Admin ∞ xu!'); return; }
+  const c = data?.credits||0, n = Math.max(0, c+a);
+  await sb.from('profiles').update({credits:n}).eq('id',id);
+  const el = document.getElementById('cd-'+id); if(el) el.textContent = n.toLocaleString('vi-VN');
+}
+async function aP(id){ if(!confirm('Promote?')) return; await sb.from('profiles').update({is_admin:true}).eq('id',id); adLoad() }
+async function aD(id){ if(!confirm('Hạ?')) return; await sb.from('profiles').update({is_admin:false}).eq('id',id); adLoad() }
+async function aX(id){
+  if(!confirm('⚠️ XÓA?')) return;
+  const t = prompt('Gõ XOA:'); if(t !== 'XOA') return;
+  try{ const { error } = await sb.rpc('delete_user', { target_user_id: id }); if(error) throw error; alert('Đã xóa!'); adLoad() }
+  catch(e){ alert('❌ '+e.message) }
+}
+window.aB=aB; window.aU=aU; window.aA=aA; window.aP=aP; window.aD=aD; window.aX=aX;
+document.getElementById('adR').addEventListener('click', adLoad);
+document.getElementById('adSr')?.addEventListener('input', () => rAdL(adC));
 
-const VER=document.querySelector('meta[name="tool-version"]')?.content||'v10.0-fast';
-const UPD='https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
-async function cU(){try{const r=await fetch(UPD+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text();const m=t.match(/name="tool-version"\s+content="([^"]+)"/);if(!m)return;if(m[1]!==VER){if(document.getElementById('uT'))return;const el=document.createElement('div');el.id='uT';el.style.cssText='position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,.4);z-index:99999;max-width:90vw;cursor:pointer';el.innerHTML=`🔄 Cập nhật (${m[1]})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại</span>`;el.onclick=()=>{location.href=location.pathname+'?v='+Date.now()};document.body.appendChild(el)}}catch(e){}}
-setTimeout(cU,5000);
-setInterval(cU,300000);
+/* ================= CLOUD DATA ================= */
+async function saveC(){
+  if(!cu) return;
+  try{
+    await sb.from('user_data').delete().eq('user_id', cu.id);
+    const { error } = await sb.from('user_data').insert({ user_id: cu.id, rows: rd, updated_at: new Date().toISOString() });
+    if(error) throw error;
+    try{ localStorage.setItem('cache_data', JSON.stringify(rd)) }catch(e){}
+    uS('☁️ Đã lưu', 'var(--gr)');
+  } catch(e){ uS('❌ '+e.message, 'var(--rd)') }
+}
+
+async function loadC(){
+  if(!cu) return;
+  try{
+    const { data, error } = await sb.from('user_data').select('rows').eq('user_id', cu.id).order('updated_at', { ascending: false }).limit(1);
+    if(error) throw error;
+    if(data?.length && data[0].rows){ rd = data[0].rows; uS('✅ Đã tải '+rd.length+' dòng', 'var(--gr)') }
+  } catch(e){}
+}
+
+document.getElementById('clB').addEventListener('click', async () => {
+  if(!confirm('Xóa hết?')) return;
+  if(!cu) return;
+  try{
+    await sb.from('user_data').delete().eq('user_id', cu.id);
+    rd = [];
+    document.getElementById('fi').classList.add('hd');
+    try{ localStorage.removeItem('cache_data') }catch(e){}
+    rAll();
+    uS('🗑️ Đã xóa', 'var(--rd)');
+  } catch(e){ uS('❌ '+e.message, 'var(--rd)') }
+});
+
+function uS(t,c){ const el = document.getElementById('us'); el.textContent = t; el.style.color = c || 'var(--gr)' }
+
+/* ================= UPLOAD CSV ================= */
+const uz = document.getElementById('uz'), ci = document.getElementById('ci');
+
+function fSz(b){ if(b<1024) return b+' B'; if(b<1048576) return (b/1024).toFixed(1)+' KB'; return (b/1048576).toFixed(2)+' MB' }
+
+function hF(f){
+  if(!f) return;
+  const nm = (f.name||'').toLowerCase();
+  if(!(nm.endsWith('.csv') || nm.endsWith('.txt'))){ uS('❌ Chỉ .csv', 'var(--rd)'); return; }
+  document.getElementById('fn').textContent = f.name;
+  document.getElementById('fs').textContent = fSz(f.size);
+  document.getElementById('fi').classList.remove('hd');
+  const r = new FileReader();
+  r.onload = async ev => {
+    try{
+      pCSV(ev.target.result);
+      uS('✅ '+rd.length+' dòng', 'var(--gr)');
+      rAll();
+      await saveC();
+      const o = document.getElementById('m2'); if(o) o.remove();
+      const m = document.createElement('div'); m.id = 'm2'; m.className = 'mo';
+      m.innerHTML = `<div class="mbx"><h2>🎉 Thành công!</h2><div class="sb">Đã nhập file</div><div style="color:var(--tx);font-size:13px;text-align:center;line-height:1.7;margin:14px 0">Data lưu cloud ☁️</div><div style="color:var(--gr);font-size:24px;text-align:center;margin:18px 0">🚀</div><button class="mbt" onclick="document.getElementById('m2').remove()">OK!</button></div>`;
+      document.body.appendChild(m);
+    } catch(e){ uS('❌ '+e.message, 'var(--rd)') }
+  };
+  r.onerror = () => uS('❌ Lỗi đọc', 'var(--rd)');
+  r.readAsText(f, 'UTF-8');
+}
+
+ci.addEventListener('change', e => { hF(e.target.files[0]); e.target.value = '' });
+uz.addEventListener('click', e => { if(e.target !== ci) ci.click() });
+['dragenter','dragover'].forEach(ev => uz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); uz.classList.add('dg') }));
+['dragleave','drop'].forEach(ev => uz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); if(ev==='dragleave' && uz.contains(e.relatedTarget)) return; uz.classList.remove('dg') }));
+uz.addEventListener('drop', e => { hF(e.dataTransfer.files[0]) });
+['dragover','drop'].forEach(ev => window.addEventListener(ev, e => { if(!uz.contains(e.target)) e.preventDefault() }));
+document.addEventListener('paste', e => {
+  const it = e.clipboardData?.items; if(!it) return;
+  for(const i of it){
+    if(i.type==='text/csv' || i.type==='text/plain' || i.kind==='file'){
+      const f = i.getAsFile();
+      if(f && (f.name.endsWith('.csv') || f.type.includes('csv') || f.type==='text/plain')){ hF(f); break; }
+    }
+  }
+});
+
+(function(){
+  const ua = navigator.userAgent;
+  const h = document.getElementById('uh'); if(!h) return;
+  const ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+  const and = /Android/.test(ua);
+  h.innerHTML = (ios||and) ? 'Chạm chọn CSV<br><b>hoặc kéo thả từ Files</b>' : 'Chọn CSV<br><b>hoặc kéo thả / dán Ctrl+V</b>';
+})();
+
+function pCSV(t){
+  const l = t.split(/\r?\n/).filter(x => x.trim());
+  if(l.length < 2) throw new Error('File rỗng');
+  const r = [];
+  for(let i=1; i<l.length; i++){
+    const p = l[i].replace(/^"|"$/g,'').split('","').map(s => s.replace(/"/g,''));
+    if(p.length < 3) continue;
+    const d = p[0], v = parseInt(p[1])||0, pv = parseInt(p[2])||0, li = parseInt(p[3])||0, c = parseInt(p[4])||0, s = parseInt(p[5])||0;
+    if(!d) continue;
+    r.push([d, v, li, c, s, pv]);
+  }
+  if(!r.length) throw new Error('Không có dòng');
+  rd = r;
+}
+
+/* ================= RENDER ================= */
+function rAll(){ rSt(); rTp(); rCh(); rCmp(); rMCmp() }
+
+function rSt(){
+  if(!rd.length){ ['sV','sL','sA','sM'].forEach(id => document.getElementById(id).textContent = '—'); return; }
+  let tv=0, tl=0, mx=0;
+  rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx) mx = d[1]; });
+  document.getElementById('sV').textContent = tv.toLocaleString('vi-VN');
+  document.getElementById('sL').textContent = tl.toLocaleString('vi-VN');
+  document.getElementById('sA').textContent = Math.round(tv/rd.length).toLocaleString('vi-VN');
+  document.getElementById('sM').textContent = mx.toLocaleString('vi-VN');
+}
+
+function rTp(){
+  const b = document.getElementById('tpL');
+  if(!rd.length){ b.innerHTML = '<div style="color:#666;text-align:center;padding:18px">Chưa có dữ liệu</div>'; return; }
+  const avg = rd.reduce((a,d) => a+d[1], 0) / rd.length;
+  const s = [...rd].sort((a,b) => b[1]-a[1]).slice(0,10);
+  const mx = s[0][1];
+  b.innerHTML = s.map((d,i) => {
+    const pct = avg>0 ? ((d[1]-avg)/avg*100) : 0;
+    const bw = (d[1]/mx*100).toFixed(1);
+    const pc = pct>=0 ? 'u' : 'd';
+    const pt = (pct>=0?'+':'') + pct.toFixed(0) + '% TB';
+    return `<div class="tv r${i+1}"><div class="tvr">${i<3?MED[i]:i+1}</div><div class="tvi"><div class="tvd">${d[0]}</div><div class="tvm"><span class="tvv">${d[1].toLocaleString('vi-VN')} view</span><span class="tvp ${pc}">${pt}</span></div></div>${i===0?'<span class="tvc">👑</span>':''}<div class="tvb" style="width:${bw}%"></div></div>`;
+  }).join('');
+}
+
+async function rCh(){
+  const c = document.getElementById('chC');
+  if(chi){ chi.destroy(); chi = null }
+  if(!rd.length) return;
+  try{ await loadCh() } catch(e){ return }
+  let d = rd;
+  if(chD > 0) d = rd.slice(-chD);
+  if(sch){ const q = sch.toLowerCase(); d = d.filter(x => x[0].toLowerCase().includes(q)) }
+  const lb = d.map(x => x[0]), vl = d.map(x => x[1]);
+  const avg = vl.length ? vl.reduce((a,b) => a+b, 0)/vl.length : 0;
+  const col = vl.map(v => v >= avg*1.5 ? '#ff6e9c' : '#6ea8ff');
+  const ds = [];
+  if(chT === 'bar'){
+    ds.push({ type:'bar', label:'View', data: vl, backgroundColor: col, borderRadius: 6, maxBarThickness: 40 });
+  } else {
+    ds.push({ type:'line', label:'View', data: vl, borderColor:'#6ea8ff', backgroundColor:'rgba(110,168,255,.15)', borderWidth:3, tension:.35, fill:true, pointBackgroundColor:col, pointBorderColor:'#16161c', pointBorderWidth:2, pointRadius:4 });
+  }
+  if(shAv && vl.length){
+    ds.push({ type:'line', label:'TB', data: vl.map(() => avg), borderColor:'#ffd700', borderWidth:2, borderDash:[6,6], pointRadius:0, fill:false });
+  }
+  chi = new Chart(c, {
+    data: { labels: lb, datasets: ds },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode:'index', intersect:false },
+      plugins: {
+        legend: { display:true, labels:{ color:'#aaa', font:{size:11}, boxWidth:12, boxHeight:12, usePointStyle:true } },
+        tooltip: {
+          backgroundColor:'rgba(22,22,28,.95)', borderColor:'#6ea8ff', borderWidth:1,
+          titleColor:'#6ea8ff', bodyColor:'#e8e8f0', padding:12,
+          callbacks: { label: c => { const v = c.parsed.y; const pct = avg>0 ? ((v-avg)/avg*100) : 0; return `👀 ${v.toLocaleString('vi-VN')} (${pct>=0?'+':''}${pct.toFixed(0)}% TB)` } }
+        }
+      },
+      scales: {
+        x: { ticks:{ color:'#666', font:{size:9}, maxRotation:90, autoSkip:true, maxTicksLimit:20 }, grid:{display:false} },
+        y: { ticks:{ color:'#666', font:{size:10}, callback: v => fV(v) }, grid:{ color:'#1e1e26' } }
+      }
+    }
+  });
+}
+
+document.querySelectorAll('.fbt').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.fbt').forEach(x => x.classList.remove('a'));
+  b.classList.add('a');
+  chD = parseInt(b.dataset.days);
+  rCh();
+}));
+
+document.querySelectorAll('[data-ct]').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('[data-ct]').forEach(x => x.classList.remove('a'));
+  b.classList.add('a');
+  chT = b.dataset.ct;
+  rCh();
+}));
+
+document.getElementById('togAv').addEventListener('click', () => {
+  shAv = !shAv;
+  document.getElementById('togAv').classList.toggle('a', shAv);
+  rCh();
+});
+
+document.getElementById('sCh').addEventListener('input', e => { sch = e.target.value.trim(); rCh() });
+
+document.getElementById('expCh').addEventListener('click', () => {
+  if(!chi){ alert('Chưa có biểu đồ'); return; }
+  const u = chi.toBase64Image();
+  const a = document.createElement('a');
+  a.href = u;
+  a.download = `chart-${new Date().toISOString().slice(0,10)}.png`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+
+document.getElementById('cpTp').addEventListener('click', () => {
+  if(!rd.length){ alert('Chưa có data'); return; }
+  const avg = rd.reduce((a,d) => a+d[1], 0)/rd.length;
+  const s = [...rd].sort((a,b) => b[1]-a[1]).slice(0,10);
+  let t = '🏆 TOP 10 VIRAL\n━━━━━━━━━━━━━━\n';
+  s.forEach((d,i) => { const pct = avg>0 ? ((d[1]-avg)/avg*100) : 0; t += `${MED[i]} ${d[0]}\n   ${d[1].toLocaleString('vi-VN')} (${(pct>=0?'+':'')+pct.toFixed(0)}% TB)\n` });
+  t += '━━━━━━━━━━━━━━\nTool @ductri705';
+  navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t));
+});
+
+window.__onTabChange = function(tab){
+  if(tab === 'ch') rCh();
+  if(tab === 'adm') adLoad();
+  if(tab === 'acc') rAcc();
+  if(tab === 'mn') rPk();
+  if(tab === 'cn') renderCh();
+};
+
+function rCmp(){
+  const b = document.getElementById('cmpC');
+  if(rd.length < 2){ b.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>'; return; }
+  const now = Date.now(), wk = 604800000;
+  let tw = {v:0,l:0}, lw = {v:0,l:0};
+  rd.forEach(d => {
+    const ts = pD(d[0]); if(!ts) return;
+    const df = now - ts;
+    if(df <= wk){ tw.v += d[1]; tw.l += d[2] }
+    else if(df <= wk*2){ lw.v += d[1]; lw.l += d[2] }
+  });
+  const vd = tw.v - lw.v, ld = tw.l - lw.l;
+  const vp = lw.v>0 ? (vd/lw.v*100) : (tw.v>0?100:0);
+  const lp = lw.l>0 ? (ld/lw.l*100) : (tw.l>0?100:0);
+  b.innerHTML = `<div class="cg"><div class="ci"><div class="v">${fV(tw.v)}</div><div class="l">Tuần này</div></div><div class="ci"><div class="v">${fV(lw.v)}</div><div class="l">Trước</div></div><div class="ci"><div class="v">${fV(tw.l)}</div><div class="l">Like nay</div></div><div class="ci"><div class="v">${fV(lw.l)}</div><div class="l">Like trước</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 ${vd>=0?'📈 +':'📉 '}${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:6px">❤️ ${ld>=0?'📈 +':'📉 '}${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`;
+}
+
+function rMCmp(){
+  const b = document.getElementById('mCmpC');
+  if(rd.length < 2){ b.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>'; return; }
+  const now = new Date();
+  let tm = {v:0,l:0}, lm = {v:0,l:0};
+  const tM = now.getMonth(), tY = now.getFullYear();
+  const lM = tM===0?11:tM-1, lY = tM===0?tY-1:tY;
+  rd.forEach(d => {
+    const ts = pD(d[0]); if(!ts) return;
+    const dt = new Date(ts);
+    if(dt.getMonth()===tM && dt.getFullYear()===tY){ tm.v += d[1]; tm.l += d[2] }
+    else if(dt.getMonth()===lM && dt.getFullYear()===lY){ lm.v += d[1]; lm.l += d[2] }
+  });
+  if(!tm.v && !lm.v){ b.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Không có data</div>'; return; }
+  const vd = tm.v - lm.v, ld = tm.l - lm.l;
+  const vp = lm.v>0 ? (vd/lm.v*100) : (tm.v>0?100:0);
+  const lp = lm.l>0 ? (ld/lm.l*100) : (tm.l>0?100:0);
+  b.innerHTML = `<div class="cg"><div class="ci"><div class="v">${fV(tm.v)}</div><div class="l">Tháng này</div></div><div class="ci"><div class="v">${fV(lm.v)}</div><div class="l">Trước</div></div><div class="ci"><div class="v">${fV(tm.l)}</div><div class="l">Like nay</div></div><div class="ci"><div class="v">${fV(lm.l)}</div><div class="l">Like trước</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 ${vd>=0?'📈 +':'📉 '}${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:6px">❤️ ${ld>=0?'📈 +':'📉 '}${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`;
+}
+
+document.getElementById('exB').addEventListener('click', () => {
+  if(!rd.length){ alert('Chưa có data'); return; }
+  const l = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"'];
+  rd.forEach(d => l.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`));
+  const c = '\ufeff' + l.join('\n');
+  const b = new Blob([c], { type:'text/csv;charset=utf-8' });
+  const u = URL.createObjectURL(b);
+  const a = document.createElement('a');
+  a.href = u;
+  a.download = `tiktok_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u);
+});
+
+document.getElementById('shB').addEventListener('click', () => {
+  if(!rd.length){ alert('Chưa có data'); return; }
+  let tv=0, tl=0, mx=0, mxD='';
+  rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx){ mx = d[1]; mxD = d[0] } });
+  const avg = Math.round(tv/rd.length);
+  const t = `📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rd.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`;
+  if(navigator.share) navigator.share({ title:'TikTok Stats', text: t }).catch(() => {});
+  else navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t));
+});
+
+document.getElementById('bkB').addEventListener('click', () => {
+  if(!cu) return;
+  const b = { v:'4.0', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd, th: localStorage.getItem('th')||'dark' };
+  const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' });
+  const u = URL.createObjectURL(bl);
+  const a = document.createElement('a');
+  a.href = u;
+  a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u);
+});
+
+document.getElementById('rsB').addEventListener('click', () => document.getElementById('rI').click());
+document.getElementById('rI').addEventListener('change', e => {
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = async ev => {
+    try{
+      const d = JSON.parse(ev.target.result);
+      if(!d.rows || !Array.isArray(d.rows)) throw new Error('File lỗi');
+      if(!confirm(`Khôi phục ${d.rows.length} dòng?`)) return;
+      rd = d.rows;
+      if(d.channelData){ cd = d.channelData; await saveCd(); renderCh() }
+      rAll();
+      await saveC();
+      alert('✅ Đã khôi phục!');
+    } catch(err){ alert('❌ '+err.message) }
+  };
+  r.readAsText(f);
+  e.target.value = '';
+});
+
+document.getElementById('pBtn').addEventListener('click', async () => {
+  const p1 = document.getElementById('pO').value, p2 = document.getElementById('pN').value;
+  const m = document.getElementById('pM');
+  m.textContent = ''; m.className = 'm';
+  if(!p1 || !p2){ m.textContent = 'Nhập đầy đủ'; m.classList.add('e'); return; }
+  if(p1.length < 6){ m.textContent = 'Từ 6 ký tự'; m.classList.add('e'); return; }
+  if(p1 !== p2){ m.textContent = 'Không khớp'; m.classList.add('e'); return; }
+  const b = document.getElementById('pBtn');
+  b.disabled = true; b.textContent = '⏳';
+  try{
+    const { error } = await sb.auth.updateUser({ password: p1 });
+    if(error) throw error;
+    m.textContent = '✅ Đổi thành công!'; m.classList.add('o');
+    document.getElementById('pO').value = ''; document.getElementById('pN').value = '';
+  } catch(e){ m.textContent = '❌ '+e.message; m.classList.add('e') }
+  b.disabled = false; b.textContent = '🔑 Đổi';
+});
+
+setInterval(renderGt, 60000);
+
+/* ================= AUTO UPDATE ================= */
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.0-fastest';
+const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
+async function cU(){
+  try{
+    const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' });
+    if(!r.ok) return;
+    const t = await r.text();
+    const m = t.match(/name="tool-version"\s+content="([^"]+)"/);
+    if(!m) return;
+    if(m[1] !== VER){
+      if(document.getElementById('uT')) return;
+      const el = document.createElement('div');
+      el.id = 'uT';
+      el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,.4);z-index:99999;max-width:90vw;cursor:pointer';
+      el.innerHTML = `🔄 Cập nhật (${m[1]})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại</span>`;
+      el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() };
+      document.body.appendChild(el);
+    }
+  } catch(e){}
+}
+setTimeout(cU, 5000);
+setInterval(cU, 300000);
 };
 </script>
 </body>
