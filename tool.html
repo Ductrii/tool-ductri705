@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v11.5-savefix">
+<meta name="tool-version" content="v11.6-final">
 <title>Tool by ductri705</title>
 <link rel="preconnect" href="https://wkddmlxhqyvhxznycpgs.supabase.co" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -459,7 +459,6 @@ input:focus{border-color:var(--acc)}
       document.getElementById('app').classList.remove('hd');
       document.getElementById('uE').textContent = cachedUser.email;
       document.getElementById('uC').textContent = cachedProfile?.is_admin ? '∞' : ((cachedProfile?.credits||0).toLocaleString('vi-VN'));
-      // Hiển thị ngay username từ cache
       if(cachedCh.username){
         const ue = document.getElementById('inU');
         if(ue) ue.value = cachedCh.username;
@@ -519,7 +518,6 @@ const sb = supabase.createClient(SBU,SBK);
 window.__sb = sb;
 const PAD = n => String(n).padStart(2,'0');
 let cu=null, rd=[], chi=null, up=null, chD=7, chT='bar', shAv=true, sch='', snd=localStorage.getItem('snd')==='true', lg=false, adC=[];
-// Khởi tạo cd từ cache nếu có
 let cd = window.__cachedCh || {};
 let chLoad=false, chLoading=false;
 
@@ -610,35 +608,24 @@ async function readFromZip(file){
   return { txt, name: chosen.path, total: candidates.length };
 }
 
-/* ============================================================
-   SAVE CHANNEL DATA — đã sửa lỗi
-   ============================================================ */
 async function saveCd(){
   if(!cu) throw new Error('Chưa đăng nhập');
-  // 1. Lưu cache ngay
   try{ localStorage.setItem('cache_ch', JSON.stringify(cd)); }catch(e){}
-  // 2. Lưu lên Supabase
   const { data, error } = await sb.from('profiles')
     .update({ channel_data: cd })
     .eq('id', cu.id)
     .select('channel_data')
     .single();
   if(error) throw error;
-  console.log('[saveCd] Đã lưu:', data?.channel_data);
-  // 3. Cập nhật cd từ response để đảm bảo sync
   if(data?.channel_data) cd = data.channel_data;
   return data;
 }
 
-/* ============================================================
-   RENDER CHANNEL — không reset input đang gõ
-   ============================================================ */
 function renderCh(){
   document.getElementById('chN').textContent = cd.username || '@chưa-nhập';
   document.getElementById('chA').textContent = (cd.username||'@').replace('@','').charAt(0).toUpperCase() || '@';
   document.getElementById('chL').textContent = fV(cd.likes || 0);
   document.getElementById('chFo').textContent = fV(cd.following || 0);
-  // Chỉ set value nếu input đang không focus (tránh reset khi đang gõ)
   const elU = document.getElementById('inU');
   const elL = document.getElementById('inL');
   const elF = document.getElementById('inFo');
@@ -685,9 +672,6 @@ function renderDetected(){
   el.innerHTML = html;
 }
 
-/* ============================================================
-   BUTTON: Lưu thông tin kênh — đã sửa
-   ============================================================ */
 document.getElementById('svCh').addEventListener('click', async () => {
   if(!cu){ setSaveStatus('❌ Chưa đăng nhập', false); return; }
   const uVal = document.getElementById('inU').value.trim();
@@ -705,14 +689,12 @@ document.getElementById('svCh').addEventListener('click', async () => {
     renderCh();
     tS('✅ Đã lưu kênh!');
   } catch(err){
-    console.error('[svCh]', err);
     setSaveStatus('❌ ' + (err.message || 'Lỗi lưu'), false);
     alert('Lỗi lưu: ' + (err.message || 'Không xác định'));
   }
   btn.disabled = false;
 });
 
-/* BUTTON: Tải lại từ Cloud */
 document.getElementById('rlCh').addEventListener('click', async () => {
   if(!cu){ setSaveStatus('❌ Chưa đăng nhập', false); return; }
   setSaveStatus('⏳ Đang tải từ Cloud...', false);
@@ -725,14 +707,10 @@ document.getElementById('rlCh').addEventListener('click', async () => {
     setSaveStatus('✅ Đã tải từ Cloud', true);
     tS('☁️ Đã tải lại từ Cloud!');
   } catch(err){
-    console.error('[rlCh]', err);
     setSaveStatus('❌ ' + (err.message || 'Lỗi tải'), false);
   }
 });
 
-/* ============================================================
-   AUTO-SAVE khi gõ (debounce 1.5s)
-   ============================================================ */
 (function(){
   let timer = null;
   function scheduleSave(){
@@ -780,7 +758,6 @@ document.getElementById('svGh').addEventListener('click', async () => {
   }
 });
 
-/* SPLIT CSV */
 function splitCSVLine(line){
   const out = [];
   let cur = '';
@@ -801,7 +778,6 @@ function splitCSVLine(line){
   return out;
 }
 
-/* UPLOAD VIEWERS */
 document.getElementById('fViewers').addEventListener('change', async function(e){
   const f = e.target.files && e.target.files[0];
   const st = document.getElementById('vStatus');
@@ -811,7 +787,7 @@ document.getElementById('fViewers').addEventListener('change', async function(e)
   try{
     let txt = '', srcName = f.name;
     if(isZip){
-      st.innerHTML = '<span style="color:var(--acc)">📦 Đang mở ZIP ' + f.name + '...</span>';
+      st.innerHTML = '<span style="color:var(--acc)">📦 Đang mở ZIP...</span>';
       const z = await readFromZip(f);
       txt = z.txt; srcName = z.name;
     } else {
@@ -862,14 +838,11 @@ function parseViewersFile(txt){
     if(parts.length < 2) continue;
     const h = parseInt(parts[0]);
     const v = parseInt(String(parts[1]).replace(/[^\d-]/g, ''));
-    if(!isNaN(h) && !isNaN(v) && h >= 0 && h <= 23){
-      result.push({ hour: h, viewers: v });
-    }
+    if(!isNaN(h) && !isNaN(v) && h >= 0 && h <= 23) result.push({ hour: h, viewers: v });
   }
   return result;
 }
 
-/* UPLOAD CONTENT */
 document.getElementById('fContent').addEventListener('change', async function(e){
   const f = e.target.files && e.target.files[0];
   const st = document.getElementById('ctStatus');
@@ -1023,6 +996,7 @@ document.getElementById('loB').addEventListener('click', async () => {
     localStorage.removeItem('cache_profile');
     localStorage.removeItem('cache_data');
     localStorage.removeItem('cache_ch');
+    localStorage.removeItem('updShown');
   }catch(e){}
   await sb.auth.signOut();
 });
@@ -1041,7 +1015,6 @@ sb.auth.onAuthStateChange(async (ev, ss) => {
       return;
     }
     up = p || { credits: 0, is_admin: false };
-    // Nếu cloud có channel_data thì ưu tiên, không thì dùng cache
     if(p?.channel_data && Object.keys(p.channel_data).length > 0){
       cd = p.channel_data;
     } else if(!cd || Object.keys(cd).length === 0){
@@ -1521,7 +1494,8 @@ document.getElementById('pBtn').addEventListener('click', async () => {
 
 setInterval(renderGt, 60000);
 
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.5-savefix';
+/* AUTO UPDATE — không spam nữa */
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.6-final';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 async function cU(){
   try{
@@ -1530,15 +1504,22 @@ async function cU(){
     const t = await r.text();
     const m = t.match(/name="tool-version"\s+content="([^"]+)"/);
     if(!m) return;
-    if(m[1] !== VER){
-      if(document.getElementById('uT')) return;
-      const el = document.createElement('div');
-      el.id = 'uT';
-      el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,.4);z-index:99999;max-width:90vw;cursor:pointer';
-      el.innerHTML = `🔄 Cập nhật (${m[1]})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại</span>`;
-      el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() };
-      document.body.appendChild(el);
-    }
+    const newVer = m[1];
+    if(newVer === VER) return;
+    if(localStorage.getItem('updShown') === newVer) return;
+    if(document.getElementById('uT')) return;
+    localStorage.setItem('updShown', newVer);
+    const el = document.createElement('div');
+    el.id = 'uT';
+    el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,.4);z-index:99999;max-width:90vw;cursor:pointer;padding-right:36px';
+    el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại</span>`;
+    el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() };
+    const x = document.createElement('div');
+    x.textContent = '✕';
+    x.style.cssText = 'position:absolute;top:6px;right:10px;font-size:14px;opacity:.6;cursor:pointer;font-weight:700';
+    x.onclick = (e) => { e.stopPropagation(); el.remove(); };
+    el.appendChild(x);
+    document.body.appendChild(el);
   } catch(e){}
 }
 setTimeout(cU, 5000);
