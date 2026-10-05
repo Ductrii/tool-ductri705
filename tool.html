@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v11.0-fastest">
+<meta name="tool-version" content="v11.1-fixed">
 <title>Tool by ductri705</title>
 <link rel="preconnect" href="https://wkddmlxhqyvhxznycpgs.supabase.co" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -288,8 +288,8 @@ input:focus{border-color:var(--acc)}
 
 <div class="st2">👀 Upload file Viewers (tự tìm giờ vàng)</div>
 <div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Analytics → Người xem. Format: <b>hour,viewers</b></div>
-<label class="up" for="fViewers">
-<input type="file" id="fViewers" accept=".csv,.json,.txt">
+<label class="up">
+<input type="file" id="fViewers" accept="*/*,.csv,.txt,.json,text/csv,text/plain,application/json,application/vnd.ms-excel">
 <div class="ic">👀</div>
 <div class="tx">Bấm chọn <b>file viewers</b></div>
 </label>
@@ -297,8 +297,8 @@ input:focus{border-color:var(--acc)}
 
 <div class="st2" style="margin-top:18px">👥 Upload file Followers (tăng trưởng)</div>
 <div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Người theo dõi. Format: <b>date,followers</b></div>
-<label class="up" for="fFollowers">
-<input type="file" id="fFollowers" accept=".csv,.json,.txt">
+<label class="up">
+<input type="file" id="fFollowers" accept="*/*,.csv,.txt,.json,text/csv,text/plain,application/json,application/vnd.ms-excel">
 <div class="ic">👥</div>
 <div class="tx">Bấm chọn <b>file followers</b></div>
 </label>
@@ -474,13 +474,11 @@ input:focus{border-color:var(--acc)}
     const cachedData = JSON.parse(localStorage.getItem('cache_data')||'[]');
 
     if(cachedUser && cachedUser.email){
-      // Có cache → hiện app ngay, ẩn form login
       document.getElementById('as').classList.add('hd');
       document.getElementById('app').classList.remove('hd');
       document.getElementById('uE').textContent = cachedUser.email;
       document.getElementById('uC').textContent = cachedProfile?.is_admin ? '∞' : ((cachedProfile?.credits||0).toLocaleString('vi-VN'));
 
-      // Lưu tạm vào window để Script 3 dùng
       window.__cachedProfile = cachedProfile || {};
       window.__cachedCh = cachedCh || {};
       window.__cachedData = cachedData || [];
@@ -498,7 +496,6 @@ input:focus{border-color:var(--acc)}
   s.async = true;
   s.onload = function(){ if(window.__initApp) window.__initApp(); };
   s.onerror = function(){
-    // Fallback: thử unpkg
     const s2 = document.createElement('script');
     s2.src = 'https://unpkg.com/@supabase/supabase-js@2';
     s2.async = true;
@@ -642,6 +639,7 @@ function renderDetected(){
 
 function renderFh(){
   const el = document.getElementById('fhList');
+  if(!el) return;
   const h = (cd.followerHistory||[]).slice().sort((a,b) => a.date.localeCompare(b.date));
   if(!h.length){ el.innerHTML = '<div style="color:#666;text-align:center;padding:12px;font-size:12px">Chưa có dữ liệu</div>'; return; }
   el.innerHTML = h.map((x,i) => `<div class="fh-row"><span class="fh-d">${x.date}</span><input type="number" class="fh-i" value="${x.count}" onchange="ufh(${i},this.value)"><button class="fh-x" onclick="dfh(${i})">🗑️</button></div>`).join('');
@@ -694,49 +692,94 @@ document.getElementById('svGh').addEventListener('click', async () => {
   tS('🎯 Đã lưu giờ vàng!');
 });
 
-document.getElementById('fhAdd').addEventListener('click', async () => {
-  const d = document.getElementById('fhDate').value;
-  const c = parseInt(document.getElementById('fhCount').value);
-  if(!d || !c){ alert('Nhập ngày và số'); return; }
-  let h = cd.followerHistory || [];
-  const i = h.findIndex(x => x.date === d);
-  if(i >= 0) h[i].count = c;
-  else h.push({ date: d, count: c });
-  cd.followerHistory = h;
-  const { error } = await saveCd();
-  if(error){ alert('Lỗi'); return; }
-  document.getElementById('fhCount').value = '';
-  renderCh();
-  tS('✅ Đã thêm!');
-});
+const fhAddBtn = document.getElementById('fhAdd');
+if(fhAddBtn){
+  fhAddBtn.addEventListener('click', async () => {
+    const d = document.getElementById('fhDate').value;
+    const c = parseInt(document.getElementById('fhCount').value);
+    if(!d || !c){ alert('Nhập ngày và số'); return; }
+    let h = cd.followerHistory || [];
+    const i = h.findIndex(x => x.date === d);
+    if(i >= 0) h[i].count = c;
+    else h.push({ date: d, count: c });
+    cd.followerHistory = h;
+    const { error } = await saveCd();
+    if(error){ alert('Lỗi'); return; }
+    document.getElementById('fhCount').value = '';
+    renderCh();
+    tS('✅ Đã thêm!');
+  });
+}
 
-/* ================= UPLOAD VIEWERS ================= */
+/* ============================================================
+   SPLIT CSV LINE — xử lý dấu ngoặc kép, tab, chấm phẩy
+   ============================================================ */
+function splitCSVLine(line){
+  const out = [];
+  let cur = '';
+  let inQ = false;
+  for(let i = 0; i < line.length; i++){
+    const c = line[i];
+    if(c === '"'){
+      if(inQ && line[i+1] === '"'){ cur += '"'; i++; }
+      else inQ = !inQ;
+    } else if((c === ',' || c === '\t' || c === ';') && !inQ){
+      out.push(cur.trim());
+      cur = '';
+    } else {
+      cur += c;
+    }
+  }
+  out.push(cur.trim());
+  return out;
+}
+
+/* ================= UPLOAD VIEWERS (FIXED) ================= */
 document.getElementById('fViewers').addEventListener('change', function(e){
-  const f = e.target.files[0]; if(!f) return;
+  const f = e.target.files && e.target.files[0];
+  console.log('[Viewers] File chọn:', f);
+  const st = document.getElementById('vStatus');
+  if(!f){
+    st.innerHTML = '<span style="color:var(--rd)">Chưa chọn file</span>';
+    return;
+  }
+  st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
+
   const r = new FileReader();
   r.onload = async ev => {
     try{
-      const txt = ev.target.result;
+      const txt = String(ev.target.result || '');
+      console.log('[Viewers] Đọc xong, độ dài:', txt.length);
+      if(!txt.trim()) throw new Error('File rỗng hoặc không đọc được');
+
       const hourData = parseViewersFile(txt);
-      if(!hourData.length) throw new Error('Không đọc được dữ liệu');
+      console.log('[Viewers] Parse được:', hourData.length, 'giờ');
+      if(!hourData.length) throw new Error('Không tìm thấy cột hour,viewers. Kiểm tra file.');
+
       const sorted = [...hourData].sort((a,b) => b.viewers - a.viewers);
       const top3 = sorted.slice(0,3).map(x => PAD(x.hour));
       cd.viewersData = hourData;
       cd.goldenHours = top3;
       await saveCd();
-      document.getElementById('vStatus').innerHTML = `<span style="color:var(--gr)">✅ Đọc ${hourData.length} giờ — Top 3: <b>${top3.map(h=>h+'h').join(', ')}</b></span>`;
+
+      st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${hourData.length} giờ — Top 3: <b>${top3.map(h=>h+'h').join(', ')}</b></span>`;
       renderCh();
       renderGt();
       tS('🎯 Đã phân tích file Viewers!');
     } catch(err){
-      document.getElementById('vStatus').innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
+      console.error('[Viewers] Lỗi:', err);
+      st.innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
     }
   };
+  r.onerror = () => { st.innerHTML = '<span style="color:var(--rd)">❌ Lỗi đọc file</span>'; };
   r.readAsText(f, 'UTF-8');
+  e.target.value = '';
 });
 
 function parseViewersFile(txt){
+  txt = String(txt).replace(/^\uFEFF/, '');
   const result = [];
+
   try{
     const j = JSON.parse(txt);
     if(Array.isArray(j)){
@@ -748,12 +791,13 @@ function parseViewersFile(txt){
       if(result.length) return result;
     }
   } catch(e){}
+
   const lines = txt.split(/\r?\n/).filter(l => l.trim());
   for(let i = 0; i < lines.length; i++){
-    const parts = lines[i].replace(/^"|"$/g,'').split(/[,\t;]/).map(s => s.trim().replace(/^"|"$/g,''));
+    const parts = splitCSVLine(lines[i]);
     if(parts.length < 2) continue;
     const h = parseInt(parts[0]);
-    const v = parseInt(parts[1]);
+    const v = parseInt(String(parts[1]).replace(/[^\d-]/g, ''));
     if(!isNaN(h) && !isNaN(v) && h >= 0 && h <= 23){
       result.push({ hour: h, viewers: v });
     }
@@ -761,30 +805,49 @@ function parseViewersFile(txt){
   return result;
 }
 
-/* ================= UPLOAD FOLLOWERS ================= */
+/* ================= UPLOAD FOLLOWERS (FIXED) ================= */
 document.getElementById('fFollowers').addEventListener('change', function(e){
-  const f = e.target.files[0]; if(!f) return;
+  const f = e.target.files && e.target.files[0];
+  console.log('[Followers] File chọn:', f);
+  const st = document.getElementById('fStatus');
+  if(!f){
+    st.innerHTML = '<span style="color:var(--rd)">Chưa chọn file</span>';
+    return;
+  }
+  st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
+
   const r = new FileReader();
   r.onload = async ev => {
     try{
-      const txt = ev.target.result;
+      const txt = String(ev.target.result || '');
+      console.log('[Followers] Đọc xong, độ dài:', txt.length);
+      if(!txt.trim()) throw new Error('File rỗng hoặc không đọc được');
+
       const fd = parseFollowersFile(txt);
-      if(!fd.length) throw new Error('Không đọc được dữ liệu');
+      console.log('[Followers] Parse được:', fd.length, 'ngày');
+      if(!fd.length) throw new Error('Không tìm thấy cột date,followers. Kiểm tra file.');
+
       cd.followerHistory = fd;
       if(fd.length > 0) cd.followers = fd[fd.length-1].count;
       await saveCd();
-      document.getElementById('fStatus').innerHTML = `<span style="color:var(--gr)">✅ Đọc ${fd.length} ngày dữ liệu</span>`;
+
+      st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${fd.length} ngày dữ liệu</span>`;
       renderCh();
       tS('📈 Đã phân tích file Followers!');
     } catch(err){
-      document.getElementById('fStatus').innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
+      console.error('[Followers] Lỗi:', err);
+      st.innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
     }
   };
+  r.onerror = () => { st.innerHTML = '<span style="color:var(--rd)">❌ Lỗi đọc file</span>'; };
   r.readAsText(f, 'UTF-8');
+  e.target.value = '';
 });
 
 function parseFollowersFile(txt){
+  txt = String(txt).replace(/^\uFEFF/, '');
   const result = [];
+
   try{
     const j = JSON.parse(txt);
     if(Array.isArray(j)){
@@ -796,12 +859,13 @@ function parseFollowersFile(txt){
       if(result.length) return result;
     }
   } catch(e){}
+
   const lines = txt.split(/\r?\n/).filter(l => l.trim());
   for(let i = 0; i < lines.length; i++){
-    const parts = lines[i].replace(/^"|"$/g,'').split(/[,\t;]/).map(s => s.trim().replace(/^"|"$/g,''));
+    const parts = splitCSVLine(lines[i]);
     if(parts.length < 2) continue;
     const d = normalizeDate(parts[0]);
-    const c = parseInt(parts[1]);
+    const c = parseInt(String(parts[1]).replace(/[^\d-]/g, ''));
     if(d && !isNaN(c)) result.push({ date: d, count: c });
   }
   result.sort((a,b) => a.date.localeCompare(b.date));
@@ -810,10 +874,26 @@ function parseFollowersFile(txt){
 
 function normalizeDate(s){
   if(!s) return null;
-  s = String(s).trim();
-  if(/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0,10);
-  let m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
-  if(m) return `${m[3]}-${PAD(m[1])}-${PAD(m[2])}`;
+  s = String(s).trim().replace(/^\uFEFF/, '');
+  if(!s) return null;
+
+  // YYYY-MM-DD hoặc YYYY/MM/DD
+  let m = s.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
+  if(m) return `${m[1]}-${PAD(m[2])}-${PAD(m[3])}`;
+
+  // DD/MM/YYYY hoặc DD-MM-YYYY
+  m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+  if(m){
+    let d = parseInt(m[1]), mo = parseInt(m[2]);
+    if(d > 12 && mo <= 12) return `${m[3]}-${PAD(mo)}-${PAD(d)}`;
+    return `${m[3]}-${PAD(mo)}-${PAD(d)}`;
+  }
+
+  // Dạng: Jan 15, 2024
+  const months = {jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
+  const mm = s.toLowerCase().match(/([a-z]{3})[a-z]*\s+(\d{1,2})[,\s]+(\d{4})/);
+  if(mm && months[mm[1]]) return `${mm[3]}-${months[mm[1]]}-${PAD(mm[2])}`;
+
   return null;
 }
 
@@ -1039,7 +1119,8 @@ document.getElementById('clB').addEventListener('click', async () => {
 function uS(t,c){ const el = document.getElementById('us'); el.textContent = t; el.style.color = c || 'var(--gr)' }
 
 /* ================= UPLOAD CSV ================= */
-const uz = document.getElementById('uz'), ci = document.getElementById('ci');
+const uz = document.querySelector('.up[for="ci"]') || document.querySelector('.up');
+const ci = document.getElementById('ci');
 
 function fSz(b){ if(b<1024) return b+' B'; if(b<1048576) return (b/1024).toFixed(1)+' KB'; return (b/1048576).toFixed(2)+' MB' }
 
@@ -1067,12 +1148,16 @@ function hF(f){
   r.readAsText(f, 'UTF-8');
 }
 
-ci.addEventListener('change', e => { hF(e.target.files[0]); e.target.value = '' });
-uz.addEventListener('click', e => { if(e.target !== ci) ci.click() });
-['dragenter','dragover'].forEach(ev => uz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); uz.classList.add('dg') }));
-['dragleave','drop'].forEach(ev => uz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); if(ev==='dragleave' && uz.contains(e.relatedTarget)) return; uz.classList.remove('dg') }));
-uz.addEventListener('drop', e => { hF(e.dataTransfer.files[0]) });
-['dragover','drop'].forEach(ev => window.addEventListener(ev, e => { if(!uz.contains(e.target)) e.preventDefault() }));
+if(ci){
+  ci.addEventListener('change', e => { hF(e.target.files[0]); e.target.value = '' });
+}
+if(uz){
+  uz.addEventListener('click', e => { if(e.target !== ci && ci) ci.click() });
+  ['dragenter','dragover'].forEach(ev => uz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); uz.classList.add('dg') }));
+  ['dragleave','drop'].forEach(ev => uz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); if(ev==='dragleave' && uz.contains(e.relatedTarget)) return; uz.classList.remove('dg') }));
+  uz.addEventListener('drop', e => { hF(e.dataTransfer.files[0]) });
+}
+['dragover','drop'].forEach(ev => window.addEventListener(ev, e => { if(uz && !uz.contains(e.target)) e.preventDefault() }));
 document.addEventListener('paste', e => {
   const it = e.clipboardData?.items; if(!it) return;
   for(const i of it){
@@ -1336,7 +1421,7 @@ document.getElementById('pBtn').addEventListener('click', async () => {
 setInterval(renderGt, 60000);
 
 /* ================= AUTO UPDATE ================= */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.0-fastest';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.1-fixed';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 async function cU(){
   try{
