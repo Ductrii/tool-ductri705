@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v11.2-content">
+<meta name="tool-version" content="v11.3-zip">
 <title>Tool by ductri705</title>
 <link rel="preconnect" href="https://wkddmlxhqyvhxznycpgs.supabase.co" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -296,20 +296,20 @@ input:focus{border-color:var(--acc)}
 <div id="vStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
 
 <div class="st2" style="margin-top:18px">👥 Upload file Followers (tăng trưởng)</div>
-<div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Người theo dõi. Format: <b>date,followers</b></div>
+<div class="nt" style="margin-bottom:8px;text-align:left">Hỗ trợ <b>CSV, TXT, JSON, ZIP</b> (zip không cần giải nén). Format: <b>date,followers</b></div>
 <label class="up">
-<input type="file" id="fFollowers" accept="*/*,.csv,.txt,.json,text/csv,text/plain,application/json,application/vnd.ms-excel">
+<input type="file" id="fFollowers" accept="*/*,.csv,.txt,.json,.zip,text/csv,text/plain,application/json,application/zip,application/x-zip-compressed,application/octet-stream">
 <div class="ic">👥</div>
-<div class="tx">Bấm chọn <b>file followers</b></div>
+<div class="tx">Bấm chọn <b>file followers</b> (hoặc ZIP)</div>
 </label>
 <div id="fStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
 
 <div class="st2" style="margin-top:18px">📹 Upload file Content (top video)</div>
 <div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Content. Format: <b>post time, link, views, likes, comments, shares</b></div>
 <label class="up">
-<input type="file" id="fContent" accept="*/*,.csv,.txt,.json,text/csv,text/plain,application/json,application/vnd.ms-excel">
+<input type="file" id="fContent" accept="*/*,.csv,.txt,.json,.zip,text/csv,text/plain,application/json,application/zip,application/x-zip-compressed,application/octet-stream">
 <div class="ic">📹</div>
-<div class="tx">Bấm chọn <b>file content</b></div>
+<div class="tx">Bấm chọn <b>file content</b> (hoặc ZIP)</div>
 </label>
 <div id="ctStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
 <div id="ctList" style="margin-top:12px"></div>
@@ -382,7 +382,7 @@ input:focus{border-color:var(--acc)}
 
 <script>
 /* =====================================================
-   SCRIPT 1: UI CƠ BẢN — chạy ngay, không cần Supabase
+   SCRIPT 1: UI CƠ BẢN
    ===================================================== */
 (function(){
   const PAD = n => String(n).padStart(2,'0');
@@ -493,9 +493,22 @@ input:focus{border-color:var(--acc)}
 })();
 
 /* =====================================================
-   SCRIPT 3: LOAD SUPABASE ASYNC
+   SCRIPT 3: LOAD LIBS (Supabase + JSZip)
    ===================================================== */
 (function(){
+  // JSZip cho ZIP
+  const j = document.createElement('script');
+  j.src = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
+  j.async = true;
+  j.onerror = () => {
+    const j2 = document.createElement('script');
+    j2.src = 'https://unpkg.com/jszip@3.10.1/dist/jszip.min.js';
+    j2.async = true;
+    document.head.appendChild(j2);
+  };
+  document.head.appendChild(j);
+
+  // Supabase
   const s = document.createElement('script');
   s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
   s.async = true;
@@ -588,6 +601,37 @@ function pD(s){
   const d = parseInt(m[1]), mn = m[2].trim();
   if(!(mn in M)) return null;
   return new Date(new Date().getFullYear(), M[mn], d).getTime();
+}
+
+/* ============================================================
+   ZIP READER — đọc file từ ZIP không cần giải nén
+   ============================================================ */
+async function readFromZip(file){
+  if(typeof JSZip === 'undefined'){
+    throw new Error('Thư viện ZIP chưa tải xong. Đợi vài giây rồi thử lại.');
+  }
+  const zip = await JSZip.loadAsync(file);
+  // Tìm file ưu tiên: csv > json > txt
+  const candidates = [];
+  zip.forEach((path, entry) => {
+    if(entry.dir) return;
+    const lower = path.toLowerCase();
+    if(lower.endsWith('.csv')) candidates.push({ path, entry, rank: 1 });
+    else if(lower.endsWith('.json')) candidates.push({ path, entry, rank: 2 });
+    else if(lower.endsWith('.txt')) candidates.push({ path, entry, rank: 3 });
+  });
+  if(!candidates.length){
+    throw new Error('ZIP không có file .csv/.json/.txt');
+  }
+  candidates.sort((a,b) => a.rank - b.rank);
+  // Nếu có nhiều file csv, ưu tiên file có tên chứa follower/follow
+  const followerPreferred = candidates.find(c =>
+    /follow/i.test(c.path) && c.rank === 1
+  );
+  const chosen = followerPreferred || candidates[0];
+  console.log('[ZIP] Chọn file:', chosen.path);
+  const txt = await chosen.entry.async('string');
+  return { txt, name: chosen.path, total: candidates.length };
 }
 
 /* ================= CHANNEL ================= */
@@ -698,25 +742,6 @@ document.getElementById('svGh').addEventListener('click', async () => {
   tS('🎯 Đã lưu giờ vàng!');
 });
 
-const fhAddBtn = document.getElementById('fhAdd');
-if(fhAddBtn){
-  fhAddBtn.addEventListener('click', async () => {
-    const d = document.getElementById('fhDate').value;
-    const c = parseInt(document.getElementById('fhCount').value);
-    if(!d || !c){ alert('Nhập ngày và số'); return; }
-    let h = cd.followerHistory || [];
-    const i = h.findIndex(x => x.date === d);
-    if(i >= 0) h[i].count = c;
-    else h.push({ date: d, count: c });
-    cd.followerHistory = h;
-    const { error } = await saveCd();
-    if(error){ alert('Lỗi'); return; }
-    document.getElementById('fhCount').value = '';
-    renderCh();
-    tS('✅ Đã thêm!');
-  });
-}
-
 /* ============================================================
    SPLIT CSV LINE
    ============================================================ */
@@ -740,7 +765,7 @@ function splitCSVLine(line){
   return out;
 }
 
-/* ================= UPLOAD VIEWERS (FIXED) ================= */
+/* ================= UPLOAD VIEWERS ================= */
 document.getElementById('fViewers').addEventListener('change', function(e){
   const f = e.target.files && e.target.files[0];
   console.log('[Viewers] File chọn:', f);
@@ -811,8 +836,8 @@ function parseViewersFile(txt){
   return result;
 }
 
-/* ================= UPLOAD FOLLOWERS (FIXED) ================= */
-document.getElementById('fFollowers').addEventListener('change', function(e){
+/* ================= UPLOAD FOLLOWERS (ZIP READY) ================= */
+document.getElementById('fFollowers').addEventListener('change', async function(e){
   const f = e.target.files && e.target.files[0];
   console.log('[Followers] File chọn:', f);
   const st = document.getElementById('fStatus');
@@ -820,33 +845,49 @@ document.getElementById('fFollowers').addEventListener('change', function(e){
     st.innerHTML = '<span style="color:var(--rd)">Chưa chọn file</span>';
     return;
   }
-  st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
 
-  const r = new FileReader();
-  r.onload = async ev => {
-    try{
-      const txt = String(ev.target.result || '');
-      console.log('[Followers] Đọc xong, độ dài:', txt.length);
-      if(!txt.trim()) throw new Error('File rỗng hoặc không đọc được');
+  const nm = (f.name || '').toLowerCase();
+  const isZip = nm.endsWith('.zip') || f.type.includes('zip') || f.type === 'application/octet-stream' && f.size > 100;
 
-      const fd = parseFollowersFile(txt);
-      console.log('[Followers] Parse được:', fd.length, 'ngày');
-      if(!fd.length) throw new Error('Không tìm thấy cột date,followers. Kiểm tra file.');
+  try{
+    let txt = '', srcName = f.name;
 
-      cd.followerHistory = fd;
-      if(fd.length > 0) cd.followers = fd[fd.length-1].count;
-      await saveCd();
-
-      st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${fd.length} ngày dữ liệu</span>`;
-      renderCh();
-      tS('📈 Đã phân tích file Followers!');
-    } catch(err){
-      console.error('[Followers] Lỗi:', err);
-      st.innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
+    if(isZip){
+      st.innerHTML = '<span style="color:var(--acc)">📦 Đang mở ZIP ' + f.name + '...</span>';
+      const z = await readFromZip(f);
+      txt = z.txt;
+      srcName = z.name;
+      if(z.total > 1){
+        st.innerHTML = '<span style="color:var(--acc)">📦 ZIP có ' + z.total + ' file, đang dùng: ' + z.name + '</span>';
+      }
+    } else {
+      st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
+      txt = await new Promise((res, rej) => {
+        const r = new FileReader();
+        r.onload = ev => res(String(ev.target.result || ''));
+        r.onerror = () => rej(new Error('Lỗi đọc file'));
+        r.readAsText(f, 'UTF-8');
+      });
     }
-  };
-  r.onerror = () => { st.innerHTML = '<span style="color:var(--rd)">❌ Lỗi đọc file</span>'; };
-  r.readAsText(f, 'UTF-8');
+
+    console.log('[Followers] Đọc xong', srcName, 'độ dài:', txt.length);
+    if(!txt.trim()) throw new Error('File rỗng hoặc không đọc được');
+
+    const fd = parseFollowersFile(txt);
+    console.log('[Followers] Parse được:', fd.length, 'ngày');
+    if(!fd.length) throw new Error('Không tìm thấy cột date,followers trong ' + srcName);
+
+    cd.followerHistory = fd;
+    if(fd.length > 0) cd.followers = fd[fd.length-1].count;
+    await saveCd();
+
+    st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${fd.length} ngày từ <b>${esc(srcName)}</b></span>`;
+    renderCh();
+    tS('📈 Đã phân tích file Followers!');
+  } catch(err){
+    console.error('[Followers] Lỗi:', err);
+    st.innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
+  }
   e.target.value = '';
 });
 
@@ -900,8 +941,8 @@ function normalizeDate(s){
   return null;
 }
 
-/* ================= UPLOAD CONTENT (NEW) ================= */
-document.getElementById('fContent').addEventListener('change', function(e){
+/* ================= UPLOAD CONTENT (ZIP READY) ================= */
+document.getElementById('fContent').addEventListener('change', async function(e){
   const f = e.target.files && e.target.files[0];
   console.log('[Content] File chọn:', f);
   const st = document.getElementById('ctStatus');
@@ -909,31 +950,44 @@ document.getElementById('fContent').addEventListener('change', function(e){
     st.innerHTML = '<span style="color:var(--rd)">Chưa chọn file</span>';
     return;
   }
-  st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
 
-  const r = new FileReader();
-  r.onload = async ev => {
-    try{
-      const txt = String(ev.target.result || '').replace(/^\uFEFF/, '');
-      console.log('[Content] Độ dài:', txt.length);
-      if(!txt.trim()) throw new Error('File rỗng');
+  const nm = (f.name || '').toLowerCase();
+  const isZip = nm.endsWith('.zip') || f.type.includes('zip');
 
-      const videos = parseContentFile(txt);
-      console.log('[Content] Parse được:', videos.length, 'video');
-      if(!videos.length) throw new Error('Không đọc được video nào. Kiểm tra file.');
+  try{
+    let txt = '', srcName = f.name;
 
-      cd.contentData = videos;
-      await saveCd();
-      st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${videos.length} video</span>`;
-      renderContent();
-      tS('📹 Đã phân tích file Content!');
-    } catch(err){
-      console.error('[Content] Lỗi:', err);
-      st.innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
+    if(isZip){
+      st.innerHTML = '<span style="color:var(--acc)">📦 Đang mở ZIP ' + f.name + '...</span>';
+      const z = await readFromZip(f);
+      txt = z.txt;
+      srcName = z.name;
+    } else {
+      st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
+      txt = await new Promise((res, rej) => {
+        const r = new FileReader();
+        r.onload = ev => res(String(ev.target.result || ''));
+        r.onerror = () => rej(new Error('Lỗi đọc file'));
+        r.readAsText(f, 'UTF-8');
+      });
     }
-  };
-  r.onerror = () => { st.innerHTML = '<span style="color:var(--rd)">❌ Lỗi đọc file</span>'; };
-  r.readAsText(f, 'UTF-8');
+
+    txt = txt.replace(/^\uFEFF/, '');
+    if(!txt.trim()) throw new Error('File rỗng');
+
+    const videos = parseContentFile(txt);
+    console.log('[Content] Parse được:', videos.length, 'video');
+    if(!videos.length) throw new Error('Không đọc được video nào trong ' + srcName);
+
+    cd.contentData = videos;
+    await saveCd();
+    st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${videos.length} video từ <b>${esc(srcName)}</b></span>`;
+    renderContent();
+    tS('📹 Đã phân tích file Content!');
+  } catch(err){
+    console.error('[Content] Lỗi:', err);
+    st.innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
+  }
   e.target.value = '';
 });
 
@@ -1573,7 +1627,7 @@ document.getElementById('pBtn').addEventListener('click', async () => {
 setInterval(renderGt, 60000);
 
 /* ================= AUTO UPDATE ================= */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.2-content';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.3-zip';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 async function cU(){
   try{
