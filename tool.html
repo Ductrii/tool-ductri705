@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v11.1-fixed">
+<meta name="tool-version" content="v11.2-content">
 <title>Tool by ductri705</title>
 <link rel="preconnect" href="https://wkddmlxhqyvhxznycpgs.supabase.co" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -304,6 +304,16 @@ input:focus{border-color:var(--acc)}
 </label>
 <div id="fStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
 
+<div class="st2" style="margin-top:18px">📹 Upload file Content (top video)</div>
+<div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Content. Format: <b>post time, link, views, likes, comments, shares</b></div>
+<label class="up">
+<input type="file" id="fContent" accept="*/*,.csv,.txt,.json,text/csv,text/plain,application/json,application/vnd.ms-excel">
+<div class="ic">📹</div>
+<div class="tx">Bấm chọn <b>file content</b></div>
+</label>
+<div id="ctStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
+<div id="ctList" style="margin-top:12px"></div>
+
 <div class="st2" style="margin-top:18px">✏️ Hoặc nhập tay</div>
 <input type="text" id="inU" placeholder="Tên TK (VD: @ductri705)">
 <input type="number" id="inF" placeholder="Số follower">
@@ -378,7 +388,6 @@ input:focus{border-color:var(--acc)}
   const PAD = n => String(n).padStart(2,'0');
   const DWF = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
 
-  // Theme
   function setT(t){
     document.documentElement.setAttribute('data-theme',t);
     localStorage.setItem('th',t);
@@ -390,7 +399,6 @@ input:focus{border-color:var(--acc)}
     setT((localStorage.getItem('th')||'dark')==='dark' ? 'light' : 'dark');
   });
 
-  // Clock chạy ngay
   function tickClock(){
     const n = new Date();
     const tEl = document.getElementById('t');
@@ -402,14 +410,12 @@ input:focus{border-color:var(--acc)}
   }
   tickClock(); setInterval(tickClock, 1000);
 
-  // Sound toggle
   const st = document.getElementById('sT');
   if(st){
     st.checked = localStorage.getItem('snd')==='true';
     st.addEventListener('change', e => localStorage.setItem('snd', e.target.checked));
   }
 
-  // Tab switching
   document.querySelectorAll('.tbb').forEach(t => t.addEventListener('click', () => {
     document.querySelectorAll('.tbb').forEach(x => x.classList.remove('a'));
     document.querySelectorAll('.tc').forEach(c => c.classList.add('hd'));
@@ -418,7 +424,6 @@ input:focus{border-color:var(--acc)}
     if(window.__onTabChange) window.__onTabChange(t.dataset.tab);
   }));
 
-  // Auth form
   let isR = false;
   const aT = document.getElementById('aT');
   const aB = document.getElementById('aB');
@@ -464,7 +469,7 @@ input:focus{border-color:var(--acc)}
 })();
 
 /* =====================================================
-   SCRIPT 2: CACHE CHECK — vào tool luôn nếu có cache
+   SCRIPT 2: CACHE CHECK
    ===================================================== */
 (function(){
   try{
@@ -601,6 +606,7 @@ function renderCh(){
   renderFh();
   renderGr();
   renderGt();
+  renderContent();
 }
 
 function renderGt(){
@@ -712,7 +718,7 @@ if(fhAddBtn){
 }
 
 /* ============================================================
-   SPLIT CSV LINE — xử lý dấu ngoặc kép, tab, chấm phẩy
+   SPLIT CSV LINE
    ============================================================ */
 function splitCSVLine(line){
   const out = [];
@@ -877,11 +883,9 @@ function normalizeDate(s){
   s = String(s).trim().replace(/^\uFEFF/, '');
   if(!s) return null;
 
-  // YYYY-MM-DD hoặc YYYY/MM/DD
   let m = s.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
   if(m) return `${m[1]}-${PAD(m[2])}-${PAD(m[3])}`;
 
-  // DD/MM/YYYY hoặc DD-MM-YYYY
   m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
   if(m){
     let d = parseInt(m[1]), mo = parseInt(m[2]);
@@ -889,12 +893,160 @@ function normalizeDate(s){
     return `${m[3]}-${PAD(mo)}-${PAD(d)}`;
   }
 
-  // Dạng: Jan 15, 2024
   const months = {jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
   const mm = s.toLowerCase().match(/([a-z]{3})[a-z]*\s+(\d{1,2})[,\s]+(\d{4})/);
   if(mm && months[mm[1]]) return `${mm[3]}-${months[mm[1]]}-${PAD(mm[2])}`;
 
   return null;
+}
+
+/* ================= UPLOAD CONTENT (NEW) ================= */
+document.getElementById('fContent').addEventListener('change', function(e){
+  const f = e.target.files && e.target.files[0];
+  console.log('[Content] File chọn:', f);
+  const st = document.getElementById('ctStatus');
+  if(!f){
+    st.innerHTML = '<span style="color:var(--rd)">Chưa chọn file</span>';
+    return;
+  }
+  st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
+
+  const r = new FileReader();
+  r.onload = async ev => {
+    try{
+      const txt = String(ev.target.result || '').replace(/^\uFEFF/, '');
+      console.log('[Content] Độ dài:', txt.length);
+      if(!txt.trim()) throw new Error('File rỗng');
+
+      const videos = parseContentFile(txt);
+      console.log('[Content] Parse được:', videos.length, 'video');
+      if(!videos.length) throw new Error('Không đọc được video nào. Kiểm tra file.');
+
+      cd.contentData = videos;
+      await saveCd();
+      st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${videos.length} video</span>`;
+      renderContent();
+      tS('📹 Đã phân tích file Content!');
+    } catch(err){
+      console.error('[Content] Lỗi:', err);
+      st.innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
+    }
+  };
+  r.onerror = () => { st.innerHTML = '<span style="color:var(--rd)">❌ Lỗi đọc file</span>'; };
+  r.readAsText(f, 'UTF-8');
+  e.target.value = '';
+});
+
+function parseContentFile(txt){
+  txt = String(txt).replace(/^\uFEFF/, '');
+  const result = [];
+
+  try{
+    const j = JSON.parse(txt);
+    if(Array.isArray(j)){
+      j.forEach(x => {
+        const v = {
+          time: x.time ?? x.post_time ?? x.date ?? x[0] ?? '',
+          link: x.link ?? x.url ?? x[1] ?? '',
+          views: parseInt(x.views ?? x.v ?? x[2]) || 0,
+          likes: parseInt(x.likes ?? x.l ?? x[3]) || 0,
+          comments: parseInt(x.comments ?? x.c ?? x[4]) || 0,
+          shares: parseInt(x.shares ?? x.s ?? x[5]) || 0,
+          title: x.title ?? x.desc ?? x.caption ?? ''
+        };
+        if(v.views || v.likes) result.push(v);
+      });
+      if(result.length) return result;
+    }
+  } catch(e){}
+
+  const lines = txt.split(/\r?\n/).filter(l => l.trim());
+  if(lines.length < 2) return result;
+
+  const header = splitCSVLine(lines[0]).map(h => h.toLowerCase());
+  let colTime = -1, colLink = -1, colViews = -1, colLikes = -1, colComm = -1, colShare = -1, colTitle = -1;
+
+  header.forEach((h,i) => {
+    if(colTime < 0 && (h.includes('post time') || h.includes('thời gian') || h.includes('date') || h === 'time')) colTime = i;
+    else if(colLink < 0 && (h.includes('link') || h.includes('url'))) colLink = i;
+    else if(colViews < 0 && (h.includes('view') || h.includes('lượt xem'))) colViews = i;
+    else if(colLikes < 0 && (h.includes('like') || h.includes('tim'))) colLikes = i;
+    else if(colComm < 0 && (h.includes('comment') || h.includes('bình luận'))) colComm = i;
+    else if(colShare < 0 && (h.includes('share') || h.includes('chia sẻ'))) colShare = i;
+    else if(colTitle < 0 && (h.includes('title') || h.includes('caption') || h.includes('desc') || h.includes('mô tả'))) colTitle = i;
+  });
+
+  const hasHeader = colViews >= 0 || colLikes >= 0;
+  const startIdx = hasHeader ? 1 : 0;
+  if(!hasHeader){
+    colTime = 0; colLink = 1; colViews = 2; colLikes = 3; colComm = 4; colShare = 5;
+  }
+
+  for(let i = startIdx; i < lines.length; i++){
+    const p = splitCSVLine(lines[i]);
+    if(p.length < 3) continue;
+    const v = {
+      time: colTime >= 0 ? p[colTime] : '',
+      link: colLink >= 0 ? p[colLink] : '',
+      views: parseInt(String(p[colViews] || 0).replace(/[^\d]/g, '')) || 0,
+      likes: parseInt(String(p[colLikes] || 0).replace(/[^\d]/g, '')) || 0,
+      comments: colComm >= 0 ? (parseInt(String(p[colComm] || 0).replace(/[^\d]/g, '')) || 0) : 0,
+      shares: colShare >= 0 ? (parseInt(String(p[colShare] || 0).replace(/[^\d]/g, '')) || 0) : 0,
+      title: colTitle >= 0 ? p[colTitle] : ''
+    };
+    if(v.views || v.likes) result.push(v);
+  }
+  return result;
+}
+
+function renderContent(){
+  const el = document.getElementById('ctList');
+  if(!el) return;
+  const v = cd.contentData || [];
+  if(!v.length){ el.innerHTML = '<div class="nt">Chưa có dữ liệu</div>'; return; }
+
+  const sorted = [...v].sort((a,b) => b.views - a.views);
+  const top = sorted.slice(0, 10);
+  const mx = top[0].views || 1;
+  const totalV = v.reduce((a,x) => a + x.views, 0);
+  const totalL = v.reduce((a,x) => a + x.likes, 0);
+  const avgV = Math.round(totalV / v.length);
+
+  let html = `<div class="cb" style="margin-bottom:12px">
+    <div class="ct">📹 Tổng quan Content</div>
+    <div class="cg">
+      <div class="ci"><div class="v">${v.length}</div><div class="l">Video</div></div>
+      <div class="ci"><div class="v">${fV(totalV)}</div><div class="l">Tổng view</div></div>
+      <div class="ci"><div class="v">${fV(totalL)}</div><div class="l">Tổng tim</div></div>
+      <div class="ci"><div class="v">${fV(avgV)}</div><div class="l">View TB</div></div>
+    </div>
+  </div>
+  <div class="st2">🏆 TOP 10 VIDEO</div>`;
+
+  html += top.map((x, i) => {
+    const bw = (x.views / mx * 100).toFixed(1);
+    const date = (x.time || '').toString().slice(0, 16);
+    const lbl = x.title ? esc(x.title).slice(0, 60) : (date || 'Video #' + (i+1));
+    const link = x.link ? `<a href="${esc(x.link)}" target="_blank" style="color:var(--acc);font-size:11px;text-decoration:none">🔗 Mở</a>` : '';
+    return `<div class="tv r${i+1}">
+      <div class="tvr">${i<3?MED[i]:i+1}</div>
+      <div class="tvi">
+        <div class="tvd">${lbl}</div>
+        <div class="tvm">
+          <span class="tvv">${fV(x.views)} view</span>
+          <span>❤️ ${fV(x.likes)}</span>
+          <span>💬 ${fV(x.comments)}</span>
+          <span>🔁 ${fV(x.shares)}</span>
+          ${link}
+        </div>
+        ${date ? `<div style="font-size:10px;color:var(--tx3);margin-top:3px">🕐 ${esc(date)}</div>` : ''}
+      </div>
+      ${i===0?'<span class="tvc">👑</span>':''}
+      <div class="tvb" style="width:${bw}%"></div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = html;
 }
 
 /* ================= REG MODAL ================= */
@@ -1118,8 +1270,8 @@ document.getElementById('clB').addEventListener('click', async () => {
 
 function uS(t,c){ const el = document.getElementById('us'); el.textContent = t; el.style.color = c || 'var(--gr)' }
 
-/* ================= UPLOAD CSV ================= */
-const uz = document.querySelector('.up[for="ci"]') || document.querySelector('.up');
+/* ================= UPLOAD CSV OVERVIEW ================= */
+const uz = document.querySelector('.up[for="ci"]');
 const ci = document.getElementById('ci');
 
 function fSz(b){ if(b<1024) return b+' B'; if(b<1048576) return (b/1024).toFixed(1)+' KB'; return (b/1048576).toFixed(2)+' MB' }
@@ -1306,7 +1458,7 @@ window.__onTabChange = function(tab){
   if(tab === 'adm') adLoad();
   if(tab === 'acc') rAcc();
   if(tab === 'mn') rPk();
-  if(tab === 'cn') renderCh();
+  if(tab === 'cn'){ renderCh(); renderContent(); }
 };
 
 function rCmp(){
@@ -1421,7 +1573,7 @@ document.getElementById('pBtn').addEventListener('click', async () => {
 setInterval(renderGt, 60000);
 
 /* ================= AUTO UPDATE ================= */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.1-fixed';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.2-content';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 async function cU(){
   try{
