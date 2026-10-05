@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v11.12-keygen">
+<meta name="tool-version" content="v11.13-keycopy">
 <meta name="theme-color" content="#6ea8ff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -325,6 +325,8 @@ input:focus{border-color:var(--acc)}
 .key-item .k-status.new{background:#1e3a1e;color:#4ade80}
 .key-item .k-status.used{background:#3a2a10;color:#ffd700}
 .key-item .k-status.expired{background:#3a1e1e;color:#ff6e9c}
+.key-item .k-copy{background:0;border:0;color:var(--acc);cursor:pointer;font-size:15px;padding:4px 8px;margin-left:auto;transition:.2s}
+.key-item .k-copy:hover{color:var(--gr);transform:scale(1.2)}
 .key-item .k-del{background:0;border:0;color:var(--rd);cursor:pointer;font-size:14px;padding:4px}
 </style>
 </head>
@@ -1034,13 +1036,31 @@ async function adLoadKeys(){
       return `<div class="key-item">
         <span class="k-code">🔑 ${esc(k.key_code)}</span>
         <span class="k-status ${status}">${statusText}</span>
-        <button class="k-del" onclick="window.__delKey('${k.id}')">🗑️</button>
+        <button class="k-copy" onclick="window.__copyKey('${esc(k.key_code)}')" title="Copy key">📋</button>
+        <button class="k-del" onclick="window.__delKey('${k.id}')" title="Xóa">🗑️</button>
       </div>`;
     }).join('');
   } catch(e){
     list.innerHTML = '<div class="nt" style="color:var(--rd)">Lỗi: ' + esc(e.message) + '</div>';
   }
 }
+
+window.__copyKey = function(key){
+  const done = () => tS('📋 Đã copy key: <b>' + key + '</b>');
+  const fallback = () => {
+    const ta = document.createElement('textarea');
+    ta.value = key;
+    ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand('copy'); done(); }
+    catch(e){ prompt('Copy thủ công:', key); }
+    ta.remove();
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(key).then(done).catch(fallback);
+  } else fallback();
+};
 
 window.__delKey = async function(id){
   if(!confirm('Xóa key này?')) return;
@@ -1869,8 +1889,8 @@ document.getElementById('adGenKey')?.addEventListener('click', async () => {
         throw error;
       }
       document.getElementById('adKeyNote').value = '';
-      tS('✨ Đã sinh key: <b>' + newKey + '</b>');
-      navigator.clipboard.writeText(newKey).catch(() => {});
+      tS('✨ Đã sinh key: <b>' + newKey + '</b><br><span style="font-size:10px;opacity:.85">(đã tự copy)</span>', null, 5000);
+      window.__copyKey(newKey);
       adLoadKeys();
       break;
     } catch(e){
@@ -2214,7 +2234,7 @@ document.getElementById('pBtn').addEventListener('click', async () => {
 setInterval(renderGt, 60000);
 
 /* AUTO UPDATE */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.12-keygen';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.13-keycopy';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 async function cU(){
   try{
