@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v11.3-zip">
+<meta name="tool-version" content="v11.5-savefix">
 <title>Tool by ductri705</title>
 <link rel="preconnect" href="https://wkddmlxhqyvhxznycpgs.supabase.co" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -154,7 +154,7 @@ input:focus{border-color:var(--acc)}
 .ch-av{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--rd));display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#0d0d12;flex-shrink:0}
 .ch-n{font-size:15px;font-weight:600;word-break:break-all}
 .ch-s{font-size:11px;color:var(--tx3);margin-top:2px}
-.ch-st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ch-st{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .ch-s2{padding:10px 6px;background:var(--bg3);border-radius:9px;text-align:center}
 .ch-s2 .cn{font-size:15px;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums}
 .ch-s2 .cl{font-size:10px;color:var(--tx3);margin-top:3px;text-transform:uppercase}
@@ -162,11 +162,10 @@ input:focus{border-color:var(--acc)}
 .gh-t{padding:6px 11px;background:var(--bg2);border:1px solid var(--bd);border-radius:20px;font-size:12px;color:var(--acc);cursor:pointer;transition:.2s}
 .gh-t:hover{background:#26263a}
 .gh-t.on{background:var(--gold);color:var(--bg3);border-color:var(--gold);font-weight:700}
-.fh-row{display:flex;gap:6px;align-items:center;margin-bottom:5px;font-size:12px}
-.fh-row .fh-d{color:var(--tx3);width:85px}
-.fh-row .fh-i{flex:1;padding:6px 9px;background:var(--bg2);border:1px solid var(--bd);border-radius:5px;color:var(--tx);outline:none;font-size:12px;margin:0}
-.fh-row .fh-x{background:0;border:0;color:var(--rd);cursor:pointer;font-size:14px;padding:4px}
 .det{background:var(--bg2);border:1px solid var(--bd);border-radius:9px;padding:11px;font-size:12px;color:var(--tx2);line-height:1.6;margin-bottom:10px}
+.save-status{font-size:11px;text-align:right;color:var(--tx3);margin-top:-4px;margin-bottom:6px;min-height:14px;transition:.2s}
+.save-status.ok{color:var(--gr)}
+.save-status.err{color:var(--rd)}
 </style>
 </head>
 <body>
@@ -280,7 +279,6 @@ input:focus{border-color:var(--acc)}
 </div>
 </div>
 <div class="ch-st">
-<div class="ch-s2"><div class="cn" id="chF">0</div><div class="cl">Follower</div></div>
 <div class="ch-s2"><div class="cn" id="chL">0</div><div class="cl">Tim</div></div>
 <div class="ch-s2"><div class="cn" id="chFo">0</div><div class="cl">Follow</div></div>
 </div>
@@ -289,20 +287,11 @@ input:focus{border-color:var(--acc)}
 <div class="st2">👀 Upload file Viewers (tự tìm giờ vàng)</div>
 <div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Analytics → Người xem. Format: <b>hour,viewers</b></div>
 <label class="up">
-<input type="file" id="fViewers" accept="*/*,.csv,.txt,.json,text/csv,text/plain,application/json,application/vnd.ms-excel">
+<input type="file" id="fViewers" accept="*/*,.csv,.txt,.json,.zip,text/csv,text/plain,application/json,application/zip,application/x-zip-compressed,application/octet-stream">
 <div class="ic">👀</div>
-<div class="tx">Bấm chọn <b>file viewers</b></div>
+<div class="tx">Bấm chọn <b>file viewers</b> (hoặc ZIP)</div>
 </label>
 <div id="vStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
-
-<div class="st2" style="margin-top:18px">👥 Upload file Followers (tăng trưởng)</div>
-<div class="nt" style="margin-bottom:8px;text-align:left">Hỗ trợ <b>CSV, TXT, JSON, ZIP</b> (zip không cần giải nén). Format: <b>date,followers</b></div>
-<label class="up">
-<input type="file" id="fFollowers" accept="*/*,.csv,.txt,.json,.zip,text/csv,text/plain,application/json,application/zip,application/x-zip-compressed,application/octet-stream">
-<div class="ic">👥</div>
-<div class="tx">Bấm chọn <b>file followers</b> (hoặc ZIP)</div>
-</label>
-<div id="fStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
 
 <div class="st2" style="margin-top:18px">📹 Upload file Content (top video)</div>
 <div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Content. Format: <b>post time, link, views, likes, comments, shares</b></div>
@@ -314,20 +303,19 @@ input:focus{border-color:var(--acc)}
 <div id="ctStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
 <div id="ctList" style="margin-top:12px"></div>
 
-<div class="st2" style="margin-top:18px">✏️ Hoặc nhập tay</div>
+<div class="st2" style="margin-top:18px">✏️ Nhập tay thông tin kênh</div>
+<div id="saveStatus" class="save-status"></div>
 <input type="text" id="inU" placeholder="Tên TK (VD: @ductri705)">
-<input type="number" id="inF" placeholder="Số follower">
 <input type="number" id="inL" placeholder="Tổng tim">
 <input type="number" id="inFo" placeholder="Đang follow">
 <button class="b" id="svCh">💾 Lưu thông tin</button>
+<button class="b bs" id="rlCh" style="margin-top:6px">🔄 Tải lại từ Cloud</button>
 
 <div class="st2" style="margin-top:18px">🎯 Giờ vàng đã nhận diện</div>
 <div id="ghDetected" class="det">Chưa có dữ liệu</div>
 <div class="nt" style="margin-bottom:8px;text-align:left">Chọn tay nếu muốn override:</div>
 <div class="gh-in" id="ghInput"></div>
 <button class="b bg" id="svGh">💾 Lưu giờ vàng</button>
-
-<div id="grBox" style="margin-top:16px"></div>
 </div>
 
 <div id="tb-acc" class="tc hd">
@@ -381,13 +369,10 @@ input:focus{border-color:var(--acc)}
 </div>
 
 <script>
-/* =====================================================
-   SCRIPT 1: UI CƠ BẢN
-   ===================================================== */
+/* SCRIPT 1: UI CƠ BẢN */
 (function(){
   const PAD = n => String(n).padStart(2,'0');
   const DWF = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
-
   function setT(t){
     document.documentElement.setAttribute('data-theme',t);
     localStorage.setItem('th',t);
@@ -398,7 +383,6 @@ input:focus{border-color:var(--acc)}
   document.getElementById('tbtn').addEventListener('click',()=>{
     setT((localStorage.getItem('th')||'dark')==='dark' ? 'light' : 'dark');
   });
-
   function tickClock(){
     const n = new Date();
     const tEl = document.getElementById('t');
@@ -409,13 +393,11 @@ input:focus{border-color:var(--acc)}
     document.getElementById('zn').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
   }
   tickClock(); setInterval(tickClock, 1000);
-
   const st = document.getElementById('sT');
   if(st){
     st.checked = localStorage.getItem('snd')==='true';
     st.addEventListener('change', e => localStorage.setItem('snd', e.target.checked));
   }
-
   document.querySelectorAll('.tbb').forEach(t => t.addEventListener('click', () => {
     document.querySelectorAll('.tbb').forEach(x => x.classList.remove('a'));
     document.querySelectorAll('.tc').forEach(c => c.classList.add('hd'));
@@ -423,13 +405,11 @@ input:focus{border-color:var(--acc)}
     document.getElementById('tb-'+t.dataset.tab).classList.remove('hd');
     if(window.__onTabChange) window.__onTabChange(t.dataset.tab);
   }));
-
   let isR = false;
   const aT = document.getElementById('aT');
   const aB = document.getElementById('aB');
   const aTg = document.getElementById('aTg');
   const aM = document.getElementById('aM');
-
   aTg.addEventListener('click', () => {
     isR = !isR;
     aT.textContent = isR ? 'Đăng ký' : 'Đăng nhập';
@@ -437,7 +417,6 @@ input:focus{border-color:var(--acc)}
     aTg.textContent = isR ? 'Đã có? Đăng nhập' : 'Chưa có? Đăng ký';
     aM.textContent = '';
   });
-
   window.__doAuth = async () => {
     if(!window.__sb){ aM.textContent = 'Đang kết nối...'; aM.className = 'm e'; return; }
     const e = document.getElementById('aE').value.trim();
@@ -468,22 +447,23 @@ input:focus{border-color:var(--acc)}
   aB.addEventListener('click', window.__doAuth);
 })();
 
-/* =====================================================
-   SCRIPT 2: CACHE CHECK
-   ===================================================== */
+/* SCRIPT 2: CACHE CHECK */
 (function(){
   try{
     const cachedUser = JSON.parse(localStorage.getItem('cache_user')||'null');
     const cachedProfile = JSON.parse(localStorage.getItem('cache_profile')||'null');
     const cachedCh = JSON.parse(localStorage.getItem('cache_ch')||'{}');
     const cachedData = JSON.parse(localStorage.getItem('cache_data')||'[]');
-
     if(cachedUser && cachedUser.email){
       document.getElementById('as').classList.add('hd');
       document.getElementById('app').classList.remove('hd');
       document.getElementById('uE').textContent = cachedUser.email;
       document.getElementById('uC').textContent = cachedProfile?.is_admin ? '∞' : ((cachedProfile?.credits||0).toLocaleString('vi-VN'));
-
+      // Hiển thị ngay username từ cache
+      if(cachedCh.username){
+        const ue = document.getElementById('inU');
+        if(ue) ue.value = cachedCh.username;
+      }
       window.__cachedProfile = cachedProfile || {};
       window.__cachedCh = cachedCh || {};
       window.__cachedData = cachedData || [];
@@ -492,11 +472,8 @@ input:focus{border-color:var(--acc)}
   } catch(e){}
 })();
 
-/* =====================================================
-   SCRIPT 3: LOAD LIBS (Supabase + JSZip)
-   ===================================================== */
+/* SCRIPT 3: LOAD LIBS */
 (function(){
-  // JSZip cho ZIP
   const j = document.createElement('script');
   j.src = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
   j.async = true;
@@ -507,8 +484,6 @@ input:focus{border-color:var(--acc)}
     document.head.appendChild(j2);
   };
   document.head.appendChild(j);
-
-  // Supabase
   const s = document.createElement('script');
   s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
   s.async = true;
@@ -531,9 +506,7 @@ input:focus{border-color:var(--acc)}
 </script>
 
 <script>
-/* =====================================================
-   SCRIPT 4: LOGIC CHÍNH
-   ===================================================== */
+/* SCRIPT 4: LOGIC CHÍNH */
 window.__initApp = function(){
 const SBU="https://wkddmlxhqyvhxznycpgs.supabase.co";
 const SBK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGRtbHhocXl2aHh6bnljcGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODYzMzIsImV4cCI6MjEwNjY2MjMzMn0.ugXSLH3OhjAgLr6MzvYRviXztU_6oAviqvbj71keyK8";
@@ -545,7 +518,9 @@ const DW=['CN','T2','T3','T4','T5','T6','T7'];
 const sb = supabase.createClient(SBU,SBK);
 window.__sb = sb;
 const PAD = n => String(n).padStart(2,'0');
-let cu=null, rd=[], chi=null, up=null, chD=7, chT='bar', shAv=true, sch='', snd=localStorage.getItem('snd')==='true', lg=false, adC=[], cd={};
+let cu=null, rd=[], chi=null, up=null, chD=7, chT='bar', shAv=true, sch='', snd=localStorage.getItem('snd')==='true', lg=false, adC=[];
+// Khởi tạo cd từ cache nếu có
+let cd = window.__cachedCh || {};
 let chLoad=false, chLoading=false;
 
 function loadCh(){
@@ -602,16 +577,24 @@ function pD(s){
   if(!(mn in M)) return null;
   return new Date(new Date().getFullYear(), M[mn], d).getTime();
 }
+function setSaveStatus(msg, ok){
+  const el = document.getElementById('saveStatus');
+  if(!el) return;
+  el.textContent = msg;
+  el.className = 'save-status ' + (ok ? 'ok' : 'err');
+  clearTimeout(el._timer);
+  el._timer = setTimeout(() => {
+    el.textContent = '';
+    el.className = 'save-status';
+  }, 3500);
+}
 
-/* ============================================================
-   ZIP READER — đọc file từ ZIP không cần giải nén
-   ============================================================ */
+/* ZIP READER */
 async function readFromZip(file){
   if(typeof JSZip === 'undefined'){
     throw new Error('Thư viện ZIP chưa tải xong. Đợi vài giây rồi thử lại.');
   }
   const zip = await JSZip.loadAsync(file);
-  // Tìm file ưu tiên: csv > json > txt
   const candidates = [];
   zip.forEach((path, entry) => {
     if(entry.dir) return;
@@ -620,35 +603,50 @@ async function readFromZip(file){
     else if(lower.endsWith('.json')) candidates.push({ path, entry, rank: 2 });
     else if(lower.endsWith('.txt')) candidates.push({ path, entry, rank: 3 });
   });
-  if(!candidates.length){
-    throw new Error('ZIP không có file .csv/.json/.txt');
-  }
+  if(!candidates.length) throw new Error('ZIP không có file .csv/.json/.txt');
   candidates.sort((a,b) => a.rank - b.rank);
-  // Nếu có nhiều file csv, ưu tiên file có tên chứa follower/follow
-  const followerPreferred = candidates.find(c =>
-    /follow/i.test(c.path) && c.rank === 1
-  );
-  const chosen = followerPreferred || candidates[0];
-  console.log('[ZIP] Chọn file:', chosen.path);
+  const chosen = candidates[0];
   const txt = await chosen.entry.async('string');
   return { txt, name: chosen.path, total: candidates.length };
 }
 
-/* ================= CHANNEL ================= */
+/* ============================================================
+   SAVE CHANNEL DATA — đã sửa lỗi
+   ============================================================ */
+async function saveCd(){
+  if(!cu) throw new Error('Chưa đăng nhập');
+  // 1. Lưu cache ngay
+  try{ localStorage.setItem('cache_ch', JSON.stringify(cd)); }catch(e){}
+  // 2. Lưu lên Supabase
+  const { data, error } = await sb.from('profiles')
+    .update({ channel_data: cd })
+    .eq('id', cu.id)
+    .select('channel_data')
+    .single();
+  if(error) throw error;
+  console.log('[saveCd] Đã lưu:', data?.channel_data);
+  // 3. Cập nhật cd từ response để đảm bảo sync
+  if(data?.channel_data) cd = data.channel_data;
+  return data;
+}
+
+/* ============================================================
+   RENDER CHANNEL — không reset input đang gõ
+   ============================================================ */
 function renderCh(){
   document.getElementById('chN').textContent = cd.username || '@chưa-nhập';
   document.getElementById('chA').textContent = (cd.username||'@').replace('@','').charAt(0).toUpperCase() || '@';
-  document.getElementById('chF').textContent = fV(cd.followers || 0);
   document.getElementById('chL').textContent = fV(cd.likes || 0);
   document.getElementById('chFo').textContent = fV(cd.following || 0);
-  document.getElementById('inU').value = cd.username || '';
-  document.getElementById('inF').value = cd.followers || '';
-  document.getElementById('inL').value = cd.likes || '';
-  document.getElementById('inFo').value = cd.following || '';
+  // Chỉ set value nếu input đang không focus (tránh reset khi đang gõ)
+  const elU = document.getElementById('inU');
+  const elL = document.getElementById('inL');
+  const elF = document.getElementById('inFo');
+  if(document.activeElement !== elU) elU.value = cd.username || '';
+  if(document.activeElement !== elL) elL.value = cd.likes || '';
+  if(document.activeElement !== elF) elF.value = cd.following || '';
   document.querySelectorAll('.gh-t').forEach(t => t.classList.toggle('on', (cd.goldenHours||[]).includes(t.dataset.h)));
   renderDetected();
-  renderFh();
-  renderGr();
   renderGt();
   renderContent();
 }
@@ -687,32 +685,80 @@ function renderDetected(){
   el.innerHTML = html;
 }
 
-function renderFh(){
-  const el = document.getElementById('fhList');
-  if(!el) return;
-  const h = (cd.followerHistory||[]).slice().sort((a,b) => a.date.localeCompare(b.date));
-  if(!h.length){ el.innerHTML = '<div style="color:#666;text-align:center;padding:12px;font-size:12px">Chưa có dữ liệu</div>'; return; }
-  el.innerHTML = h.map((x,i) => `<div class="fh-row"><span class="fh-d">${x.date}</span><input type="number" class="fh-i" value="${x.count}" onchange="ufh(${i},this.value)"><button class="fh-x" onclick="dfh(${i})">🗑️</button></div>`).join('');
-}
+/* ============================================================
+   BUTTON: Lưu thông tin kênh — đã sửa
+   ============================================================ */
+document.getElementById('svCh').addEventListener('click', async () => {
+  if(!cu){ setSaveStatus('❌ Chưa đăng nhập', false); return; }
+  const uVal = document.getElementById('inU').value.trim();
+  const lVal = parseInt(document.getElementById('inL').value) || 0;
+  const fVal = parseInt(document.getElementById('inFo').value) || 0;
+  cd.username = uVal;
+  cd.likes = lVal;
+  cd.following = fVal;
+  const btn = document.getElementById('svCh');
+  btn.disabled = true;
+  setSaveStatus('⏳ Đang lưu...', false);
+  try{
+    await saveCd();
+    setSaveStatus('✅ Đã lưu: ' + (uVal || '(trống)'), true);
+    renderCh();
+    tS('✅ Đã lưu kênh!');
+  } catch(err){
+    console.error('[svCh]', err);
+    setSaveStatus('❌ ' + (err.message || 'Lỗi lưu'), false);
+    alert('Lỗi lưu: ' + (err.message || 'Không xác định'));
+  }
+  btn.disabled = false;
+});
 
-function renderGr(){
-  const box = document.getElementById('grBox');
-  const h = (cd.followerHistory||[]).slice().sort((a,b) => a.date.localeCompare(b.date));
-  if(h.length < 2){ box.innerHTML = '<div class="nt">Cần ≥ 2 ngày để tính</div>'; return; }
-  const f = h[0].count, l = h[h.length-1].count, diff = l-f, days = h.length, per = Math.round(diff/days);
-  const pct = f>0 ? ((diff/f*100)).toFixed(1) : 0;
-  const cls = diff>0 ? 'u' : diff<0 ? 'd' : 's';
-  box.innerHTML = `<div class="st2">📈 Tăng trưởng</div><div class="cdf ${cls}">${diff>=0?'📈 +':'📉 '}${diff.toLocaleString('vi-VN')} trong ${days} ngày</div><div class="cg" style="margin-top:8px"><div class="ci"><div class="v">${per>=0?'+':''}${per.toLocaleString('vi-VN')}</div><div class="l">TB/ngày</div></div><div class="ci"><div class="v">${pct}%</div><div class="l">Tăng</div></div></div>`;
-}
+/* BUTTON: Tải lại từ Cloud */
+document.getElementById('rlCh').addEventListener('click', async () => {
+  if(!cu){ setSaveStatus('❌ Chưa đăng nhập', false); return; }
+  setSaveStatus('⏳ Đang tải từ Cloud...', false);
+  try{
+    const { data, error } = await sb.from('profiles').select('channel_data').eq('id', cu.id).single();
+    if(error) throw error;
+    cd = data?.channel_data || {};
+    try{ localStorage.setItem('cache_ch', JSON.stringify(cd)); }catch(e){}
+    renderCh();
+    setSaveStatus('✅ Đã tải từ Cloud', true);
+    tS('☁️ Đã tải lại từ Cloud!');
+  } catch(err){
+    console.error('[rlCh]', err);
+    setSaveStatus('❌ ' + (err.message || 'Lỗi tải'), false);
+  }
+});
 
-window.ufh = (i,v) => { const h = cd.followerHistory||[]; h[i].count = parseInt(v)||0; saveCd().then(renderCh) };
-window.dfh = (i) => { if(!confirm('Xóa?')) return; const h = cd.followerHistory||[]; h.splice(i,1); saveCd().then(renderCh) };
-
-async function saveCd(){
-  if(!cu) return;
-  try{ localStorage.setItem('cache_ch', JSON.stringify(cd)) }catch(e){}
-  return sb.from('profiles').update({ channel_data: cd }).eq('id', cu.id);
-}
+/* ============================================================
+   AUTO-SAVE khi gõ (debounce 1.5s)
+   ============================================================ */
+(function(){
+  let timer = null;
+  function scheduleSave(){
+    if(timer) clearTimeout(timer);
+    setSaveStatus('✏️ Đang gõ...', false);
+    timer = setTimeout(async () => {
+      if(!cu) return;
+      cd.username = document.getElementById('inU').value.trim();
+      cd.likes = parseInt(document.getElementById('inL').value) || 0;
+      cd.following = parseInt(document.getElementById('inFo').value) || 0;
+      try{
+        await saveCd();
+        setSaveStatus('✅ Tự động lưu: ' + (cd.username || '(trống)'), true);
+        renderCh();
+      } catch(err){
+        setSaveStatus('❌ ' + (err.message || 'Lỗi tự động lưu'), false);
+      }
+    }, 1500);
+  }
+  const elU = document.getElementById('inU');
+  const elL = document.getElementById('inL');
+  const elF = document.getElementById('inFo');
+  if(elU) elU.addEventListener('input', scheduleSave);
+  if(elL) elL.addEventListener('input', scheduleSave);
+  if(elF) elF.addEventListener('input', scheduleSave);
+})();
 
 document.getElementById('ghInput').innerHTML = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23].map(h => `<div class="gh-t" data-h="${PAD(h)}">${h}h</div>`).join('');
 document.querySelectorAll('.gh-t').forEach(t => t.addEventListener('click', () => {
@@ -724,27 +770,17 @@ document.querySelectorAll('.gh-t').forEach(t => t.addEventListener('click', () =
   t.classList.toggle('on');
 }));
 
-document.getElementById('svCh').addEventListener('click', async () => {
-  cd.username = document.getElementById('inU').value.trim() || '';
-  cd.followers = parseInt(document.getElementById('inF').value) || 0;
-  cd.likes = parseInt(document.getElementById('inL').value) || 0;
-  cd.following = parseInt(document.getElementById('inFo').value) || 0;
-  const { error } = await saveCd();
-  if(error){ alert('Lỗi: '+error.message); return; }
-  renderCh();
-  tS('✅ Đã lưu kênh!');
-});
-
 document.getElementById('svGh').addEventListener('click', async () => {
-  const { error } = await saveCd();
-  if(error){ alert('Lỗi'); return; }
-  renderGt();
-  tS('🎯 Đã lưu giờ vàng!');
+  try{
+    await saveCd();
+    renderGt();
+    tS('🎯 Đã lưu giờ vàng!');
+  } catch(err){
+    alert('Lỗi: ' + (err.message || 'Không xác định'));
+  }
 });
 
-/* ============================================================
-   SPLIT CSV LINE
-   ============================================================ */
+/* SPLIT CSV */
 function splitCSVLine(line){
   const out = [];
   let cur = '';
@@ -765,52 +801,50 @@ function splitCSVLine(line){
   return out;
 }
 
-/* ================= UPLOAD VIEWERS ================= */
-document.getElementById('fViewers').addEventListener('change', function(e){
+/* UPLOAD VIEWERS */
+document.getElementById('fViewers').addEventListener('change', async function(e){
   const f = e.target.files && e.target.files[0];
-  console.log('[Viewers] File chọn:', f);
   const st = document.getElementById('vStatus');
-  if(!f){
-    st.innerHTML = '<span style="color:var(--rd)">Chưa chọn file</span>';
-    return;
-  }
-  st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
-
-  const r = new FileReader();
-  r.onload = async ev => {
-    try{
-      const txt = String(ev.target.result || '');
-      console.log('[Viewers] Đọc xong, độ dài:', txt.length);
-      if(!txt.trim()) throw new Error('File rỗng hoặc không đọc được');
-
-      const hourData = parseViewersFile(txt);
-      console.log('[Viewers] Parse được:', hourData.length, 'giờ');
-      if(!hourData.length) throw new Error('Không tìm thấy cột hour,viewers. Kiểm tra file.');
-
-      const sorted = [...hourData].sort((a,b) => b.viewers - a.viewers);
-      const top3 = sorted.slice(0,3).map(x => PAD(x.hour));
-      cd.viewersData = hourData;
-      cd.goldenHours = top3;
-      await saveCd();
-
-      st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${hourData.length} giờ — Top 3: <b>${top3.map(h=>h+'h').join(', ')}</b></span>`;
-      renderCh();
-      renderGt();
-      tS('🎯 Đã phân tích file Viewers!');
-    } catch(err){
-      console.error('[Viewers] Lỗi:', err);
-      st.innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
+  if(!f){ st.innerHTML = '<span style="color:var(--rd)">Chưa chọn file</span>'; return; }
+  const nm = (f.name || '').toLowerCase();
+  const isZip = nm.endsWith('.zip') || f.type.includes('zip');
+  try{
+    let txt = '', srcName = f.name;
+    if(isZip){
+      st.innerHTML = '<span style="color:var(--acc)">📦 Đang mở ZIP ' + f.name + '...</span>';
+      const z = await readFromZip(f);
+      txt = z.txt; srcName = z.name;
+    } else {
+      st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
+      txt = await new Promise((res, rej) => {
+        const r = new FileReader();
+        r.onload = ev => res(String(ev.target.result || ''));
+        r.onerror = () => rej(new Error('Lỗi đọc file'));
+        r.readAsText(f, 'UTF-8');
+      });
     }
-  };
-  r.onerror = () => { st.innerHTML = '<span style="color:var(--rd)">❌ Lỗi đọc file</span>'; };
-  r.readAsText(f, 'UTF-8');
+    txt = txt.replace(/^\uFEFF/, '');
+    if(!txt.trim()) throw new Error('File rỗng');
+    const hourData = parseViewersFile(txt);
+    if(!hourData.length) throw new Error('Không tìm thấy cột hour,viewers');
+    const sorted = [...hourData].sort((a,b) => b.viewers - a.viewers);
+    const top3 = sorted.slice(0,3).map(x => PAD(x.hour));
+    cd.viewersData = hourData;
+    cd.goldenHours = top3;
+    await saveCd();
+    st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${hourData.length} giờ — Top 3: <b>${top3.map(h=>h+'h').join(', ')}</b></span>`;
+    renderCh();
+    renderGt();
+    tS('🎯 Đã phân tích file Viewers!');
+  } catch(err){
+    st.innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
+  }
   e.target.value = '';
 });
 
 function parseViewersFile(txt){
   txt = String(txt).replace(/^\uFEFF/, '');
   const result = [];
-
   try{
     const j = JSON.parse(txt);
     if(Array.isArray(j)){
@@ -822,7 +856,6 @@ function parseViewersFile(txt){
       if(result.length) return result;
     }
   } catch(e){}
-
   const lines = txt.split(/\r?\n/).filter(l => l.trim());
   for(let i = 0; i < lines.length; i++){
     const parts = splitCSVLine(lines[i]);
@@ -836,132 +869,19 @@ function parseViewersFile(txt){
   return result;
 }
 
-/* ================= UPLOAD FOLLOWERS (ZIP READY) ================= */
-document.getElementById('fFollowers').addEventListener('change', async function(e){
-  const f = e.target.files && e.target.files[0];
-  console.log('[Followers] File chọn:', f);
-  const st = document.getElementById('fStatus');
-  if(!f){
-    st.innerHTML = '<span style="color:var(--rd)">Chưa chọn file</span>';
-    return;
-  }
-
-  const nm = (f.name || '').toLowerCase();
-  const isZip = nm.endsWith('.zip') || f.type.includes('zip') || f.type === 'application/octet-stream' && f.size > 100;
-
-  try{
-    let txt = '', srcName = f.name;
-
-    if(isZip){
-      st.innerHTML = '<span style="color:var(--acc)">📦 Đang mở ZIP ' + f.name + '...</span>';
-      const z = await readFromZip(f);
-      txt = z.txt;
-      srcName = z.name;
-      if(z.total > 1){
-        st.innerHTML = '<span style="color:var(--acc)">📦 ZIP có ' + z.total + ' file, đang dùng: ' + z.name + '</span>';
-      }
-    } else {
-      st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
-      txt = await new Promise((res, rej) => {
-        const r = new FileReader();
-        r.onload = ev => res(String(ev.target.result || ''));
-        r.onerror = () => rej(new Error('Lỗi đọc file'));
-        r.readAsText(f, 'UTF-8');
-      });
-    }
-
-    console.log('[Followers] Đọc xong', srcName, 'độ dài:', txt.length);
-    if(!txt.trim()) throw new Error('File rỗng hoặc không đọc được');
-
-    const fd = parseFollowersFile(txt);
-    console.log('[Followers] Parse được:', fd.length, 'ngày');
-    if(!fd.length) throw new Error('Không tìm thấy cột date,followers trong ' + srcName);
-
-    cd.followerHistory = fd;
-    if(fd.length > 0) cd.followers = fd[fd.length-1].count;
-    await saveCd();
-
-    st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${fd.length} ngày từ <b>${esc(srcName)}</b></span>`;
-    renderCh();
-    tS('📈 Đã phân tích file Followers!');
-  } catch(err){
-    console.error('[Followers] Lỗi:', err);
-    st.innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
-  }
-  e.target.value = '';
-});
-
-function parseFollowersFile(txt){
-  txt = String(txt).replace(/^\uFEFF/, '');
-  const result = [];
-
-  try{
-    const j = JSON.parse(txt);
-    if(Array.isArray(j)){
-      j.forEach(x => {
-        const d = x.date ?? x.d ?? x[0];
-        const c = parseInt(x.followers ?? x.count ?? x.c ?? x[1]);
-        if(d && !isNaN(c)) result.push({ date: normalizeDate(d), count: c });
-      });
-      if(result.length) return result;
-    }
-  } catch(e){}
-
-  const lines = txt.split(/\r?\n/).filter(l => l.trim());
-  for(let i = 0; i < lines.length; i++){
-    const parts = splitCSVLine(lines[i]);
-    if(parts.length < 2) continue;
-    const d = normalizeDate(parts[0]);
-    const c = parseInt(String(parts[1]).replace(/[^\d-]/g, ''));
-    if(d && !isNaN(c)) result.push({ date: d, count: c });
-  }
-  result.sort((a,b) => a.date.localeCompare(b.date));
-  return result;
-}
-
-function normalizeDate(s){
-  if(!s) return null;
-  s = String(s).trim().replace(/^\uFEFF/, '');
-  if(!s) return null;
-
-  let m = s.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
-  if(m) return `${m[1]}-${PAD(m[2])}-${PAD(m[3])}`;
-
-  m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
-  if(m){
-    let d = parseInt(m[1]), mo = parseInt(m[2]);
-    if(d > 12 && mo <= 12) return `${m[3]}-${PAD(mo)}-${PAD(d)}`;
-    return `${m[3]}-${PAD(mo)}-${PAD(d)}`;
-  }
-
-  const months = {jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
-  const mm = s.toLowerCase().match(/([a-z]{3})[a-z]*\s+(\d{1,2})[,\s]+(\d{4})/);
-  if(mm && months[mm[1]]) return `${mm[3]}-${months[mm[1]]}-${PAD(mm[2])}`;
-
-  return null;
-}
-
-/* ================= UPLOAD CONTENT (ZIP READY) ================= */
+/* UPLOAD CONTENT */
 document.getElementById('fContent').addEventListener('change', async function(e){
   const f = e.target.files && e.target.files[0];
-  console.log('[Content] File chọn:', f);
   const st = document.getElementById('ctStatus');
-  if(!f){
-    st.innerHTML = '<span style="color:var(--rd)">Chưa chọn file</span>';
-    return;
-  }
-
+  if(!f){ st.innerHTML = '<span style="color:var(--rd)">Chưa chọn file</span>'; return; }
   const nm = (f.name || '').toLowerCase();
   const isZip = nm.endsWith('.zip') || f.type.includes('zip');
-
   try{
     let txt = '', srcName = f.name;
-
     if(isZip){
-      st.innerHTML = '<span style="color:var(--acc)">📦 Đang mở ZIP ' + f.name + '...</span>';
+      st.innerHTML = '<span style="color:var(--acc)">📦 Đang mở ZIP...</span>';
       const z = await readFromZip(f);
-      txt = z.txt;
-      srcName = z.name;
+      txt = z.txt; srcName = z.name;
     } else {
       st.innerHTML = '<span style="color:var(--acc)">⏳ Đang đọc ' + f.name + '...</span>';
       txt = await new Promise((res, rej) => {
@@ -971,21 +891,16 @@ document.getElementById('fContent').addEventListener('change', async function(e)
         r.readAsText(f, 'UTF-8');
       });
     }
-
     txt = txt.replace(/^\uFEFF/, '');
     if(!txt.trim()) throw new Error('File rỗng');
-
     const videos = parseContentFile(txt);
-    console.log('[Content] Parse được:', videos.length, 'video');
-    if(!videos.length) throw new Error('Không đọc được video nào trong ' + srcName);
-
+    if(!videos.length) throw new Error('Không đọc được video nào');
     cd.contentData = videos;
     await saveCd();
-    st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${videos.length} video từ <b>${esc(srcName)}</b></span>`;
+    st.innerHTML = `<span style="color:var(--gr)">✅ Đọc ${videos.length} video</span>`;
     renderContent();
     tS('📹 Đã phân tích file Content!');
   } catch(err){
-    console.error('[Content] Lỗi:', err);
     st.innerHTML = `<span style="color:var(--rd)">❌ ${err.message}</span>`;
   }
   e.target.value = '';
@@ -994,7 +909,6 @@ document.getElementById('fContent').addEventListener('change', async function(e)
 function parseContentFile(txt){
   txt = String(txt).replace(/^\uFEFF/, '');
   const result = [];
-
   try{
     const j = JSON.parse(txt);
     if(Array.isArray(j)){
@@ -1013,13 +927,10 @@ function parseContentFile(txt){
       if(result.length) return result;
     }
   } catch(e){}
-
   const lines = txt.split(/\r?\n/).filter(l => l.trim());
   if(lines.length < 2) return result;
-
   const header = splitCSVLine(lines[0]).map(h => h.toLowerCase());
   let colTime = -1, colLink = -1, colViews = -1, colLikes = -1, colComm = -1, colShare = -1, colTitle = -1;
-
   header.forEach((h,i) => {
     if(colTime < 0 && (h.includes('post time') || h.includes('thời gian') || h.includes('date') || h === 'time')) colTime = i;
     else if(colLink < 0 && (h.includes('link') || h.includes('url'))) colLink = i;
@@ -1027,15 +938,11 @@ function parseContentFile(txt){
     else if(colLikes < 0 && (h.includes('like') || h.includes('tim'))) colLikes = i;
     else if(colComm < 0 && (h.includes('comment') || h.includes('bình luận'))) colComm = i;
     else if(colShare < 0 && (h.includes('share') || h.includes('chia sẻ'))) colShare = i;
-    else if(colTitle < 0 && (h.includes('title') || h.includes('caption') || h.includes('desc') || h.includes('mô tả'))) colTitle = i;
+    else if(colTitle < 0 && (h.includes('title') || h.includes('caption') || h.includes('desc'))) colTitle = i;
   });
-
   const hasHeader = colViews >= 0 || colLikes >= 0;
   const startIdx = hasHeader ? 1 : 0;
-  if(!hasHeader){
-    colTime = 0; colLink = 1; colViews = 2; colLikes = 3; colComm = 4; colShare = 5;
-  }
-
+  if(!hasHeader){ colTime = 0; colLink = 1; colViews = 2; colLikes = 3; colComm = 4; colShare = 5; }
   for(let i = startIdx; i < lines.length; i++){
     const p = splitCSVLine(lines[i]);
     if(p.length < 3) continue;
@@ -1058,14 +965,12 @@ function renderContent(){
   if(!el) return;
   const v = cd.contentData || [];
   if(!v.length){ el.innerHTML = '<div class="nt">Chưa có dữ liệu</div>'; return; }
-
   const sorted = [...v].sort((a,b) => b.views - a.views);
   const top = sorted.slice(0, 10);
   const mx = top[0].views || 1;
   const totalV = v.reduce((a,x) => a + x.views, 0);
   const totalL = v.reduce((a,x) => a + x.likes, 0);
   const avgV = Math.round(totalV / v.length);
-
   let html = `<div class="cb" style="margin-bottom:12px">
     <div class="ct">📹 Tổng quan Content</div>
     <div class="cg">
@@ -1076,7 +981,6 @@ function renderContent(){
     </div>
   </div>
   <div class="st2">🏆 TOP 10 VIDEO</div>`;
-
   html += top.map((x, i) => {
     const bw = (x.views / mx * 100).toFixed(1);
     const date = (x.time || '').toString().slice(0, 16);
@@ -1099,19 +1003,16 @@ function renderContent(){
       <div class="tvb" style="width:${bw}%"></div>
     </div>`;
   }).join('');
-
   el.innerHTML = html;
 }
 
-/* ================= REG MODAL ================= */
 window.__regModal = function(){
   const o = document.getElementById('m1'); if(o) o.remove();
   const m = document.createElement('div'); m.id = 'm1'; m.className = 'mo';
-  m.innerHTML = `<div class="mbx"><h2>🎉 Chúc mừng!</h2><div class="sb">Tạo tài khoản thành công</div><div style="color:var(--tx);font-size:13px;margin-bottom:12px">Lấy file CSV:</div><div class="stp"><b>1:</b> Safari/Google</div><div class="stp"><b>2:</b> TikTok Studio</div><div class="stp"><b>3:</b> Đăng nhập TikTok</div><div class="stp"><b>4:</b> 3 chấm → TikTok Studio</div><div class="stp"><b>5:</b> Icon tải xuống</div><div class="stp"><b>6:</b> 365 ngày → tải → giải nén → nhập</div><div style="color:var(--gr);font-size:13px;text-align:center;margin-top:14px;font-weight:600">🎊 Xong! 🚀</div><button class="mbt" onclick="document.getElementById('m1').remove()">OK! 🚀</button></div>`;
+  m.innerHTML = `<div class="mbx"><h2>🎉 Chúc mừng!</h2><div class="sb">Tạo tài khoản thành công</div><div style="color:var(--tx);font-size:13px;margin-bottom:12px">Lấy file CSV:</div><div class="stp"><b>1:</b> Safari/Google</div><div class="stp"><b>2:</b> TikTok Studio</div><div class="stp"><b>3:</b> Đăng nhập TikTok</div><div class="stp"><b>4:</b> 3 chấm → TikTok Studio</div><div class="stp"><b>5:</b> Icon tải xuống</div><div class="stp"><b>6:</b> 365 ngày → tải → giải nén → nhập</div><button class="mbt" onclick="document.getElementById('m1').remove()">OK! 🚀</button></div>`;
   document.body.appendChild(m);
 };
 
-/* ================= LOGOUT ================= */
 document.getElementById('loB').addEventListener('click', async () => {
   if(!confirm('Đăng xuất sẽ xóa data?')) return;
   if(cu){ try{ await sb.from('user_data').delete().eq('user_id', cu.id) }catch(e){} }
@@ -1126,7 +1027,6 @@ document.getElementById('loB').addEventListener('click', async () => {
   await sb.auth.signOut();
 });
 
-/* ================= AUTH STATE ================= */
 sb.auth.onAuthStateChange(async (ev, ss) => {
   if(ss?.user){
     cu = ss.user;
@@ -1141,7 +1041,12 @@ sb.auth.onAuthStateChange(async (ev, ss) => {
       return;
     }
     up = p || { credits: 0, is_admin: false };
-    cd = p?.channel_data || {};
+    // Nếu cloud có channel_data thì ưu tiên, không thì dùng cache
+    if(p?.channel_data && Object.keys(p.channel_data).length > 0){
+      cd = p.channel_data;
+    } else if(!cd || Object.keys(cd).length === 0){
+      cd = window.__cachedCh || {};
+    }
     try{
       localStorage.setItem('cache_user', JSON.stringify({ email: cu.email }));
       localStorage.setItem('cache_profile', JSON.stringify(up));
@@ -1232,7 +1137,6 @@ window.selP = (i) => {
   document.getElementById('mnD').classList.remove('hd');
 };
 
-/* ================= ADMIN ================= */
 async function adLoad(){
   const b = document.getElementById('adL');
   b.innerHTML = '<div style="text-align:center;color:var(--acc);padding:18px">⏳</div>';
@@ -1288,7 +1192,6 @@ window.aB=aB; window.aU=aU; window.aA=aA; window.aP=aP; window.aD=aD; window.aX=
 document.getElementById('adR').addEventListener('click', adLoad);
 document.getElementById('adSr')?.addEventListener('input', () => rAdL(adC));
 
-/* ================= CLOUD DATA ================= */
 async function saveC(){
   if(!cu) return;
   try{
@@ -1324,7 +1227,6 @@ document.getElementById('clB').addEventListener('click', async () => {
 
 function uS(t,c){ const el = document.getElementById('us'); el.textContent = t; el.style.color = c || 'var(--gr)' }
 
-/* ================= UPLOAD CSV OVERVIEW ================= */
 const uz = document.querySelector('.up[for="ci"]');
 const ci = document.getElementById('ci');
 
@@ -1344,19 +1246,13 @@ function hF(f){
       uS('✅ '+rd.length+' dòng', 'var(--gr)');
       rAll();
       await saveC();
-      const o = document.getElementById('m2'); if(o) o.remove();
-      const m = document.createElement('div'); m.id = 'm2'; m.className = 'mo';
-      m.innerHTML = `<div class="mbx"><h2>🎉 Thành công!</h2><div class="sb">Đã nhập file</div><div style="color:var(--tx);font-size:13px;text-align:center;line-height:1.7;margin:14px 0">Data lưu cloud ☁️</div><div style="color:var(--gr);font-size:24px;text-align:center;margin:18px 0">🚀</div><button class="mbt" onclick="document.getElementById('m2').remove()">OK!</button></div>`;
-      document.body.appendChild(m);
     } catch(e){ uS('❌ '+e.message, 'var(--rd)') }
   };
   r.onerror = () => uS('❌ Lỗi đọc', 'var(--rd)');
   r.readAsText(f, 'UTF-8');
 }
 
-if(ci){
-  ci.addEventListener('change', e => { hF(e.target.files[0]); e.target.value = '' });
-}
+if(ci){ ci.addEventListener('change', e => { hF(e.target.files[0]); e.target.value = '' }); }
 if(uz){
   uz.addEventListener('click', e => { if(e.target !== ci && ci) ci.click() });
   ['dragenter','dragover'].forEach(ev => uz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); uz.classList.add('dg') }));
@@ -1397,7 +1293,6 @@ function pCSV(t){
   rd = r;
 }
 
-/* ================= RENDER ================= */
 function rAll(){ rSt(); rTp(); rCh(); rCmp(); rMCmp() }
 
 function rSt(){
@@ -1626,8 +1521,7 @@ document.getElementById('pBtn').addEventListener('click', async () => {
 
 setInterval(renderGt, 60000);
 
-/* ================= AUTO UPDATE ================= */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.3-zip';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.5-savefix';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 async function cU(){
   try{
