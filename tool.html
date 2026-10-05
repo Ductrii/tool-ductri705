@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v11.10-guide">
+<meta name="tool-version" content="v11.11-detail-cards">
 <meta name="theme-color" content="#6ea8ff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -256,6 +256,56 @@ input:focus{border-color:var(--acc)}
 .gd-btn:hover{opacity:.9;transform:translateY(-1px)}
 .gd-btn.primary{background:linear-gradient(90deg,#4ade80,#22c55e);color:#0d0d12}
 .gd-btn.secondary{background:var(--bg2);color:var(--tx2);border:1px solid #3a3a44}
+/* Chi tiết dạng card */
+.dt-badge{display:inline-block;padding:6px 14px;background:linear-gradient(90deg,#1e2a1e,#0d1e0d);border:1px solid var(--gr);color:var(--gr);border-radius:20px;font-size:11px;font-weight:700;margin-bottom:12px}
+.dt-hero{background:linear-gradient(135deg,#1e1e2e,var(--bg2));border:2px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:12px;text-align:center}
+.dt-hero-icon{font-size:40px;margin-bottom:8px;line-height:1}
+.dt-hero-title{font-size:16px;font-weight:700;color:var(--acc);margin-bottom:4px}
+.dt-hero-sub{font-size:12px;color:var(--tx3)}
+.dt-card{background:linear-gradient(135deg,#1e1e2e,var(--bg2));border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden}
+.dt-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--acc),#a855f7)}
+.dt-card.green::before{background:linear-gradient(180deg,#4ade80,#22c55e)}
+.dt-card.gold::before{background:linear-gradient(180deg,#ffd700,#ff9500)}
+.dt-card.blue::before{background:linear-gradient(180deg,#6ea8ff,#4a87ff)}
+.dt-card.pink::before{background:linear-gradient(180deg,#ff6e9c,#dc2626)}
+.dt-card h3{font-size:13.5px;color:var(--acc);margin-bottom:11px;font-weight:700;display:flex;align-items:center;gap:6px}
+.dt-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.dt-stat-box{background:var(--bg3);border-radius:10px;padding:11px 9px;text-align:center;border:1px solid var(--bd)}
+.dt-stat-box .num{font-size:16px;font-weight:800;color:var(--acc);font-variant-numeric:tabular-nums;margin-bottom:3px}
+.dt-stat-box .lbl{font-size:9.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.4px}
+.dt-stat-box.g .num{color:var(--gr)}.dt-stat-box.o .num{color:var(--gold)}.dt-stat-box.p .num{color:#a855f7}.dt-stat-box.r .num{color:var(--rd)}
+.dt-ratio-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:12.5px}
+.dt-ratio-row .lbl{color:var(--tx2);display:flex;align-items:center;gap:6px}
+.dt-ratio-row .val{font-weight:700;font-variant-numeric:tabular-nums}
+.dt-ratio-row .val.good{color:var(--gr)}.dt-ratio-row .val.warn{color:var(--gold)}.dt-ratio-row .val.bad{color:var(--rd)}
+.dt-progress{height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-bottom:8px}
+.dt-progress .fill{height:100%;border-radius:4px;transition:width .8s}
+.dt-progress .fill.good{background:linear-gradient(90deg,#4ade80,#22c55e)}
+.dt-progress .fill.warn{background:linear-gradient(90deg,#ffd700,#ff9500)}
+.dt-progress .fill.bad{background:linear-gradient(90deg,#ff6e9c,#dc2626)}
+.dt-viral-list{display:flex;flex-direction:column;gap:5px}
+.dt-viral-item{display:flex;align-items:center;gap:10px;padding:9px 10px;background:var(--bg3);border-radius:9px;font-size:12.5px;transition:.2s}
+.dt-viral-item.top1{background:linear-gradient(90deg,#2a2010,var(--bg3));border:1px solid var(--gold)}
+.dt-viral-item.top2{background:linear-gradient(90deg,#25252a,var(--bg3));border:1px solid #c0c0c0}
+.dt-viral-item.top3{background:linear-gradient(90deg,#2a1e10,var(--bg3));border:1px solid #cd7f32}
+.dt-viral-rank{width:26px;height:26px;border-radius:50%;background:var(--bg2);color:var(--acc);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dt-viral-item.top1 .dt-viral-rank{background:linear-gradient(135deg,#ffd700,#ff9500);color:#0d0d12}
+.dt-viral-item.top2 .dt-viral-rank{background:linear-gradient(135deg,#e0e0e0,#a0a0a0);color:#0d0d12}
+.dt-viral-item.top3 .dt-viral-rank{background:linear-gradient(135deg,#cd7f32,#8b4513);color:#fff}
+.dt-viral-item .date{flex:1;color:var(--tx);font-weight:500;word-break:break-word}
+.dt-viral-item .views{color:var(--acc);font-weight:700;font-variant-numeric:tabular-nums;font-size:13px}
+.dt-tip{display:flex;gap:8px;padding:10px 11px;background:var(--bg3);border-radius:9px;margin-bottom:7px;font-size:12px;line-height:1.55;border-left:3px solid var(--acc)}
+.dt-tip:last-child{margin-bottom:0}
+.dt-tip.good{border-left-color:var(--gr);background:linear-gradient(90deg,#1a2a1a,var(--bg3))}
+.dt-tip.warn{border-left-color:var(--gold);background:linear-gradient(90deg,#2a2010,var(--bg3))}
+.dt-tip.bad{border-left-color:var(--rd);background:linear-gradient(90deg,#2a1a1e,var(--bg3))}
+.dt-tip.info{border-left-color:#6ea8ff;background:linear-gradient(90deg,#1a1e2a,var(--bg3))}
+.dt-tip b{color:var(--gold)}
+.dt-gh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.dt-gh-box{background:var(--bg3);border:1px solid var(--bd);border-radius:10px;padding:11px 6px;text-align:center}
+.dt-gh-box.highlight{background:linear-gradient(135deg,#2a2010,var(--bg3));border-color:var(--gold);box-shadow:0 0 15px rgba(255,215,0,.15)}
+.dt-gh-box .time{font-size:13px;font-weight:800;color:var(--gold);margin-bottom:5px;font-variant-numeric:tabular-nums}
+.dt-gh-box .label{font-size:9px;color:var(--tx3);text-transform:uppercase;line-height:1.3}
 </style>
 </head>
 <body>
@@ -308,7 +358,7 @@ input:focus{border-color:var(--acc)}
 <div class="c">
 <div class="tb">
 <div class="tbb a" data-tab="ov">Tổng quan</div>
-<div class="tbb" data-tab="dt">Chi tiết</div>
+<div class="tbb" data-tab="dt">📋 Chi tiết</div>
 <div class="tbb" data-tab="an">🔍 Phân tích</div>
 <div class="tbb" data-tab="ch">Biểu đồ</div>
 <div class="tbb" data-tab="tp">Top viral</div>
@@ -344,17 +394,24 @@ input:focus{border-color:var(--acc)}
 </div>
 
 <div id="tb-dt" class="tc hd">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
-<div class="st2" style="margin:0">📋 Dữ liệu theo ngày</div>
-<button class="cbtn" id="expDt">📋 Copy</button>
+<div class="dt-badge">✅ Đã mở khóa phân tích</div>
+<div class="dt-hero">
+<div class="dt-hero-icon">📊</div>
+<div class="dt-hero-title">Phân tích từ data kênh bạn</div>
+<div class="dt-hero-sub" id="dtHeroSub">Upload file Overview.csv để bắt đầu</div>
 </div>
-<input type="text" class="sr" id="dtSearch" placeholder="🔍 Tìm ngày..." style="margin-bottom:10px">
-<div id="dtInfo" style="font-size:11px;color:var(--tx3);margin-bottom:8px"></div>
+<div id="dtCards"></div>
+<div class="dt-card">
+<h3>📋 Dữ liệu chi tiết theo ngày</h3>
+<input type="text" class="sr" id="dtSearch" placeholder="🔍 Tìm ngày..." style="margin-bottom:8px">
+<div id="dtInfo" style="font-size:11px;color:var(--tx3);margin-bottom:6px"></div>
 <div class="dt-wrap">
 <table class="dt-tbl" id="dtTbl">
 <thead><tr><th>Ngày</th><th>Views</th><th>Likes</th><th>Cmt</th><th>Shares</th><th>Profile</th></tr></thead>
 <tbody id="dtBody"><tr><td colspan="6" style="text-align:center;color:#555;padding:20px">Chưa có dữ liệu</td></tr></tbody>
 </table>
+</div>
+<button class="cbtn" id="expDt" style="margin-top:8px;width:100%">📋 Copy toàn bộ bảng</button>
 </div>
 </div>
 
@@ -579,7 +636,6 @@ input:focus{border-color:var(--acc)}
   };
   aB.addEventListener('click', window.__doAuth);
 
-  /* Toast thông báo đăng nhập */
   window.showAuthToast = function(type, email){
     const old = document.getElementById('authToast'); if(old) old.remove();
     const cfg = {
@@ -660,7 +716,6 @@ input:focus{border-color:var(--acc)}
   document.head.appendChild(s);
 })();
 
-/* PWA Service Worker */
 if('serviceWorker' in navigator){
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(err => console.log('[PWA]', err));
@@ -871,12 +926,116 @@ function renderGhAnalysis(){
 }
 
 function renderDetail(){
+  const box = document.getElementById('dtCards');
+  const heroSub = document.getElementById('dtHeroSub');
+  if(!box) return;
+  if(!rd.length){
+    if(heroSub) heroSub.textContent = 'Upload file Overview.csv để bắt đầu';
+    box.innerHTML = '';
+    updateDetailTable();
+    return;
+  }
+  const n = rd.length;
+  let tV=0,tL=0,tC=0,tS=0,tP=0, mxV=0, mxDay='';
+  let bestEng = 0, bestEngDay = '';
+  rd.forEach(d => {
+    tV += d[1]; tL += d[2]; tC += d[3]; tS += d[4]; tP += d[5];
+    if(d[1] > mxV){ mxV = d[1]; mxDay = d[0]; }
+    const eng = d[1] > 0 ? (d[2] + d[3] + d[4]) / d[1] : 0;
+    if(eng > bestEng){ bestEng = eng; bestEngDay = d[0]; }
+  });
+  const avgV = tV / n;
+  const likeRate = tV > 0 ? tL / tV : 0;
+  const shareRate = tV > 0 ? tS / tV : 0;
+  const cmtRate = tV > 0 ? tC / tV : 0;
+  if(heroSub) heroSub.textContent = `${n} ngày · ${fmtNum(tV)} view tổng · TB ${fmtNum(avgV)}/ngày`;
+
+  const top10 = [...rd].sort((a,b) => b[1]-a[1]).slice(0,10);
+  const gh = cd.goldenHours || [];
+
+  let ghHtml = '';
+  if(gh.length > 0){
+    const ghSorted = [...gh].sort();
+    const labels = {
+      '06':'Sáng sớm — dân văn phòng check ĐT','07':'Sáng — giờ đi làm','08':'Sáng — giờ đi làm',
+      '09':'Sáng — giờ làm việc','10':'Giữa sáng','11':'Trưa — giờ nghỉ','12':'Trưa — ăn cơm',
+      '13':'Chiều sớm','14':'Chiều','15':'Chiều','16':'Chiều muộn','17':'Tan làm',
+      '18':'Tối — giờ vàng','19':'Tối — giờ cao điểm','20':'Tối — giờ cao điểm',
+      '21':'Tối muộn','22':'Đêm','23':'Đêm khuya'
+    };
+    ghHtml = `<div class="dt-gh-grid">${ghSorted.slice(0,3).map((h,i) => {
+      const hr = parseInt(h);
+      const range = `${PAD(hr)}:00 - ${PAD(hr+1)}:00`;
+      const lbl = labels[h] || 'Giờ vàng';
+      return `<div class="dt-gh-box ${i===0?'highlight':''}"><div class="time">${range}</div><div class="label">${lbl}</div></div>`;
+    }).join('')}</div>`;
+  } else {
+    ghHtml = '<div class="dt-tip info">💡 Upload file Viewers ở tab Kênh để tool tự tìm giờ vàng cho bạn</div>';
+  }
+
+  const strats = [];
+  if(likeRate >= 0.05) strats.push({ type:'good', txt: `✅ <b>Tỷ lệ like/view cao (${fmtPct(likeRate)})</b> — nội dung được yêu thích, giữ phong cách này.` });
+  else if(likeRate >= 0.02) strats.push({ type:'warn', txt: `📊 <b>Tỷ lệ like trung bình (${fmtPct(likeRate)})</b> — thêm CTA "thả tim nếu thấy hay" hoặc hook 3s mạnh hơn.` });
+  else strats.push({ type:'bad', txt: `🚨 <b>Tỷ lệ like thấp (${fmtPct(likeRate)})</b> — cần cải thiện chất lượng nội dung, xem lại hook 3s và caption.` });
+  if(shareRate >= 0.005) strats.push({ type:'good', txt: `🔥 <b>Tỷ lệ share cao (${fmtPct(shareRate)})</b> — nội dung lan truyền tốt, TikTok sẽ đẩy mạnh.` });
+  else if(shareRate >= 0.002) strats.push({ type:'warn', txt: `📤 <b>Tỷ lệ share ổn (${fmtPct(shareRate)})</b> — thêm yếu tố cảm xúc để tăng share.` });
+  else strats.push({ type:'bad', txt: `📉 <b>Share thấp (${fmtPct(shareRate)})</b> — cần content gây tranh luận hoặc hữu ích để được chia sẻ.` });
+  if(cmtRate >= 0.003) strats.push({ type:'good', txt: `💬 <b>Comment tốt (${fmtPct(cmtRate)})</b> — trả lời comment để tăng đề xuất TikTok.` });
+  else strats.push({ type:'info', txt: `💬 <b>Comment thấp (${fmtPct(cmtRate)})</b> — đặt câu hỏi cuối video để kéo tương tác.` });
+  strats.push({ type:'info', txt: `🎯 <b>Ngày viral nhất: ${esc(mxDay)}</b> — ${fmtNum(mxV)} view.` });
+  strats.push({ type:'info', txt: `📅 <b>Ngày tương tác tốt nhất: ${esc(bestEngDay)}</b> — ${fmtPct(bestEng)}.` });
+  strats.push({ type:'info', txt: `🎬 <b>Tần suất đề xuất:</b> 1-2 video/ngày, cách nhau 4-6 tiếng.` });
+
+  let html = '';
+  html += `<div class="dt-stat-grid">
+    <div class="dt-stat-box"><div class="num">${fV(tV)}</div><div class="lbl">Tổng view</div></div>
+    <div class="dt-stat-box g"><div class="num">${fV(tL)}</div><div class="lbl">Tổng like</div></div>
+    <div class="dt-stat-box p"><div class="num">${fV(tC)}</div><div class="lbl">Tổng comment</div></div>
+    <div class="dt-stat-box o"><div class="num">${fV(tS)}</div><div class="lbl">Tổng share</div></div>
+  </div>`;
+
+  html += `<div class="dt-card blue">
+    <h3>📈 Tỷ lệ tương tác</h3>
+    <div class="dt-ratio-row"><span class="lbl">❤️ Like/View</span><span class="val ${likeRate>=0.05?'good':likeRate>=0.02?'warn':'bad'}">${fmtPct(likeRate)}</span></div>
+    <div class="dt-progress"><div class="fill ${likeRate>=0.05?'good':likeRate>=0.02?'warn':'bad'}" style="width:${Math.min(100, likeRate*1500)}%"></div></div>
+    <div class="dt-ratio-row"><span class="lbl">🔁 Share/View</span><span class="val ${shareRate>=0.005?'good':shareRate>=0.002?'warn':'bad'}">${fmtPct(shareRate)}</span></div>
+    <div class="dt-progress"><div class="fill ${shareRate>=0.005?'good':shareRate>=0.002?'warn':'bad'}" style="width:${Math.min(100, shareRate*15000)}%"></div></div>
+    <div class="dt-ratio-row"><span class="lbl">💬 Comment/View</span><span class="val ${cmtRate>=0.003?'good':cmtRate>=0.001?'warn':'bad'}">${fmtPct(cmtRate)}</span></div>
+    <div class="dt-progress"><div class="fill ${cmtRate>=0.003?'good':cmtRate>=0.001?'warn':'bad'}" style="width:${Math.min(100, cmtRate*30000)}%"></div></div>
+  </div>`;
+
+  html += `<div class="dt-card gold">
+    <h3>🏆 Top 10 ngày viral</h3>
+    <div class="dt-viral-list">
+      ${top10.map((d,i) => {
+        const cls = i===0?'top1':i===1?'top2':i===2?'top3':'';
+        const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1);
+        return `<div class="dt-viral-item ${cls}"><div class="dt-viral-rank">${medal}</div><div class="date">${esc(d[0])}</div><div class="views">${fmtNum(d[1])}</div></div>`;
+      }).join('')}
+    </div>
+  </div>`;
+
+  html += `<div class="dt-card green">
+    <h3>💡 Chiến lược đề xuất</h3>
+    ${strats.map(s => `<div class="dt-tip ${s.type}">${s.txt}</div>`).join('')}
+  </div>`;
+
+  html += `<div class="dt-card pink">
+    <h3>⏰ Giờ vàng tối ưu</h3>
+    ${ghHtml}
+  </div>`;
+
+  box.innerHTML = html;
+  updateDetailTable();
+}
+
+function updateDetailTable(){
   const body = document.getElementById('dtBody');
   const info = document.getElementById('dtInfo');
   if(!body) return;
   if(!rd.length){
     body.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#555;padding:20px">Chưa có dữ liệu</td></tr>';
-    info.textContent = '';
+    if(info) info.textContent = '';
     return;
   }
   let data = rd;
@@ -886,12 +1045,12 @@ function renderDetail(){
   }
   if(!data.length){
     body.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#555;padding:20px">Không tìm thấy</td></tr>';
-    info.textContent = '';
+    if(info) info.textContent = '';
     return;
   }
   const sorted = [...data].reverse();
   body.innerHTML = sorted.map(d => `<tr><td>${esc(d[0])}</td><td>${d[1].toLocaleString('vi-VN')}</td><td>${d[2].toLocaleString('vi-VN')}</td><td>${d[3].toLocaleString('vi-VN')}</td><td>${d[4].toLocaleString('vi-VN')}</td><td>${d[5].toLocaleString('vi-VN')}</td></tr>`).join('');
-  info.textContent = `Hiển thị ${data.length} / ${rd.length} ngày`;
+  if(info) info.textContent = `Hiển thị ${data.length} / ${rd.length} ngày`;
 }
 
 function renderOverview(){
@@ -1673,7 +1832,7 @@ document.getElementById('expCh').addEventListener('click', () => {
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 });
 
-document.getElementById('dtSearch').addEventListener('input', e => { dtSearch = e.target.value.trim(); renderDetail() });
+document.getElementById('dtSearch').addEventListener('input', e => { dtSearch = e.target.value.trim(); updateDetailTable() });
 document.getElementById('expDt').addEventListener('click', () => {
   if(!rd.length){ alert('Chưa có data'); return; }
   let t = 'Ngày\tViews\tLikes\tComments\tShares\tProfile\n';
@@ -1812,8 +1971,8 @@ document.getElementById('pBtn').addEventListener('click', async () => {
 
 setInterval(renderGt, 60000);
 
-/* AUTO UPDATE — không spam */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.10-guide';
+/* AUTO UPDATE */
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.11-detail-cards';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 async function cU(){
   try{
@@ -1843,9 +2002,7 @@ async function cU(){
 setTimeout(cU, 5000);
 setInterval(cU, 300000);
 
-/* ============================================================
-   PWA — Install button
-   ============================================================ */
+/* PWA — Install */
 let deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
@@ -1881,9 +2038,7 @@ window.addEventListener('appinstalled', () => {
   if(window.tS) tS('✅ Đã cài app!');
 });
 
-/* ============================================================
-   HƯỚNG DẪN LẤY FILE OVERVIEW
-   ============================================================ */
+/* GUIDE MODAL */
 window.showGuideModal = function(){
   if(document.getElementById('gdModal')) return;
   const m = document.createElement('div');
@@ -1893,33 +2048,12 @@ window.showGuideModal = function(){
     <div class="gd-box">
       <h2>📖 Hướng dẫn lấy file Overview.csv</h2>
       <div class="gd-sub">File thống kê từ TikTok Studio</div>
-      <div class="gd-step">
-        <div class="gd-num">1</div>
-        <div class="gd-txt">Mở <b>tiktok.com/tiktokstudio</b> bằng Safari (iOS) hoặc Chrome (Android) → đăng nhập TikTok</div>
-      </div>
-      <div class="gd-step">
-        <div class="gd-num">2</div>
-        <div class="gd-txt">Vào menu <b>Analytics</b> (Phân tích) → chọn tab <b>Overview</b> hoặc <b>Content</b></div>
-      </div>
-      <div class="gd-step">
-        <div class="gd-num">3</div>
-        <div class="gd-txt">Chọn khoảng thời gian <b>365 ngày</b> (hoặc tùy chỉnh) để phân tích chính xác</div>
-      </div>
-      <div class="gd-step">
-        <div class="gd-num">4</div>
-        <div class="gd-txt">Bấm nút <b>Export</b> hoặc icon <b>⬇️</b> → chọn định dạng <b>CSV</b></div>
-      </div>
-      <div class="gd-step">
-        <div class="gd-num">5</div>
-        <div class="gd-txt">File tải về (vào <b>Files</b> / <b>Downloads</b>) → quay lại tool → bấm <b>📤 Tải file Overview.csv</b> → chọn file</div>
-      </div>
-      <div class="gd-note">
-        <b>💡 Lưu ý quan trọng:</b><br>
-        • File <b>.zip</b> cũng được, <b>không cần giải nén</b><br>
-        • Cần tài khoản <b>Creator / Business</b> mới có nút Export<br>
-        • File có dạng: <b>Date, Video Views, Profile Views, Likes, Comments, Shares</b><br>
-        • Kênh mới chưa đủ data có thể chưa có nút Export
-      </div>
+      <div class="gd-step"><div class="gd-num">1</div><div class="gd-txt">Mở <b>tiktok.com/tiktokstudio</b> bằng Safari (iOS) hoặc Chrome (Android) → đăng nhập TikTok</div></div>
+      <div class="gd-step"><div class="gd-num">2</div><div class="gd-txt">Vào menu <b>Analytics</b> (Phân tích) → chọn tab <b>Overview</b> hoặc <b>Content</b></div></div>
+      <div class="gd-step"><div class="gd-num">3</div><div class="gd-txt">Chọn khoảng thời gian <b>365 ngày</b> (hoặc tùy chỉnh) để phân tích chính xác</div></div>
+      <div class="gd-step"><div class="gd-num">4</div><div class="gd-txt">Bấm nút <b>Export</b> hoặc icon <b>⬇️</b> → chọn định dạng <b>CSV</b></div></div>
+      <div class="gd-step"><div class="gd-num">5</div><div class="gd-txt">File tải về (vào <b>Files</b> / <b>Downloads</b>) → quay lại tool → bấm <b>📤 Tải file Overview.csv</b> → chọn file</div></div>
+      <div class="gd-note"><b>💡 Lưu ý quan trọng:</b><br>• File <b>.zip</b> cũng được, <b>không cần giải nén</b><br>• Cần tài khoản <b>Creator / Business</b> mới có nút Export<br>• File có dạng: <b>Date, Video Views, Profile Views, Likes, Comments, Shares</b><br>• Kênh mới chưa đủ data có thể chưa có nút Export</div>
       <div class="gd-btns">
         <button class="gd-btn secondary" onclick="window.__hideGuide()">Để sau</button>
         <button class="gd-btn primary" onclick="window.__closeGuide()">✅ Đã hiểu</button>
@@ -1929,19 +2063,16 @@ window.showGuideModal = function(){
   document.body.appendChild(m);
   m.addEventListener('click', (e) => { if(e.target === m) window.__closeGuide(); });
 };
-
 window.__closeGuide = function(){
   const m = document.getElementById('gdModal');
   if(m) m.remove();
   localStorage.setItem('guideShown', Date.now().toString());
 };
-
 window.__hideGuide = function(){
   const m = document.getElementById('gdModal');
   if(m) m.remove();
   localStorage.setItem('guideShown', (Date.now() - 21 * 60 * 60 * 1000).toString());
 };
-
 window.openGuide = function(){
   const m = document.getElementById('gdModal');
   if(m) m.remove();
