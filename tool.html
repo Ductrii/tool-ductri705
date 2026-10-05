@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v7.0">
+<meta name="tool-version" content="v8.0-clean">
 <title>Tool by ductri705</title>
 <style>
 :root{--bg:#16161c;--bg2:#1a1a24;--bg3:#0d0d12;--bd:#26262e;--tx:#e8e8f0;--tx2:#aaa;--tx3:#777;--acc:#6ea8ff;--gold:#ffd700;--gr:#4ade80;--rd:#ff6e9c;--r:12px}
@@ -16,8 +16,8 @@ header{text-align:center;margin-bottom:20px}
 h1{font-size:20px;font-weight:600;color:var(--acc);letter-spacing:2px}
 header p{font-size:12px;color:#666;margin-top:4px}
 .c{background:var(--bg);border:1px solid var(--bd);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 4px 30px rgba(0,0,0,.3)}
-input,textarea{width:100%;padding:12px 14px;margin-bottom:10px;background:var(--bg2);border:1px solid #2a2a34;border-radius:10px;color:var(--tx);font:14px inherit;outline:none}
-input:focus,textarea:focus{border-color:var(--acc)}
+input,textarea,select{width:100%;padding:12px 14px;margin-bottom:10px;background:var(--bg2);border:1px solid #2a2a34;border-radius:10px;color:var(--tx);font:14px inherit;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--acc)}
 .b{width:100%;padding:12px;background:var(--acc);color:#fff;border:0;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;font-family:inherit}
 .b:hover{opacity:.9}.b:disabled{opacity:.5;cursor:wait}
 .bs{background:transparent;border:1px solid #3a3a44;color:var(--tx2);margin-top:8px}
@@ -41,14 +41,6 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .cdn{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--gold);margin-top:6px;letter-spacing:2px}
 .tg{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;font-size:11px;color:#888;cursor:pointer;user-select:none}
 .tg input{width:auto;margin:0}
-.mn{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.mb{padding:12px;border-radius:10px;text-align:center;font-size:12px}
-.mb.st{background:linear-gradient(135deg,#2a2010,var(--bg2));border:1px solid #ff9500}
-.mb.ev{background:linear-gradient(135deg,#1a2a3e,var(--bg2));border:1px solid var(--acc)}
-.mn2{font-size:20px;font-weight:700;margin-bottom:4px}
-.mb.st .mn2{color:#ff9500}.mb.ev .mn2{color:var(--acc)}
-.ml{font-size:10px;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px}
-.ms{font-size:10px;color:#666;margin-top:4px}
 .tp{margin-top:12px;padding:12px 14px;background:linear-gradient(135deg,#1e2a3e,var(--bg));border-left:3px solid var(--gold);border-radius:10px;font-size:12px;color:#ccc;line-height:1.6}
 .tp .th{color:var(--gold);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
 .up{border:2px dashed #3a3a44;border-radius:var(--r);padding:24px;text-align:center;cursor:pointer;transition:.2s;position:relative}
@@ -68,14 +60,6 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .stt{background:var(--bg2);border-radius:10px;padding:12px;text-align:center}
 .stt .n{font-size:20px;font-weight:600;color:var(--acc);font-variant-numeric:tabular-nums}
 .stt .l{font-size:10px;color:var(--tx3);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
-.gl2{margin-top:14px;padding:14px;background:linear-gradient(135deg,#1e2e2e,var(--bg));border:1px solid var(--gr);border-radius:var(--r)}
-.glt{font-size:12px;color:var(--gr);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:600}
-.glb{height:24px;background:var(--bg3);border-radius:12px;overflow:hidden;position:relative;margin:10px 0}
-.glf{height:100%;background:linear-gradient(90deg,#4ade80,#22c55e);transition:width .5s;border-radius:12px}
-.glx{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:12px;font-weight:700;color:var(--bg3);text-shadow:0 0 4px rgba(255,255,255,.6)}
-.grw{display:flex;gap:8px;margin-top:10px}
-.grw input{flex:1;margin:0}
-.grw button{padding:8px 16px;background:var(--gr);color:var(--bg3);border:0;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
 .cb{margin-top:14px;padding:14px;border-radius:var(--r);background:linear-gradient(135deg,#1e1e2e,var(--bg));border:1px solid #3a3a4e}
 .ct{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -196,97 +180,34 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .bi .row{display:flex;justify-content:space-between;padding:6px 0}
 .bi .k{color:#888}.bi .v{color:var(--acc);font-weight:700}
 .cp{background:0;border:1px solid var(--acc);color:var(--acc);padding:4px 8px;border-radius:6px;font-size:10px;cursor:pointer;margin-left:8px}
-.rt{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--bg2);border-radius:10px;margin-bottom:8px;font-size:13px;gap:8px}
-.ri{flex:1}.rd{font-weight:600;margin-bottom:3px}
-.rv{color:var(--acc);font-size:11px}
-.st2s{display:flex;gap:2px}
-.st2{font-size:20px;cursor:pointer;color:#3a3a44;transition:.15s;user-select:none}
-.st2.a{color:var(--gold);text-shadow:0 0 8px rgba(255,215,0,.5)}
-.er{display:flex;justify-content:space-between;padding:10px 12px;background:var(--bg2);border-radius:10px;margin-bottom:6px;font-size:13px}
-.en{color:var(--acc);font-weight:600}
-.ed{color:var(--gold);font-weight:700}.ed.sn{color:var(--rd)}
-.pom{text-align:center;padding:20px 0}
-.pom-t{font-size:56px;font-weight:200;color:var(--acc);font-variant-numeric:tabular-nums;letter-spacing:4px;margin-bottom:8px}
-.pom-s{font-size:13px;color:#888;margin-bottom:16px}
-.pom-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.pom-btns button{padding:10px 20px;border-radius:10px;border:1px solid #3a3a44;background:var(--bg2);color:var(--tx);font-size:13px;font-weight:600;cursor:pointer}
-.pom-btns button.primary{background:var(--acc);color:#fff;border-color:var(--acc)}
-.pom-btns button.danger{background:var(--rd);color:#fff;border-color:var(--rd)}
-.pom-mode{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
-.pom-mode button{padding:6px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--bg2);color:#888;font-size:12px;cursor:pointer}
-.pom-mode button.a{background:#26263a;color:var(--acc);border-color:var(--acc)}
-.note-in{width:100%;padding:12px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;color:var(--tx);font:14px inherit;min-height:80px;resize:vertical;outline:none;margin-bottom:8px}
-.note-item{padding:12px;background:var(--bg2);border-left:3px solid var(--gold);border-radius:10px;margin-bottom:8px;font-size:13px;line-height:1.6;position:relative}
-.note-item .date{font-size:10px;color:#666;margin-bottom:6px}
-.note-item .txt{color:#ccc;white-space:pre-wrap;word-break:break-word}
-.note-item .del{position:absolute;top:8px;right:8px;background:0;border:0;color:var(--rd);cursor:pointer;font-size:14px;padding:4px}
-.ach-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:10px}
-.ach{padding:14px 8px;border-radius:12px;text-align:center;background:var(--bg2);border:2px solid #26262e;opacity:.35;transition:.3s;position:relative}
-.ach.un{opacity:1;border-color:var(--gold);background:linear-gradient(135deg,#2a2010,var(--bg2))}
-.ach.ic{font-size:28px;margin-bottom:6px;filter:grayscale(1)}
-.ach.un .ic{filter:none}
-.ach .nm{font-size:10px;color:#888;font-weight:600}
-.ach.un .nm{color:var(--gold)}
-.ach .p{font-size:9px;color:#555;margin-top:2px}
 .tbtn{position:fixed;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:var(--bg);border:1px solid var(--bd);color:var(--tx);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100}
-.hamb{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:var(--bg);border:1px solid var(--bd);color:var(--tx);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;font-size:20px}
-.hamb:hover{border-color:var(--acc)}
-.drawer{position:fixed;top:0;left:-340px;width:320px;height:100vh;background:var(--bg);border-right:1px solid var(--bd);z-index:200;transition:left .3s ease;padding:20px;overflow-y:auto;box-shadow:4px 0 30px rgba(0,0,0,.5)}
-.drawer.open{left:0}
-.dov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:199;opacity:0;pointer-events:none;transition:.3s}
-.dov.open{opacity:1;pointer-events:auto}
-.drawer h3{color:var(--gold);font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
-.drawer h3 button{background:0;border:0;color:var(--tx2);font-size:24px;cursor:pointer;line-height:1}
-.mi2{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:.2s;font-size:13px}
-.mi2:hover{background:var(--bg3);border-color:var(--acc);transform:translateX(4px)}
-.mi2 .mii{font-size:20px;width:28px;text-align:center}
-.mi2 .mt{color:var(--tx);font-weight:600}
-.mi2 .ms2{color:var(--tx3);font-size:11px;margin-top:2px}
-.dft{margin-top:20px;padding-top:14px;border-top:1px solid var(--bd);font-size:11px;color:var(--tx3);text-align:center;line-height:1.7}
-.fmo{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:300;padding:20px}
-.fbx{background:linear-gradient(135deg,#1e1e2e,var(--bg));border:1px solid var(--acc);border-radius:18px;padding:22px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto}
-.fbx h2{color:var(--acc);font-size:17px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
-.fbx h2 button{background:0;border:0;color:var(--tx2);font-size:22px;cursor:pointer;line-height:1;padding:4px}
-.fsub{font-size:12px;color:var(--tx2);margin-bottom:16px}
-.fr{display:flex;justify-content:space-between;padding:10px 12px;background:var(--bg2);border-radius:8px;margin-bottom:6px;font-size:13px;gap:8px}
-.fr .k{color:var(--tx3)}.fr .v{color:var(--tx);font-weight:600}
-.fin{display:flex;gap:8px;margin-bottom:12px}
-.fin input,.fin select{flex:1;margin:0;padding:10px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;color:var(--tx);font-size:13px;outline:none}
-.fbt2{padding:10px 16px;background:var(--acc);color:#fff;border:0;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
-.fbig{font-size:42px;text-align:center;color:var(--acc);font-weight:200;padding:20px 0;font-variant-numeric:tabular-nums}
-.frs{padding:12px;background:var(--bg2);border-left:3px solid var(--gr);border-radius:8px;font-size:13px;line-height:1.7;margin-bottom:8px}
-.frs.gold{border-left-color:var(--gold)}
-.frs.blue{border-left-color:var(--acc)}
-.frs.pink{border-left-color:var(--rd)}
-.chk2{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:8px;margin-bottom:6px;font-size:13px;cursor:pointer}
-.chk2 input{width:auto;margin:0;cursor:pointer}
-.chk2.done{opacity:.5;text-decoration:line-through}
-.tags2{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.tag2{padding:6px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:20px;font-size:12px;color:var(--acc);cursor:pointer}
-.tag2:hover{background:#26263a;border-color:var(--acc)}
+.channel-card{padding:16px;background:linear-gradient(135deg,#1e1e2e,var(--bg2));border:1px solid var(--bd);border-radius:14px;margin-bottom:14px}
+.channel-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.channel-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--rd));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#0d0d12;flex-shrink:0}
+.channel-info{flex:1;min-width:0}
+.channel-name{font-size:16px;font-weight:600;color:var(--tx);word-break:break-all}
+.channel-sub{font-size:11px;color:var(--tx3);margin-top:2px}
+.channel-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.channel-stat{padding:12px 6px;background:var(--bg3);border-radius:10px;text-align:center}
+.channel-stat .cn{font-size:16px;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums}
+.channel-stat .cl{font-size:10px;color:var(--tx3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.gh-input{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.gh-tag{padding:6px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:20px;font-size:12px;color:var(--acc);cursor:pointer;transition:.2s}
+.gh-tag:hover{background:#26263a;border-color:var(--acc)}
+.gh-tag.on{background:var(--gold);color:var(--bg3);border-color:var(--gold);font-weight:700}
+.fh-row{display:flex;gap:8px;align-items:center;margin-bottom:6px;font-size:12px}
+.fh-row .fh-d{color:var(--tx3);width:90px}
+.fh-row .fh-i{flex:1;padding:6px 10px;background:var(--bg2);border:1px solid var(--bd);border-radius:6px;color:var(--tx);outline:none;font-size:12px}
+.fh-row .fh-x{background:0;border:0;color:var(--rd);cursor:pointer;font-size:14px;padding:4px}
 </style>
 </head>
 <body>
-
-<!-- HAMBURGER -->
-<button class="hamb" id="hambBtn">☰</button>
 <button class="tbtn" id="themeBtn">🌙</button>
-<div class="dov" id="dov"></div>
-<div class="drawer" id="drawer">
-<h3>🎛️ Menu <button onclick="closeDr()">×</button></h3>
-<div id="menuList"></div>
-<div class="dft">
-Tool by <b style="color:var(--acc)">@ductri705</b><br>
-FB Tri Dang · Zalo 0865199199
-</div>
-</div>
-<div id="featModal"></div>
-
 <div class="w">
 
 <header>
 <h1>⚡ TOOL BY DUCTRI705</h1>
-<p>Đồng hồ • Giờ vàng • Cloud • Admin • 15 tính năng</p>
+<p>Đồng hồ • Giờ vàng thật • Thống kê TikTok • Cloud</p>
 </header>
 
 <div id="ls" class="c"><div class="ld">⏳ Đang tải...</div></div>
@@ -312,12 +233,8 @@ FB Tri Dang · Zalo 0865199199
 <div class="cd" id="dt">Đang tải...</div>
 <div class="cz" id="zn"></div>
 <div class="gl" id="gl"><div id="glt">Đang kiểm tra...</div><div class="cdn" id="cdn"></div></div>
-<label class="tg"><input type="checkbox" id="sT"> 🔔 Âm thanh giờ vàng</label>
-<div class="mn">
-<div class="mb st"><div class="mn2" id="skN">0</div><div class="ml">🔥 Chuỗi</div><div class="ms" id="skS">Ngày liên tiếp</div></div>
-<div class="mb ev"><div class="mn2" id="evN">—</div><div class="ml">⏰ Sự kiện</div><div class="ms" id="evS">Đang tải...</div></div>
-</div>
-<div class="tp"><div class="th">💡 Tip TikTok</div><div id="tip">Đang tải...</div></div>
+<label class="tg"><input type="checkbox" id="sT"> 🔔 Âm thanh khi vào giờ vàng</label>
+<div class="tp" id="ghTip"><div class="th">🎯 Giờ vàng kênh bạn</div><div id="ghText">Chưa có dữ liệu. Vào tab <b>📊 Kênh</b> để nhập giờ vàng từ TikTok Studio.</div></div>
 </div>
 
 <div class="c">
@@ -337,12 +254,7 @@ FB Tri Dang · Zalo 0865199199
 <div class="tbb a" data-tab="ov">Tổng quan</div>
 <div class="tbb" data-tab="ch">Biểu đồ</div>
 <div class="tbb" data-tab="tp">Top viral</div>
-<div class="tbb" data-tab="hr">Giờ vàng</div>
-<div class="tbb" data-tab="pm">⏱️ Pomodoro</div>
-<div class="tbb" data-tab="nt">📝 Notes</div>
-<div class="tbb g" data-tab="ac">🏆 Thành tựu</div>
-<div class="tbb g" data-tab="rt">⭐ Đánh giá</div>
-<div class="tbb" data-tab="ev">⏰ Sự kiện</div>
+<div class="tbb g" data-tab="cn">📊 Kênh</div>
 <div class="tbb" data-tab="acc">⚙️ Tài khoản</div>
 <div class="tbb g" data-tab="mn">💰 Nạp xu</div>
 <div class="tbb g hd" data-tab="adm" id="admTab">👑 Admin</div>
@@ -355,17 +267,6 @@ FB Tri Dang · Zalo 0865199199
 <div class="stt"><div class="n" id="sL">—</div><div class="l">Tổng like</div></div>
 <div class="stt"><div class="n" id="sA">—</div><div class="l">View TB</div></div>
 <div class="stt"><div class="n" id="sM">—</div><div class="l">View max</div></div>
-</div>
-<div class="gl2">
-<div class="glt">🎯 Mục tiêu view tháng</div>
-<div class="glb"><div class="glf" id="gf" style="width:0%"></div><div class="glx" id="gx">0%</div></div>
-<div style="font-size:12px;color:var(--tx2);text-align:center" id="gS">Chưa đặt</div>
-<div class="grw"><input type="number" id="gI" placeholder="VD: 100000"><button onclick="saveGoal()">💾 Lưu</button></div>
-</div>
-<div class="hm">
-<div class="hmt">🌡️ Phân bố view theo thứ</div>
-<div class="hmg" id="hmG"></div>
-<div class="hml"><span><span class="hmdot l1"></span>Thấp</span><span><span class="hmdot l2"></span>TB</span><span><span class="hmdot l3"></span>Cao</span></div>
 </div>
 <div class="cb"><div class="ct">📈 Tuần này vs tuần trước</div><div id="cmpC"></div></div>
 <div class="cb" style="margin-top:14px"><div class="ct">📊 Tháng này vs tháng trước</div><div id="mCmpC"></div></div>
@@ -394,15 +295,6 @@ FB Tri Dang · Zalo 0865199199
 <div class="fbt" data-days="0">Tất cả</div>
 </div>
 <div class="ch"><canvas id="chC"></canvas></div>
-<div class="cb" style="margin-top:14px">
-<div class="ct">💞 Tỷ lệ tương tác</div>
-<div class="cg">
-<div class="ci" style="border-left:3px solid var(--acc)"><div class="v" id="pL">—</div><div class="l">Like/View</div></div>
-<div class="ci" style="border-left:3px solid var(--gr)"><div class="v" id="pS">—</div><div class="l">Share/View</div></div>
-<div class="ci" style="border-left:3px solid var(--gold)"><div class="v" id="pC">—</div><div class="l">Cmt/View</div></div>
-<div class="ci" style="border-left:3px solid #a855f7"><div class="v" id="pE">—</div><div class="l">Tổng tương tác</div></div>
-</div>
-</div>
 </div>
 
 <div id="tb-tp" class="tc hd">
@@ -413,69 +305,65 @@ FB Tri Dang · Zalo 0865199199
 <div id="tpL"></div>
 </div>
 
-<div id="tb-hr" class="tc hd">
-<div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">⏰ Khung giờ vàng hôm nay</div>
-<div id="tgB" style="padding:14px;background:var(--bg2);border-radius:12px;margin-bottom:14px;text-align:center;font-size:13px;line-height:1.7">Đang tải...</div>
-<div id="gLk" class="lk">
-<div class="ic">🔒</div>
-<div class="t">PHÂN TÍCH VIP</div>
-<div class="d">Mở khóa để xem:<br>• Thống kê chi tiết<br>• Xu hướng 7 ngày<br>• Top 5 ngày viral<br>• Chiến lược</div>
-<button class="ubt" id="gUB">🔓 Mở khóa — 5 xu</button>
+<div id="tb-cn" class="tc hd">
+<div class="st2">📊 Dữ liệu kênh (nhập tay từ TikTok Studio)</div>
+
+<div class="channel-card">
+<div class="channel-head">
+<div class="channel-avatar" id="chA">@</div>
+<div class="channel-info">
+<div class="channel-name" id="chN">@chưa-nhập</div>
+<div class="channel-sub">Thông tin kênh TikTok</div>
 </div>
-<div id="gUn" class="hd">
-<span class="bdg u">✅ Đã mở khóa</span>
-<span class="bdg a hd" id="aBg">👑 Admin — free</span>
-<div id="vC"></div>
+</div>
+<div class="channel-stats">
+<div class="channel-stat"><div class="cn" id="chF">0</div><div class="cl">Follower</div></div>
+<div class="channel-stat"><div class="cn" id="chL">0</div><div class="cl">Tim</div></div>
+<div class="channel-stat"><div class="cn" id="chFo">0</div><div class="cl">Đang follow</div></div>
 </div>
 </div>
 
-<div id="tb-pm" class="tc hd">
-<div class="pom">
-<div class="pom-mode">
-<button class="a" data-min="25">⏱️ 25 phút</button>
-<button data-min="5">☕ 5 phút</button>
-<button data-min="15">🛋️ 15 phút</button>
+<div class="st2">✏️ Nhập / cập nhật thông tin</div>
+<input type="text" id="inU" placeholder="Tên tài khoản (VD: @ductri705)">
+<input type="number" id="inF" placeholder="Số follower hiện tại">
+<input type="number" id="inL" placeholder="Tổng tim (like tích lũy)">
+<input type="number" id="inFo" placeholder="Đang follow bao nhiêu">
+<button class="b" id="svCh">💾 Lưu thông tin kênh</button>
+
+<div class="st2" style="margin-top:20px">🎯 Giờ vàng thật (chọn nhiều khung)</div>
+<div class="nt" style="margin-bottom:10px;text-align:left">Lấy từ <b>TikTok Studio → Analytics → Người theo dõi → Hoạt động nhiều nhất</b><br>Nhớ đổi từ giờ UTC sang giờ VN (+7)</div>
+<div class="gh-input" id="ghInput">
+<div class="gh-tag" data-h="06">06h</div>
+<div class="gh-tag" data-h="07">07h</div>
+<div class="gh-tag" data-h="08">08h</div>
+<div class="gh-tag" data-h="09">09h</div>
+<div class="gh-tag" data-h="10">10h</div>
+<div class="gh-tag" data-h="11">11h</div>
+<div class="gh-tag" data-h="12">12h</div>
+<div class="gh-tag" data-h="13">13h</div>
+<div class="gh-tag" data-h="14">14h</div>
+<div class="gh-tag" data-h="15">15h</div>
+<div class="gh-tag" data-h="16">16h</div>
+<div class="gh-tag" data-h="17">17h</div>
+<div class="gh-tag" data-h="18">18h</div>
+<div class="gh-tag" data-h="19">19h</div>
+<div class="gh-tag" data-h="20">20h</div>
+<div class="gh-tag" data-h="21">21h</div>
+<div class="gh-tag" data-h="22">22h</div>
+<div class="gh-tag" data-h="23">23h</div>
 </div>
-<div class="pom-t" id="pmT">25:00</div>
-<div class="pom-s" id="pmS">Sẵn sàng</div>
-<div class="pom-btns">
-<button class="primary" id="pmStart">▶️ Bắt đầu</button>
-<button id="pmPause">⏸️ Dừng</button>
-<button class="danger" id="pmReset">🔄 Reset</button>
-</div>
-</div>
+<button class="b bg" id="svGh">💾 Lưu giờ vàng</button>
+
+<div class="st2" style="margin-top:20px">📈 Lịch sử follower theo ngày</div>
+<div class="nt" style="margin-bottom:10px;text-align:left">Nhập từng ngày để theo dõi tăng trưởng</div>
+<div id="fhList"></div>
+<div class="fh-row">
+<input type="date" class="fh-i" id="fhDate">
+<input type="number" class="fh-i" id="fhCount" placeholder="Số follower ngày đó">
+<button class="b" style="width:auto;padding:8px 16px;margin:0" id="fhAdd">➕</button>
 </div>
 
-<div id="tb-nt" class="tc hd">
-<div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">📝 Ghi chú</div>
-<textarea class="note-in" id="ntI" placeholder="Viết ghi chú..."></textarea>
-<button class="b" id="ntA">➕ Thêm</button>
-<div id="ntL" style="margin-top:14px"></div>
-</div>
-
-<div id="tb-ac" class="tc hd">
-<div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">🏆 Thành tựu</div>
-<div id="acLk" class="lk">
-<div class="ic">🔒</div>
-<div class="t">TÍNH NĂNG VIP</div>
-<div class="d">Mở khóa 15 thành tựu:<br>• Mốc ngày đăng bài<br>• Mốc view 1K → 1M<br>• Chuỗi streak<br>• Đại gia, VIP, Admin</div>
-<button class="ubt" id="acUB">🔓 Mở khóa — 5 xu</button>
-</div>
-<div id="acUn" class="hd">
-<span class="bdg u">✅ Đã mở khóa</span>
-<span class="bdg a hd" id="acAB">👑 Admin</span>
-<div class="ach-g" id="acG"></div>
-</div>
-</div>
-
-<div id="tb-rt" class="tc hd">
-<div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">⭐ Đánh giá video</div>
-<div id="rtL"></div>
-</div>
-
-<div id="tb-ev" class="tc hd">
-<div style="color:var(--gold);font-weight:600;font-size:14px;margin-bottom:12px">⏰ Đếm ngược sự kiện</div>
-<div id="evL"></div>
+<div id="growthBox" style="margin-top:20px"></div>
 </div>
 
 <div id="tb-acc" class="tc hd">
@@ -493,7 +381,7 @@ FB Tri Dang · Zalo 0865199199
 </div>
 
 <div id="tb-mn" class="tc hd">
-<div class="mbn"><div class="t">💰 NẠP XU</div><div class="d">Chuyển khoản QR → gửi bill Zalo</div></div>
+<div class="mbn"><div class="t">💰 NẠP XU</div><div class="d">Chuyển khoản QR → gửi bill Zalo để được cộng xu</div></div>
 <div class="st2">🎁 Gói nạp</div>
 <div class="pg" id="pkG"></div>
 <div id="mnD" class="hd">
@@ -512,25 +400,11 @@ FB Tri Dang · Zalo 0865199199
 
 <div id="tb-adm" class="tc hd">
 <div class="ahd">
-<div class="at">👑 Quản lý</div>
+<div class="at">👑 Quản lý User</div>
 <button class="arf" id="adR">🔄</button>
 </div>
-<div class="sts" style="margin-bottom:14px">
-<div class="stt"><div class="n" id="aTot">—</div><div class="l">Tổng</div></div>
-<div class="stt"><div class="n" id="aOn">—</div><div class="l">Online 24h</div></div>
-<div class="stt"><div class="n" id="aVIP">—</div><div class="l">VIP</div></div>
-<div class="stt"><div class="n" id="aBan">—</div><div class="l">Bị khóa</div></div>
-</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
-<button class="b bg" id="aGV">👑 VIP tôi</button>
-<button class="b bo" id="aRV">🔒 Hủy VIP tôi</button>
-<button class="b bb" id="aEU">📥 Xuất user</button>
-<button class="b bp" id="aBC">💰 +50 all</button>
-</div>
-<div style="background:var(--bg2);border:1px solid var(--acc);border-radius:10px;padding:12px;margin-bottom:14px">
-<div style="font-size:12px;color:var(--acc);font-weight:600;margin-bottom:8px">📢 Thông báo</div>
-<input type="text" id="bcI" placeholder="Nội dung..." style="margin-bottom:8px">
-<button class="b" id="bcB" style="font-size:13px;padding:10px">📢 Gửi</button>
+<div class="aib">
+💡 <b>Promote:</b> tốn 5000 xu · <b>VIP:</b> mở khóa phân tích giờ vàng
 </div>
 <input type="text" class="sr" id="adSr" placeholder="🔍 Tìm user..." style="margin-bottom:14px">
 <div id="adL"></div>
@@ -560,37 +434,18 @@ const ADM_EM="duc116642@gmail.com";
 const GOLD=5,PROMOTE=5000,BONUS=10,DAY=86400000;
 const PKGS=[{v:1000,x:10,l:'1.000đ'},{v:5000,x:100,l:'5.000đ'},{v:10000,x:500,l:'10.000đ'},{v:20000,x:1000,l:'20.000đ'},{v:30000,x:2000,l:'30.000đ'},{v:40000,x:3000,l:'40.000đ'},{v:50000,x:5000,l:'50.000đ'}];
 const ACR=[100,500,1000,2000,3000,5000];
-const TIPS=["Hook 3 giây đầu quyết định 80% view","Đăng đều 1-2 video/ngày","Dùng nhạc trending","Caption ngắn, CTA cuối video","Trả lời comment bằng video","3-5 hashtag liên quan","Video 15-30s dễ viral","Đăng 19-22h hoặc 11-13h","Không xóa video flop","Đọc comment để có ý tưởng","Xem analytics để biết retention","Thumbnail rõ mặt, sáng","Text overlay lớn","Tránh nhạc bản quyền","Kết hợp trend + niche","Đặt câu hỏi cuối video","Video dọc 9:16","Follow top creator","Đăng Story kéo view","Ghim comment hay","Filter nhẹ nhàng","Video có mặt tăng trust","Caption emoji","Âm thanh gốc > nhạc","Đăng lại video flop sau 1 tuần","2-3 trend/video","Ngắn gọn, súc tích","Video ≥1 phút tăng watch","Học video viral đối thủ","Kiên trì 30 ngày"];
-const EVS=[{m:1,d:1,n:'🎊 Tết Dương'},{m:2,d:14,n:'💝 Valentine'},{m:3,d:8,n:'🌹 8/3'},{m:4,d:30,n:'🇻🇳 30/4'},{m:5,d:1,n:'👷 1/5'},{m:6,d:1,n:'🧒 1/6'},{m:9,d:2,n:'🎆 2/9'},{m:10,d:20,n:'💐 20/10'},{m:12,d:24,n:'🎄 Giáng sinh'},{m:12,d:25,n:'🎅 Noel'},{m:12,d:31,n:'🎉 Giao thừa'}];
-const ACHS=[
-{id:'1',i:'🌱',n:'Khởi đầu',p:'Upload CSV',ck:()=>rawData.length>0},
-{id:'2',i:'📅',n:'1 tuần',p:'7 ngày data',ck:()=>rawData.length>=7},
-{id:'3',i:'📆',n:'1 tháng',p:'30 ngày data',ck:()=>rawData.length>=30},
-{id:'4',i:'🗓️',n:'100 ngày',p:'100 ngày data',ck:()=>rawData.length>=100},
-{id:'5',i:'👀',n:'1K view',p:'Tổng ≥ 1K',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=1000},
-{id:'6',i:'🔥',n:'10K view',p:'Tổng ≥ 10K',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=10000},
-{id:'7',i:'💯',n:'100K view',p:'Tổng ≥ 100K',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=100000},
-{id:'8',i:'👑',n:'1M view',p:'Tổng ≥ 1M',ck:()=>rawData.reduce((a,d)=>a+d[1],0)>=1000000},
-{id:'9',i:'⚡',n:'Chuỗi 3',p:'3 ngày liền',ck:()=>calcStreak()>=3},
-{id:'10',i:'🌟',n:'Chuỗi 7',p:'7 ngày liền',ck:()=>calcStreak()>=7},
-{id:'11',i:'💎',n:'Chuỗi 30',p:'30 ngày liền',ck:()=>calcStreak()>=30},
-{id:'12',i:'🚀',n:'Viral 100K',p:'Có ngày ≥ 100K',ck:()=>rawData.some(d=>d[1]>=100000)},
-{id:'13',i:'💰',n:'Đại gia',p:'≥ 1000 xu',ck:()=>userProfile&&(userProfile.credits||0)>=1000},
-{id:'14',i:'⭐',n:'VIP',p:'Mở khóa VIP',ck:()=>userProfile&&userProfile.golden_unlocked},
-{id:'15',i:'👑',n:'Admin',p:'Là admin',ck:()=>isAdm()}
-];
+const MED=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
 
 const sb=supabase.createClient(SBU,SBK);
 let currentUser=null,rawData=[],chInst=null,userProfile=null,chDays=7;
 let chType='bar',showAv=true,searchCh='';
 let snd=localStorage.getItem('snd')==='true',lastGl=false,lastHr=null;
-let pmTimer=null,pmSecs=25*60,pmTot=25*60,pmRun=false;
 let adCache=[];
+let channelData={};
 
 const PAD=n=>String(n).padStart(2,'0');
 const DW=['CN','T2','T3','T4','T5','T6','T7'];
 const DWF=['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
-const MED=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
 
 function isAdm(){return userProfile?.is_admin===true||currentUser?.email===ADM_EM}
 function cp(t){navigator.clipboard.writeText(t).then(()=>alert('Đã copy!')).catch(()=>alert('Lỗi'))}
@@ -600,62 +455,132 @@ function fmtV(n){if(n>=1e6)return (n/1e6).toFixed(2).replace(/\.00$/,'')+'M';if(
 function playSnd(){try{const c=new(window.AudioContext||window.webkitAudioContext)();[523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;o.type='sine';const st=c.currentTime+i*.15;g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(.3,st+.02);g.gain.exponentialRampToValueAtTime(.001,st+.3);o.start(st);o.stop(st+.35)})}catch(e){}}
 function toast(msg,bg,time){const old=document.getElementById('gtoast');if(old)old.remove();const t=document.createElement('div');t.id='gtoast';t.className='dt';if(bg)t.style.background=bg;t.innerHTML=msg;document.body.appendChild(t);setTimeout(()=>{t.style.transition='opacity .5s';t.style.opacity='0';setTimeout(()=>t.remove(),500)},time||4000)}
 
-function rTip(){const d=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/DAY);document.getElementById('tip').textContent=TIPS[d%TIPS.length]}
-function calcStreak(){if(!rawData.length)return 0;const ds=rawData.map(d=>pDate(d[0])).filter(t=>t).sort((a,b)=>b-a);if(!ds.length)return 0;let s=1;for(let i=1;i<ds.length;i++){if(ds[i-1]-ds[i]<=129600000)s++;else break}return s}
-function rStreak(){const s=calcStreak();document.getElementById('skN').textContent=s;const sub=document.getElementById('skS');sub.textContent=s>=30?'🏆 Siêu kiên trì!':s>=14?'🔥 Bùng cháy!':s>=7?'⚡ Rất tốt!':s>=3?'👍 Đang lên!':'Ngày liên tiếp'}
-function nxtEv(){const now=new Date(),t=new Date(now.getFullYear(),now.getMonth(),now.getDate());let r=null,mn=Infinity;EVS.forEach(e=>{let d=new Date(now.getFullYear(),e.m-1,e.d);if(d<t)d=new Date(now.getFullYear()+1,e.m-1,e.d);const ds=Math.ceil((d-t)/DAY);if(ds<mn){mn=ds;r={...e,days:ds,date:d}}});return r}
-function rEvMini(){const e=nxtEv();if(!e)return;document.getElementById('evN').textContent=e.days===0?'Hôm nay!':e.days+' ngày';document.getElementById('evS').textContent=e.n}
-function rEvList(){const el=document.getElementById('evL');const now=new Date(),t=new Date(now.getFullYear(),now.getMonth(),now.getDate());const list=EVS.map(e=>{let d=new Date(now.getFullYear(),e.m-1,e.d);if(d<t)d=new Date(now.getFullYear()+1,e.m-1,e.d);return{...e,days:Math.ceil((d-t)/DAY),ds:d.toLocaleDateString('vi-VN')}}).sort((a,b)=>a.days-b.days);el.innerHTML=list.map(e=>`<div class="er"><div><div class="en">${e.n}</div><div style="font-size:11px;color:#888;margin-top:2px">${e.ds}</div></div><div class="ed ${e.days<=7?'sn':''}">${e.days===0?'HÔM NAY':e.days+' ngày'}</div></div>`).join('')}
-
 function gKey(){return currentUser?`g_${currentUser.id}`:'g'}
-function saveGoal(){const v=parseInt(document.getElementById('gI').value);if(!v||v<1000){alert('≥1.000');return}localStorage.setItem(gKey(),v);rGoal();alert('✅ Đã lưu')}
-window.saveGoal=saveGoal;
-function rGoal(){const g=parseInt(localStorage.getItem(gKey())||0);const f=document.getElementById('gf'),t=document.getElementById('gx'),s=document.getElementById('gS');if(!g){f.style.width='0%';t.textContent='0%';s.textContent='Chưa đặt';return}const now=new Date();let mv=0;rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const dt=new Date(ts);if(dt.getMonth()===now.getMonth()&&dt.getFullYear()===now.getFullYear())mv+=d[1]});const p=Math.min(100,Math.round(mv/g*100));f.style.width=p+'%';t.textContent=p+'%';s.innerHTML=`<b style="color:var(--gr)">${mv.toLocaleString('vi-VN')}</b> / ${g.toLocaleString('vi-VN')}`}
-
-function rHeat(){const el=document.getElementById('hmG');if(!rawData.length){el.innerHTML='<div style="grid-column:1/-1;text-align:center;color:#666;padding:14px;font-size:12px">Chưa có dữ liệu</div>';return}const b=Array.from({length:7},()=>({t:0,c:0}));rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const dw=new Date(ts).getDay();b[dw].t+=d[1];b[dw].c++});const av=b.map(x=>x.c>0?x.t/x.c:0);const mx=Math.max(...av,1);const mn=Math.min(...av.filter(a=>a>0),mx);el.innerHTML=b.map((x,i)=>{const a=av[i];let lv='';if(x.c===0)lv='';else if(a>=mx*.8)lv='l3';else if(a>=mn+(mx-mn)*.4)lv='l2';else lv='l1';return`<div class="hmd ${lv}"><div class="hl">${DW[i]}</div><div class="hv">${x.c>0?fmtV(Math.round(a)):'—'}</div></div>`}).join('')}
-
-function rMonthCmp(){const b=document.getElementById('mCmpC');if(rawData.length<2){b.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>';return}const now=new Date();let tm={v:0,l:0},lm={v:0,l:0};const tM=now.getMonth(),tY=now.getFullYear();const lM=tM===0?11:tM-1,lY=tM===0?tY-1:tY;rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const dt=new Date(ts);if(dt.getMonth()===tM&&dt.getFullYear()===tY){tm.v+=d[1];tm.l+=d[2]}else if(dt.getMonth()===lM&&dt.getFullYear()===lY){lm.v+=d[1];lm.l+=d[2]}});if(!tm.v&&!lm.v){b.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Không có data</div>';return}const vd=tm.v-lm.v,ld=tm.l-lm.l;const vp=lm.v>0?(vd/lm.v*100):(tm.v>0?100:0);const lp=lm.l>0?(ld/lm.l*100):(tm.l>0?100:0);const M=['Th1','Th2','Th3','Th4','Th5','Th6','Th7','Th8','Th9','Th10','Th11','Th12'];b.innerHTML=`<div class="cg"><div class="ci"><div class="v">${fmtV(tm.v)}</div><div class="l">${M[tM]}</div></div><div class="ci"><div class="v">${fmtV(lm.v)}</div><div class="l">${M[lM]}</div></div><div class="ci"><div class="v">${fmtV(tm.l)}</div><div class="l">${M[tM]} like</div></div><div class="ci"><div class="v">${fmtV(lm.l)}</div><div class="l">${M[lM]} like</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 ${vd>=0?'📈 +':'📉 '}${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:8px">❤️ ${ld>=0?'📈 +':'📉 '}${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`}
-
 function rKey(d){return currentUser?`r_${currentUser.id}_${d}`:`r_${d}`}
-function rRate(){const el=document.getElementById('rtL');if(!rawData.length){el.innerHTML='<div style="color:#666;text-align:center;padding:20px">Chưa có dữ liệu</div>';return}const s=[...rawData].sort((a,b)=>(pDate(b[0])||0)-(pDate(a[0])||0)).slice(0,30);el.innerHTML=s.map(d=>{const r=parseInt(localStorage.getItem(rKey(d[0]))||0);return`<div class="rt"><div class="ri"><div class="rd">${d[0]}</div><div class="rv">${d[1].toLocaleString('vi-VN')} view</div></div><div class="st2s" data-d="${d[0]}">${[1,2,3,4,5].map(i=>`<span class="st2 ${i<=r?'a':''}" data-v="${i}">★</span>`).join('')}</div></div>`}).join('');el.querySelectorAll('.st2s').forEach(c=>{c.querySelectorAll('.st2').forEach(s=>s.addEventListener('click',()=>{const v=parseInt(s.dataset.v);localStorage.setItem(rKey(c.dataset.d),v);c.querySelectorAll('.st2').forEach(x=>x.classList.toggle('a',parseInt(x.dataset.v)<=v))}))})}
+function pDate(s){if(!s)return null;const M={'tháng Mười':9,'tháng Mười Một':10,'tháng Mười Hai':11,'tháng Một':0,'tháng Hai':1,'tháng Ba':2,'tháng Tư':3,'tháng Năm':4,'tháng Sáu':5,'tháng Bảy':6,'tháng Tám':7,'tháng Chín':8};const m=s.match(/^(\d+)\s+(.+)$/);if(!m)return null;const d=parseInt(m[1]),mn=m[2].trim();if(!(mn in M))return null;return new Date(new Date().getFullYear(),M[mn],d).getTime()}
 
-function ntKey(){return currentUser?`nt_${currentUser.id}`:'nt'}
-function getNt(){try{return JSON.parse(localStorage.getItem(ntKey())||'[]')}catch(e){return[]}}
-function saveNt(n){localStorage.setItem(ntKey(),JSON.stringify(n))}
-function rNt(){const el=document.getElementById('ntL');const nt=getNt();if(!nt.length){el.innerHTML='<div style="color:#666;text-align:center;padding:20px;font-size:13px">Chưa có ghi chú</div>';return}el.innerHTML=nt.map((n,i)=>`<div class="note-item"><div class="date">📅 ${new Date(n.date).toLocaleString('vi-VN')}</div><div class="txt">${esc(n.text)}</div><button class="del" onclick="delNt(${i})">🗑️</button></div>`).join('')}
-function addNt(){const inp=document.getElementById('ntI');const t=inp.value.trim();if(!t)return;const nt=getNt();nt.unshift({text:t,date:Date.now()});saveNt(nt);inp.value='';rNt()}
-function delNt(i){if(!confirm('Xóa?'))return;const nt=getNt();nt.splice(i,1);saveNt(nt);rNt()}
-window.delNt=delNt;
+// CHANNEL DATA
+function getChannelData(){return channelData||{}}
+function saveChannelData(){
+  if(!currentUser)return Promise.resolve();
+  return sb.from('profiles').update({channel_data:channelData}).eq('id',currentUser.id);
+}
+function renderChannel(){
+  const d=channelData||{};
+  const name=d.username||'@chưa-nhập';
+  document.getElementById('chN').textContent=name;
+  document.getElementById('chA').textContent=(d.username||'@').replace('@','').charAt(0).toUpperCase()||'@';
+  document.getElementById('chF').textContent=fmtV(d.followers||0);
+  document.getElementById('chL').textContent=fmtV(d.likes||0);
+  document.getElementById('chFo').textContent=fmtV(d.following||0);
+  document.getElementById('inU').value=d.username||'';
+  document.getElementById('inF').value=d.followers||'';
+  document.getElementById('inL').value=d.likes||'';
+  document.getElementById('inFo').value=d.following||'';
+  document.querySelectorAll('.gh-tag').forEach(t=>{t.classList.toggle('on',(d.goldenHours||[]).includes(t.dataset.h))});
+  renderFollowerHistory();
+  renderGrowthBox();
+  renderGoldenTip();
+}
+function renderGoldenTip(){
+  const d=channelData||{};
+  const gh=d.goldenHours||[];
+  const el=document.getElementById('ghText');
+  if(!gh.length){
+    el.innerHTML='Chưa có dữ liệu. Vào tab <b>📊 Kênh</b> để nhập giờ vàng từ TikTok Studio.';
+    return;
+  }
+  const sorted=[...gh].sort();
+  el.innerHTML=`Giờ vàng kênh bạn: <b style="color:var(--gold)">${sorted.map(h=>h+'h').join(', ')}</b>`;
+}
+function renderFollowerHistory(){
+  const el=document.getElementById('fhList');
+  const h=(channelData.followerHistory||[]).slice().sort((a,b)=>a.date.localeCompare(b.date));
+  if(!h.length){el.innerHTML='<div style="color:#666;text-align:center;padding:14px;font-size:12px">Chưa có dữ liệu</div>';return}
+  el.innerHTML=h.map((x,i)=>`<div class="fh-row"><span class="fh-d">${x.date}</span><input type="number" class="fh-i" value="${x.count}" onchange="updFh(${i},this.value)"><button class="fh-x" onclick="delFh(${i})">🗑️</button></div>`).join('');
+}
+function renderGrowthBox(){
+  const box=document.getElementById('growthBox');
+  const h=(channelData.followerHistory||[]).slice().sort((a,b)=>a.date.localeCompare(b.date));
+  if(h.length<2){box.innerHTML='<div class="nt">Cần ≥ 2 ngày để tính tăng trưởng</div>';return}
+  const first=h[0].count,last=h[h.length-1].count;
+  const diff=last-first;
+  const days=h.length;
+  const perDay=Math.round(diff/days);
+  const pct=first>0?((diff/first*100)).toFixed(1):0;
+  const cls=diff>0?'u':diff<0?'d':'s';
+  box.innerHTML=`
+    <div class="st2">📈 Tăng trưởng follower</div>
+    <div class="cdf ${cls}">${diff>=0?'📈 +':'📉 '}${diff.toLocaleString('vi-VN')} follower trong ${days} ngày</div>
+    <div class="cg" style="margin-top:10px">
+      <div class="ci"><div class="v">${perDay>=0?'+':''}${perDay.toLocaleString('vi-VN')}</div><div class="l">TB/ngày</div></div>
+      <div class="ci"><div class="v">${pct}%</div><div class="l">Tăng trưởng</div></div>
+    </div>
+  `;
+}
+window.updFh=(i,v)=>{const h=channelData.followerHistory||[];h[i].count=parseInt(v)||0;saveChannelData().then(renderChannel)};
+window.delFh=(i)=>{if(!confirm('Xóa?'))return;const h=channelData.followerHistory||[];h.splice(i,1);saveChannelData().then(renderChannel)};
 
-function rAch(){const lk=document.getElementById('acLk'),un=document.getElementById('acUn'),ab=document.getElementById('acAB');if(!lk||!un)return;const hasVIP=isAdm()||(userProfile&&userProfile.golden_unlocked===true);if(!hasVIP){lk.classList.remove('hd');un.classList.add('hd');const btn=document.getElementById('acUB');if(btn){const c=userProfile?.credits||0;if(c<GOLD){btn.textContent=`❌ Cần ${GOLD} xu — có ${c}`;btn.disabled=true}else{btn.textContent=`🔓 Mở khóa — ${GOLD} xu (có ${c})`;btn.disabled=false}}return}lk.classList.add('hd');un.classList.remove('hd');if(ab)ab.classList.toggle('hd',!isAdm());const el=document.getElementById('acG');const unl=JSON.parse(localStorage.getItem('unl_ach')||'[]');el.innerHTML=ACHS.map(a=>{let ok=false;try{ok=a.ck()}catch(e){}if(ok&&!unl.includes(a.id)){unl.push(a.id);localStorage.setItem('unl_ach',JSON.stringify(unl));setTimeout(()=>toast(`🏆 MỞ KHÓA!<br><span style="font-size:14px">${a.i} ${a.n}</span>`,'linear-gradient(135deg,#ffd700,#ff9500)',4500),500)}return`<div class="ach ${ok?'un':''}"><div class="ic">${a.i}</div><div class="nm">${a.n}</div><div class="p">${ok?'✅':'🔒 '+a.p}</div></div>`}).join('')}
+document.getElementById('svCh').addEventListener('click',async()=>{
+  channelData.username=document.getElementById('inU').value.trim()||'';
+  channelData.followers=parseInt(document.getElementById('inF').value)||0;
+  channelData.likes=parseInt(document.getElementById('inL').value)||0;
+  channelData.following=parseInt(document.getElementById('inFo').value)||0;
+  const {error}=await saveChannelData();
+  if(error){alert('Lỗi: '+error.message);return}
+  renderChannel();
+  toast('✅ Đã lưu thông tin kênh!');
+});
 
-function rPm(){document.getElementById('pmT').textContent=PAD(Math.floor(pmSecs/60))+':'+PAD(pmSecs%60);const s=document.getElementById('pmS');if(pmRun){s.textContent='🟢 Đang chạy';s.style.color='var(--gr)'}else if(pmSecs<pmTot){s.textContent='⏸️ Tạm dừng';s.style.color='#888'}else{s.textContent='Sẵn sàng';s.style.color='#888'}}
-function startPm(){if(pmRun)return;pmRun=true;if(pmTimer)clearInterval(pmTimer);pmTimer=setInterval(()=>{pmSecs--;if(pmSecs<=0){clearInterval(pmTimer);pmRun=false;pmSecs=pmTot;playSnd();toast('⏰ Hết giờ!');rPm()}else rPm()},1000);rPm()}
-function pausePm(){if(pmTimer){clearInterval(pmTimer);pmTimer=null}pmRun=false;rPm()}
-function resetPm(){if(pmTimer)clearInterval(pmTimer);pmTimer=null;pmRun=false;pmSecs=pmTot;rPm()}
+document.querySelectorAll('.gh-tag').forEach(t=>t.addEventListener('click',()=>{
+  const h=t.dataset.h;
+  let gh=channelData.goldenHours||[];
+  if(gh.includes(h))gh=gh.filter(x=>x!==h);
+  else gh.push(h);
+  channelData.goldenHours=gh;
+  t.classList.toggle('on');
+}));
 
-function setTh(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('th',t);document.getElementById('themeBtn').textContent=t==='light'?'☀️':'🌙'}
+document.getElementById('svGh').addEventListener('click',async()=>{
+  const {error}=await saveChannelData();
+  if(error){alert('Lỗi: '+error.message);return}
+  renderGoldenTip();
+  toast('🎯 Đã lưu giờ vàng!');
+});
 
-function rAcc(){if(!currentUser||!userProfile)return;document.getElementById('ifE').textContent=currentUser.email||'—';const cr=userProfile.created_at?new Date(userProfile.created_at).toLocaleString('vi-VN'):'—';document.getElementById('ifC').textContent=cr;document.getElementById('ifL').textContent=userProfile.last_login?new Date(userProfile.last_login).toLocaleString('vi-VN'):'Vừa login';document.getElementById('ifX').textContent=isAdm()?'∞':(userProfile.credits||0).toLocaleString('vi-VN')+' xu';document.getElementById('ifR').textContent=isAdm()?'👑 Admin':(userProfile.golden_unlocked?'⭐ VIP':'User')}
+document.getElementById('fhAdd').addEventListener('click',async()=>{
+  const date=document.getElementById('fhDate').value;
+  const count=parseInt(document.getElementById('fhCount').value);
+  if(!date||!count){alert('Nhập ngày và số follower');return}
+  let h=channelData.followerHistory||[];
+  const idx=h.findIndex(x=>x.date===date);
+  if(idx>=0)h[idx].count=count;
+  else h.push({date,count});
+  channelData.followerHistory=h;
+  const {error}=await saveChannelData();
+  if(error){alert('Lỗi: '+error.message);return}
+  document.getElementById('fhCount').'),value='';
+  renderChannel();
+  toast('✅a Đã thêm!');
+});
 
-function rPkgs(){document.getElementById('pkG').innerHTML=PKGS.map((p,i)=>`<div class="pc" onclick="selPkg(${i})"><div class="p">${p.l}</div><div class="a">↓</div><div class="x">+${p.x.toLocaleString('vi-VN')} xu</div></div>`).join('')}
-function selPkg(i){const p=PKGS[i];if(!currentUser)return;const c='NAPXU '+currentUser.email.split('@')[0].toUpperCase().substring(0,10);document.getElementById('payA').textContent=p.l;document.getElementById('payX').textContent='+'+p.x.toLocaleString('vi-VN')+' xu';document.getElementById('payC').textContent=c;document.getElementById('mnD').classList.remove('hd')}
-window.selPkg=selPkg;
-
-// AUTH UI
+// AUTHB
 let isReg=false;
-const aT=document.getElementById('aT'),aB=document.getElementById('aB'),aTg=document.getElementById('aTg'),aM=document.getElementById('aM');
+const aT=document.getElementById('aT=document.getElementById('aB'),aTg=document.getElementById('aTg'),aM=document.getElementById('aM');
 aTg.addEventListener('click',()=>{isReg=!isReg;aT.textContent=isReg?'Đăng ký':'Đăng nhập';aB.textContent=isReg?'Tạo tài khoản (+50 xu)':'Đăng nhập';aTg.textContent=isReg?'Đã có? Đăng nhập':'Chưa có? Đăng ký';aM.textContent=''});
 aB.addEventListener('click',async()=>{const em=document.getElementById('aE').value.trim(),pw=document.getElementById('aP').value;if(!em||!pw){sMsg('Nhập đầy đủ','e');return}if(pw.length<6){sMsg('Tối thiểu 6 ký tự','e');return}aB.disabled=true;try{if(isReg){const{error}=await sb.auth.signUp({email:em,password:pw});if(error)throw error;sMsg('Đăng ký! +50 xu 🎁','o');setTimeout(regMod,800)}else{const{error}=await sb.auth.signInWithPassword({email:em,password:pw});if(error)throw error}}catch(e){let m=e.message||'Lỗi';if(m.includes('already registered'))m='Email đã đăng ký';else if(m.includes('Invalid login'))m='Sai email hoặc MK';else if(m.includes('Password should be'))m='MK yếu';sMsg(m,'e')}aB.disabled=false});
 function sMsg(t,ty){aM.textContent=t;aM.className='m '+(ty||'')}
 
-document.getElementById('loB').addEventListener('click',async()=>{if(!confirm('Đăng xuất sẽ xóa data CSV?'))return;if(currentUser){try{await sb.from('user_data').delete().eq('user_id',currentUser.id)}catch(e){}}rawData=[];userProfile=null;if(chInst){chInst.destroy();chInst=null}await sb.auth.signOut()});
+document.getElementById('loB').addEventListener('click',async()=>{if(!confirm('Đăng xuất sẽ xóa data CSV?'))return;if(currentUser){try{await sb.from('user_data').delete().eq('user_id',currentUser.id)}catch(e){}}rawData=[];userProfile=null;channelData={};if(chInst){chInst.destroy();chInst=null}await sb.auth.signOut()});
 
-sb.auth.onAuthStateChange(async(ev,ss)=>{document.getElementById('ls').classList.add('hd');rawData=[];if(chInst){chInst.destroy();chInst=null}rAll();if(ss?.user){currentUser=ss.user;document.getElementById('uE').textContent=ss.user.email;const{data:p}=await sb.from('profiles').select('*').eq('id',ss.user.id).single();if(p?.banned){await sb.auth.signOut();document.getElementById('as').classList.remove('hd');document.getElementById('app').classList.add('hd');sMsg('❌ Bị khóa','e');return}userProfile=p||{credits:0,golden_unlocked:false,is_admin:false};if(ss.user.email===ADM_EM&&!userProfile.is_admin){userProfile.is_admin=true;await sb.from('profiles').update({is_admin:true}).eq('id',ss.user.id)}try{await sb.from('profiles').update({last_login:new Date().toISOString()}).eq('id',ss.user.id);userProfile.last_login=new Date().toISOString()}catch(e){}await applyD();upCr();document.getElementById('as').classList.add('hd');document.getElementById('app').classList.remove('hd');document.getElementById('admTab').classList.toggle('hd',!isAdm());rGold();rAcc();rPkgs();rTip();rStreak();rEvMini();rEvList();rNt();rAch();await loadC();rAll();checkBc()}else{currentUser=null;userProfile=null;rawData=[];document.getElementById('as').classList.remove('hd');document.getElementById('app').classList.add('hd');document.getElementById('aE').value='';document.getElementById('aP').value='';aM.textContent='';document.getElementById('admTab').classList.add('hd')}});
+sb.auth.onAuthStateChange(async(ev,ss)=>{document.getElementById('ls').classList.add('hd');rawData=[];if(chInst){chInst.destroy();chInst=null}rAll();if(ss?.user){currentUser=ss.user;document.getElementById('uE').textContent=ss.user.email;const{data:p}=await sb.from('profiles').select('*').eq('id',ss.user.id).single();if(p?.banned){await sb.auth.signOut();document.getElementById('as').classList.remove('hd');document.getElementById('app').classList.add('hd');sMsg('❌ Bị khóa','e');return}userProfile=p||{credits:0,is_admin:false};channelData=p?.channel_data||{};if(ss.user.email===ADM_EM&&!userProfile.is_admin){userProfile.is_admin=true;await sb.from('profiles').update({is_admin:true}).eq('id',ss.user.id)}try{await sb.from('profiles').update({last_login:new Date().toISOString()}).eq('id',ss.user.id);userProfile.last_login=new Date().toISOString()}catch(e){}await applyD();upCr();document.getElementById('as').classList.add('hd');document.getElementById('app').classList.remove('hd');document.getElementById('admTab').classList.toggle('hd',!isAdm());rAcc();rPkgs();renderChannel();await loadC();rAll()}else{currentUser=null;userProfile=null;channelData={};rawData=[];document.getElementById('as').classList.remove('hd');document.getElementById('app').classList.add('hd');document.getElementById('aE').value='';document.getElementById('aP').value='';aM.textContent='';document.getElementById('admTab').classList.add('hd')}});
 
 (async()=>{const{data:{session}}=await sb.auth.getSession();document.getElementById('ls').classList.add('hd');if(!session)document.getElementById('as').classList.remove('hd');const st=document.getElementById('sT');if(st)st.checked=snd;setTh(localStorage.getItem('th')||'dark')})();
 
 document.getElementById('sT').addEventListener('change',e=>{snd=e.target.checked;localStorage.setItem('snd',snd);if(snd)playSnd()});
+
+function setTh(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('th',t);document.getElementById('themeBtn').textContent=t==='light'?'☀️':'🌙'}
+document.getElementById('themeBtn').addEventListener('click',()=>{const c=localStorage.getItem('th')||'dark';setTh(c==='dark'?'light':'dark')});
 
 async function applyD(){if(!currentUser||!userProfile||isAdm())return;const last=userProfile.last_daily_bonus?new Date(userProfile.last_daily_bonus).getTime():0;if(Date.now()-last<DAY)return;const nc=(userProfile.credits||0)+BONUS;const{error}=await sb.from('profiles').update({credits:nc,last_daily_bonus:new Date().toISOString()}).eq('id',currentUser.id);if(error)return;userProfile.credits=nc;userProfile.last_daily_bonus=new Date().toISOString();toast(`🎁 Điểm danh!<br><span style="font-size:12px">+${BONUS} xu</span>`)}
 
@@ -665,55 +590,38 @@ function regMod(){const old=document.getElementById('md1');if(old)old.remove();c
 
 function upMod(){const old=document.getElementById('md2');if(old)old.remove();const m=document.createElement('div');m.id='md2';m.className='mo';m.innerHTML=`<div class="mbx"><h2>🎉 Thành công!</h2><div class="sb">Đã nhập file</div><div style="color:var(--tx);font-size:13px;text-align:center;line-height:1.8;margin:16px 0">Data đã lưu cloud ☁️</div><div style="color:var(--gr);font-size:24px;text-align:center;margin:20px 0">🚀</div><button class="mbt" onclick="document.getElementById('md2').remove()">OK!</button></div>`;document.body.appendChild(m)}
 
-function rGold(){const lk=document.getElementById('gLk'),un=document.getElementById('gUn'),ab=document.getElementById('aBg');if(!userProfile)return;if(isAdm()||userProfile.golden_unlocked){lk.classList.add('hd');un.classList.remove('hd');ab.classList.toggle('hd',!isAdm());rAn()}else{lk.classList.remove('hd');un.classList.add('hd');ab.classList.add('hd');const btn=document.getElementById('gUB'),c=userProfile.credits||0;if(c<GOLD){btn.textContent=`❌ Cần ${GOLD} xu`;btn.disabled=true}else{btn.textContent=`🔓 ${GOLD} xu (có ${c})`;btn.disabled=false}}}
+function rAcc(){if(!currentUser||!userProfile)return;document.getElementById('ifE').textContent=currentUser.email||'—';const cr=userProfile.created_at?new Date(userProfile.created_at).toLocaleString('vi-VN'):'—';document.getElementById('ifC').textContent=cr;document.getElementById('ifL').textContent=userProfile.last_login?new Date(userProfile.last_login).toLocaleString('vi-VN'):'Vừa login';document.getElementById('ifX').textContent=isAdm()?'∞':(userProfile.credits||0).toLocaleString('vi-VN')+' xu';document.getElementById('ifR').textContent=isAdm()?'👑 Admin':'User'}
 
-document.getElementById('gUB').addEventListener('click',async()=>{if(!userProfile)return;if((userProfile.credits||0)<GOLD){alert('Không đủ xu!');return}if(!confirm(`Mở khóa? ${GOLD} xu.`))return;const nc=userProfile.credits-GOLD;const{error}=await sb.from('profiles').update({credits:nc,golden_unlocked:true}).eq('id',currentUser.id);if(error){alert('Lỗi');return}userProfile.credits=nc;userProfile.golden_unlocked=true;upCr();rGold();rAcc();rAch();toast('👑 Đã mở VIP!')});
+function rPkgs(){document.getElementById('pkG').innerHTML=PKGS.map((p,i)=>`<div class="pc" onclick="selPkg(${i})"><div class="p">${p.l}</div><div class="a">↓</div><div class="x">+${p.x.toLocaleString('vi-VN')} xu</div></div>`).join('')}
+function selPkg(i){const p=PKGS[i];if(!currentUser)return;const c='NAPXU '+currentUser.email.split('@')[0].toUpperCase().substring(0,10);document.getElementById('payA').textContent=p.l;document.getElementById('payX').textContent='+'+p.x.toLocaleString('vi-VN')+' xu';document.getElementById('payC').textContent=c;document.getElementById('mnD').classList.remove('hd')}
+window.selPkg=selPkg;
 
-function rAn(){const box=document.getElementById('vC');if(!box)return;if(!rawData.length){box.innerHTML='<div class="si">⚠️ Chưa có dữ liệu</div>';return}const n=rawData.length;const vs=rawData.map(d=>d[1]),ls=rawData.map(d=>d[2]),cs=rawData.map(d=>d[3]),ss=rawData.map(d=>d[4]);const tV=vs.reduce((a,b)=>a+b,0),tL=ls.reduce((a,b)=>a+b,0),tC=cs.reduce((a,b)=>a+b,0),tS=ss.reduce((a,b)=>a+b,0);const aV=tV/n;const sr=[...vs].sort((a,b)=>a-b);const med=sr.length%2===0?(sr[sr.length/2-1]+sr[sr.length/2])/2:sr[Math.floor(sr.length/2)];const va=vs.reduce((a,v)=>a+Math.pow(v-aV,2),0)/n;const sd=Math.sqrt(va),cv=aV>0?(sd/aV*100):0;const mx=Math.max(...vs),mn=Math.min(...vs);const mxD=rawData[vs.indexOf(mx)][0],mnD=rawData[vs.indexOf(mn)][0];const lr=tV>0?(tL/tV*100):0,sr2=tV>0?(tS/tV*100):0,cr=tV>0?(tC/tV*100):0;const er=lr+sr2+cr;const top5=[...rawData].sort((a,b)=>b[1]-a[1]).slice(0,5);let tr={text:'',cls:'s'};if(n>=14){const l7=vs.slice(-7).reduce((a,b)=>a+b,0),p7=vs.slice(-14,-7).reduce((a,b)=>a+b,0);const df=l7-p7,pct=p7>0?(df/p7*100):(l7>0?100:0);if(df>0)tr={text:`📈 Tăng ${pct.toFixed(1)}%`,cls:'u'};else if(df<0)tr={text:`📉 Giảm ${Math.abs(pct).toFixed(1)}%`,cls:'d'};else tr={text:'➡️ Đi ngang',cls:'s'}}else tr={text:'⚠️ Cần ≥ 14 ngày',cls:'s'};const dw=Array.from({length:7},()=>({t:0,c:0}));rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const dow=new Date(ts).getDay();dw[dow].t+=d[1];dw[dow].c++});let bd=0,bda=0;dw.forEach((d,i)=>{const a=d.c>0?d.t/d.c:0;if(a>bda){bda=a;bd=i}});let stab,sc,si;if(cv<50){stab='Rất ổn định';sc='var(--gr)';si='🟢'}else if(cv<100){stab='Ổn';sc='var(--gold)';si='🟡'}else if(cv<200){stab='Biến động';sc='#ff9500';si='🟠'}else{stab='Rất biến động';sc='var(--rd)';si='🔴'}let ls2=0,cs2=0;const vt=aV*1.5;vs.forEach(v=>{if(v>=vt){cs2++;if(cs2>ls2)ls2=cs2}else cs2=0});let gr=0;if(n>=2&&vs[0]>0)gr=(Math.pow(vs[n-1]/vs[0],1/n)-1)*100;let st=[];if(lr>4)st.push(`✅ Like cao (${lr.toFixed(2)}%)`);else if(lr>2)st.push(`👍 Like tốt (${lr.toFixed(2)}%)`);else st.push(`⚠️ Like thấp (${lr.toFixed(2)}%)`);if(sr2>0.5)st.push(`🔥 Share cao (${sr2.toFixed(3)}%)`);else if(sr2<0.1)st.push(`💡 Share thấp (${sr2.toFixed(3)}%)`);if(cr>0.3)st.push(`💬 Comment tốt (${cr.toFixed(3)}%)`);else st.push(`💭 Comment thấp (${cr.toFixed(3)}%)`);if(cv>150)st.push(`🎢 Biến động (CV ${cv.toFixed(0)}%)`);else if(cv<50)st.push(`🎯 Ổn định (CV ${cv.toFixed(0)}%)`);if(ls2>=3)st.push(`🔥 Chuỗi ${ls2} ngày viral`);st.push(`🎯 Viral: ${mxD} (${mx.toLocaleString('vi-VN')})`);st.push(`📅 Ngày tốt: ${DW[bd]}`);box.innerHTML=`<div class="si">📈 <b>XU HƯỚNG:</b><br><span style="color:${tr.cls==='u'?'var(--gr)':tr.cls==='d'?'var(--rd)':'var(--tx2)'};font-weight:700">${tr.text}</span></div><div class="si">📊 <b>THỐNG KÊ:</b><br>• TB: <b>${Math.round(aV).toLocaleString('vi-VN')}</b><br>• Trung vị: <b>${Math.round(med).toLocaleString('vi-VN')}</b><br>• Max: <b>${mx.toLocaleString('vi-VN')}</b> (${mxD})<br>• Min: <b>${mn.toLocaleString('vi-VN')}</b> (${mnD})<br>• SD: <b>${Math.round(sd).toLocaleString('vi-VN')}</b></div><div class="si">${si} <b>ỔN ĐỊNH:</b> <span style="color:${sc};font-weight:700">${stab}</span><br><span style="color:#888;font-size:11px">CV ${cv.toFixed(0)}%</span></div><div class="si">💞 <b>TƯƠNG TÁC:</b><br>• Like/View: <b>${lr.toFixed(2)}%</b><br>• Share/View: <b>${sr2.toFixed(3)}%</b><br>• Cmt/View: <b>${cr.toFixed(3)}%</b><br>• Tổng: <b style="color:var(--gr)">${er.toFixed(2)}%</b></div><div class="si">🏆 <b>TOP 5:</b><br>${top5.map((d,i)=>`${['🥇','🥈','🥉','4️⃣','5️⃣'][i]} ${d[0]} — <b>${d[1].toLocaleString('vi-VN')}</b>`).join('<br>')}</div><div class="si">📅 <b>THEO THỨ:</b><br>${dw.map((d,i)=>{const a=d.c>0?Math.round(d.t/d.c):0;const bar=d.c>0?'█'.repeat(Math.min(10,Math.round(a/(bda||1)*10))):'';return `<span style="display:inline-block;width:30px;color:var(--acc)">${DW[i]}</span> ${bar} ${a.toLocaleString('vi-VN')}`}).join('<br>')}</div><div class="si">🔥 <b>CHUỖI VIRAL:</b> ${ls2} ngày</div>${gr!==0?`<div class="si">📈 <b>TĂNG:</b> <span style="color:${gr>0?'var(--gr)':'var(--rd)'};font-weight:700">${gr>0?'+':''}${gr.toFixed(2)}%/ngày</span></div>`:''}<div class="si">💡 <b>CHIẾN LƯỢC:</b><br>${st.map(s=>'• '+s).join('<br><br>')}</div>`}
+// ADMIN
+async function adLoad(){const box=document.getElementById('adL');box.innerHTML='<div style="text-align:center;color:var(--acc);padding:20px">⏳</div>';try{const{data,error}=await sb.from('profiles').select('*').order('created_at',{ascending:false});if(error)throw error;adCache=data||[];if(!data?.length){box.innerHTML='<div style="text-align:center;color:#666;padding:20px">Chưa có user</div>';return}rAdList(data)}catch(e){box.innerHTML=`<div style="color:var(--rd);text-align:center;padding:20px">❌ ${e.message}</div>`}}
 
-async function adLoad(){const box=document.getElementById('adL');box.innerHTML='<div style="text-align:center;color:var(--acc);padding:20px">⏳</div>';try{const{data,error}=await sb.from('profiles').select('*').order('created_at',{ascending:false});if(error)throw error;adCache=data||[];if(!data?.length){box.innerHTML='<div style="text-align:center;color:#666;padding:20px">Chưa có user</div>';return}const now=Date.now();document.getElementById('aTot').textContent=data.length;document.getElementById('aOn').textContent=data.filter(u=>u.last_login&&(now-new Date(u.last_login).getTime()<DAY)).length;document.getElementById('aVIP').textContent=data.filter(u=>u.golden_unlocked===true).length;document.getElementById('aBan').textContent=data.filter(u=>u.banned===true).length;rAdList(data)}catch(e){box.innerHTML=`<div style="color:var(--rd);text-align:center;padding:20px">❌ ${e.message}</div>`}}
-
-function rAdList(data){const box=document.getElementById('adL');const q=(document.getElementById('adSr')?.value||'').toLowerCase().trim();if(q)data=data.filter(u=>(u.email||'').toLowerCase().includes(q));if(!data.length){box.innerHTML='<div style="text-align:center;color:#666;padding:20px">Không tìm thấy</div>';return}box.innerHTML=data.map(u=>{const ib=u.banned===true,ia=u.is_admin===true||u.email===ADM_EM,ig=u.golden_unlocked===true;const cr=u.created_at?new Date(u.created_at).toLocaleDateString('vi-VN'):'-';const cd=ia?'∞':(u.credits||0).toLocaleString('vi-VN');const ll=u.last_login?new Date(u.last_login).toLocaleDateString('vi-VN'):'Chưa';let ah='';if(!ia)ah+=`<button class="abd pr" onclick="aProm('${u.id}')">👑</button>`;else if(u.email!==ADM_EM)ah+=`<button class="abd dm" onclick="aDem('${u.id}')">⬇️</button>`;if(u.email!==ADM_EM){if(ig)ah+=`<button class="abd rs" onclick="aRvV('${u.id}')">🔒 VIP</button>`;else ah+=`<button class="abd cr" onclick="aGvV('${u.id}')">👑 VIP</button>`}ah+=ib?`<button class="abd ub" onclick="aUnb('${u.id}')">✅</button>`:`<button class="abd bn" onclick="aBan('${u.id}')">🚫</button>`;ACR.forEach(a=>{ah+=`<button class="abd cr" onclick="aAdd('${u.id}',${a})">+${a}</button>`});ah+=`<button class="abd cr" onclick="aAdd('${u.id}',-100)">-100</button>`;if(u.email!==ADM_EM)ah+=`<button class="abd dl" onclick="aDel('${u.id}')">🗑️</button>`;return`<div class="au ${ib?'bn':''} ${ia?'ia':''}"><div class="h"><span class="em">${u.email||'?'}</span>${ia?'<span class="bg2 a">ADMIN</span>':''}${ig?'<span class="bg2 v">VIP</span>':''}<span class="bg2 ${ib?'b':'a'}">${ib?'KHÓA':'OK'}</span></div><div class="nf">📅 ${cr} · 🕐 ${ll}</div><div class="crl">💰 <span id="cred-${u.id}">${cd}</span> xu</div><div class="ac">${ah}</div></div>`}).join('')}
+function rAdList(data){const box=document.getElementById('adL');const q=(document.getElementById('adSr')?.value||'').toLowerCase().trim();if(q)data=data.filter(u=>(u.email||'').toLowerCase().includes(q));if(!data.length){box.innerHTML='<div style="text-align:center;color:#666;padding:20px">Không tìm thấy</div>';return}box.innerHTML=data.map(u=>{const ib=u.banned===true,ia=u.is_admin===true||u.email===ADM_EM;const cr=u.created_at?new Date(u.created_at).toLocaleDateString('vi-VN'):'-';const cd=ia?'∞':(u.credits||0).toLocaleString('vi-VN');let ah='';if(!ia)ah+=`<button class="abd pr" onclick="aProm('${u.id}')">👑</button>`;else if(u.email!==ADM_EM)ah+=`<button class="abd dm" onclick="aDem('${u.id}')">⬇️</button>`;ah+=ib?`<button class="abd ub" onclick="aUnb('${u.id}')">✅</button>`:`<button class="abd bn" onclick="aBan('${u.id}')">🚫</button>`;ACR.forEach(a=>{ah+=`<button class="abd cr" onclick="aAdd('${u.id}',${a})">+${a}</button>`});ah+=`<button class="abd cr" onclick="aAdd('${u.id}',-100)">-100</button>`;if(u.email!==ADM_EM)ah+=`<button class="abd dl" onclick="aDel('${u.id}')">🗑️</button>`;return`<div class="au ${ib?'bn':''} ${ia?'ia':''}"><div class="h"><span class="em">${u.email||'?'}</span>${ia?'<span class="bg2 a">ADMIN</span>':''}<span class="bg2 ${ib?'b':'a'}">${ib?'KHÓA':'OK'}</span></div><div class="nf">📅 ${cr}</div><div class="crl">💰 <span id="cred-${u.id}">${cd}</span> xu</div><div class="ac">${ah}</div></div>`}).join('')}
 
 async function aBan(id){if(!confirm('Khóa?'))return;await sb.from('profiles').update({banned:true}).eq('id',id);adLoad()}
 async function aUnb(id){await sb.from('profiles').update({banned:false}).eq('id',id);adLoad()}
 async function aAdd(id,a){const{data}=await sb.from('profiles').select('credits,email,is_admin').eq('id',id).single();if(data?.is_admin===true||data?.email===ADM_EM){alert('Admin ∞ xu!');return}const c=data?.credits||0,nv=Math.max(0,c+a);await sb.from('profiles').update({credits:nv}).eq('id',id);const el=document.getElementById('cred-'+id);if(el)el.textContent=nv.toLocaleString('vi-VN')}
-async function aProm(id){if(!confirm(`Promote? Tốn ${PROMOTE.toLocaleString('vi-VN')} xu.`))return;await sb.from('profiles').update({is_admin:true}).eq('id',id);adLoad()}
+async function aProm(id){if(!confirm(`Promote? ${PROMOTE.toLocaleString('vi-VN')} xu.`))return;await sb.from('profiles').update({is_admin:true}).eq('id',id);adLoad()}
 async function aDem(id){if(!confirm('Hạ?'))return;await sb.from('profiles').update({is_admin:false}).eq('id',id);adLoad()}
-async function aGvV(id){if(!confirm('Cấp VIP cho user?'))return;await sb.from('profiles').update({golden_unlocked:true}).eq('id',id);adLoad()}
-async function aRvV(id){if(!confirm('Hủy VIP user?'))return;await sb.from('profiles').update({golden_unlocked:false}).eq('id',id);adLoad()}
 async function aDel(id){if(!confirm('⚠️ XÓA VĨNH VIỄN?'))return;const t=prompt('Gõ XOA:');if(t!=='XOA')return;try{const{error}=await sb.rpc('delete_user',{target_user_id:id});if(error)throw error;alert('Đã xóa!');adLoad()}catch(e){alert('❌ '+e.message)}}
-window.aBan=aBan;window.aUnb=aUnb;window.aAdd=aAdd;window.aProm=aProm;window.aDem=aDem;window.aGvV=aGvV;window.aRvV=aRvV;window.aDel=aDel;
-
+window.aBan=aBan;window.aUnb=aUnb;window.aAdd=aAdd;window.aProm=aProm;window.aDem=aDem;window.aDel=aDel;
 document.getElementById('adR').addEventListener('click',adLoad);
 document.getElementById('adSr')?.addEventListener('input',()=>rAdList(adCache));
 
-document.getElementById('aGV').addEventListener('click',async()=>{if(!currentUser)return;if(!confirm('Bật FULL VIP?\n✓ Phân tích giờ vàng\n✓ 15 thành tựu\n✓ Vô cực xu'))return;const{error}=await sb.from('profiles').update({golden_unlocked:true,is_admin:true}).eq('id',currentUser.id);if(error){alert('Lỗi');return}userProfile.golden_unlocked=true;userProfile.is_admin=true;upCr();rGold();rAcc();rAch();toast('👑 FULL VIP!')});
-
-document.getElementById('aRV').addEventListener('click',async()=>{if(!currentUser)return;if(!confirm('Hủy VIP?'))return;const{error}=await sb.from('profiles').update({golden_unlocked:false}).eq('id',currentUser.id);if(error){alert('Lỗi');return}userProfile.golden_unlocked=false;rGold();rAcc();rAch();alert('Đã hủy VIP')});
-
-document.getElementById('aEU').addEventListener('click',()=>{if(!adCache.length){alert('Chưa có user');return}const ls=['"Email","Xu","VIP","Banned","Admin","Tạo","Login"'];adCache.forEach(u=>{const cr=u.created_at?new Date(u.created_at).toLocaleString('vi-VN'):'-';const ll=u.last_login?new Date(u.last_login).toLocaleString('vi-VN'):'-';ls.push(`"${u.email||''}","${u.credits||0}","${u.golden_unlocked?'Y':'N'}","${u.banned?'Y':'N'}","${u.is_admin?'Y':'N'}","${cr}","${ll}"`)});const csv='\ufeff'+ls.join('\n');const b=new Blob([csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`users_${new Date().toISOString().slice(0,10)}.csv`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)});
-
-document.getElementById('aBC').addEventListener('click',async()=>{const amt=parseInt(prompt('Cộng bao nhiêu xu cho TẤT CẢ user?','50'));if(!amt)return;const list=adCache.filter(u=>!u.is_admin&&u.email!==ADM_EM);if(!list.length){alert('Không có user');return}if(!confirm(`Cộng ${amt} xu cho ${list.length} user?`))return;let ok=0,f=0;for(const u of list){const nv=Math.max(0,(u.credits||0)+amt);const{error}=await sb.from('profiles').update({credits:nv}).eq('id',u.id);if(error)f++;else ok++}alert(`✅ ${ok} OK${f?`, ${f} lỗi`:''}`);adLoad()});
-
-document.getElementById('bcB').addEventListener('click',()=>{const inp=document.getElementById('bcI');const msg=inp.value.trim();if(!msg){alert('Nhập nội dung');return}const b={text:msg,date:Date.now(),id:Math.random().toString(36).slice(2)};localStorage.setItem('bc',JSON.stringify(b));inp.value='';toast('📢 Đã gửi!');showBc(b)});
-
-function showBc(b){const old=document.getElementById('bcPop');if(old)old.remove();const el=document.createElement('div');el.id='bcPop';el.style.cssText='position:fixed;top:70px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6ea8ff,#4a87ff);color:#fff;padding:14px 22px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(110,168,255,.5);z-index:99999;max-width:90vw;cursor:pointer';el.innerHTML=`📢 <b>THÔNG BÁO</b><br>${esc(b.text)}<br><span style="font-size:10px;opacity:.8">Bấm để đóng</span>`;el.onclick=()=>el.remove();document.body.appendChild(el);setTimeout(()=>el.remove(),15000)}
-
-function checkBc(){try{const b=JSON.parse(localStorage.getItem('bc')||'null');if(!b)return;if(Date.now()-b.date>7*DAY)return;if(localStorage.getItem('bcSeen_'+b.id))return;setTimeout(()=>{showBc(b);localStorage.setItem('bcSeen_'+b.id,'1')},2000)}catch(e){}}
-
-async function saveC(){if(!currentUser)return;try{await sb.from('user_data').delete().eq('user_id',currentUser.id);const{error}=await sb.from('user_data').insert({user_id:currentUser.id,rows:rawData,updated_at:new Date().toISOString()});if(error)throw error;upStat('☁️ Đã lưu cloud','var(--gr)');if(userProfile&&(userProfile.golden_unlocked||isAdm()))rAn()}catch(e){upStat('❌ '+e.message,'var(--rd)')}}
-
+// CLOUD
+async function saveC(){if(!currentUser)return;try{await sb.from('user_data').delete().eq('user_id',currentUser.id);const{error}=await sb.from('user_data').insert({user_id:currentUser.id,rows:rawData,updated_at:new Date().toISOString()});if(error)throw error;upStat('☁️ Đã lưu cloud','var(--gr)')}catch(e){upStat('❌ '+e.message,'var(--rd)')}}
 async function loadC(){if(!currentUser)return;try{const{data,error}=await sb.from('user_data').select('rows').eq('user_id',currentUser.id).order('updated_at',{ascending:false}).limit(1);if(error)throw error;if(data?.length&&data[0].rows){rawData=data[0].rows;upStat('✅ Đã tải '+rawData.length+' dòng','var(--gr)')}}catch(e){}}
 
-document.getElementById('clB').addEventListener('click',async()=>{if(!confirm('Xóa hết?'))return;if(!currentUser)return;try{await sb.from('user_data').delete().eq('user_id',currentUser.id);rawData=[];document.getElementById('fi').classList.add('hd');rAll();if(userProfile&&(userProfile.golden_unlocked||isAdm()))rAn();upStat('🗑️ Đã xóa','var(--rd)')}catch(e){upStat('❌ '+e.message,'var(--rd)')}});
-
+document.getElementById('clB').addEventListener('click',async()=>{if(!confirm('Xóa hết?'))return;if(!currentUser)return;try{await sb.from('user_data').delete().eq('user_id',currentUser.id);rawData=[];document.getElementById('fi').classList.add('hd');rAll();upStat('🗑️ Đã xóa','var(--rd)')}catch(e){upStat('❌ '+e.message,'var(--rd)')}});
 function upStat(t,c){const el=document.getElementById('us');el.textContent=t;el.style.color=c||'var(--gr)'}
 
+// UPLOAD
 const uz=document.getElementById('uz'),ci=document.getElementById('ci');
 function fmtS(b){if(b<1024)return b+' B';if(b<1048576)return (b/1024).toFixed(1)+' KB';return (b/1048576).toFixed(2)+' MB'}
 function handleF(f){if(!f)return;const nm=(f.name||'').toLowerCase();if(!(nm.endsWith('.csv')||nm.endsWith('.txt'))){upStat('❌ Chỉ .csv','var(--rd)');return}document.getElementById('fn').textContent=f.name;document.getElementById('fs').textContent=fmtS(f.size);document.getElementById('fi').classList.remove('hd');const rd=new FileReader();rd.onload=async ev=>{try{parseCSV(ev.target.result);upStat('✅ '+rawData.length+' dòng','var(--gr)');rAll();await saveC();upMod()}catch(e){upStat('❌ '+e.message,'var(--rd)')}};rd.onerror=()=>upStat('❌ Lỗi đọc','var(--rd)');rd.readAsText(f,'UTF-8')}
-
 ci.addEventListener('change',e=>{handleF(e.target.files[0]);e.target.value=''});
 uz.addEventListener('click',e=>{if(e.target!==ci)ci.click()});
 ['dragenter','dragover'].forEach(ev=>uz.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();uz.classList.add('dg')}));
@@ -721,16 +629,13 @@ uz.addEventListener('click',e=>{if(e.target!==ci)ci.click()});
 uz.addEventListener('drop',e=>{handleF(e.dataTransfer.files[0])});
 ['dragover','drop'].forEach(ev=>window.addEventListener(ev,e=>{if(!uz.contains(e.target))e.preventDefault()}));
 document.addEventListener('paste',e=>{const it=e.clipboardData?.items;if(!it)return;for(const i of it){if(i.type==='text/csv'||i.type==='text/plain'||i.kind==='file'){const f=i.getAsFile();if(f&&(f.name.endsWith('.csv')||f.type.includes('csv')||f.type==='text/plain')){handleF(f);break}}}});
-
 (function(){const ua=navigator.userAgent;const h=document.getElementById('uh');const ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);const and=/Android/.test(ua);h.innerHTML=(ios||and)?'Chạm để chọn CSV<br><b>hoặc kéo thả từ Files</b>':'Chọn CSV<br><b>hoặc kéo thả / dán (Ctrl+V)</b>'})();
 
 function parseCSV(text){const ls=text.split(/\r?\n/).filter(l=>l.trim());if(ls.length<2)throw new Error('File rỗng');const rows=[];for(let i=1;i<ls.length;i++){const p=ls[i].replace(/^"|"$/g,'').split('","').map(s=>s.replace(/"/g,''));if(p.length<3)continue;const d=p[0],v=parseInt(p[1])||0,pv=parseInt(p[2])||0,l=parseInt(p[3])||0,c=parseInt(p[4])||0,s=parseInt(p[5])||0;if(!d)continue;rows.push([d,v,l,c,s,pv])}if(!rows.length)throw new Error('Không có dòng');rawData=rows}
 
-function rAll(){rStat();rTop();rChart();rCmp();rTodayGl();rMonthCmp();rGoal();rStreak();rRate();rHeat();rPie();rAch()}
+function rAll(){rStat();rTop();rChart();rCmp();rMonthCmp()}
 
 function rStat(){if(!rawData.length){['sV','sL','sA','sM'].forEach(id=>document.getElementById(id).textContent='—');return}let tv=0,tl=0,mx=0;rawData.forEach(d=>{tv+=d[1];tl+=d[2];if(d[1]>mx)mx=d[1]});document.getElementById('sV').textContent=tv.toLocaleString('vi-VN');document.getElementById('sL').textContent=tl.toLocaleString('vi-VN');document.getElementById('sA').textContent=Math.round(tv/rawData.length).toLocaleString('vi-VN');document.getElementById('sM').textContent=mx.toLocaleString('vi-VN')}
-
-function rPie(){if(!rawData.length){['pL','pS','pC','pE'].forEach(id=>document.getElementById(id).textContent='—');return}let tv=0,tl=0,tc=0,ts=0;rawData.forEach(d=>{tv+=d[1];tl+=d[2];tc+=d[3];ts+=d[4]});const lr=tv>0?(tl/tv*100):0,sr=tv>0?(ts/tv*100):0,cr=tv>0?(tc/tv*100):0;document.getElementById('pL').textContent=lr.toFixed(2)+'%';document.getElementById('pS').textContent=sr.toFixed(3)+'%';document.getElementById('pC').textContent=cr.toFixed(3)+'%';document.getElementById('pE').textContent=(lr+sr+cr).toFixed(2)+'%'}
 
 function rTop(){const box=document.getElementById('tpL');if(!rawData.length){box.innerHTML='<div style="color:#666;text-align:center;padding:20px">Chưa có dữ liệu</div>';return}const avg=rawData.reduce((a,d)=>a+d[1],0)/rawData.length;const s=[...rawData].sort((a,b)=>b[1]-a[1]).slice(0,10);const mx=s[0][1];box.innerHTML=s.map((d,i)=>{const pct=avg>0?((d[1]-avg)/avg*100):0;const bw=(d[1]/mx*100).toFixed(1);const pc=pct>=0?'u':'d';const pt=(pct>=0?'+':'')+pct.toFixed(0)+'% TB';return`<div class="tv r${i+1}"><div class="tvr">${i<3?MED[i]:i+1}</div><div class="tvi"><div class="tvd">${d[0]}</div><div class="tvm"><span class="tvv">${d[1].toLocaleString('vi-VN')} view</span><span class="tvp ${pc}">${pt}</span></div></div>${i===0?'<span class="tvc">👑</span>':''}<div class="tvb" style="width:${bw}%"></div></div>`}).join('')}
 
@@ -743,257 +648,27 @@ document.getElementById('sCh').addEventListener('input',e=>{searchCh=e.target.va
 document.getElementById('expCh').addEventListener('click',()=>{if(!chInst){alert('Chưa có biểu đồ');return}const url=chInst.toBase64Image();const a=document.createElement('a');a.href=url;a.download=`chart-${new Date().toISOString().slice(0,10)}.png`;document.body.appendChild(a);a.click();document.body.removeChild(a)});
 document.getElementById('cpTp').addEventListener('click',()=>{if(!rawData.length){alert('Chưa có data');return}const avg=rawData.reduce((a,d)=>a+d[1],0)/rawData.length;const s=[...rawData].sort((a,b)=>b[1]-a[1]).slice(0,10);let text='🏆 TOP 10 VIRAL\n━━━━━━━━━━━━━━\n';s.forEach((d,i)=>{const pct=avg>0?((d[1]-avg)/avg*100):0;text+=`${MED[i]} ${d[0]}\n   ${d[1].toLocaleString('vi-VN')} (${(pct>=0?'+':'')+pct.toFixed(0)}% TB)\n`});text+='━━━━━━━━━━━━━━\nTool @ductri705';navigator.clipboard.writeText(text).then(()=>alert('Đã copy!')).catch(()=>prompt('Copy:',text))});
 
-document.querySelectorAll('.tbb').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tbb').forEach(x=>x.classList.remove('a'));document.querySelectorAll('.tc').forEach(c=>c.classList.add('hd'));t.classList.add('a');document.getElementById('tb-'+t.dataset.tab).classList.remove('hd');if(t.dataset.tab==='ch')rChart();if(t.dataset.tab==='adm')adLoad();if(t.dataset.tab==='hr'){rGold();rTodayGl()}if(t.dataset.tab==='acc')rAcc();if(t.dataset.tab==='mn')rPkgs();if(t.dataset.tab==='rt')rRate();if(t.dataset.tab==='ev')rEvList();if(t.dataset.tab==='nt')rNt();if(t.dataset.tab==='ac')rAch();if(t.dataset.tab==='pm')rPm()}));
-
-function pDate(s){if(!s)return null;const M={'tháng Mười':9,'tháng Mười Một':10,'tháng Mười Hai':11,'tháng Một':0,'tháng Hai':1,'tháng Ba':2,'tháng Tư':3,'tháng Năm':4,'tháng Sáu':5,'tháng Bảy':6,'tháng Tám':7,'tháng Chín':8};const m=s.match(/^(\d+)\s+(.+)$/);if(!m)return null;const d=parseInt(m[1]),mn=m[2].trim();if(!(mn in M))return null;return new Date(new Date().getFullYear(),M[mn],d).getTime()}
+document.querySelectorAll('.tbb').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tbb').forEach(x=>x.classList.remove('a'));document.querySelectorAll('.tc').forEach(c=>c.classList.add('hd'));t.classList.add('a');document.getElementById('tb-'+t.dataset.tab).classList.remove('hd');if(t.dataset.tab==='ch')rChart();if(t.dataset.tab==='adm')adLoad();if(t.dataset.tab==='acc')rAcc();if(t.dataset.tab==='mn')rPkgs();if(t.dataset.tab==='cn')renderChannel()}));
 
 function rCmp(){const b=document.getElementById('cmpC');if(rawData.length<2){b.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>';return}const now=Date.now(),wk=604800000;let tw={v:0,l:0},lw={v:0,l:0};rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const df=now-ts;if(df<=wk){tw.v+=d[1];tw.l+=d[2]}else if(df<=wk*2){lw.v+=d[1];lw.l+=d[2]}});const vd=tw.v-lw.v,ld=tw.l-lw.l;const vp=lw.v>0?(vd/lw.v*100):(tw.v>0?100:0);const lp=lw.l>0?(ld/lw.l*100):(tw.l>0?100:0);b.innerHTML=`<div class="cg"><div class="ci"><div class="v">${fmtV(tw.v)}</div><div class="l">Tuần này</div></div><div class="ci"><div class="v">${fmtV(lw.v)}</div><div class="l">Tuần trước</div></div><div class="ci"><div class="v">${fmtV(tw.l)}</div><div class="l">Like nay</div></div><div class="ci"><div class="v">${fmtV(lw.l)}</div><div class="l">Like trước</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 ${vd>=0?'📈 +':'📉 '}${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:8px">❤️ ${ld>=0?'📈 +':'📉 '}${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`}
 
-function sR(s){const x=Math.sin(s)*10000;return x-Math.floor(x)}
-function getSl(now){const dk=now.getFullYear()*10000+(now.getMonth()+1)*100+now.getDate();const hk=now.getHours(),sd=dk*100+hk;const sm=Math.floor(sR(sd)*30);const dm=20+Math.floor(sR(sd+1)*21);const st=new Date(now);st.setMinutes(sm,0,0);const en=new Date(st.getTime()+dm*60000);return{start:st,end:en,min:sm,dur:dm}}
-function fT(d){return PAD(d.getHours())+':'+PAD(d.getMinutes())}
-function getGl(now){const s=getSl(now),iS=now>=s.start&&now<s.end,hh=PAD(now.getHours());if(iS)return{a:true,t:s.end,l:`🔥 GIỜ VÀNG ${hh}h`,d:`${fT(s.start)} – ${fT(s.end)} · Đăng ngay!`};if(now<s.start)return{a:false,t:s.start,l:`⏰ SẮP VÀO ${hh}h`,d:`Khung: ${fT(s.start)} – ${fT(s.end)}`};const nh=new Date(now);nh.setHours(now.getHours()+1,0,0,0);const ns=getSl(nh);return{a:false,t:ns.start,l:`⏰ QUA KHUNG ${hh}h`,d:`Khung sau: ${fT(ns.start)} – ${fT(ns.end)}`}}
-function rTodayGl(){const b=document.getElementById('tgB');if(!b)return;const now=new Date(),s=getSl(now),iS=now>=s.start&&now<s.end,hh=PAD(now.getHours());b.innerHTML=`<div style="color:var(--gold);font-weight:700;font-size:15px;margin-bottom:8px">${iS?'🔥 ĐANG TRONG KHUNG VÀNG':'⏰ Khung giờ vàng '+hh+'h'}</div><div style="color:var(--gr);font-weight:600;font-size:16px;margin-bottom:8px">${fT(s.start)} – ${fT(s.end)}</div><div style="color:#888;font-size:11px">Kéo dài ${s.dur} phút · Tự đổi mỗi giờ</div>`}
+function rMonthCmp(){const b=document.getElementById('mCmpC');if(rawData.length<2){b.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>';return}const now=new Date();let tm={v:0,l:0},lm={v:0,l:0};const tM=now.getMonth(),tY=now.getFullYear();const lM=tM===0?11:tM-1,lY=tM===0?tY-1:tY;rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const dt=new Date(ts);if(dt.getMonth()===tM&&dt.getFullYear()===tY){tm.v+=d[1];tm.l+=d[2]}else if(dt.getMonth()===lM&&dt.getFullYear()===lY){lm.v+=d[1];lm.l+=d[2]}});if(!tm.v&&!lm.v){b.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:10px">Không có data</div>';return}const vd=tm.v-lm.v,ld=tm.l-lm.l;const vp=lm.v>0?(vd/lm.v*100):(tm.v>0?100:0);const lp=lm.l>0?(ld/lm.l*100):(tm.l>0?100:0);const M=['Th1','Th2','Th3','Th4','Th5','Th6','Th7','Th8','Th9','Th10','Th11','Th12'];b.innerHTML=`<div class="cg"><div class="ci"><div class="v">${fmtV(tm.v)}</div><div class="l">${M[tM]}</div></div><div class="ci"><div class="v">${fmtV(lm.v)}</div><div class="l">${M[lM]}</div></div><div class="ci"><div class="v">${fmtV(tm.l)}</div><div class="l">${M[tM]} like</div></div><div class="ci"><div class="v">${fmtV(lm.l)}</div><div class="l">${M[lM]} like</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 ${vd>=0?'📈 +':'📉 '}${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:8px">❤️ ${ld>=0?'📈 +':'📉 '}${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`}
 
-function exportCSV(){if(!rawData.length){alert('Chưa có data');return}const ls=['"Date","Video Views","Likes","Comments","Shares","Profile Views"'];rawData.forEach(d=>ls.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`));const csv='\ufeff'+ls.join('\n');const b=new Blob([csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`tiktok_${new Date().toISOString().slice(0,10)}.csv`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
+document.getElementById('exB').addEventListener('click',()=>{if(!rawData.length){alert('Chưa có data');return}const ls=['"Date","Video Views","Likes","Comments","Shares","Profile Views"'];rawData.forEach(d=>ls.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`));const csv='\ufeff'+ls.join('\n');const b=new Blob([csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`tiktok_${new Date().toISOString().slice(0,10)}.csv`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)});
 
-function share(){if(!rawData.length){alert('Chưa có data');return}let tv=0,tl=0,mx=0,mxD='';rawData.forEach(d=>{tv+=d[1];tl+=d[2];if(d[1]>mx){mx=d[1];mxD=d[0]}});const avg=Math.round(tv/rawData.length),st=calcStreak();const text=`📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rawData.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n🔥 Streak: ${st}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`;if(navigator.share){navigator.share({title:'TikTok Stats',text}).catch(()=>{})}else{navigator.clipboard.writeText(text).then(()=>alert('Đã copy!')).catch(()=>prompt('Copy:',text))}}
+document.getElementById('shB').addEventListener('click',()=>{if(!rawData.length){alert('Chưa có data');return}let tv=0,tl=0,mx=0,mxD='';rawData.forEach(d=>{tv+=d[1];tl+=d[2];if(d[1]>mx){mx=d[1];mxD=d[0]}});const avg=Math.round(tv/rawData.length);const text=`📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rawData.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`;if(navigator.share){navigator.share({title:'TikTok Stats',text}).catch(()=>{})}else{navigator.clipboard.writeText(text).then(()=>alert('Đã copy!')).catch(()=>prompt('Copy:',text))}});
 
-function backup(){if(!currentUser)return;const rat={};rawData.forEach(d=>{const r=localStorage.getItem(rKey(d[0]));if(r)rat[d[0]]=r});const b={v:'1.0',at:new Date().toISOString(),user:currentUser.email,rows:rawData,goal:localStorage.getItem(gKey())||null,ratings:rat,notes:getNt(),snd,th:localStorage.getItem('th')||'dark'};const blob=new Blob([JSON.stringify(b,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`tool-backup-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
+document.getElementById('bkB').addEventListener('click',()=>{if(!currentUser)return;const b={v:'2.0',at:new Date().toISOString(),user:currentUser.email,rows:rawData,channelData:channelData,snd,th:localStorage.getItem('th')||'dark'};const blob=new Blob([JSON.stringify(b,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`tool-backup-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)});
 
-function restore(file){const rd=new FileReader();rd.onload=async ev=>{try{const d=JSON.parse(ev.target.result);if(!d.rows||!Array.isArray(d.rows))throw new Error('File lỗi');if(!confirm(`Khôi phục ${d.rows.length} dòng?`))return;rawData=d.rows;if(d.goal)localStorage.setItem(gKey(),d.goal);if(d.ratings)Object.entries(d.ratings).forEach(([k,v])=>localStorage.setItem(rKey(k),v));if(d.notes)saveNt(d.notes);rAll();await saveC();alert('✅ Đã khôi phục!')}catch(e){alert('❌ '+e.message)}};rd.readAsText(file)}
-
-document.getElementById('exB').addEventListener('click',exportCSV);
-document.getElementById('shB').addEventListener('click',share);
-document.getElementById('bkB').addEventListener('click',backup);
 document.getElementById('rsB').addEventListener('click',()=>document.getElementById('rI').click());
-document.getElementById('rI').addEventListener('change',e=>{if(e.target.files[0]){restore(e.target.files[0]);e.target.value=''}});
+document.getElementById('rI').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=async ev=>{try{const d=JSON.parse(ev.target.result);if(!d.rows||!Array.isArray(d.rows))throw new Error('File lỗi');if(!confirm(`Khôi phục ${d.rows.length} dòng?`))return;rawData=d.rows;if(d.channelData){channelData=d.channelData;await saveChannelData();renderChannel()}rAll();await saveC();alert('✅ Đã khôi phục!')}catch(e){alert('❌ '+e.message)}};rd.readAsText(f);e.target.value=''});
 
 document.getElementById('pBtn').addEventListener('click',async()=>{const p1=document.getElementById('pO').value,p2=document.getElementById('pN').value;const msg=document.getElementById('pM');msg.textContent='';msg.className='m';if(!p1||!p2){msg.textContent='Nhập đầy đủ';msg.classList.add('e');return}if(p1.length<6){msg.textContent='Từ 6 ký tự';msg.classList.add('e');return}if(p1!==p2){msg.textContent='Không khớp';msg.classList.add('e');return}const btn=document.getElementById('pBtn');btn.disabled=true;btn.textContent='⏳';try{const{error}=await sb.auth.updateUser({password:p1});if(error)throw error;msg.textContent='✅ Đổi thành công!';msg.classList.add('o');document.getElementById('pO').value='';document.getElementById('pN').value=''}catch(e){msg.textContent='❌ '+e.message;msg.classList.add('e')}btn.disabled=false;btn.textContent='🔑 Đổi'});
 
-document.addEventListener('click',async e=>{if(e.target?.id==='acUB'){if(!userProfile)return;if((userProfile.credits||0)<GOLD){alert('Không đủ xu!');return}if(!confirm(`Mở khóa thành tựu? ${GOLD} xu.`))return;const nc=userProfile.credits-GOLD;const{error}=await sb.from('profiles').update({credits:nc,golden_unlocked:true}).eq('id',currentUser.id);if(error){alert('Lỗi');return}userProfile.credits=nc;userProfile.golden_unlocked=true;upCr();rAch();rAcc();rGold();toast('👑 Đã mở VIP!')}});
-
-document.getElementById('pmStart').addEventListener('click',startPm);
-document.getElementById('pmPause').addEventListener('click',pausePm);
-document.getElementById('pmReset').addEventListener('click',resetPm);
-document.querySelectorAll('.pom-mode button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.pom-mode button').forEach(x=>x.classList.remove('a'));b.classList.add('a');const m=parseInt(b.dataset.min);pmTot=m*60;pmSecs=pmTot;pausePm();rPm()}));
-document.getElementById('ntA').addEventListener('click',addNt);
-document.getElementById('themeBtn').addEventListener('click',()=>{const c=localStorage.getItem('th')||'dark';setTh(c==='dark'?'light':'dark')});
-
-// ========== HAMBURGER MENU + 15 FEATURES ==========
-const FEATURES=[
-{id:'cmp2',i:'📅',t:'So sánh 2 ngày',s:'Chọn 2 ngày bất kỳ'},
-{id:'predict',i:'🔮',t:'Dự đoán view',s:'Dự báo ngày mai'},
-{id:'rank',i:'📊',t:'Xếp hạng ngày',s:'Ngày nào tốt nhất tuần'},
-{id:'goldMoment',i:'⏰',t:'Khoảnh khắc vàng',s:'Giờ đăng tốt nhất'},
-{id:'randIdea',i:'🎲',t:'Random ý tưởng',s:'Gợi ý content'},
-{id:'earn',i:'💰',t:'Ước tính thu nhập',s:'Tính tiền từ view'},
-{id:'chk',i:'✅',t:'Checklist đăng',s:'Trước khi đăng video'},
-{id:'music',i:'🎵',t:'Nhạc trending',s:'Loại nhạc viral'},
-{id:'hash',i:'#️⃣',t:'Hashtag gợi ý',s:'Hashtag theo ngách'},
-{id:'remind',i:'⏱️',t:'Nhắc giờ đăng',s:'Hẹn giờ nhắc'},
-{id:'week',i:'📈',t:'Báo cáo tuần',s:'Tổng kết 7 ngày'},
-{id:'month',i:'📉',t:'Báo cáo tháng',s:'Tổng kết 30 ngày'},
-{id:'showcase',i:'🏅',t:'Khoe thành tựu',s:'Share achievements'},
-{id:'fav',i:'⭐',t:'Ngày yêu thích',s:'Bookmark ngày hot'},
-{id:'target',i:'🎯',t:'So mục tiêu',s:'Tiến độ view tháng'}
-];
-
-function openDr(){document.getElementById('drawer').classList.add('open');document.getElementById('dov').classList.add('open')}
-function closeDr(){document.getElementById('drawer').classList.remove('open');document.getElementById('dov').classList.remove('open')}
-window.closeDr=closeDr;
-document.getElementById('hambBtn').addEventListener('click',openDr);
-document.getElementById('dov').addEventListener('click',closeDr);
-
-document.getElementById('menuList').innerHTML=FEATURES.map(f=>`<div class="mi2" onclick="openFeat('${f.id}')"><div class="mii">${f.i}</div><div style="flex:1"><div class="mt">${f.t}</div><div class="ms2">${f.s}</div></div><div style="color:var(--tx3)">›</div></div>`).join('');
-
-function closeFeat(){document.getElementById('featModal').innerHTML=''}
-window.closeFeat=closeFeat;
-
-function showModal(title,sub,html){
-document.getElementById('featModal').innerHTML=`<div class="fmo" onclick="if(event.target===this)closeFeat()"><div class="fbx"><h2>${title}<button onclick="closeFeat()">×</button></h2><div class="fsub">${sub}</div>${html}</div></div>`;
-}
-
-window.openFeat=function(id){
-closeDr();
-const f=FEATURES.find(x=>x.id===id);
-if(!f)return;
-let html='';
-try{html=featHTML[id]()}catch(e){html=`<div class="frs pink">❌ ${e.message}</div>`}
-showModal(`${f.i} ${f.t}`,f.s,html);
-};
-
-const featHTML={
-cmp2:()=>{
-if(rawData.length<2)return '<div class="frs">⚠️ Cần ≥ 2 ngày dữ liệu</div>';
-const opts=rawData.map((d,i)=>`<option value="${i}">${d[0]}</option>`).join('');
-return `<div class="fin"><select id="c2a">${opts}</select><select id="c2b">${opts}</select></div><button class="fbt2" onclick="doCmp2()">So sánh</button><div id="c2r" style="margin-top:12px"></div>`;
-},
-predict:()=>{
-if(rawData.length<3)return '<div class="frs">⚠️ Cần ≥ 3 ngày</div>';
-const vals=rawData.slice(-14).map(d=>d[1]);
-const avg=vals.reduce((a,b)=>a+b,0)/vals.length;
-const trend=vals.length>1?(vals[vals.length-1]-vals[0])/(vals.length-1):0;
-const next=Math.max(0,Math.round(avg+trend));
-const conf=Math.min(95,40+vals.length*3);
-return `<div class="fbig">${fmtV(next)}</div><div class="frs blue">📊 Dựa trên ${vals.length} ngày<br>• TB: <b>${Math.round(avg).toLocaleString('vi-VN')}</b><br>• Xu hướng: <b>${trend>=0?'+':''}${Math.round(trend).toLocaleString('vi-VN')}/ngày</b><br>• Tin cậy: <b>${conf}%</b></div><div class="frs">💡 Ước tính đơn giản</div>`;
-},
-rank:()=>{
-if(!rawData.length)return '<div class="frs">⚠️ Chưa có dữ liệu</div>';
-const dw=Array.from({length:7},()=>({t:0,c:0}));
-rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const dow=new Date(ts).getDay();dw[dow].t+=d[1];dw[dow].c++});
-const ranks=dw.map((x,i)=>({i,avg:x.c>0?x.t/x.c:0,n:x.c})).sort((a,b)=>b.avg-a.avg);
-return ranks.map((r,idx)=>`<div class="fr"><span class="k">${idx<3?['🥇','🥈','🥉'][idx]:idx+1}. ${DWF[r.i]}</span><span class="v">${r.avg>0?Math.round(r.avg).toLocaleString('vi-VN'):'—'}</span></div>`).join('')+`<div class="frs">💡 Tốt nhất: <b>${DWF[ranks[0].i]}</b></div>`;
-},
-goldMoment:()=>{
-const slots=[
-{t:'06:00-08:00',n:'Sáng sớm',s:'Dân văn phòng check ĐT'},
-{t:'11:00-13:00',n:'Trưa',s:'Nghỉ trưa, view ổn'},
-{t:'17:00-18:00',n:'Tan làm',s:'Cao điểm về nhà'},
-{t:'19:00-22:00',n:'GIỜ VÀNG',s:'Tương tác cao nhất',hot:true},
-{t:'22:00-23:30',n:'Khuya',s:'Video dài dễ viral'},
-{t:'00:00-02:00',n:'Đêm muộn',s:'Ít người, dễ trending'}];
-return slots.map(s=>`<div class="fr" style="${s.hot?'border-left:3px solid var(--gold)':''}"><span class="k">${s.n}</span><span class="v">${s.t}</span></div><div style="font-size:11px;color:var(--tx3);padding:0 12px 10px">${s.s}</div>`).join('');
-},
-randIdea:()=>{
-const ideas=['POV: Bạn là…','3 sai lầm khi…','Tips 30 giây về…','Day in the life…','Kể chuyện 1 phút về…','Trước vs Sau khi…','Mọi người không biết rằng…','Điều mình ước biết sớm hơn…','5 thứ mình không thể sống thiếu…','Duet trend với…','Cách mình kiếm 1 triệu đầu tiên…','Thử thách 24h…','Review sản phẩm…','Hướng dẫn nấu…','Top 3 địa điểm…','Mukbang thử…','Biến hình 15 giây…','Reaction video viral…','So sánh A vs B…','Những lầm tưởng về…'];
-const r=ideas[Math.floor(Math.random()*ideas.length)];
-const r2=ideas[Math.floor(Math.random()*ideas.length)];
-const r3=ideas[Math.floor(Math.random()*ideas.length)];
-return `<div class="frs gold">💡 Ý tưởng 1:<br><b>${r}</b></div><div class="frs blue">💡 Ý tưởng 2:<br><b>${r2}</b></div><div class="frs pink">💡 Ý tưởng 3:<br><b>${r3}</b></div><button class="fbt2" onclick="openFeat('randIdea')" style="margin-top:8px">🎲 Đổi khác</button>`;
-},
-earn:()=>{
-const min=parseInt(prompt('Nhập CPM (đ/1000 view):\nGợi ý: 5.000 - 50.000','10000'))||10000;
-if(!rawData.length)return '<div class="frs">⚠️ Chưa có data</div>';
-const totalView=rawData.reduce((a,d)=>a+d[1],0);
-const last30=rawData.slice(-30).reduce((a,d)=>a+d[1],0);
-const earnTotal=Math.round(totalView/1000*min);
-const earnMonth=Math.round(last30/1000*min);
-return `<div class="fbig">${earnTotal.toLocaleString('vi-VN')}đ</div><div class="frs gold">💰 Tổng từ ${fmtV(totalView)} view</div><div class="frs blue">📅 30 ngày gần: <b>${earnMonth.toLocaleString('vi-VN')}đ</b></div><div class="frs">💡 CPM: ${min.toLocaleString('vi-VN')}đ / 1000 view</div>`;
-},
-chk:()=>{
-const items=['Hook 3 giây đầu hấp dẫn','Caption ngắn có CTA','3-5 hashtag liên quan','Nhạc trending','Thumbnail sáng, rõ','Đăng giờ vàng 19-22h','Trả lời comment sớm','Check video có bị mute không'];
-const saved=JSON.parse(localStorage.getItem('chk_'+currentUser?.id)||'[]');
-return items.map((t,i)=>`<label class="chk2 ${saved.includes(i)?'done':''}"><input type="checkbox" ${saved.includes(i)?'checked':''} onchange="toggleChk(${i})"><span>${t}</span></label>`).join('')+`<div class="frs" style="margin-top:12px">💡 Tick hết là sẵn sàng!</div>`;
-},
-music:()=>{
-const types=[
-{n:'Nhạc catchy/viral',d:'EDM, pop, remix trending'},
-{n:'Nhạc chill/lofi',d:'Lifestyle, review, vlog'},
-{n:'Nhạc buồn/tâm trạng',d:'Storytelling, chia sẻ'},
-{n:'Nhạc hype/sport',d:'Thể thao, động lực'},
-{n:'Sound gốc của bạn',d:'Tốt cho branding cá nhân'},
-{n:'Nhạc hài hước',d:'Meme, sketch comedy'},
-{n:'Nhạc vintage/hoài cổ',d:'Nostalgia, ký ức'},
-{n:'Âm thanh thiên nhiên',d:'ASMR, thư giãn'}];
-return types.map(t=>`<div class="fr"><span class="k">🎵 ${t.n}</span></div><div style="font-size:11px;color:var(--tx3);padding:0 12px 10px">${t.d}</div>`).join('');
-},
-hash:()=>{
-const niches={
-'Food':['#foodtok','#nauan','#monngon','#foodie','#amthuc','#reviewdoan'],
-'Lifestyle':['#lifestyle','#daily','#vlog','#xuhuong','#fyp','#trending'],
-'Fitness':['#fitness','#gym','#workout','#thehinh','#healthylife'],
-'Beauty':['#makeup','#skincare','#beauty','#trangdiem','#reviewmypham'],
-'Travel':['#travel','#dulich','#wanderlust','#khambha','#reviewtour'],
-'Tech':['#tech','#congnghe','#review','#gadget','#smartphone']};
-return Object.entries(niches).map(([n,tags])=>`<div class="frs blue" style="margin-top:8px">🎯 <b>${n}</b><div class="tags2">${tags.map(t=>`<span class="tag2" onclick="cp('${t}')">${t}</span>`).join('')}</div></div>`).join('');
-},
-remind:()=>{
-const time=prompt('Hẹn giờ nhắc (HH:MM, VD 19:30):','19:30');
-if(!time)return '<div class="frs">Đã hủy</div>';
-localStorage.setItem('remindTime',time);
-return `<div class="frs gold">✅ Đã hẹn nhắc lúc <b>${time}</b></div><div class="frs">💡 Tool sẽ thông báo khi đến giờ (chỉ hoạt động khi tab đang mở)</div>`;
-},
-week:()=>{
-if(!rawData.length)return '<div class="frs">Chưa có data</div>';
-const last7=rawData.slice(-7);
-let tv=0,tl=0;last7.forEach(d=>{tv+=d[1];tl+=d[2]});
-const avg=Math.round(tv/last7.length);
-const best=[...last7].sort((a,b)=>b[1]-a[1])[0];
-const worst=[...last7].sort((a,b)=>a[1]-b[1])[0];
-return `<div class="frs gold">📊 View tuần: <b>${tv.toLocaleString('vi-VN')}</b></div><div class="frs blue">❤️ Like: <b>${tl.toLocaleString('vi-VN')}</b></div><div class="fr"><span class="k">📈 TB/ngày</span><span class="v">${avg.toLocaleString('vi-VN')}</span></div><div class="fr"><span class="k">🏆 Tốt nhất</span><span class="v">${best[0]}</span></div><div class="fr"><span class="k">📉 Thấp nhất</span><span class="v">${worst[0]}</span></div>`;
-},
-month:()=>{
-if(!rawData.length)return '<div class="frs">Chưa có data</div>';
-const last30=rawData.slice(-30);
-let tv=0,tl=0,tc=0,ts=0;last30.forEach(d=>{tv+=d[1];tl+=d[2];tc+=d[3];ts+=d[4]});
-const avg=Math.round(tv/last30.length);
-return `<div class="frs gold">📊 View 30 ngày: <b>${tv.toLocaleString('vi-VN')}</b></div><div class="frs blue">❤️ ${tl.toLocaleString('vi-VN')} · 💬 ${tc.toLocaleString('vi-VN')} · 🔗 ${ts.toLocaleString('vi-VN')}</div><div class="fr"><span class="k">📈 TB/ngày</span><span class="v">${avg.toLocaleString('vi-VN')}</span></div><div class="fr"><span class="k">📅 Ngày có data</span><span class="v">${last30.length}</span></div>`;
-},
-showcase:()=>{
-const unl=JSON.parse(localStorage.getItem('unl_ach')||'[]');
-if(!unl.length)return '<div class="frs">⚠️ Chưa mở thành tựu nào</div>';
-const names=ACHS.filter(a=>unl.includes(a.id)).map(a=>`${a.i} ${a.n}`);
-return `<div class="frs gold">🏆 Đã mở <b>${unl.length}/${ACHS.length}</b> thành tựu:</div>${names.map(n=>`<div class="fr"><span class="v">${n}</span></div>`).join('')}<button class="fbt2" onclick="shareAch()" style="margin-top:12px">📱 Share</button>`;
-},
-fav:()=>{
-if(!rawData.length)return '<div class="frs">Chưa có data</div>';
-const favs=JSON.parse(localStorage.getItem('fav_'+currentUser?.id)||'[]');
-const top=[...rawData].sort((a,b)=>b[1]-a[1]).slice(0,20);
-return top.map(d=>{const isFav=favs.includes(d[0]);return `<div class="fr" style="cursor:pointer" onclick="toggleFav('${d[0].replace(/'/g,"")}')"><span class="k">${isFav?'⭐':'☆'} ${d[0]}</span><span class="v">${fmtV(d[1])}</span></div>`}).join('')+`<div class="frs blue" style="margin-top:12px">⭐ Bookmark ${favs.length} ngày</div>`;
-},
-target:()=>{
-const goal=parseInt(localStorage.getItem(gKey())||0);
-if(!goal)return '<div class="frs">⚠️ Chưa đặt mục tiêu. Vào tab Tổng quan đặt trước.</div>';
-const now=new Date();let mv=0;
-rawData.forEach(d=>{const ts=pDate(d[0]);if(!ts)return;const dt=new Date(ts);if(dt.getMonth()===now.getMonth()&&dt.getFullYear()===now.getFullYear())mv+=d[1]});
-const pct=Math.min(100,(mv/goal*100)).toFixed(1);
-const remain=goal-mv;
-const dayOfMonth=now.getDate();
-const daysInMonth=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
-const daysLeft=daysInMonth-dayOfMonth;
-const needPerDay=daysLeft>0?Math.round(remain/daysLeft):0;
-return `<div class="fbig">${pct}%</div><div class="frs gold">🎯 Mục tiêu: <b>${goal.toLocaleString('vi-VN')}</b></div><div class="frs blue">📊 Đã đạt: <b>${mv.toLocaleString('vi-VN')}</b></div><div class="fr"><span class="k">Còn lại</span><span class="v">${Math.max(0,remain).toLocaleString('vi-VN')}</span></div><div class="fr"><span class="k">Còn ${daysLeft} ngày</span><span class="v">${needPerDay>0?needPerDay.toLocaleString('vi-VN')+'/ngày':'Xong!'}</span></div>`;
-}
-};
-
-window.doCmp2=()=>{
-const a=rawData[+document.getElementById('c2a').value];
-const b=rawData[+document.getElementById('c2b').value];
-const diff=b[1]-a[1];
-const pct=a[1]>0?(diff/a[1]*100):0;
-const cls=diff>0?'gold':diff<0?'pink':'blue';
-document.getElementById('c2r').innerHTML=`<div class="frs ${cls}"><b>${a[0]}</b>: ${a[1].toLocaleString('vi-VN')} view<br><b>${b[0]}</b>: ${b[1].toLocaleString('vi-VN')} view<br><hr style="border:0;border-top:1px solid var(--bd);margin:8px 0">Chênh lệch: <b>${diff>=0?'+':''}${diff.toLocaleString('vi-VN')}</b> (${pct>=0?'+':''}${pct.toFixed(1)}%)</div>`;
-};
-window.toggleChk=(i)=>{
-const key='chk_'+currentUser?.id;
-const arr=JSON.parse(localStorage.getItem(key)||'[]');
-const idx=arr.indexOf(i);
-if(idx>=0)arr.splice(idx,1);else arr.push(i);
-localStorage.setItem(key,JSON.stringify(arr));
-openFeat('chk');
-};
-window.toggleFav=(date)=>{
-const key='fav_'+currentUser?.id;
-const arr=JSON.parse(localStorage.getItem(key)||'[]');
-const idx=arr.indexOf(date);
-if(idx>=0)arr.splice(idx,1);else arr.push(date);
-localStorage.setItem(key,JSON.stringify(arr));
-openFeat('fav');
-};
-window.shareAch=()=>{
-const unl=JSON.parse(localStorage.getItem('unl_ach')||'[]');
-const txt=`🏆 THÀNH TỰU TIKTOK\n━━━━━━━━━━━━━━\nĐã mở ${unl.length}/${ACHS.length}\n\n`+ACHS.filter(a=>unl.includes(a.id)).map(a=>`${a.i} ${a.n}`).join('\n')+'\n━━━━━━━━━━━━━━\nTool @ductri705 🚀';
-if(navigator.share)navigator.share({title:'Thành tựu',text:txt}).catch(()=>{});
-else{navigator.clipboard.writeText(txt).then(()=>alert('Đã copy!')).catch(()=>prompt('Copy:',txt));}
-};
-
-setInterval(()=>{
-const t=localStorage.getItem('remindTime');
-if(!t)return;
-const now=new Date();
-const cur=PAD(now.getHours())+':'+PAD(now.getMinutes());
-if(cur===t&&now.getSeconds()<2){
-if(!sessionStorage.getItem('reminded_'+t)){
-sessionStorage.setItem('reminded_'+t,'1');
-playSnd();
-toast(`⏰ ĐẾN GIỜ ĐĂNG BÀI!<br><span style="font-size:12px">${t} - Giờ vàng</span>`,'linear-gradient(135deg,#ff9500,#ff6e00)',8000);
-}}},30000);
-
-function tick(){const now=new Date();document.getElementById('t').textContent=PAD(now.getHours())+':'+PAD(now.getMinutes());document.getElementById('s').textContent=PAD(now.getSeconds());document.getElementById('dt').textContent=DWF[now.getDay()]+', '+now.getDate()+'/'+PAD(now.getMonth()+1)+'/'+now.getFullYear();document.getElementById('zn').textContent=Intl.DateTimeFormat().resolvedOptions().timeZone;const g=getGl(now);const gb=document.getElementById('gl'),tx=document.getElementById('glt'),cd=document.getElementById('cdn');const hk=now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate()+'-'+now.getHours();if(g.a){gb.className='gl a';tx.innerHTML=`<strong>${g.l}</strong><br><span style="font-size:12px;color:#ffb9d0">${g.d}</span>`;if(!lastGl&&snd)playSnd();lastGl=true}else{gb.className='gl';tx.innerHTML=`<strong>${g.l}</strong><br><span style="font-size:12px;color:var(--tx2)">${g.d}</span>`;lastGl=false}const diff=g.t-now;const hh=Math.floor(diff/3600000),mm=Math.floor((diff%3600000)/60000),ss=Math.floor((diff%60000)/1000);cd.textContent=(g.a?'⏳ Còn ':'⏳ Bắt đầu sau ')+PAD(hh)+':'+PAD(mm)+':'+PAD(ss);if(hk!==lastHr){lastHr=hk;rTodayGl();if(userProfile&&(userProfile.golden_unlocked||isAdm()))rAn()}}
+function tick(){const now=new Date();document.getElementById('t').textContent=PAD(now.getHours())+':'+PAD(now.getMinutes());document.getElementById('s').textContent=PAD(now.getSeconds());document.getElementById('dt').textContent=DWF[now.getDay()]+', '+now.getDate()+'/'+PAD(now.getMonth()+1)+'/'+now.getFullYear();document.getElementById('zn').textContent=Intl.DateTimeFormat().resolvedOptions().timeZone;const gh=channelData.goldenHours||[];const curH=PAD(now.getHours());const inGh=gh.includes(curH);const gb=document.getElementById('gl'),tx=document.getElementById('glt'),cd=document.getElementById('cdn');const hk=now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate()+'-'+now.getHours();if(inGh){gb.className='gl a';tx.innerHTML=`<strong>🎯 ĐANG TRONG GIỜ VÀNG KÊNH BẠN (${curH}h)</strong><br><span style="font-size:12px;color:#ffb9d0">Đăng bài ngay để tối ưu tương tác!</span>`;cd.textContent='⏳ Còn '+PAD(59-now.getMinutes())+':'+PAD(59-now.getSeconds());if(!lastGl&&snd)playSnd();lastGl=true}else{gb.className='gl';let msg;if(!gh.length){msg='Nhập giờ vàng ở tab <b>📊 Kênh</b> để được nhắc chính xác';}else{const nextH=[...gh].sort().find(h=>h>curH)||gh.sort()[0];msg=`Giờ vàng: <b style="color:var(--gold)">${gh.sort().map(h=>h+'h').join(', ')}</b>`;}tx.innerHTML=msg;const nextH=[...gh].sort().find(h=>h>curH)||gh.sort()[0];if(nextH){const diffH=parseInt(nextH)-now.getHours();const totalMin=diffH*60-now.getMinutes();const hh=Math.floor(totalMin/60);const mm=totalMin%60;cd.textContent='⏳ Tới giờ vàng sau '+PAD(hh)+':'+PAD(mm)+':'+PAD(59-now.getSeconds());}else cd.textContent='';lastGl=false}if(hk!==lastHr)lastHr=hk}
 tick();setInterval(tick,1000);
 
-const VER=document.querySelector('meta[name="tool-version"]')?.content||'v7.0';
+const VER=document.querySelector('meta[name="tool-version"]')?.content||'v8.0-clean';
 const UPD='https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 async function cU(){try{const r=await fetch(UPD+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text();const m=t.match(/name="tool-version"\s+content="([^"]+)"/);if(!m)return;if(m[1]!==VER){if(document.getElementById('uT'))return;const el=document.createElement('div');el.id='uT';el.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(74,222,128,.4);z-index:99999;max-width:90vw;cursor:pointer';el.innerHTML=`🔄 Cập nhật mới (${m[1]})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại</span>`;el.onclick=()=>{location.href=location.pathname+'?v='+Date.now()};document.body.appendChild(el)}}catch(e){}}
 setTimeout(cU,3000);
