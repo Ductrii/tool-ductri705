@@ -3,15 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v11.7-detail">
+<meta name="tool-version" content="v11.9-pwa">
+<meta name="theme-color" content="#6ea8ff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ductri Tool">
+<meta name="mobile-web-app-capable" content="yes">
 <title>Tool by ductri705</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="https://api.iconify.design/twemoji:high-voltage.svg?color=%236ea8ff">
+<link rel="icon" type="image/svg+xml" href="https://api.iconify.design/twemoji:high-voltage.svg?color=%236ea8ff">
 <link rel="preconnect" href="https://wkddmlxhqyvhxznycpgs.supabase.co" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <style>
 :root{--bg:#16161c;--bg2:#1a1a24;--bg3:#0d0d12;--bd:#26262e;--tx:#e8e8f0;--tx2:#aaa;--tx3:#777;--acc:#6ea8ff;--gold:#ffd700;--gr:#4ade80;--rd:#ff6e9c;--r:12px}
 [data-theme=light]{--bg:#f5f5f8;--bg2:#ebebef;--bg3:#fff;--bd:#ddd;--tx:#1a1a24;--tx2:#666;--tx3:#999;--acc:#3b82f6;--gold:#d97706;--gr:#16a34a;--rd:#dc2626}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{min-height:100vh;background:radial-gradient(circle at top,#1a1a2e,#0d0d12 70%);color:var(--tx);font:14px/1.5 -apple-system,system-ui,sans-serif;padding:16px;display:flex;flex-direction:column;align-items:center;transition:.3s}
+body{min-height:100vh;background:radial-gradient(circle at top,#1a1a2e,#0d0d12 70%);color:var(--tx);font:14px/1.5 -apple-system,system-ui,sans-serif;padding:16px;display:flex;flex-direction:column;align-items:center;transition:.3s;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
 [data-theme=light] body{background:linear-gradient(180deg,#f5f5f8,#e5e5eb)}
 .w{width:100%;max-width:760px}
 header{text-align:center;margin-bottom:16px}
@@ -95,26 +103,22 @@ input:focus{border-color:var(--acc)}
 .tvp.u{background:#1e3a1e;color:var(--gr)}.tvp.d{background:#3a1e1e;color:var(--rd)}
 .tvb{position:absolute;left:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--acc),var(--gr));transition:width .5s}
 .tvc{position:absolute;top:6px;right:6px;font-size:16px}
-/* Bảng dữ liệu */
 .dt-wrap{max-height:400px;overflow-y:auto;border:1px solid var(--bd);border-radius:9px;margin-top:10px}
 .dt-tbl{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums}
 .dt-tbl th{position:sticky;top:0;background:var(--bg3);color:var(--acc);padding:8px 4px;font-weight:600;text-align:right;border-bottom:1px solid var(--bd);font-size:10px;text-transform:uppercase;letter-spacing:.5px}
 .dt-tbl th:first-child{text-align:left}
 .dt-tbl td{padding:7px 4px;border-bottom:1px solid #1e1e26;text-align:right;color:var(--tx2)}
 .dt-tbl td:first-child{text-align:left;color:var(--tx);font-weight:500}
-.dt-tbl tr:hover td{background:rgba(110,168,255,.05)}
-/* Biểu đồ giờ vàng */
 .gh-chart{height:180px;position:relative;margin:10px 0}
 .gh-bar{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;height:100%;align-items:end}
-.gh-b{background:linear-gradient(180deg,var(--acc),#4a87ff);border-radius:3px 3px 0 0;min-height:3px;position:relative;transition:.3s;cursor:pointer}
+.gh-b{background:linear-gradient(180deg,var(--acc),#4a87ff);border-radius:3px 3px 0 0;min-height:3px;transition:.3s}
 .gh-b.top{background:linear-gradient(180deg,var(--gold),#ff9500);box-shadow:0 0 8px rgba(255,215,0,.5)}
-.gh-b:hover{filter:brightness(1.3)}
-.gh-lbl{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;font-size:8px;color:var(--tx3);text-align:center;margin-top:3px;font-variant-numeric:tabular-nums}
+.gh-lbl{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;font-size:8px;color:var(--tx3);text-align:center;margin-top:3px}
 .gh-lbl span:nth-child(odd){opacity:0}
 .gh-list{margin-top:10px}
 .gh-row{display:flex;justify-content:space-between;padding:7px 10px;background:var(--bg2);border-radius:7px;margin-bottom:4px;font-size:12px;border-left:3px solid transparent}
 .gh-row.top3{border-left-color:var(--gold);background:linear-gradient(90deg,#2a2010,var(--bg2))}
-.gh-row .r-h{color:var(--acc);font-weight:600;width:50px}
+.gh-row .r-h{color:var(--acc);font-weight:600;width:60px}
 .gh-row .r-v{color:var(--tx);font-weight:600;flex:1;text-align:right}
 .gh-row .r-p{color:var(--gr);font-size:10px;margin-left:8px;width:45px;text-align:right}
 .au{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:12px;margin-bottom:8px}
@@ -129,7 +133,6 @@ input:focus{border-color:var(--acc)}
 .au .crl{font-size:12px;color:var(--gold);font-weight:600;margin-bottom:8px}
 .au .ac{display:flex;gap:5px;flex-wrap:wrap}
 .abd{flex:1;min-width:50px;padding:7px;border-radius:7px;border:1px solid #3a3a44;background:0;color:var(--tx2);font-size:11px;cursor:pointer;font-weight:600}
-.abd:hover{background:#26263a;color:var(--tx)}
 .abd.bn{border-color:var(--rd);color:var(--rd)}
 .abd.ub{border-color:var(--gr);color:var(--gr)}
 .abd.cr{border-color:var(--gold);color:var(--gold)}
@@ -154,13 +157,12 @@ input:focus{border-color:var(--acc)}
 .stp{background:var(--bg3);border-radius:9px;padding:9px 13px;margin-bottom:6px;font-size:12px;color:#ccc;line-height:1.5;border-left:3px solid var(--acc)}
 .stp b{color:var(--gold)}
 .mbt{width:100%;padding:11px;background:linear-gradient(90deg,var(--acc),#8bb9ff);color:#fff;border:0;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;margin-top:14px}
-.dt{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),#ffae00);color:#0d0d12;padding:12px 22px;border-radius:var(--r);font-size:14px;font-weight:700;text-align:center;box-shadow:0 8px 30px rgba(255,215,0,.5);z-index:9998;max-width:90vw}
+.dt-toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),#ffae00);color:#0d0d12;padding:12px 22px;border-radius:var(--r);font-size:14px;font-weight:700;text-align:center;box-shadow:0 8px 30px rgba(255,215,0,.5);z-index:9998;max-width:90vw}
 .mbn{padding:14px;border-radius:var(--r);background:linear-gradient(135deg,#2a2010,var(--bg2));border:1px solid var(--gold);text-align:center;margin-bottom:14px}
 .mbn .t{color:var(--gold);font-weight:700;font-size:15px;margin-bottom:5px}
 .mbn .d{color:var(--tx2);font-size:12px;line-height:1.5}
 .pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:14px}
 .pc{background:linear-gradient(135deg,#1e1e2e,var(--bg));border:1px solid #3a3a4e;border-radius:var(--r);padding:12px;text-align:center;cursor:pointer;transition:.2s}
-.pc:hover{border-color:var(--gold);transform:translateY(-2px)}
 .pc .p{font-size:15px;font-weight:700;color:var(--gold);margin-bottom:3px}
 .pc .x{font-size:12px;color:var(--gr);font-weight:600}
 .pc .a{font-size:10px;color:#666;margin:3px 0}
@@ -182,12 +184,61 @@ input:focus{border-color:var(--acc)}
 .ch-s2 .cl{font-size:10px;color:var(--tx3);margin-top:3px;text-transform:uppercase}
 .gh-in{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 .gh-t{padding:6px 11px;background:var(--bg2);border:1px solid var(--bd);border-radius:20px;font-size:12px;color:var(--acc);cursor:pointer;transition:.2s}
-.gh-t:hover{background:#26263a}
 .gh-t.on{background:var(--gold);color:var(--bg3);border-color:var(--gold);font-weight:700}
 .det{background:var(--bg2);border:1px solid var(--bd);border-radius:9px;padding:11px;font-size:12px;color:var(--tx2);line-height:1.6;margin-bottom:10px}
 .save-status{font-size:11px;text-align:right;color:var(--tx3);margin-top:-4px;margin-bottom:6px;min-height:14px;transition:.2s}
 .save-status.ok{color:var(--gr)}
 .save-status.err{color:var(--rd)}
+.an-score{text-align:center;padding:18px;background:linear-gradient(135deg,#1e1e2e,var(--bg2));border-radius:14px;border:2px solid var(--bd);margin-bottom:12px}
+.an-grade{font-size:56px;font-weight:800;line-height:1;margin-bottom:6px;text-shadow:0 0 20px currentColor}
+.an-grade.A{color:#4ade80}.an-grade.B{color:#6ea8ff}.an-grade.C{color:#ffd700}.an-grade.D{color:#ff9500}.an-grade.F{color:#ff6e9c}
+.an-score-num{font-size:14px;color:var(--tx2)}
+.an-score-num b{color:var(--acc);font-size:18px}
+.an-sec{background:linear-gradient(135deg,#1e1e2e,var(--bg2));border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:10px}
+.an-sec h3{font-size:13px;color:var(--acc);margin-bottom:10px;font-weight:600}
+.an-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:12px}
+.an-row .an-lbl{width:90px;color:var(--tx2);flex-shrink:0}
+.an-row .an-bar{flex:1;height:10px;background:var(--bg3);border-radius:5px;overflow:hidden}
+.an-row .an-fill{height:100%;background:linear-gradient(90deg,#6ea8ff,#a855f7);border-radius:5px;transition:width .6s}
+.an-row .an-fill.good{background:linear-gradient(90deg,#4ade80,#22c55e)}
+.an-row .an-fill.warn{background:linear-gradient(90deg,#ffd700,#ff9500)}
+.an-row .an-fill.bad{background:linear-gradient(90deg,#ff6e9c,#dc2626)}
+.an-row .an-val{width:65px;text-align:right;color:var(--tx);font-weight:700;font-variant-numeric:tabular-nums;flex-shrink:0}
+.an-note{font-size:11px;color:var(--tx3);margin-top:6px;padding:8px 10px;background:var(--bg3);border-radius:7px;border-left:3px solid var(--acc);line-height:1.6}
+.an-li{display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--bg2);border-radius:8px;margin-bottom:6px;font-size:12px;border-left:3px solid transparent}
+.an-li.r1{border-left-color:#ffd700;background:linear-gradient(90deg,#2a2010,var(--bg2))}
+.an-li.r2{border-left-color:#c0c0c0}.an-li.r3{border-left-color:#cd7f32}
+.an-li .an-rank{width:26px;text-align:center;font-weight:700;font-size:13px;color:var(--tx3);flex-shrink:0}
+.an-li .an-date{color:var(--tx);font-weight:600;flex:1;min-width:0;word-break:break-word}
+.an-li .an-v{color:var(--acc);font-weight:700;font-variant-numeric:tabular-nums;flex-shrink:0}
+.an-li .an-pct{font-size:10px;padding:2px 6px;border-radius:5px;font-weight:700;flex-shrink:0}
+.an-li .an-pct.u{background:#1e3a1e;color:#4ade80}
+.an-li .an-pct.d{background:#3a1e1e;color:#ff6e9c}
+.an-trend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.an-trend .an-t{background:var(--bg3);border-radius:9px;padding:11px;text-align:center}
+.an-trend .an-t .tv{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;margin-bottom:3px}
+.an-trend .an-t .tl{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px}
+.an-trend .an-t .td{font-size:11px;font-weight:700;margin-top:3px}
+.an-trend .an-t .td.up{color:#4ade80}.an-trend .an-t .td.dn{color:#ff6e9c}
+.an-strat{background:linear-gradient(135deg,#1a2a1a,var(--bg2));border:1px solid #2d4a2d;border-radius:10px;padding:12px;margin-bottom:8px;font-size:12.5px;line-height:1.65;border-left:4px solid #4ade80}
+.an-strat.warn{background:linear-gradient(135deg,#2a1a1a,var(--bg2));border-color:#4a2d2d;border-left-color:#ff6e9c}
+.an-strat.info{background:linear-gradient(135deg,#1a1e2a,var(--bg2));border-color:#2d334a;border-left-color:#6ea8ff}
+.an-strat b{color:#ffd700}
+.an-dow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px}
+.an-dow .d{background:var(--bg3);border-radius:6px;padding:8px 3px;text-align:center;font-size:10px}
+.an-dow .d .dv{font-size:13px;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums;margin-bottom:2px}
+.an-dow .d .dl{color:var(--tx3);font-size:9px}
+.an-dow .d.best{background:linear-gradient(135deg,#ffd700,#ff9500);color:#0d0d12}
+.an-dow .d.best .dv,.an-dow .d.best .dl{color:#0d0d12}
+.an-gh{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.an-gh .g{background:linear-gradient(135deg,#2a2010,var(--bg3));border:1px solid #ffd700;border-radius:9px;padding:11px 6px;text-align:center}
+.an-gh .g .gv{font-size:15px;font-weight:800;color:#ffd700;margin-bottom:3px}
+.an-gh .g .gl{font-size:9.5px;color:var(--tx3);text-transform:uppercase}
+.an-pred{background:linear-gradient(135deg,#1a1e2a,var(--bg3));border:1px dashed #6ea8ff;border-radius:10px;padding:12px;margin-top:8px}
+.an-pred .pv{font-size:20px;font-weight:800;color:#6ea8ff;text-align:center;margin-bottom:4px}
+.an-pred .pl{font-size:11px;color:var(--tx3);text-align:center}
+.an-tip{background:linear-gradient(135deg,#2a1a2a,var(--bg3));border:1px solid #a855f7;border-radius:10px;padding:12px;margin-top:8px;font-size:12.5px;line-height:1.65;border-left:4px solid #a855f7}
+.an-tip b{color:#c084fc}
 </style>
 </head>
 <body>
@@ -238,6 +289,7 @@ input:focus{border-color:var(--acc)}
 <div class="tb">
 <div class="tbb a" data-tab="ov">Tổng quan</div>
 <div class="tbb" data-tab="dt">Chi tiết</div>
+<div class="tbb" data-tab="an">🔍 Phân tích</div>
 <div class="tbb" data-tab="ch">Biểu đồ</div>
 <div class="tbb" data-tab="tp">Top viral</div>
 <div class="tbb g" data-tab="cn">📊 Kênh</div>
@@ -246,7 +298,6 @@ input:focus{border-color:var(--acc)}
 <div class="tbb g hd" data-tab="adm" id="admTab">👑 Admin</div>
 </div>
 
-<!-- TAB TỔNG QUAN -->
 <div id="tb-ov" class="tc">
 <div class="st2">📊 Thống kê CSV (đầy đủ)</div>
 <div class="sts" style="grid-template-columns:repeat(3,1fr)">
@@ -272,7 +323,6 @@ input:focus{border-color:var(--acc)}
 <input type="file" id="rI" accept=".json" style="display:none">
 </div>
 
-<!-- TAB CHI TIẾT (MỚI) -->
 <div id="tb-dt" class="tc hd">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
 <div class="st2" style="margin:0">📋 Dữ liệu theo ngày</div>
@@ -282,15 +332,17 @@ input:focus{border-color:var(--acc)}
 <div id="dtInfo" style="font-size:11px;color:var(--tx3);margin-bottom:8px"></div>
 <div class="dt-wrap">
 <table class="dt-tbl" id="dtTbl">
-<thead><tr>
-<th>Ngày</th><th>Views</th><th>Likes</th><th>Comments</th><th>Shares</th><th>Profile</th>
-</tr></thead>
+<thead><tr><th>Ngày</th><th>Views</th><th>Likes</th><th>Cmt</th><th>Shares</th><th>Profile</th></tr></thead>
 <tbody id="dtBody"><tr><td colspan="6" style="text-align:center;color:#555;padding:20px">Chưa có dữ liệu</td></tr></tbody>
 </table>
 </div>
 </div>
 
-<!-- TAB BIỂU ĐỒ -->
+<div id="tb-an" class="tc hd">
+<div class="st2">🔍 Phân tích kênh chi tiết</div>
+<div id="anBox"><div class="nt" style="padding:20px">Chưa có dữ liệu — Upload Overview.csv trước</div></div>
+</div>
+
 <div id="tb-ch" class="tc hd">
 <div class="ctr">
 <button class="cbtn a" data-ct="bar">📊 Cột</button>
@@ -309,7 +361,6 @@ input:focus{border-color:var(--acc)}
 <div class="ch"><canvas id="chC"></canvas></div>
 </div>
 
-<!-- TAB TOP VIRAL -->
 <div id="tb-tp" class="tc hd">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <div style="color:var(--gold);font-weight:600;font-size:13px">🏆 TOP 10 NGÀY VIRAL</div>
@@ -318,7 +369,6 @@ input:focus{border-color:var(--acc)}
 <div id="tpL"></div>
 </div>
 
-<!-- TAB KÊNH -->
 <div id="tb-cn" class="tc hd">
 <div class="st2">📊 Dữ liệu kênh</div>
 <div class="ch-card">
@@ -335,22 +385,18 @@ input:focus{border-color:var(--acc)}
 </div>
 </div>
 
-<!-- PHÂN TÍCH GIỜ VÀNG MỞ RỘNG -->
 <div class="st2">👀 Upload file Viewers (tự tìm giờ vàng)</div>
 <div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Analytics → Người xem. Format: <b>hour,viewers</b></div>
 <label class="up">
-<input type="file" id="fViewers" accept="*/*,.csv,.txt,.json,.zip,text/csv,text/plain,application/json,application/zip,application/x-zip-compressed,application/octet-stream">
+<input type="file" id="fViewers" accept="*/*,.csv,.txt,.json,.zip,text/csv,text/plain,application/json,application/zip">
 <div class="ic">👀</div>
 <div class="tx">Bấm chọn <b>file viewers</b> (hoặc ZIP)</div>
 </label>
 <div id="vStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
 
-<!-- BIỂU ĐỒ GIỜ VÀNG -->
 <div id="ghAnalysis" class="hd" style="margin-top:14px">
 <div class="st2">📊 Phân tích giờ vàng</div>
-<div class="gh-chart" id="ghChart">
-<div class="gh-bar" id="ghBars"></div>
-</div>
+<div class="gh-chart"><div class="gh-bar" id="ghBars"></div></div>
 <div class="gh-lbl" id="ghLbl"></div>
 <div class="st2" style="margin-top:14px">📋 Chi tiết viewers từng giờ</div>
 <div class="gh-list" id="ghList"></div>
@@ -359,7 +405,7 @@ input:focus{border-color:var(--acc)}
 <div class="st2" style="margin-top:18px">📹 Upload file Content (top video)</div>
 <div class="nt" style="margin-bottom:8px;text-align:left">Export từ TikTok Studio → Content. Format: <b>post time, link, views, likes, comments, shares</b></div>
 <label class="up">
-<input type="file" id="fContent" accept="*/*,.csv,.txt,.json,.zip,text/csv,text/plain,application/json,application/zip,application/x-zip-compressed,application/octet-stream">
+<input type="file" id="fContent" accept="*/*,.csv,.txt,.json,.zip,text/csv,text/plain,application/json,application/zip">
 <div class="ic">📹</div>
 <div class="tx">Bấm chọn <b>file content</b> (hoặc ZIP)</div>
 </label>
@@ -381,7 +427,6 @@ input:focus{border-color:var(--acc)}
 <button class="b bg" id="svGh">💾 Lưu giờ vàng</button>
 </div>
 
-<!-- TAB TÀI KHOẢN -->
 <div id="tb-acc" class="tc hd">
 <div class="st2">👤 Tài khoản</div>
 <div class="ir"><span class="k">Email</span><span class="v" id="ifE">—</span></div>
@@ -396,7 +441,6 @@ input:focus{border-color:var(--acc)}
 <div class="m" id="pM"></div>
 </div>
 
-<!-- TAB NẠP -->
 <div id="tb-mn" class="tc hd">
 <div class="mbn"><div class="t">💰 NẠP XU</div><div class="d">Chuyển khoản QR → gửi bill Zalo để cộng xu</div></div>
 <div class="st2">🎁 Gói nạp</div>
@@ -415,7 +459,6 @@ input:focus{border-color:var(--acc)}
 </div>
 </div>
 
-<!-- TAB ADMIN -->
 <div id="tb-adm" class="tc hd">
 <div class="ahd">
 <div class="at">👑 Quản lý</div>
@@ -568,6 +611,13 @@ input:focus{border-color:var(--acc)}
   };
   document.head.appendChild(s);
 })();
+
+/* PWA Service Worker */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(err => console.log('[PWA]', err));
+  });
+}
 </script>
 
 <script>
@@ -609,6 +659,8 @@ function fV(n){
   if(n>=1000) return (n/1000).toFixed(1).replace(/\.0$/,'')+'K';
   return n.toLocaleString('vi-VN');
 }
+function fmtNum(n){ return Math.round(n).toLocaleString('vi-VN'); }
+function fmtPct(n){ return (n*100).toFixed(2) + '%'; }
 function pS(){
   try{
     const c = new (window.AudioContext || window.webkitAudioContext)();
@@ -626,7 +678,7 @@ function pS(){
 }
 function tS(msg,bg,t){
   const o = document.getElementById('gt'); if(o) o.remove();
-  const d = document.createElement('div'); d.id = 'gt'; d.className = 'dt';
+  const d = document.createElement('div'); d.id = 'gt'; d.className = 'dt-toast';
   if(bg) d.style.background = bg;
   d.innerHTML = msg;
   document.body.appendChild(d);
@@ -640,22 +692,31 @@ function pD(s){
   if(!(mn in M)) return null;
   return new Date(new Date().getFullYear(), M[mn], d).getTime();
 }
+function dayOfWeekVN(dateStr){
+  try{
+    const m = dateStr.match(/^(\d+)\s+(.+)$/);
+    if(m){
+      const M = {'tháng Một':0,'tháng Hai':1,'tháng Ba':2,'tháng Tư':3,'tháng Năm':4,'tháng Sáu':5,'tháng Bảy':6,'tháng Tám':7,'tháng Chín':8,'tháng Mười':9,'tháng Mười Một':10,'tháng Mười Hai':11};
+      const d = parseInt(m[1]), mn = m[2].trim();
+      if(mn in M) return new Date(new Date().getFullYear(), M[mn], d).getDay();
+    }
+    const d = new Date(dateStr);
+    if(!isNaN(d)) return d.getDay();
+  } catch(e){}
+  return -1;
+}
+function dayName(i){ return ['CN','T2','T3','T4','T5','T6','T7'][i] || '?'; }
 function setSaveStatus(msg, ok){
   const el = document.getElementById('saveStatus');
   if(!el) return;
   el.textContent = msg;
   el.className = 'save-status ' + (ok ? 'ok' : 'err');
   clearTimeout(el._timer);
-  el._timer = setTimeout(() => {
-    el.textContent = '';
-    el.className = 'save-status';
-  }, 3500);
+  el._timer = setTimeout(() => { el.textContent = ''; el.className = 'save-status'; }, 3500);
 }
 
 async function readFromZip(file){
-  if(typeof JSZip === 'undefined'){
-    throw new Error('Thư viện ZIP chưa tải xong. Đợi vài giây rồi thử lại.');
-  }
+  if(typeof JSZip === 'undefined') throw new Error('Thư viện ZIP chưa tải xong.');
   const zip = await JSZip.loadAsync(file);
   const candidates = [];
   zip.forEach((path, entry) => {
@@ -711,11 +772,8 @@ function renderGt(){
     lg = true;
   } else {
     document.getElementById('gl').className = 'gl';
-    if(!gh.length){
-      el.innerHTML = 'Nhập giờ vàng ở tab <b>📊 Kênh</b>';
-    } else {
-      el.innerHTML = `Giờ vàng kênh: <b style="color:var(--gold)">${gh.sort().map(h=>h+'h').join(', ')}</b>`;
-    }
+    if(!gh.length) el.innerHTML = 'Nhập giờ vàng ở tab <b>📊 Kênh</b>';
+    else el.innerHTML = `Giờ vàng kênh: <b style="color:var(--gold)">${gh.sort().map(h=>h+'h').join(', ')}</b>`;
     lg = false;
   }
 }
@@ -733,17 +791,12 @@ function renderDetected(){
   el.innerHTML = html;
 }
 
-/* ============================================================
-   PHÂN TÍCH GIỜ VÀNG MỞ RỘNG (MỚI)
-   ============================================================ */
 function renderGhAnalysis(){
   const vd = cd.viewersData || [];
   const box = document.getElementById('ghAnalysis');
   if(!box) return;
   if(!vd.length){ box.classList.add('hd'); return; }
   box.classList.remove('hd');
-
-  // Map dữ liệu theo giờ
   const map = {};
   vd.forEach(x => { map[x.hour] = (map[x.hour]||0) + x.viewers; });
   const hours = [];
@@ -751,42 +804,24 @@ function renderGhAnalysis(){
   const maxV = Math.max(...hours.map(x => x.v), 1);
   const totalV = hours.reduce((a,x) => a + x.v, 0);
   const avgV = totalV / 24;
-
-  // Top 3
   const sorted = [...hours].sort((a,b) => b.v - a.v);
   const top3h = sorted.slice(0,3).map(x => x.h);
-
-  // Vẽ cột
-  const bars = document.getElementById('ghBars');
-  bars.innerHTML = hours.map(x => {
+  document.getElementById('ghBars').innerHTML = hours.map(x => {
     const hPct = (x.v / maxV * 100).toFixed(1);
     const isTop = top3h.includes(x.h);
     return `<div class="gh-b ${isTop?'top':''}" style="height:${hPct}%" title="${PAD(x.h)}h: ${x.v.toLocaleString('vi-VN')} viewers"></div>`;
   }).join('');
-
-  // Label giờ
-  const lbl = document.getElementById('ghLbl');
-  lbl.innerHTML = hours.map(x => `<span>${x.h}</span>`).join('');
-
-  // Chi tiết từng giờ
-  const list = document.getElementById('ghList');
-  list.innerHTML = sorted.map((x, i) => {
+  document.getElementById('ghLbl').innerHTML = hours.map(x => `<span>${x.h}</span>`).join('');
+  document.getElementById('ghList').innerHTML = sorted.map((x) => {
     const pct = avgV > 0 ? ((x.v - avgV) / avgV * 100) : 0;
     const pctStr = (pct>=0?'+':'') + pct.toFixed(0) + '%';
     const cls = top3h.includes(x.h) ? 'top3' : '';
     const rank = top3h.indexOf(x.h);
     const medal = rank === 0 ? '🥇' : rank === 1 ? '🥈' : rank === 2 ? '🥉' : '  ';
-    return `<div class="gh-row ${cls}">
-      <span class="r-h">${medal} ${PAD(x.h)}h</span>
-      <span class="r-v">${x.v.toLocaleString('vi-VN')} viewers</span>
-      <span class="r-p">${pctStr}</span>
-    </div>`;
+    return `<div class="gh-row ${cls}"><span class="r-h">${medal} ${PAD(x.h)}h</span><span class="r-v">${x.v.toLocaleString('vi-VN')} viewers</span><span class="r-p">${pctStr}</span></div>`;
   }).join('');
 }
 
-/* ============================================================
-   BẢNG CHI TIẾT THEO NGÀY (MỚI)
-   ============================================================ */
 function renderDetail(){
   const body = document.getElementById('dtBody');
   const info = document.getElementById('dtInfo');
@@ -806,25 +841,11 @@ function renderDetail(){
     info.textContent = '';
     return;
   }
-  // Sắp xếp ngày mới nhất lên đầu
   const sorted = [...data].reverse();
-  body.innerHTML = sorted.map(d => {
-    const dt = d[0], v = d[1], li = d[2], c = d[3], s = d[4], pv = d[5];
-    return `<tr>
-      <td>${esc(dt)}</td>
-      <td>${v.toLocaleString('vi-VN')}</td>
-      <td>${li.toLocaleString('vi-VN')}</td>
-      <td>${c.toLocaleString('vi-VN')}</td>
-      <td>${s.toLocaleString('vi-VN')}</td>
-      <td>${pv.toLocaleString('vi-VN')}</td>
-    </tr>`;
-  }).join('');
+  body.innerHTML = sorted.map(d => `<tr><td>${esc(d[0])}</td><td>${d[1].toLocaleString('vi-VN')}</td><td>${d[2].toLocaleString('vi-VN')}</td><td>${d[3].toLocaleString('vi-VN')}</td><td>${d[4].toLocaleString('vi-VN')}</td><td>${d[5].toLocaleString('vi-VN')}</td></tr>`).join('');
   info.textContent = `Hiển thị ${data.length} / ${rd.length} ngày`;
 }
 
-/* ============================================================
-   RENDER OVERVIEW MỞ RỘNG
-   ============================================================ */
 function renderOverview(){
   if(!rd.length){
     ['sV','sL','sC','sS','sP','sA','sM','sD'].forEach(id => {
@@ -845,7 +866,140 @@ function renderOverview(){
   document.getElementById('sD').textContent = rd.length.toLocaleString('vi-VN');
 }
 
-/* ================= BUTTONS ================= */
+function renderAnalysis(){
+  const box = document.getElementById('anBox');
+  if(!box) return;
+  if(!rd.length){
+    box.innerHTML = '<div class="nt" style="padding:20px">Chưa có dữ liệu — Upload Overview.csv trước</div>';
+    return;
+  }
+  const n = rd.length;
+  let tV=0,tL=0,tC=0,tS=0,tP=0, mxV=0, mxDay='';
+  let bestEng = 0, bestEngDay = '', worstEng = 999;
+  rd.forEach(d => {
+    tV += d[1]; tL += d[2]; tC += d[3]; tS += d[4]; tP += d[5];
+    if(d[1] > mxV){ mxV = d[1]; mxDay = d[0]; }
+    const eng = d[1] > 0 ? (d[2] + d[3] + d[4]) / d[1] : 0;
+    if(eng > bestEng){ bestEng = eng; bestEngDay = d[0]; }
+    if(eng < worstEng && d[1] > 0){ worstEng = eng; }
+  });
+  const avgV = tV / n;
+  const likeRate = tV > 0 ? tL / tV : 0;
+  const shareRate = tV > 0 ? tS / tV : 0;
+  const cmtRate = tV > 0 ? tC / tV : 0;
+  const engRate = likeRate + shareRate + cmtRate;
+  let score = 0;
+  if(likeRate >= 0.08) score += 30; else if(likeRate >= 0.05) score += 25; else if(likeRate >= 0.03) score += 20; else if(likeRate >= 0.01) score += 12; else score += 5;
+  if(shareRate >= 0.01) score += 20; else if(shareRate >= 0.005) score += 15; else if(shareRate >= 0.002) score += 10; else if(shareRate >= 0.001) score += 5;
+  if(cmtRate >= 0.005) score += 15; else if(cmtRate >= 0.002) score += 12; else if(cmtRate >= 0.001) score += 8; else score += 3;
+  const consistency = avgV > 0 ? mxV / avgV : 1;
+  if(consistency < 2) score += 20; else if(consistency < 5) score += 15; else if(consistency < 10) score += 10; else score += 5;
+  if(n >= 90) score += 15; else if(n >= 30) score += 12; else if(n >= 14) score += 9; else if(n >= 7) score += 6; else score += 3;
+  score = Math.min(100, score);
+  let grade = 'F', gradeTxt = 'Cần cải thiện rất nhiều';
+  if(score >= 85){ grade='A'; gradeTxt='Xuất sắc 🏆'; }
+  else if(score >= 70){ grade='B'; gradeTxt='Tốt 👍'; }
+  else if(score >= 55){ grade='C'; gradeTxt='Khá — cần cải thiện'; }
+  else if(score >= 40){ grade='D'; gradeTxt='Yếu — cần đầu tư thêm'; }
+  const top10 = [...rd].sort((a,b) => b[1]-a[1]).slice(0,10);
+  const engList = rd.map(d => {
+    const eng = d[1] > 0 ? (d[2]+d[3]+d[4])/d[1] : 0;
+    return { date: d[0], v: d[1], eng, likes: d[2], shares: d[4], comments: d[3] };
+  }).filter(x => x.v > 0).sort((a,b) => b.eng - a.eng).slice(0,5);
+  const dow = {0:{v:0,n:0},1:{v:0,n:0},2:{v:0,n:0},3:{v:0,n:0},4:{v:0,n:0},5:{v:0,n:0},6:{v:0,n:0}};
+  rd.forEach(d => { const day = dayOfWeekVN(d[0]); if(day >= 0){ dow[day].v += d[1]; dow[day].n++; } });
+  const dowAvg = Object.entries(dow).map(([k,v]) => ({ d: parseInt(k), avg: v.n>0 ? v.v/v.n : 0, n: v.n }));
+  const bestDow = dowAvg.reduce((a,b) => a.avg > b.avg ? a : b);
+  const worstDow = dowAvg.filter(x => x.n > 0).reduce((a,b) => a.avg < b.avg ? a : b, {avg:Infinity,d:0});
+  const last7 = rd.slice(-7);
+  const prev7 = rd.slice(-14, -7);
+  const avgL7 = last7.length > 0 ? last7.reduce((a,d) => a+d[1], 0) / last7.length : 0;
+  const avgP7 = prev7.length > 0 ? prev7.reduce((a,d) => a+d[1], 0) / prev7.length : 0;
+  const trend7Pct = avgP7 > 0 ? ((avgL7 - avgP7) / avgP7) * 100 : 0;
+  const last30 = rd.slice(-30);
+  const prev30 = rd.slice(-60, -30);
+  const avgL30 = last30.length > 0 ? last30.reduce((a,d) => a+d[1], 0) / last30.length : 0;
+  const avgP30 = prev30.length > 0 ? prev30.reduce((a,d) => a+d[1], 0) / prev30.length : 0;
+  const trend30Pct = avgP30 > 0 ? ((avgL30 - avgP30) / avgP30) * 100 : 0;
+  let predicted = avgV;
+  if(rd.length >= 7){
+    const last10 = rd.slice(-10).map(d => d[1]);
+    const n10 = last10.length;
+    const sumX = last10.reduce((a,_,i) => a+i, 0);
+    const sumY = last10.reduce((a,v) => a+v, 0);
+    const sumXY = last10.reduce((a,v,i) => a + i*v, 0);
+    const sumX2 = last10.reduce((a,_,i) => a + i*i, 0);
+    const slope = (n10 * sumXY - sumX * sumY) / (n10 * sumX2 - sumX * sumX);
+    predicted = Math.max(0, last10[n10-1] + slope * 7);
+  }
+  const gh = cd.goldenHours || [];
+  let html = '';
+  html += `<div class="an-score"><div class="an-grade ${grade}">${grade}</div><div class="an-score-num">Điểm: <b>${score}/100</b> — ${gradeTxt}</div><div class="an-note" style="margin-top:10px;text-align:left">💡 Điểm dựa trên: tỷ lệ tương tác, độ ổn định view, số ngày dữ liệu.</div></div>`;
+  const likeGood = likeRate >= 0.05, likeWarn = likeRate >= 0.02 && likeRate < 0.05;
+  const shareGood = shareRate >= 0.005, shareWarn = shareRate >= 0.002 && shareRate < 0.005;
+  const cmtGood = cmtRate >= 0.003, cmtWarn = cmtRate >= 0.001 && cmtRate < 0.003;
+  html += `<div class="an-sec"><h3>📈 Tỷ lệ tương tác (so với view)</h3>
+    <div class="an-row"><span class="an-lbl">❤️ Like/View</span><div class="an-bar"><div class="an-fill ${likeGood?'good':likeWarn?'warn':'bad'}" style="width:${Math.min(100, likeRate*1000)}%"></div></div><span class="an-val">${fmtPct(likeRate)}</span></div>
+    <div class="an-row"><span class="an-lbl">🔁 Share/View</span><div class="an-bar"><div class="an-fill ${shareGood?'good':shareWarn?'warn':'bad'}" style="width:${Math.min(100, shareRate*10000)}%"></div></div><span class="an-val">${fmtPct(shareRate)}</span></div>
+    <div class="an-row"><span class="an-lbl">💬 Cmt/View</span><div class="an-bar"><div class="an-fill ${cmtGood?'good':cmtWarn?'warn':'bad'}" style="width:${Math.min(100, cmtRate*20000)}%"></div></div><span class="an-val">${fmtPct(cmtRate)}</span></div>
+    <div class="an-note">Chuẩn TikTok: Like ≥5% tốt · Share ≥0.5% tốt · Cmt ≥0.3% tốt<br>Tỷ lệ tổng tương tác: <b style="color:#4ade80">${fmtPct(engRate)}</b></div>
+  </div>`;
+  html += `<div class="an-sec"><h3>📊 Xu hướng tăng trưởng</h3>
+    <div class="an-trend">
+      <div class="an-t"><div class="tv">${fmtNum(avgL7)}</div><div class="tl">TB 7 ngày gần</div><div class="td ${trend7Pct>=0?'up':'dn'}">${trend7Pct>=0?'📈 +':'📉 '}${trend7Pct.toFixed(1)}%</div></div>
+      <div class="an-t"><div class="tv">${fmtNum(avgL30)}</div><div class="tl">TB 30 ngày gần</div><div class="td ${trend30Pct>=0?'up':'dn'}">${trend30Pct>=0?'📈 +':'📉 '}${trend30Pct.toFixed(1)}%</div></div>
+    </div>
+    <div class="an-note">${trend7Pct > 10 ? '🔥 Kênh đang tăng trưởng mạnh tuần này!' : trend7Pct > 0 ? '📈 Kênh có dấu hiệu tăng nhẹ.' : trend7Pct > -10 ? '⚠️ Kênh đang đi ngang hoặc giảm nhẹ.' : '🚨 Kênh đang sụt giảm đáng kể — cần đổi chiến lược!'}</div>
+  </div>`;
+  html += `<div class="an-sec"><h3>🏆 Top 10 ngày viral nhất</h3>
+    ${top10.map((d, i) => {
+      const pct = avgV > 0 ? ((d[1] - avgV) / avgV * 100) : 0;
+      const rank = i + 1;
+      const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : rank;
+      const rcls = rank <= 3 ? `r${rank}` : '';
+      return `<div class="an-li ${rcls}"><span class="an-rank">${medal}</span><span class="an-date">${esc(d[0])}</span><span class="an-v">${fmtNum(d[1])}</span><span class="an-pct ${pct>=0?'u':'d'}">${pct>=0?'+':''}${pct.toFixed(0)}%</span></div>`;
+    }).join('')}
+  </div>`;
+  html += `<div class="an-sec"><h3>💖 Top 5 ngày tương tác tốt nhất</h3>
+    ${engList.map((d, i) => {
+      const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i+1);
+      return `<div class="an-li"><span class="an-rank">${medal}</span><span class="an-date">${esc(d.date)}</span><span class="an-v" style="color:#ffd700">${fmtPct(d.eng)}</span></div>
+      <div style="font-size:10px;color:var(--tx3);padding:0 11px 8px 45px;margin-top:-4px">❤️ ${fmtNum(d.likes)} · 💬 ${fmtNum(d.comments)} · 🔁 ${fmtNum(d.shares)}</div>`;
+    }).join('')}
+  </div>`;
+  html += `<div class="an-sec"><h3>📅 View trung bình theo thứ</h3>
+    <div class="an-dow">
+      ${dowAvg.map(x => {
+        const isBest = x.d === bestDow.d && x.n > 0;
+        return `<div class="d ${isBest?'best':''}"><div class="dv">${x.n>0?fV(x.avg):'—'}</div><div class="dl">${dayName(x.d)}</div></div>`;
+      }).join('')}
+    </div>
+    <div class="an-note">🥇 Đăng bài tốt nhất: <b style="color:#ffd700">${dayName(bestDow.d)}</b> (TB ${fV(bestDow.avg)} view)<br>⚠️ Ít hiệu quả nhất: <b>${dayName(worstDow.d)}</b> (TB ${fV(worstDow.avg)} view)</div>
+  </div>`;
+  if(gh.length > 0){
+    html += `<div class="an-sec"><h3>⏰ Giờ vàng tối ưu</h3><div class="an-gh">${gh.slice(0,3).map(h => `<div class="g"><div class="gv">${h}h</div><div class="gl">Giờ vàng</div></div>`).join('')}</div><div class="an-note">💡 Đăng video trong khung này để có nhiều người xem nhất.</div></div>`;
+  }
+  html += `<div class="an-sec"><h3>🔮 Dự đoán 7 ngày tới</h3><div class="an-pred"><div class="pv">${fmtNum(predicted)} view/ngày</div><div class="pl">Dựa trên xu hướng 10 ngày gần nhất</div></div><div class="an-note">${predicted > avgV ? '📈 Kỳ vọng tăng' : predicted < avgV ? '📉 Có thể giảm' : '➡️ Ổn định'} so với trung bình hiện tại (${fmtNum(avgV)}).</div></div>`;
+  const strats = [];
+  if(likeRate >= 0.05) strats.push({ type:'', txt: '✅ <b>Tỷ lệ like cao ('+fmtPct(likeRate)+')</b> — nội dung đang được yêu thích. Hãy giữ phong cách này.' });
+  else if(likeRate >= 0.02) strats.push({ type:'info', txt: '📊 <b>Tỷ lệ like trung bình ('+fmtPct(likeRate)+')</b> — thử thêm CTA "thả tim nếu thấy hay".' });
+  else strats.push({ type:'warn', txt: '🚨 <b>Tỷ lệ like thấp ('+fmtPct(likeRate)+')</b> — cần cải thiện chất lượng nội dung.' });
+  if(shareRate >= 0.005) strats.push({ type:'', txt: '🔥 <b>Tỷ lệ share cao ('+fmtPct(shareRate)+')</b> — nội dung lan truyền tốt. Tiếp tục!' });
+  else if(shareRate >= 0.002) strats.push({ type:'info', txt: '📤 <b>Tỷ lệ share ổn</b> — thêm yếu tố bất ngờ để tăng share.' });
+  else strats.push({ type:'warn', txt: '📉 <b>Share thấp</b> — cần content gây tranh luận hoặc hữu ích.' });
+  if(cmtRate >= 0.003) strats.push({ type:'', txt: '💬 <b>Comment tốt ('+fmtPct(cmtRate)+')</b> — trả lời comment để tăng đề xuất.' });
+  else strats.push({ type:'info', txt: '💬 <b>Comment thấp</b> — đặt câu hỏi cuối video.' });
+  strats.push({ type:'info', txt: '🎯 <b>Ngày viral nhất: '+esc(mxDay)+'</b> ('+fmtNum(mxV)+' view) — phân tích điểm mạnh.' });
+  strats.push({ type:'info', txt: '📅 <b>Ngày tương tác tốt nhất: '+esc(bestEngDay)+'</b> ('+fmtPct(bestEng)+') — nhân rộng content.' });
+  if(bestDow.avg > 0) strats.push({ type:'', txt: '🗓️ <b>Ưu tiên đăng vào '+dayName(bestDow.d)+'</b> (TB '+fV(bestDow.avg)+' view).' });
+  strats.push({ type:'', txt: '🎬 <b>Tần suất:</b> 1-2 video/ngày, cách 4-6 tiếng.' });
+  html += `<div class="an-sec"><h3>💡 Chiến lược đề xuất (${strats.length} mục)</h3>${strats.map(s => `<div class="an-strat ${s.type}">${s.txt}</div>`).join('')}</div>`;
+  const bestDay = top10[0];
+  const worstDay = [...rd].filter(d => d[1] > 0).sort((a,b) => a[1]-b[1])[0];
+  html += `<div class="an-sec"><h3>🔎 Insight đặc biệt</h3><div class="an-tip">🎯 <b>Ngày viral nhất:</b> ${esc(bestDay[0])} — ${fmtNum(bestDay[1])} view<br>📉 <b>Ngày ít view nhất:</b> ${worstDay ? esc(worstDay[0]) + ' — ' + fmtNum(worstDay[1]) + ' view' : '—'}<br>📊 <b>Chênh lệch max/min:</b> ${worstDay && worstDay[1] > 0 ? (mxV / worstDay[1]).toFixed(1) + 'x' : '—'}<br>⭐ <b>View trung bình:</b> ${fmtNum(avgV)} view/ngày<br>📅 <b>Tổng số ngày:</b> ${n} ngày</div></div>`;
+  box.innerHTML = html;
+}
+
 document.getElementById('svCh').addEventListener('click', async () => {
   if(!cu){ setSaveStatus('❌ Chưa đăng nhập', false); return; }
   cd.username = document.getElementById('inU').value.trim();
@@ -861,7 +1015,6 @@ document.getElementById('svCh').addEventListener('click', async () => {
     tS('✅ Đã lưu kênh!');
   } catch(err){
     setSaveStatus('❌ ' + (err.message || 'Lỗi lưu'), false);
-    alert('Lỗi lưu: ' + (err.message || 'Không xác định'));
   }
   btn.disabled = false;
 });
@@ -876,7 +1029,7 @@ document.getElementById('rlCh').addEventListener('click', async () => {
     try{ localStorage.setItem('cache_ch', JSON.stringify(cd)); }catch(e){}
     renderCh();
     setSaveStatus('✅ Đã tải từ Cloud', true);
-    tS('☁️ Đã tải lại từ Cloud!');
+    tS('☁️ Đã tải lại!');
   } catch(err){
     setSaveStatus('❌ ' + (err.message || 'Lỗi tải'), false);
   }
@@ -918,16 +1071,10 @@ document.querySelectorAll('.gh-t').forEach(t => t.addEventListener('click', () =
 }));
 
 document.getElementById('svGh').addEventListener('click', async () => {
-  try{
-    await saveCd();
-    renderGt();
-    tS('🎯 Đã lưu giờ vàng!');
-  } catch(err){
-    alert('Lỗi: ' + (err.message || 'Không xác định'));
-  }
+  try{ await saveCd(); renderGt(); tS('🎯 Đã lưu giờ vàng!'); }
+  catch(err){ alert('Lỗi: ' + (err.message || 'Không xác định')); }
 });
 
-/* ================= SPLIT CSV ================= */
 function splitCSVLine(line){
   const out = [];
   let cur = '';
@@ -940,15 +1087,12 @@ function splitCSVLine(line){
     } else if((c === ',' || c === '\t' || c === ';') && !inQ){
       out.push(cur.trim());
       cur = '';
-    } else {
-      cur += c;
-    }
+    } else { cur += c; }
   }
   out.push(cur.trim());
   return out;
 }
 
-/* ================= UPLOAD VIEWERS ================= */
 document.getElementById('fViewers').addEventListener('change', async function(e){
   const f = e.target.files && e.target.files[0];
   const st = document.getElementById('vStatus');
@@ -1014,7 +1158,6 @@ function parseViewersFile(txt){
   return result;
 }
 
-/* ================= UPLOAD CONTENT ================= */
 document.getElementById('fContent').addEventListener('change', async function(e){
   const f = e.target.files && e.target.files[0];
   const st = document.getElementById('ctStatus');
@@ -1058,15 +1201,7 @@ function parseContentFile(txt){
     const j = JSON.parse(txt);
     if(Array.isArray(j)){
       j.forEach(x => {
-        const v = {
-          time: x.time ?? x.post_time ?? x.date ?? x[0] ?? '',
-          link: x.link ?? x.url ?? x[1] ?? '',
-          views: parseInt(x.views ?? x.v ?? x[2]) || 0,
-          likes: parseInt(x.likes ?? x.l ?? x[3]) || 0,
-          comments: parseInt(x.comments ?? x.c ?? x[4]) || 0,
-          shares: parseInt(x.shares ?? x.s ?? x[5]) || 0,
-          title: x.title ?? x.desc ?? x.caption ?? ''
-        };
+        const v = { time: x.time ?? x.post_time ?? x.date ?? x[0] ?? '', link: x.link ?? x.url ?? x[1] ?? '', views: parseInt(x.views ?? x.v ?? x[2]) || 0, likes: parseInt(x.likes ?? x.l ?? x[3]) || 0, comments: parseInt(x.comments ?? x.c ?? x[4]) || 0, shares: parseInt(x.shares ?? x.s ?? x[5]) || 0, title: x.title ?? x.desc ?? x.caption ?? '' };
         if(v.views || v.likes) result.push(v);
       });
       if(result.length) return result;
@@ -1091,15 +1226,7 @@ function parseContentFile(txt){
   for(let i = startIdx; i < lines.length; i++){
     const p = splitCSVLine(lines[i]);
     if(p.length < 3) continue;
-    const v = {
-      time: colTime >= 0 ? p[colTime] : '',
-      link: colLink >= 0 ? p[colLink] : '',
-      views: parseInt(String(p[colViews] || 0).replace(/[^\d]/g, '')) || 0,
-      likes: parseInt(String(p[colLikes] || 0).replace(/[^\d]/g, '')) || 0,
-      comments: colComm >= 0 ? (parseInt(String(p[colComm] || 0).replace(/[^\d]/g, '')) || 0) : 0,
-      shares: colShare >= 0 ? (parseInt(String(p[colShare] || 0).replace(/[^\d]/g, '')) || 0) : 0,
-      title: colTitle >= 0 ? p[colTitle] : ''
-    };
+    const v = { time: colTime >= 0 ? p[colTime] : '', link: colLink >= 0 ? p[colLink] : '', views: parseInt(String(p[colViews] || 0).replace(/[^\d]/g, '')) || 0, likes: parseInt(String(p[colLikes] || 0).replace(/[^\d]/g, '')) || 0, comments: colComm >= 0 ? (parseInt(String(p[colComm] || 0).replace(/[^\d]/g, '')) || 0) : 0, shares: colShare >= 0 ? (parseInt(String(p[colShare] || 0).replace(/[^\d]/g, '')) || 0) : 0, title: colTitle >= 0 ? p[colTitle] : '' };
     if(v.views || v.likes) result.push(v);
   }
   return result;
@@ -1116,37 +1243,13 @@ function renderContent(){
   const totalV = v.reduce((a,x) => a + x.views, 0);
   const totalL = v.reduce((a,x) => a + x.likes, 0);
   const avgV = Math.round(totalV / v.length);
-  let html = `<div class="cb" style="margin-bottom:12px">
-    <div class="ct">📹 Tổng quan Content</div>
-    <div class="cg">
-      <div class="ci"><div class="v">${v.length}</div><div class="l">Video</div></div>
-      <div class="ci"><div class="v">${fV(totalV)}</div><div class="l">Tổng view</div></div>
-      <div class="ci"><div class="v">${fV(totalL)}</div><div class="l">Tổng tim</div></div>
-      <div class="ci"><div class="v">${fV(avgV)}</div><div class="l">View TB</div></div>
-    </div>
-  </div>
-  <div class="st2">🏆 TOP 10 VIDEO</div>`;
+  let html = `<div class="cb" style="margin-bottom:12px"><div class="ct">📹 Tổng quan Content</div><div class="cg"><div class="ci"><div class="v">${v.length}</div><div class="l">Video</div></div><div class="ci"><div class="v">${fV(totalV)}</div><div class="l">Tổng view</div></div><div class="ci"><div class="v">${fV(totalL)}</div><div class="l">Tổng tim</div></div><div class="ci"><div class="v">${fV(avgV)}</div><div class="l">View TB</div></div></div></div><div class="st2">🏆 TOP 10 VIDEO</div>`;
   html += top.map((x, i) => {
     const bw = (x.views / mx * 100).toFixed(1);
     const date = (x.time || '').toString().slice(0, 16);
     const lbl = x.title ? esc(x.title).slice(0, 60) : (date || 'Video #' + (i+1));
     const link = x.link ? `<a href="${esc(x.link)}" target="_blank" style="color:var(--acc);font-size:11px;text-decoration:none">🔗 Mở</a>` : '';
-    return `<div class="tv r${i+1}">
-      <div class="tvr">${i<3?MED[i]:i+1}</div>
-      <div class="tvi">
-        <div class="tvd">${lbl}</div>
-        <div class="tvm">
-          <span class="tvv">${fV(x.views)} view</span>
-          <span>❤️ ${fV(x.likes)}</span>
-          <span>💬 ${fV(x.comments)}</span>
-          <span>🔁 ${fV(x.shares)}</span>
-          ${link}
-        </div>
-        ${date ? `<div style="font-size:10px;color:var(--tx3);margin-top:3px">🕐 ${esc(date)}</div>` : ''}
-      </div>
-      ${i===0?'<span class="tvc">👑</span>':''}
-      <div class="tvb" style="width:${bw}%"></div>
-    </div>`;
+    return `<div class="tv r${i+1}"><div class="tvr">${i<3?MED[i]:i+1}</div><div class="tvi"><div class="tvd">${lbl}</div><div class="tvm"><span class="tvv">${fV(x.views)} view</span><span>❤️ ${fV(x.likes)}</span><span>💬 ${fV(x.comments)}</span><span>🔁 ${fV(x.shares)}</span>${link}</div>${date ? `<div style="font-size:10px;color:var(--tx3);margin-top:3px">🕐 ${esc(date)}</div>` : ''}</div>${i===0?'<span class="tvc">👑</span>':''}<div class="tvb" style="width:${bw}%"></div></div>`;
   }).join('');
   el.innerHTML = html;
 }
@@ -1163,9 +1266,7 @@ document.getElementById('loB').addEventListener('click', async () => {
   if(cu){ try{ await sb.from('user_data').delete().eq('user_id', cu.id) }catch(e){} }
   rd=[]; up=null; cd={};
   if(chi){ chi.destroy(); chi=null }
-  try{
-    ['cache_user','cache_profile','cache_data','cache_ch','updShown'].forEach(k => localStorage.removeItem(k));
-  }catch(e){}
+  try{ ['cache_user','cache_profile','cache_data','cache_ch','updShown'].forEach(k => localStorage.removeItem(k)); }catch(e){}
   await sb.auth.signOut();
 });
 
@@ -1209,9 +1310,7 @@ sb.auth.onAuthStateChange(async (ev, ss) => {
     rAll();
   } else {
     cu=null; up=null; cd={}; rd=[];
-    try{
-      ['cache_user','cache_profile','cache_data','cache_ch'].forEach(k => localStorage.removeItem(k));
-    }catch(e){}
+    try{ ['cache_user','cache_profile','cache_data','cache_ch'].forEach(k => localStorage.removeItem(k)); }catch(e){}
     document.getElementById('as').classList.remove('hd');
     document.getElementById('app').classList.add('hd');
     document.getElementById('aE').value = '';
@@ -1361,7 +1460,6 @@ document.getElementById('clB').addEventListener('click', async () => {
 
 function uS(t,c){ const el = document.getElementById('us'); el.textContent = t; el.style.color = c || 'var(--gr)' }
 
-/* ================= UPLOAD OVERVIEW ================= */
 const uz = document.querySelector('.up[for="ci"]');
 const ci = document.getElementById('ci');
 
@@ -1417,26 +1515,23 @@ function pCSV(t){
   const l = t.split(/\r?\n/).filter(x => x.trim());
   if(l.length < 2) throw new Error('File rỗng');
   const r = [];
-  // Bỏ qua header dòng 1
   for(let i=1; i<l.length; i++){
     const p = l[i].replace(/^"|"$/g,'').split('","').map(s => s.replace(/"/g,''));
     if(p.length < 3) continue;
     const d = p[0];
     const v = parseInt(p[1])||0;
-    const pv = parseInt(p[2])||0;   // Profile Views
-    const li = parseInt(p[3])||0;   // Likes
-    const c = parseInt(p[4])||0;    // Comments
-    const s = parseInt(p[5])||0;    // Shares
+    const pv = parseInt(p[2])||0;
+    const li = parseInt(p[3])||0;
+    const c = parseInt(p[4])||0;
+    const s = parseInt(p[5])||0;
     if(!d) continue;
-    // rd format: [date, videoViews, likes, comments, shares, profileViews]
     r.push([d, v, li, c, s, pv]);
   }
   if(!r.length) throw new Error('Không có dòng');
   rd = r;
 }
 
-/* ================= RENDER ALL ================= */
-function rAll(){ renderOverview(); renderDetail(); rTp(); rCh(); rCmp(); rMCmp() }
+function rAll(){ renderOverview(); renderDetail(); renderAnalysis(); rTp(); rCh(); rCmp(); rMCmp() }
 
 function rTp(){
   const b = document.getElementById('tpL');
@@ -1480,11 +1575,7 @@ async function rCh(){
       interaction: { mode:'index', intersect:false },
       plugins: {
         legend: { display:true, labels:{ color:'#aaa', font:{size:11}, boxWidth:12, boxHeight:12, usePointStyle:true } },
-        tooltip: {
-          backgroundColor:'rgba(22,22,28,.95)', borderColor:'#6ea8ff', borderWidth:1,
-          titleColor:'#6ea8ff', bodyColor:'#e8e8f0', padding:12,
-          callbacks: { label: c => { const v = c.parsed.y; const pct = avg>0 ? ((v-avg)/avg*100) : 0; return `👀 ${v.toLocaleString('vi-VN')} (${pct>=0?'+':''}${pct.toFixed(0)}% TB)` } }
-        }
+        tooltip: { backgroundColor:'rgba(22,22,28,.95)', borderColor:'#6ea8ff', borderWidth:1, titleColor:'#6ea8ff', bodyColor:'#e8e8f0', padding:12, callbacks: { label: c => { const v = c.parsed.y; const pct = avg>0 ? ((v-avg)/avg*100) : 0; return `👀 ${v.toLocaleString('vi-VN')} (${pct>=0?'+':''}${pct.toFixed(0)}% TB)` } } }
       },
       scales: {
         x: { ticks:{ color:'#666', font:{size:9}, maxRotation:90, autoSkip:true, maxTicksLimit:20 }, grid:{display:false} },
@@ -1546,6 +1637,7 @@ document.getElementById('cpTp').addEventListener('click', () => {
 window.__onTabChange = function(tab){
   if(tab === 'ch') rCh();
   if(tab === 'dt') renderDetail();
+  if(tab === 'an') renderAnalysis();
   if(tab === 'adm') adLoad();
   if(tab === 'acc') rAcc();
   if(tab === 'mn') rPk();
@@ -1664,7 +1756,7 @@ document.getElementById('pBtn').addEventListener('click', async () => {
 setInterval(renderGt, 60000);
 
 /* AUTO UPDATE — không spam */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.7-detail';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.9-pwa';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
 async function cU(){
   try{
@@ -1693,6 +1785,44 @@ async function cU(){
 }
 setTimeout(cU, 5000);
 setInterval(cU, 300000);
+
+/* ============================================================
+   PWA — Install button
+   ============================================================ */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  showInstallBtn();
+});
+function showInstallBtn(){
+  if(document.getElementById('installBtn')) return;
+  const btn = document.createElement('button');
+  btn.id = 'installBtn';
+  btn.innerHTML = '📲 Cài app';
+  btn.style.cssText = 'position:fixed;bottom:18px;right:14px;padding:10px 16px;background:linear-gradient(135deg,#4ade80,#22c55e);color:#0d0d12;border:0;border-radius:24px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(74,222,128,.4);z-index:999;font-family:inherit';
+  btn.onclick = async () => {
+    if(deferredPrompt){
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      btn.remove();
+    } else {
+      alert('📲 Để cài app:\n\niOS: Bấm nút Chia sẻ ⬆️ → "Thêm vào Màn hình chính"\n\nAndroid: Menu 3 chấm → "Cài đặt ứng dụng"');
+    }
+  };
+  document.body.appendChild(btn);
+  setTimeout(() => { if(btn.parentNode) btn.remove(); }, 30000);
+}
+window.addEventListener('load', () => {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if(isIOS) setTimeout(showInstallBtn, 3000);
+});
+window.addEventListener('appinstalled', () => {
+  const b = document.getElementById('installBtn');
+  if(b) b.remove();
+  if(window.tS) tS('✅ Đã cài app!');
+});
 };
 </script>
 </body>
