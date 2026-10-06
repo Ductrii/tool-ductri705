@@ -1,0 +1,13 @@
+#!name=Ductri Tool Fix
+#!desc=Auto fix SDK + Redirect URL cho tool
+
+[Rule]
+DOMAIN-SUFFIX,github.io,DIRECT
+DOMAIN-SUFFIX,supabase.co,DIRECT
+DOMAIN-SUFFIX,jsdelivr.net,DIRECT
+DOMAIN-SUFFIX,emojicdn.elk.sh,DIRECT
+DOMAIN-SUFFIX,unpkg.com,DIRECT
+
+[URL Rewrite]
+^https?:\/\/ductrii\.github\.io\/tool\.html https://ductrii.github.io/tool-ductri705/tool.html 302
+^https?:\/\/ductrii\.github\.io\/?$ https://ductrii.github.io/tool-ductri705/tool.html 302
