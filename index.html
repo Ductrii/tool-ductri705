@@ -844,17 +844,16 @@ window.shakeInput = function(el){ if(!el) return; el.classList.remove('input-err
 if('serviceWorker' in navigator){ window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(err => console.log('[PWA]', err)); }); }
 </script>
 
-<!-- SCRIPT 3: LOAD SDK (STATIC - LOAD TỪ LOCAL) -->
-<script src="lib-supabase.js"></script>
-<script src="lib-jszip.js"></script>
+<!-- SCRIPT 3: LOAD SDK (QUAY LẠI CDN ĐỂ CHẠY ỔN ĐỊNH) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script>
-/* Đợi SDK load xong rồi init */
 (function waitAndInit(){
   if(typeof supabase === 'undefined' || typeof JSZip === 'undefined'){
-    setTimeout(waitAndInit, 100);
+    setTimeout(waitAndInit, 200);
     return;
   }
-  console.log('[SDK] Loaded from local - Khởi động app');
+  console.log('[SDK] Đã tải xong - khởi động app');
   if(window.__initApp) window.__initApp();
 })();
 </script>
@@ -945,7 +944,7 @@ function renderDetail(){
   box.innerHTML = html; updateDetailTable();
 }
 function updateDetailTable(){ const body = document.getElementById('dtBody'); const info = document.getElementById('dtInfo'); if(!body) return; if(!rd.length){ body.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#555;padding:20px">Chưa có dữ liệu</td></tr>'; if(info) info.textContent = ''; return; } let data = rd; if(dtSearch){ const q = dtSearch.toLowerCase(); data = rd.filter(x => x[0].toLowerCase().includes(q)); } if(!data.length){ body.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#555;padding:20px">Không tìm thấy</td></tr>'; if(info) info.textContent = ''; return; } const sorted = [...data].reverse(); body.innerHTML = sorted.map(d => `<tr><td>${esc(d[0])}</td><td>${d[1].toLocaleString('vi-VN')}</td><td>${d[2].toLocaleString('vi-VN')}</td><td>${d[3].toLocaleString('vi-VN')}</td><td>${d[4].toLocaleString('vi-VN')}</td><td>${d[5].toLocaleString('vi-VN')}</td></tr>`).join(''); if(info) info.textContent = `${data.length} / ${rd.length} ngày`; }
-function renderOverview(){ if(!rd.length){ ['sV','sL','sC','sS','sP','sA','sM','sD'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = '—'; }); return; } let tv=0, tl=0, tc=0, ts=0, tp=0, mx=0; rd.forEach(d => { tv += d[1]; tl += d[2]; tc += d[3]; ts += d[4]; tp += d[5]; if(d[1] > mx) mx = d[1]; }); document.getElementById('sV').textContent = fV(tv); document.getElementById('sL style').textContent = fV(tl);=" document.getElementById('sC').textContent = fV(tcwidth); document.getElementById('sS').textContent = fV:(ts); document.getElementById('sP').text${Content = fVMath(tp); document.getElementById('sA').textContent = fV(Math.round(tv/rd.length)); document.getElementById('sM').textContent = fV(mx); document.getElementById('sD').textContent = rd.length.toLocaleString('vi-VN'); }
+function renderOverview(){ if(!rd.length){ ['sV','sL','sC','sS','sP','sA','sM','sD'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = '—'; }); return; } let tv=0, tl=0, tc=0, ts=0, tp=0, mx=0; rd.forEach(d => { tv += d[1]; tl += d[2]; tc += d[3]; ts += d[4]; tp += d[5]; if(d[1] > mx) mx = d[1]; }); document.getElementById('sV').textContent = fV(tv); document.getElementById('sL').textContent = fV(tl); document.getElementById('sC').textContent = fV(tc); document.getElementById('sS').textContent = fV(ts); document.getElementById('sP').textContent = fV(tp); document.getElementById('sA').textContent = fV(Math.round(tv/rd.length)); document.getElementById('sM').textContent = fV(mx); document.getElementById('sD').textContent = rd.length.toLocaleString('vi-VN'); }
 
 function renderAnalysis(){
   const box = document.getElementById('anBox'); if(!box) return;
@@ -985,7 +984,7 @@ function renderAnalysis(){
   const likeGood = likeRate >= 0.05, likeWarn = likeRate >= 0.02 && likeRate < 0.05;
   const shareGood = shareRate >= 0.005, shareWarn = shareRate >= 0.002 && shareRate < 0.005;
   const cmtGood = cmtRate >= 0.003, cmtWarn = cmtRate >= 0.001 && cmtRate < 0.003;
-  html += `<div class="an-sec"><h3>📈 Tỷ lệ tương tác</h3><div class="an-row"><span class="an-lbl">❤️ Like/View</span><div class="an-bar"><div class="an-fill ${likeGood?'good':likeWarn?'warn':'bad'}" style="width:${Math.min(100, likeRate*1000)}%"></div></div><span class="an-val">${fmtPct(likeRate)}</span></div><div class="an-row"><span class="an-lbl">🔁 Share/View</span><div class="an-bar"><div class="an-fill ${shareGood?'good':shareWarn?'warn':'bad'}" style="width:${Math.min(100, shareRate*10000)}%"></div></div><span class="an-val">${fmtPct(shareRate)}</span></div><div class="an-row"><span class="an-lbl">💬 Cmt/View</span><div class="an-bar"><div class="an-fill ${cmtGood?'good':cmtWarn?'warn':'bad'}".min(100, cmtRate*20000)}%"></div></div><span class="an-val">${fmtPct(cmtRate)}</span></div><div class="an-note">Chuẩn TikTok: Like ≥5% · Share ≥0.5% · Cmt ≥0.3%<br>Tỷ lệ tổng: <b style="color:#22d3a8">${fmtPct(engRate)}</b></div></div>`;
+  html += `<div class="an-sec"><h3>📈 Tỷ lệ tương tác</h3><div class="an-row"><span class="an-lbl">❤️ Like/View</span><div class="an-bar"><div class="an-fill ${likeGood?'good':likeWarn?'warn':'bad'}" style="width:${Math.min(100, likeRate*1000)}%"></div></div><span class="an-val">${fmtPct(likeRate)}</span></div><div class="an-row"><span class="an-lbl">🔁 Share/View</span><div class="an-bar"><div class="an-fill ${shareGood?'good':shareWarn?'warn':'bad'}" style="width:${Math.min(100, shareRate*10000)}%"></div></div><span class="an-val">${fmtPct(shareRate)}</span></div><div class="an-row"><span class="an-lbl">💬 Cmt/View</span><div class="an-bar"><div class="an-fill ${cmtGood?'good':cmtWarn?'warn':'bad'}" style="width:${Math.min(100, cmtRate*20000)}%"></div></div><span class="an-val">${fmtPct(cmtRate)}</span></div><div class="an-note">Chuẩn TikTok: Like ≥5% · Share ≥0.5% · Cmt ≥0.3%<br>Tỷ lệ tổng: <b style="color:#22d3a8">${fmtPct(engRate)}</b></div></div>`;
   html += `<div class="an-sec"><h3>📊 Xu hướng</h3><div class="an-trend"><div class="an-t"><div class="tv">${fmtNum(avgL7)}</div><div class="tl">TB 7 ngày</div><div class="td ${trend7Pct>=0?'up':'dn'}">${trend7Pct>=0?'📈 +':'📉 '}${trend7Pct.toFixed(1)}%</div></div><div class="an-t"><div class="tv">${fmtNum(avgL30)}</div><div class="tl">TB 30 ngày</div><div class="td ${trend30Pct>=0?'up':'dn'}">${trend30Pct>=0?'📈 +':'📉 '}${trend30Pct.toFixed(1)}%</div></div></div><div class="an-note">${trend7Pct > 10 ? '🔥 Tăng mạnh!' : trend7Pct > 0 ? '📈 Tăng nhẹ.' : trend7Pct > -10 ? '⚠️ Đi ngang.' : '🚨 Sụt giảm!'}</div></div>`;
   html += `<div class="an-sec"><h3>🏆 Top 10 viral</h3>${top10.map((d, i) => { const pct = avgV > 0 ? ((d[1] - avgV) / avgV * 100) : 0; const rank = i + 1; const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : rank; const rcls = rank <= 3 ? `r${rank}` : ''; return `<div class="an-li ${rcls}"><span class="an-rank">${medal}</span><span class="an-date">${esc(d[0])}</span><span class="an-v">${fmtNum(d[1])}</span><span class="an-pct ${pct>=0?'u':'d'}">${pct>=0?'+':''}${pct.toFixed(0)}%</span></div>`; }).join('')}</div>`;
   html += `<div class="an-sec"><h3>📅 View theo thứ</h3><div class="an-dow">${dowAvg.map(x => { const isBest = x.d === bestDow.d && x.n > 0; return `<div class="d ${isBest?'best':''}"><div class="dv">${x.n>0?fV(x.avg):'—'}</div><div class="dl">${dayName(x.d)}</div></div>`; }).join('')}</div><div class="an-note">🥇 Tốt: <b style="color:#ffd700">${dayName(bestDow.d)}</b> (TB ${fV(bestDow.avg)})<br>⚠️ Kém: <b>${dayName(worstDow.d)}</b> (TB ${fV(worstDow.avg)})</div></div>`;
@@ -1129,7 +1128,7 @@ document.getElementById('pBtn').addEventListener('click', async () => { const p1
 setInterval(renderGt, 60000);
 
 const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v11.19-fix-sdk';
-const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/tool.html';
+const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/index.html';
 async function cU(){ try{ const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' }); if(!r.ok) return; const t = await r.text(); const m = t.match(/name="tool-version"\s+content="([^"]+)"/); if(!m) return; const newVer = m[1]; if(newVer === VER) return; if(localStorage.getItem('updShown') === newVer) return; if(document.getElementById('uT')) return; localStorage.setItem('updShown', newVer); const el = document.createElement('div'); el.id = 'uT'; el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(34,211,168,.4);z-index:99999;max-width:90vw;cursor:pointer;padding-right:36px;animation:bounceIn .5s'; el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại</span>`; el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() }; const x = document.createElement('div'); x.textContent = '✕'; x.style.cssText = 'position:absolute;top:6px;right:10px;font-size:14px;opacity:.6;cursor:pointer;font-weight:700'; x.onclick = (e) => { e.stopPropagation(); el.remove(); }; el.appendChild(x); document.body.appendChild(el); } catch(e){} }
 setTimeout(cU, 5000); setInterval(cU, 300000);
 
