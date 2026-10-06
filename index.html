@@ -832,8 +832,8 @@ window.shakeInput = function(el){ if(!el) return; el.classList.remove('input-err
     });
     bindRipples();
   }
-  const orig = window.__onTabChange;
-  window.__onTabChange = function(tab){ if(orig) orig(tab); setTimeout(applyAnimations, 30); setTimeout(applyAnimations, 200); };
+  /* FIX: lắng nghe sự kiện tab change thay vì ghi đè window.__onTabChange (tránh bị __initApp ghi đè) */
+  window.addEventListener('__tabChanged', function(){ setTimeout(applyAnimations, 30); setTimeout(applyAnimations, 200); });
   const obs = new MutationObserver(() => { clearTimeout(window.__animTimer); window.__animTimer = setTimeout(applyAnimations, 100); });
   document.addEventListener('DOMContentLoaded', () => { setTimeout(applyAnimations, 200); obs.observe(document.body, { childList: true, subtree: true }); });
   if(document.readyState !== 'loading'){ setTimeout(applyAnimations, 300); setTimeout(() => { obs.observe(document.body, { childList: true, subtree: true }); }, 1000); }
@@ -849,14 +849,14 @@ if('serviceWorker' in navigator){ window.addEventListener('load', () => { naviga
 (function() {
   const sources = {
     supabase: [
-      'lib-supabase.js', // Thử file local trước
-      'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2', // Nếu lỗi, thử CDN 1
-      'https://unpkg.com/@supabase/supabase-js@2' // Nếu vẫn lỗi, thử CDN 2
+      'lib-supabase.js',
+      'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2',
+      'https://unpkg.com/@supabase/supabase-js@2'
     ],
     jszip: [
-      'lib-jszip.js', // Thử file local trước
-      'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js', // Nếu lỗi, thử CDN 1
-      'https://unpkg.com/jszip@3.10.1/dist/jszip.min.js' // Nếu vẫn lỗi, thử CDN 2
+      'lib-jszip.js',
+      'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js',
+      'https://unpkg.com/jszip@3.10.1/dist/jszip.min.js'
     ]
   };
 
@@ -891,6 +891,11 @@ if('serviceWorker' in navigator){ window.addEventListener('load', () => { naviga
   loadScript(sources.jszip, 0, checkDone);
 })();
 </script>
+
+<!-- ============================================================ -->
+<!-- SCRIPT 4: LOGIC CHÍNH (ĐÃ THÊM THẺ <script> MỞ BỊ THIẾU) -->
+<!-- ============================================================ -->
+<script>
 /* SCRIPT 4: LOGIC CHÍNH */
 window.__initApp = function(){
 const SBU="https://wkddmlxhqyvhxznycpgs.supabase.co";
@@ -1145,6 +1150,8 @@ window.__onTabChange = function(tab){
   if(tab === 'cn'){ renderCh(); renderContent(); renderGhAnalysis(); }
   const tb = document.getElementById('tb-' + tab);
   if(tb){ tb.style.animation = 'none'; setTimeout(() => { tb.style.animation = 'fadeSlideUp .35s cubic-bezier(.2,.9,.4,1.2)'; }, 10); }
+  /* FIX: phát sự kiện để animation engine (SCRIPT 1) bắt được */
+  window.dispatchEvent(new CustomEvent('__tabChanged', { detail: { tab } }));
 };
 
 function rCmp(){ const b = document.getElementById('cmpC'); if(rd.length < 2){ b.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:10px">Chưa đủ dữ liệu</div>'; return; } const now = Date.now(), wk = 604800000; let tw = {v:0,l:0}, lw = {v:0,l:0}; rd.forEach(d => { const ts = pD(d[0]); if(!ts) return; const df = now - ts; if(df <= wk){ tw.v += d[1]; tw.l += d[2] } else if(df <= wk*2){ lw.v += d[1]; lw.l += d[2] } }); const vd = tw.v - lw.v, ld = tw.l - lw.l; const vp = lw.v>0 ? (vd/lw.v*100) : (tw.v>0?100:0); const lp = lw.l>0 ? (ld/lw.l*100) : (tw.l>0?100:0); b.innerHTML = `<div class="cg"><div class="ci"><div class="v">${fV(tw.v)}</div><div class="l">Tuần này</div></div><div class="ci"><div class="v">${fV(lw.v)}</div><div class="l">Trước</div></div><div class="ci"><div class="v">${fV(tw.l)}</div><div class="l">Like nay</div></div><div class="ci"><div class="v">${fV(lw.l)}</div><div class="l">Like trước</div></div></div><div class="cdf ${vd>0?'u':vd<0?'d':'s'}">📊 ${vd>=0?'📈 +':'📉 '}${Math.abs(vd).toLocaleString('vi-VN')} (${(vp>=0?'+':'')+vp.toFixed(1)}%)</div><div class="cdf ${ld>0?'u':ld<0?'d':'s'}" style="margin-top:6px">❤️ ${ld>=0?'📈 +':'📉 '}${Math.abs(ld).toLocaleString('vi-VN')} (${(lp>=0?'+':'')+lp.toFixed(1)}%)</div>`; }
