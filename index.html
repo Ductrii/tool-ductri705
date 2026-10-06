@@ -844,21 +844,53 @@ window.shakeInput = function(el){ if(!el) return; el.classList.remove('input-err
 if('serviceWorker' in navigator){ window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(err => console.log('[PWA]', err)); }); }
 </script>
 
-<!-- SCRIPT 3: LOAD SDK (QUAY LẠI CDN ĐỂ CHẠY ỔN ĐỊNH) -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<!-- SCRIPT 3: ULTIMATE SDK LOADER (TỰ ĐỘNG CHUYỂN NGUỒN) -->
 <script>
-(function waitAndInit(){
-  if(typeof supabase === 'undefined' || typeof JSZip === 'undefined'){
-    setTimeout(waitAndInit, 200);
-    return;
+(function() {
+  const sources = {
+    supabase: [
+      'lib-supabase.js', // Thử file local trước
+      'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2', // Nếu lỗi, thử CDN 1
+      'https://unpkg.com/@supabase/supabase-js@2' // Nếu vẫn lỗi, thử CDN 2
+    ],
+    jszip: [
+      'lib-jszip.js', // Thử file local trước
+      'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js', // Nếu lỗi, thử CDN 1
+      'https://unpkg.com/jszip@3.10.1/dist/jszip.min.js' // Nếu vẫn lỗi, thử CDN 2
+    ]
+  };
+
+  function loadScript(urls, index, callback) {
+    if (index >= urls.length) {
+      console.error('Không thể tải thư viện:', urls[0]);
+      return callback(false);
+    }
+    const script = document.createElement('script');
+    script.src = urls[index];
+    script.async = true;
+    script.onload = () => callback(true);
+    script.onerror = () => {
+      console.warn('Lỗi tải ' + urls[index] + ', thử nguồn khác...');
+      loadScript(urls, index + 1, callback);
+    };
+    document.head.appendChild(script);
   }
-  console.log('[SDK] Đã tải xong - khởi động app');
-  if(window.__initApp) window.__initApp();
+
+  let loadedCount = 0;
+  function checkDone() {
+    loadedCount++;
+    if (loadedCount === 2) {
+      if (typeof window.__initApp === 'function') {
+        console.log('[SDK] Đã tải xong tất cả - Khởi động app');
+        window.__initApp();
+      }
+    }
+  }
+
+  loadScript(sources.supabase, 0, checkDone);
+  loadScript(sources.jszip, 0, checkDone);
 })();
 </script>
-
-<script>
 /* SCRIPT 4: LOGIC CHÍNH */
 window.__initApp = function(){
 const SBU="https://wkddmlxhqyvhxznycpgs.supabase.co";
