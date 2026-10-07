@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v13.0-full">
+<meta name="tool-version" content="v13.1-link-analysis">
 <meta name="theme-color" content="#00e5c7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -355,7 +355,6 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .unlock-progress-line{width:280px;max-width:80vw;height:3px;background:rgba(0,229,199,.15);border-radius:2px;overflow:hidden;margin-top:24px}
 .unlock-progress-fill{height:100%;background:linear-gradient(90deg,#00e5c7,#a855f7,#ffd700);border-radius:2px;width:0;transition:width .3s linear}
 .unlock-loading.fade-out{opacity:0;transition:opacity .6s}
-/* COUNTDOWN */
 .cd-box{margin-top:12px;padding:14px;background:linear-gradient(135deg,rgba(255,215,0,.1),var(--bg2));border:1px solid var(--gold);border-radius:12px;text-align:center;transition:all .4s}
 .cd-box.in-golden{border-color:var(--rd);background:linear-gradient(135deg,rgba(255,92,138,.15),var(--bg2));animation:pulseGlow 2s infinite}
 .cd-lbl{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
@@ -470,7 +469,6 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .chk-txt{font-size:13px;color:var(--tx);flex:1;line-height:1.4}
 .chk-prog{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-bottom:12px}
 .chk-prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--gr));border-radius:3px;transition:width .5s}
-/* LINK TREND */
 .lnk-input-wrap{display:flex;gap:6px;margin-bottom:12px}
 .lnk-input-wrap input{margin:0;flex:1;font-size:12px;padding:10px 12px}
 .lnk-btn{padding:0 16px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#0a0e12;border:0;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .3s}
@@ -538,6 +536,34 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .lnk-loading{text-align:center;padding:26px;color:var(--tx2);font-size:13px}
 .lnk-loading .spin{display:inline-block;width:24px;height:24px;border:3px solid var(--bd);border-top-color:var(--acc);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:8px}
 @keyframes spin{to{transform:rotate(360deg)}}
+/* ===== QUICK LINK INPUT (trong tab Phân tích) ===== */
+.quick-lnk{background:linear-gradient(135deg,rgba(0,229,199,.08),var(--bg2));border:2px solid var(--acc);border-radius:14px;padding:12px;margin-bottom:14px}
+.quick-lnk-h{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.quick-lnk-h .ql-icon{font-size:20px}
+.quick-lnk-h .ql-title{font-size:12px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:1px;flex:1}
+.quick-lnk-h .ql-badge{font-size:9px;padding:2px 8px;border-radius:10px;background:rgba(255,215,0,.2);color:var(--gold);font-weight:700}
+.quick-lnk-row{display:flex;gap:6px}
+.quick-lnk-row input{margin:0;flex:1;font-size:12px;padding:9px 11px;background:var(--bg3)}
+.quick-lnk-row button{padding:0 14px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#0a0e12;border:0;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+.quick-lnk-row button:disabled{opacity:.5;cursor:wait}
+.quick-lnk-result{margin-top:10px;font-size:12px;line-height:1.6}
+.quick-lnk-result.loading{color:var(--acc);text-align:center;padding:10px}
+.quick-lnk-result.err{color:var(--rd);padding:8px 10px;background:rgba(255,92,138,.08);border-radius:8px;border-left:3px solid var(--rd)}
+.quick-lnk-result.ok{padding:10px;background:var(--bg3);border-radius:10px}
+.ql-score{font-size:32px;font-weight:900;text-align:center;line-height:1;margin-bottom:4px}
+.ql-score.s50{color:var(--gold)}
+.ql-score.s70{color:var(--acc)}
+.ql-score.s85{color:var(--gr)}
+.ql-score.s95{background:linear-gradient(135deg,#ffd700,#ff9500);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ql-verdict{text-align:center;font-size:13px;font-weight:700;margin-bottom:10px}
+.ql-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.ql-stat{background:var(--bg2);border-radius:8px;padding:7px;text-align:center;font-size:11px}
+.ql-stat .qs-v{font-weight:800;font-size:13px;margin-bottom:2px}
+.ql-stat .qs-l{font-size:9px;color:var(--tx3);text-transform:uppercase}
+.ql-stat.good .qs-v{color:var(--gr)}
+.ql-stat.mid .qs-v{color:var(--gold)}
+.ql-stat.bad .qs-v{color:var(--rd)}
+.ql-more{background:transparent;border:1px solid var(--acc);color:var(--acc);padding:6px 12px;border-radius:8px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:600;width:100%}
 @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 @keyframes logoPulse{0%,100%{filter:drop-shadow(0 0 12px rgba(0,229,199,.6))}50%{filter:drop-shadow(0 0 24px rgba(0,229,199,1))}}
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px) rotate(5deg)}}
@@ -619,7 +645,6 @@ TOOL BY DUCTRI705
 <div class="tbb" data-tab="an">🔍 Phân tích</div>
 <div class="tbb" data-tab="ch">Biểu đồ</div>
 <div class="tbb" data-tab="tp">Top viral</div>
-<div class="tbb" data-tab="lnk">🔗 Link</div>
 <div class="tbb" data-tab="hm">📅 Heatmap</div>
 <div class="tbb" data-tab="ac">🏅 Thành tích</div>
 <div class="tbb" data-tab="cp">📊 So sánh</div>
@@ -678,6 +703,19 @@ TOOL BY DUCTRI705
 </div>
 
 <div id="tb-an" class="tc hd">
+<div class="quick-lnk">
+<div class="quick-lnk-h">
+<span class="ql-icon">🔗</span>
+<span class="ql-title">Phân tích link TikTok</span>
+<span class="ql-badge">AUTO</span>
+</div>
+<div class="quick-lnk-row">
+<input type="text" id="qlnkInput" placeholder="Dán link video TikTok vào đây...">
+<button id="qlnkBtn">🔍 Phân tích</button>
+</div>
+<div id="qlnkResult"></div>
+</div>
+
 <div id="anContent">
 <div class="st2">🔍 Phân tích kênh chi tiết</div>
 <div id="anBox"><div class="nt" style="padding:20px">Chưa có dữ liệu</div></div>
@@ -715,24 +753,6 @@ TOOL BY DUCTRI705
 <div id="tpL"></div>
 </div>
 <div id="tpLocked" class="hd"></div>
-</div>
-
-<div id="tb-lnk" class="tc hd">
-<div class="st2">🔗 PHÂN TÍCH XU HƯỚNG LINK VIDEO</div>
-<div class="nt" style="text-align:left;margin-bottom:10px;line-height:1.7">
-💡 Dán link TikTok → tool <b>tự động lấy số liệu</b> và tính <b>tỉ lệ xu hướng</b><br>
-<span style="font-size:10px;color:var(--tx3)">Không cần nhập tay, không cần upload file</span>
-</div>
-<div class="lnk-input-wrap">
-<input type="text" id="lnkInput" placeholder="https://www.tiktok.com/@user/video/...">
-<button class="lnk-btn" id="lnkFetch">🔍 Phân tích</button>
-</div>
-<div id="lnkResult"></div>
-<div class="st2" style="margin-top:18px;display:flex;justify-content:space-between;align-items:center">
-<span>📚 Lịch sử phân tích</span>
-<button class="cap-btn" id="lnkClear" style="display:none">🗑️ Xóa hết</button>
-</div>
-<div id="lnkHistoryList"></div>
 </div>
 
 <div id="tb-hm" class="tc hd">
@@ -1243,7 +1263,6 @@ document.getElementById('cpTp').addEventListener('click', () => { if(!rd.length)
 
 window.__onTabChange = function(tab){
   renderLockedState();
-  if(!hasAnalysisAccess() && ['dt','an','ch','tp','hm','ac','cp'].includes(tab)) return;
   if(tab === 'ch') rCh();
   if(tab === 'dt') renderDetail();
   if(tab === 'an') renderAnalysis();
@@ -1255,7 +1274,6 @@ window.__onTabChange = function(tab){
   if(tab === 'ac') renderAchievements();
   if(tab === 'cp'){ if(!document.getElementById('cmpFrom1').value) setPresetRange(7); renderCompare(); }
   if(tab === 'cap'){ renderCaptions(); renderChecklist(); updateCountdown(); }
-  if(tab === 'lnk') renderLinkHistory();
   const tb = document.getElementById('tb-' + tab);
   if(tb){ tb.style.animation = 'none'; setTimeout(() => { tb.style.animation = 'fadeSlideUp .35s cubic-bezier(.2,.9,.4,1.2)'; }, 10); }
 };
@@ -1265,7 +1283,7 @@ function rMCmp(){ const b = document.getElementById('mCmpC'); if(rd.length < 2){
 
 document.getElementById('exB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } const l = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"']; rd.forEach(d => l.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`)); const c = '\ufeff' + l.join('\n'); const b = new Blob([c], { type:'text/csv;charset=utf-8' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `tiktok_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('shB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } let tv=0, tl=0, mx=0, mxD=''; rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx){ mx = d[1]; mxD = d[0] } }); const avg = Math.round(tv/rd.length); const t = `📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rd.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`; if(navigator.share) navigator.share({ title:'TikTok Stats', text: t }).catch(() => {}); else navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t)); });
-document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'6.0', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
+document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.0', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('rsB').addEventListener('click', () => document.getElementById('rI').click());
 document.getElementById('rI').addEventListener('change', e => { const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async ev => { try{ const d = JSON.parse(ev.target.result); if(!d.rows || !Array.isArray(d.rows)) throw new Error('File lỗi'); if(!confirm(`Khôi phục ${d.rows.length} dòng?`)) return; rd = d.rows; if(d.channelData){ cd = d.channelData; await saveCd(); renderCh() } rAll(); await saveC(); alert('✅ Đã khôi phục!'); } catch(err){ alert('❌ '+err.message) } }; r.readAsText(f); e.target.value = ''; });
 document.getElementById('pBtn').addEventListener('click', async () => { const p1 = document.getElementById('pO').value, p2 = document.getElementById('pN').value; const m = document.getElementById('pM'); m.textContent = ''; m.className = 'm'; if(!p1 || !p2){ m.textContent = 'Nhập đầy đủ'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1.length < 6){ m.textContent = 'Từ 6 ký tự'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1 !== p2){ m.textContent = 'Không khớp'; m.classList.add('e'); window.shakeInput(document.getElementById('pN')); return; } const b = document.getElementById('pBtn'); b.disabled = true; b.textContent = '⏳'; try{ const { error } = await sb.auth.updateUser({ password: p1 }); if(error) throw error; m.textContent = '✅ Đổi thành công!'; m.classList.add('o'); document.getElementById('pO').value = ''; document.getElementById('pN').value = ''; } catch(e){ m.textContent = '❌ '+e.message; m.classList.add('e') } b.disabled = false; b.textContent = '🔑 Đổi'; });
@@ -1585,7 +1603,7 @@ function exportReport(){
 }
 document.getElementById('expReport')?.addEventListener('click', exportReport);
 
-/* ===== LINK TREND AUTO ===== */
+/* ===== LINK ANALYZER (CORS + parse) ===== */
 const CORS_PROXIES = ['https://api.allorigins.win/raw?url=','https://corsproxy.io/?url=','https://cors.eu.org/'];
 async function fetchTikTokHTML(url){
   for(let i = 0; i < CORS_PROXIES.length; i++){
@@ -1635,116 +1653,58 @@ function calcTrend(item){
 function fmtNum2(n){ if(n >= 1e9) return (n/1e9).toFixed(2)+'B'; if(n >= 1e6) return (n/1e6).toFixed(2)+'M'; if(n >= 1e3) return (n/1e3).toFixed(1)+'K'; return Math.round(n).toLocaleString('vi-VN'); }
 function timeAgo(ts){ if(!ts) return ''; const s = Math.floor(Date.now()/1000) - ts; if(s < 60) return s+' giây trước'; if(s < 3600) return Math.floor(s/60)+' phút trước'; if(s < 86400) return Math.floor(s/3600)+' giờ trước'; if(s < 2592000) return Math.floor(s/86400)+' ngày trước'; if(s < 31536000) return Math.floor(s/2592000)+' tháng trước'; return Math.floor(s/31536000)+' năm trước'; }
 
-async function analyzeLink(){
-  const url = document.getElementById('lnkInput').value.trim();
-  const btn = document.getElementById('lnkFetch'); const box = document.getElementById('lnkResult');
+async function quickAnalyzeLink(){
+  const url = document.getElementById('qlnkInput').value.trim();
+  const btn = document.getElementById('qlnkBtn');
+  const box = document.getElementById('qlnkResult');
   if(!url){ alert('Dán link trước'); return; }
   if(!/tiktok\.com/i.test(url)){ alert('Chỉ hỗ trợ link TikTok'); return; }
-  btn.disabled = true;
-  box.innerHTML = '<div class="lnk-loading"><div class="spin"></div><div>⏳ Đang kết nối TikTok...</div><div style="font-size:10px;margin-top:4px">Có thể mất 5-15 giây</div></div>';
+  btn.disabled = true; btn.textContent = '⏳';
+  box.className = 'quick-lnk-result loading';
+  box.innerHTML = '⏳ Đang lấy dữ liệu từ TikTok...<br><span style="font-size:10px;opacity:.7">Có thể mất 5-15 giây</span>';
   try{
     const html = await fetchTikTokHTML(url);
     const item = parseTikTokJSON(html);
     const trend = calcTrend(item);
-    const author = item.author || {}, music = item.music || {}, challenges = item.challenges || [];
-    const thumb = item.video?.cover || item.video?.dynamicCover || '';
-    const title = item.desc || '(Không có tiêu đề)';
     let scoreCls = '';
-    if(trend.totalScore >= 95) scoreCls = 's95'; else if(trend.totalScore >= 85) scoreCls = 's85'; else if(trend.totalScore >= 70) scoreCls = 's70'; else if(trend.totalScore >= 50) scoreCls = 's50';
+    if(trend.totalScore >= 95) scoreCls = 's95';
+    else if(trend.totalScore >= 85) scoreCls = 's85';
+    else if(trend.totalScore >= 70) scoreCls = 's70';
+    else if(trend.totalScore >= 50) scoreCls = 's50';
     const lc = trend.likeRate >= 5 ? 'good' : trend.likeRate >= 2 ? 'mid' : 'bad';
     const cc = trend.cmtRate >= 0.3 ? 'good' : trend.cmtRate >= 0.1 ? 'mid' : 'bad';
     const sc = trend.shareRate >= 0.5 ? 'good' : trend.shareRate >= 0.2 ? 'mid' : 'bad';
     const spc = trend.viewsPerHour >= 10000 ? 'good' : trend.viewsPerHour >= 2000 ? 'mid' : 'bad';
-    const likeW = Math.min(100, trend.likeRate / 15 * 100), cmtW = Math.min(100, trend.cmtRate / 1 * 100), shareW = Math.min(100, trend.shareRate / 2 * 100), engW = Math.min(100, trend.engRate / 18 * 100);
+    box.className = 'quick-lnk-result ok';
     box.innerHTML = `
-      <div class="lnk-card">
-        ${thumb ? `<img class="lnk-thumb" src="${esc(thumb)}" onerror="this.style.display='none'">` : ''}
-        <div class="lnk-info">
-          <div class="lnk-author">👤 @${esc(author.uniqueId || 'unknown')}</div>
-          <div class="lnk-title">${esc(title.slice(0, 140))}${title.length > 140 ? '...' : ''}</div>
-          <div class="lnk-time">🕐 ${esc(timeAgo(trend.createTime))} · ⏱️ ${trend.hoursSince.toFixed(1)}h</div>
-          ${challenges.length ? `<div class="lnk-hash">${challenges.slice(0, 5).map(c => `<span>#${esc(c.title || '')}</span>`).join('')}</div>` : ''}
-        </div>
+      <div class="ql-score ${scoreCls}">${trend.totalScore}</div>
+      <div class="ql-verdict">${trend.verdictTxt}</div>
+      <div class="ql-stats">
+        <div class="ql-stat ${lc}"><div class="qs-v">${trend.likeRate.toFixed(2)}%</div><div class="qs-l">❤️ Like/View</div></div>
+        <div class="ql-stat ${cc}"><div class="qs-v">${trend.cmtRate.toFixed(2)}%</div><div class="qs-l">💬 Cmt/View</div></div>
+        <div class="ql-stat ${sc}"><div class="qs-v">${trend.shareRate.toFixed(2)}%</div><div class="qs-l">🔁 Share/View</div></div>
+        <div class="ql-stat ${spc}"><div class="qs-v">${fmtNum2(trend.viewsPerHour)}/h</div><div class="qs-l">🚀 Tốc độ</div></div>
       </div>
-      <div class="trend-score ${scoreCls}">
-        <div class="trend-score-num ${scoreCls}">${trend.totalScore}</div>
-        <div class="trend-score-lbl">${trend.verdictTxt}</div>
-        <div class="trend-score-sub">Điểm xu hướng / 100</div>
-      </div>
-      <div class="trend-metrics">
-        <div class="trend-metric"><div class="tm-icon">👀</div><div class="tm-val">${fmtNum2(trend.views)}</div><div class="tm-lbl">Views</div><div class="tm-note">${fmtNum2(trend.viewsPerHour)}/h</div></div>
-        <div class="trend-metric ${lc}"><div class="tm-icon">❤️</div><div class="tm-val">${trend.likeRate.toFixed(2)}%</div><div class="tm-lbl">Like rate</div><div class="tm-note">${fmtNum2(trend.likes)}</div></div>
-        <div class="trend-metric ${cc}"><div class="tm-icon">💬</div><div class="tm-val">${trend.cmtRate.toFixed(2)}%</div><div class="tm-lbl">Cmt rate</div><div class="tm-note">${fmtNum2(trend.cmt)}</div></div>
-        <div class="trend-metric ${sc}"><div class="tm-icon">🔁</div><div class="tm-val">${trend.shareRate.toFixed(2)}%</div><div class="tm-lbl">Share rate</div><div class="tm-note">${fmtNum2(trend.shares)}</div></div>
-      </div>
-      <div class="trend-section">
-        <h3>📊 Tỉ lệ xu hướng chi tiết</h3>
-        <div class="trend-bar"><span class="tb-lbl">❤️ Like/View</span><div class="tb-track"><div class="tb-fill ${lc}" style="width:${likeW}%"></div></div><span class="tb-val ${lc}">${trend.likeRate.toFixed(2)}%</span></div>
-        <div class="trend-bar"><span class="tb-lbl">💬 Cmt/View</span><div class="tb-track"><div class="tb-fill ${cc}" style="width:${cmtW}%"></div></div><span class="tb-val ${cc}">${trend.cmtRate.toFixed(2)}%</span></div>
-        <div class="trend-bar"><span class="tb-lbl">🔁 Share/View</span><div class="tb-track"><div class="tb-fill ${sc}" style="width:${shareW}%"></div></div><span class="tb-val ${sc}">${trend.shareRate.toFixed(2)}%</span></div>
-        <div class="trend-bar"><span class="tb-lbl">⚡ Tổng tương tác</span><div class="tb-track"><div class="tb-fill ${trend.engRate>=8?'good':trend.engRate>=4?'mid':'bad'}" style="width:${engW}%"></div></div><span class="tb-val ${trend.engRate>=8?'good':trend.engRate>=4?'mid':'bad'}">${trend.engRate.toFixed(2)}%</span></div>
-        <div class="trend-bar"><span class="tb-lbl">🚀 Tốc độ viral</span><div class="tb-track"><div class="tb-fill ${spc}" style="width:${Math.min(100, trend.viewsPerHour/50000*100)}%"></div></div><span class="tb-val ${spc}">${fmtNum2(trend.viewsPerHour)}/h</span></div>
-      </div>
-      <div class="trend-section">
-        <h3>📈 Chi tiết điểm xu hướng</h3>
-        <div class="trend-bar"><span class="tb-lbl">❤️ Like score</span><div class="tb-track"><div class="tb-fill good" style="width:${trend.likeScore/30*100}%"></div></div><span class="tb-val good">${trend.likeScore}/30</span></div>
-        <div class="trend-bar"><span class="tb-lbl">💬 Cmt score</span><div class="tb-track"><div class="tb-fill good" style="width:${trend.cmtScore/20*100}%"></div></div><span class="tb-val good">${trend.cmtScore}/20</span></div>
-        <div class="trend-bar"><span class="tb-lbl">🔁 Share score</span><div class="tb-track"><div class="tb-fill good" style="width:${trend.shareScore/20*100}%"></div></div><span class="tb-val good">${trend.shareScore}/20</span></div>
-        <div class="trend-bar"><span class="tb-lbl">🚀 Speed score</span><div class="tb-track"><div class="tb-fill good" style="width:${trend.speedScore/30*100}%"></div></div><span class="tb-val good">${trend.speedScore}/30</span></div>
-      </div>
-      <div class="trend-verdict ${trend.verdict}">
-        <div style="font-weight:800;font-size:14px;margin-bottom:6px">${trend.verdictTxt}</div>
-        ${trend.verdictDesc}
-        <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1);font-size:11.5px;color:var(--tx2)">
-          ⏱️ Đăng <b>${trend.hoursSince.toFixed(1)}h</b> trước · TB <b>${fmtNum2(trend.viewsPerDay)}</b> view/ngày
-          ${trend.saves > 0 ? `<br>💾 Lượt lưu: <b>${fmtNum2(trend.saves)}</b> (${trend.saveRate.toFixed(2)}%)` : ''}
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
-        <button class="b bs" id="lnkSave">💾 Lưu</button>
-        <button class="b bb" id="lnkAgain">🔄 Lại</button>
-      </div>
-      <div class="nt" style="margin-top:10px;font-size:10px;text-align:left;line-height:1.6">📌 <b>Chuẩn TikTok:</b><br>• Like ≥5% (viral ≥10%) · Cmt ≥0.3% (viral ≥1%)<br>• Share ≥0.5% (viral ≥2%) · Tốc độ ≥10K view/giờ</div>
+      <div style="font-size:11px;color:var(--tx3);text-align:center;margin-top:6px">👀 ${fmtNum2(trend.views)} views · ⏱️ ${timeAgo(trend.createTime)}</div>
     `;
-    document.getElementById('lnkSave').addEventListener('click', async () => {
-      if(!cu){ alert('Đăng nhập trước'); return; }
-      cd.linkHistory = cd.linkHistory || [];
-      cd.linkHistory.unshift({ url, title, author: author.uniqueId || 'unknown', thumbnail: thumb, views: trend.views, likes: trend.likes, cmt: trend.cmt, shares: trend.shares, score: trend.totalScore, verdict: trend.verdict, likeRate: trend.likeRate, date: new Date().toISOString() });
-      if(cd.linkHistory.length > 30) cd.linkHistory = cd.linkHistory.slice(0, 30);
-      try{ await saveCd(); renderLinkHistory(); tS('💾 Đã lưu!'); }catch(e){ alert('❌ '+e.message); }
-    });
-    document.getElementById('lnkAgain').addEventListener('click', analyzeLink);
   } catch(err){
-    box.innerHTML = `<div class="trend-verdict low"><div style="font-weight:800;margin-bottom:6px">❌ Lỗi phân tích</div>${esc(err.message)}<div style="margin-top:8px;font-size:11px;color:var(--tx3)">💡 Đổi mạng (4G/Wifi khác) · Copy link từ app TikTok · Thử lại sau 1 phút</div></div>`;
-  } finally { btn.disabled = false; }
+    box.className = 'quick-lnk-result err';
+    box.innerHTML = `❌ ${esc(err.message)}<br><span style="font-size:10px;opacity:.7">💡 Thử đổi mạng (4G) hoặc chờ 1 phút</span>`;
+  } finally {
+    btn.disabled = false; btn.textContent = '🔍 Phân tích';
+  }
 }
-function renderLinkHistory(){
-  const list = document.getElementById('lnkHistoryList'); const clearBtn = document.getElementById('lnkClear');
-  if(!list) return;
-  const hist = cd.linkHistory || [];
-  if(!hist.length){ list.innerHTML = '<div class="cap-empty">📭 Chưa có video nào</div>'; if(clearBtn) clearBtn.style.display = 'none'; return; }
-  if(clearBtn) clearBtn.style.display = '';
-  list.innerHTML = hist.map((h, i) => {
-    const score = h.score || 0;
-    const color = score >= 85 ? 'var(--gold)' : score >= 70 ? 'var(--gr)' : score >= 50 ? 'var(--acc)' : 'var(--rd)';
-    const dateStr = h.date ? new Date(h.date).toLocaleDateString('vi-VN') : '';
-    return `<div class="lnk-hist-item" data-his-open="${i}">${h.thumbnail ? `<img class="hi-thumb" src="${esc(h.thumbnail)}" onerror="this.style.display='none'">` : '<div class="hi-thumb"></div>'}<div class="hi-info"><div class="hi-title">${esc((h.title||'').slice(0, 55))}</div><div class="hi-stat">@${esc(h.author||'?')} · 👀 ${fmtNum2(h.views||0)} · ${dateStr}</div></div><div class="hi-score" style="color:${color}">${score}</div><button class="hi-del" data-his-del="${i}">🗑️</button></div>`;
-  }).join('');
-  list.querySelectorAll('[data-his-del]').forEach(b => b.addEventListener('click', async (e) => { e.stopPropagation(); if(!confirm('Xóa?')) return; cd.linkHistory.splice(parseInt(b.dataset.hisDel), 1); try{ await saveCd(); renderLinkHistory(); }catch(e){} }));
-  list.querySelectorAll('[data-his-open]').forEach(el => el.addEventListener('click', (e) => { if(e.target.dataset.hisDel !== undefined) return; const h = hist[parseInt(el.dataset.hisOpen)]; if(h?.url){ document.getElementById('lnkInput').value = h.url; analyzeLink(); } }));
-}
-document.getElementById('lnkFetch')?.addEventListener('click', analyzeLink);
-document.getElementById('lnkInput')?.addEventListener('keypress', e => { if(e.key === 'Enter') analyzeLink(); });
-document.getElementById('lnkClear')?.addEventListener('click', async () => { if(!confirm('Xóa toàn bộ lịch sử?')) return; cd.linkHistory = []; try{ await saveCd(); renderLinkHistory(); tS('🗑️ Đã xóa'); }catch(e){} });
+document.getElementById('qlnkBtn')?.addEventListener('click', quickAnalyzeLink);
+document.getElementById('qlnkInput')?.addEventListener('keypress', e => { if(e.key === 'Enter') quickAnalyzeLink(); });
 
 /* ===== UPDATE CHECK ===== */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.0';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.1';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/index.html';
 async function cU(){ try{ const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' }); if(!r.ok) return; const t = await r.text(); const m = t.match(/name="tool-version"\s+content="([^"]+)"/); if(!m) return; const newVer = m[1]; if(newVer === VER) return; if(localStorage.getItem('updShown') === newVer) return; if(document.getElementById('uT')) return; localStorage.setItem('updShown', newVer); const el = document.createElement('div'); el.id = 'uT'; el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;z-index:99999;max-width:90vw;cursor:pointer'; el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px">Bấm để tải lại</span>`; el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() }; document.body.appendChild(el); } catch(e){} }
 setTimeout(cU, 5000); setInterval(cU, 300000);
 
 /* ===== INIT ===== */
-setTimeout(() => { renderStreak(); setPresetRange(7); updateCountdown(); renderCaptions(); renderChecklist(); renderLinkHistory(); }, 600);
+setTimeout(() => { renderStreak(); setPresetRange(7); updateCountdown(); renderCaptions(); renderChecklist(); }, 600);
 
 };
 </script>
