@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v13.2-clean">
+<meta name="tool-version" content="v13.4-game">
 <meta name="theme-color" content="#00e5c7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -469,73 +469,30 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .chk-txt{font-size:13px;color:var(--tx);flex:1;line-height:1.4}
 .chk-prog{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-bottom:12px}
 .chk-prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--gr));border-radius:3px;transition:width .5s}
-.lnk-input-wrap{display:flex;gap:6px;margin-bottom:12px}
-.lnk-input-wrap input{margin:0;flex:1;font-size:12px;padding:10px 12px}
-.lnk-btn{padding:0 16px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#0a0e12;border:0;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .3s}
-.lnk-btn:hover{transform:translateY(-2px)}
-.lnk-btn:disabled{opacity:.5;cursor:wait}
-.lnk-card{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start}
-.lnk-thumb{width:90px;height:120px;border-radius:10px;background:var(--bg3);flex-shrink:0;object-fit:cover;border:1px solid var(--bd)}
-.lnk-info{flex:1;min-width:0}
-.lnk-title{font-size:13px;font-weight:600;color:var(--tx);line-height:1.4;margin-bottom:6px;word-break:break-word}
-.lnk-author{font-size:11px;color:var(--acc);margin-bottom:4px}
-.lnk-time{font-size:10px;color:var(--tx3)}
-.lnk-hash{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
-.lnk-hash span{font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(168,85,247,.15);color:var(--acc3)}
-.trend-score{text-align:center;padding:22px 16px;background:linear-gradient(135deg,var(--bg2),var(--bg));border:2px solid var(--bd);border-radius:16px;margin-bottom:12px}
-.trend-score.s50{border-color:var(--gold)}
-.trend-score.s70{border-color:var(--acc)}
-.trend-score.s85{border-color:var(--gr)}
-.trend-score.s95{border-color:var(--gold);box-shadow:0 0 30px rgba(255,215,0,.3)}
-.trend-score-num{font-size:64px;font-weight:900;line-height:1;margin-bottom:6px}
-.trend-score-num.s50{color:var(--gold)}
-.trend-score-num.s70{color:var(--acc)}
-.trend-score-num.s85{color:var(--gr)}
-.trend-score-num.s95{background:linear-gradient(135deg,#ffd700,#ff9500);-webkit-background-clip:text;background-clip:text;color:transparent}
-.trend-score-lbl{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:4px}
-.trend-score-sub{font-size:11px;color:var(--tx2)}
-.trend-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.trend-metric{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:12px;padding:12px 10px;text-align:center}
-.trend-metric:hover{transform:translateY(-3px)}
-.trend-metric .tm-icon{font-size:18px;margin-bottom:4px}
-.trend-metric .tm-val{font-size:16px;font-weight:800;margin-bottom:2px;font-variant-numeric:tabular-nums}
-.trend-metric .tm-lbl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.trend-metric .tm-note{font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px;display:inline-block}
-.trend-metric.good .tm-val{color:var(--gr)}
-.trend-metric.good .tm-note{background:rgba(34,211,168,.2);color:var(--gr)}
-.trend-metric.mid .tm-val{color:var(--gold)}
-.trend-metric.mid .tm-note{background:rgba(255,215,0,.2);color:var(--gold)}
-.trend-metric.bad .tm-val{color:var(--rd)}
-.trend-metric.bad .tm-note{background:rgba(255,92,138,.2);color:var(--rd)}
-.trend-section{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:10px}
-.trend-section h3{font-size:13px;color:var(--acc);margin-bottom:10px;font-weight:700}
-.trend-bar{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:12px}
-.trend-bar .tb-lbl{width:95px;color:var(--tx2);flex-shrink:0;font-size:11px}
-.trend-bar .tb-track{flex:1;height:10px;background:var(--bg3);border-radius:5px;overflow:hidden}
-.trend-bar .tb-fill{height:100%;border-radius:5px;transition:width 1s}
-.trend-bar .tb-fill.good{background:linear-gradient(90deg,#22d3a8,#16a34a)}
-.trend-bar .tb-fill.mid{background:linear-gradient(90deg,#ffd700,#ff9500)}
-.trend-bar .tb-fill.bad{background:linear-gradient(90deg,#ff5c8a,#dc2626)}
-.trend-bar .tb-val{width:70px;text-align:right;font-weight:700;font-size:12px;flex-shrink:0}
-.trend-bar .tb-val.good{color:var(--gr)}
-.trend-bar .tb-val.mid{color:var(--gold)}
-.trend-bar .tb-val.bad{color:var(--rd)}
-.trend-verdict{padding:14px;border-radius:12px;font-size:13px;line-height:1.6;margin-top:10px}
-.trend-verdict.viral{background:linear-gradient(135deg,rgba(255,215,0,.15),var(--bg2));border:2px solid var(--gold);color:var(--tx)}
-.trend-verdict.hot{background:linear-gradient(135deg,rgba(34,211,168,.15),var(--bg2));border:2px solid var(--gr);color:var(--tx)}
-.trend-verdict.normal{background:linear-gradient(135deg,rgba(0,229,199,.1),var(--bg2));border:2px solid var(--acc);color:var(--tx)}
-.trend-verdict.low{background:linear-gradient(135deg,rgba(255,92,138,.12),var(--bg2));border:2px solid var(--rd);color:var(--tx)}
-.lnk-hist-item{display:flex;gap:8px;align-items:center;padding:9px 11px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:6px;font-size:12px;transition:all .3s;cursor:pointer}
-.lnk-hist-item:hover{border-color:var(--acc);transform:translateX(3px)}
-.lnk-hist-item .hi-thumb{width:34px;height:44px;border-radius:6px;object-fit:cover;background:var(--bg3);flex-shrink:0}
-.lnk-hist-item .hi-info{flex:1;min-width:0}
-.lnk-hist-item .hi-title{font-size:11.5px;color:var(--tx);line-height:1.3;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lnk-hist-item .hi-stat{font-size:10px;color:var(--tx3)}
-.lnk-hist-item .hi-score{font-size:14px;font-weight:800;flex-shrink:0}
-.lnk-hist-item .hi-del{background:0;border:0;color:var(--rd);cursor:pointer;padding:4px;font-size:13px}
-.lnk-loading{text-align:center;padding:26px;color:var(--tx2);font-size:13px}
-.lnk-loading .spin{display:inline-block;width:24px;height:24px;border:3px solid var(--bd);border-top-color:var(--acc);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:8px}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* ===== GAME JACKPOT ===== */
+.game-container{display:flex;flex-direction:column;align-items:center;padding:8px 0}
+.game-balance{background:linear-gradient(135deg,rgba(255,215,0,.15),var(--bg2));border:1px solid var(--gold);border-radius:12px;padding:12px 18px;margin-bottom:14px;text-align:center;font-size:13px;width:100%;max-width:340px}
+.game-balance b{color:var(--gold);font-size:18px}
+.wheel-wrapper{position:relative;display:flex;flex-direction:column;align-items:center;padding:14px;width:100%}
+.wheel-pointer{font-size:38px;color:var(--gold);margin-bottom:-16px;z-index:10;position:relative;filter:drop-shadow(0 0 12px #ffd700);animation:wheelPointer 1s ease-in-out infinite}
+#wheelCanvas{width:min(320px,82vw);height:min(320px,82vw);border-radius:50%;box-shadow:0 0 40px rgba(255,215,0,.35),0 0 80px rgba(255,215,0,.15);border:4px solid var(--gold);background:#0a0e12}
+#gmSpinBtn{margin-top:18px;padding:14px 32px;font-size:15px;font-weight:800;letter-spacing:1px;background:linear-gradient(135deg,#ffd700,#ff9500);color:#0a0e12;border:0;border-radius:12px;cursor:pointer;font-family:inherit;transition:all .3s;box-shadow:0 6px 20px rgba(255,215,0,.4)}
+#gmSpinBtn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,215,0,.6)}
+#gmSpinBtn:disabled{opacity:.6;cursor:wait}
+.game-result{margin-top:16px;padding:14px 20px;border-radius:12px;font-size:14px;font-weight:700;text-align:center;width:100%;max-width:340px;animation:fadeSlideUp .5s}
+.game-result.win{background:linear-gradient(135deg,rgba(34,211,168,.2),rgba(0,229,199,.1));border:1px solid var(--gr);color:var(--gr)}
+.game-result.win b{color:var(--gold);font-size:18px}
+.game-result.lose{background:linear-gradient(135deg,rgba(255,92,138,.15),rgba(255,92,138,.05));border:1px solid var(--rd);color:var(--rd)}
+.game-history{margin-top:20px;width:100%}
+.game-hist-item{display:flex;justify-content:space-between;padding:8px 12px;background:var(--bg2);border-radius:8px;margin-bottom:5px;font-size:12px}
+.game-hist-item .h-win{color:var(--gr);font-weight:700}
+.game-hist-item .h-lose{color:var(--rd);font-weight:700}
+.jackpot-banner{position:fixed;top:calc(70px + env(safe-area-inset-top));left:50%;transform:translateX(-50%) translateY(-300%) scale(.8);background:linear-gradient(135deg,#ffd700,#ff9500,#ffd700);background-size:200% auto;color:#0a0e12;padding:16px 24px;border-radius:16px;font-size:14px;font-weight:700;text-align:center;z-index:999999;max-width:92vw;box-shadow:0 10px 50px rgba(255,215,0,.7);transition:all .6s cubic-bezier(.2,.9,.4,1.4);opacity:0;animation:gradientShift 2s ease infinite}
+.jackpot-banner.show{transform:translateX(-50%) translateY(0) scale(1);opacity:1}
+.jackpot-banner b{color:#7a0000;text-decoration:underline;font-size:15px}
+.game-prob{background:var(--bg2);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:11px;color:var(--tx2);line-height:1.9;width:100%;max-width:340px}
+.game-prob span{display:inline-block;padding:2px 8px;border-radius:6px;background:var(--bg3);margin:2px 3px}
+@keyframes wheelPointer{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 @keyframes logoPulse{0%,100%{filter:drop-shadow(0 0 12px rgba(0,229,199,.6))}50%{filter:drop-shadow(0 0 24px rgba(0,229,199,1))}}
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px) rotate(5deg)}}
@@ -624,6 +581,7 @@ TOOL BY DUCTRI705
 <div class="tbb g" data-tab="cn">📊 Kênh</div>
 <div class="tbb" data-tab="acc">⚙️ TK</div>
 <div class="tbb g" data-tab="mn">💰 Nạp</div>
+<div class="tbb g" data-tab="gm">🎰 Game</div>
 <div class="tbb g hd" data-tab="adm" id="admTab">👑 Admin</div>
 </div>
 
@@ -774,6 +732,11 @@ TOOL BY DUCTRI705
 <option value="fashion">👗 Thời trang</option>
 <option value="game">🎮 Game</option>
 <option value="motiv">🔥 Truyền cảm hứng</option>
+<option value="dieu_sao">🪁 Diều sáo</option>
+<option value="xe_dien">⚡ Xe điện</option>
+<option value="do_xe">🚗 Độ xe</option>
+<option value="xe_may_do">🏍️ Xe máy độ</option>
+<option value="khac">✨ Khác</option>
 </select>
 <div class="idea-box">
 <div class="idea-cat" id="ideaCatLbl">Sẵn sàng</div>
@@ -856,6 +819,31 @@ TOOL BY DUCTRI705
 <div class="row"><span class="k">ND</span><span class="v" id="payC">— <button class="cp" onclick="cp(document.getElementById('payC').textContent.trim())">📋</button></span></div>
 </div>
 <a href="https://zalo.me/0865199199" target="_blank" class="b bg" style="display:block;text-align:center;text-decoration:none;margin-top:10px">💬 Zalo gửi bill</a>
+</div>
+</div>
+
+<div id="tb-gm" class="tc hd">
+<div class="st2">🎰 VÒNG QUAY MAY MẮN</div>
+<div class="game-container">
+<div class="game-balance">💰 Số dư: <b id="gmBalance">0</b> xu<br><span style="font-size:11px;color:var(--tx3)">Phí mỗi lượt: <b style="color:var(--rd)">-10 xu</b></span></div>
+<div class="wheel-wrapper">
+<div class="wheel-pointer">▼</div>
+<canvas id="wheelCanvas" width="320" height="320"></canvas>
+<button id="gmSpinBtn">🎰 QUAY NGAY (10 XU)</button>
+</div>
+<div id="gmResult"></div>
+<div class="game-prob">
+<div style="text-align:center;margin-bottom:6px;font-weight:700;color:var(--acc)">📊 Tỷ lệ trúng thưởng</div>
+<div style="text-align:center">
+<span>💎 1 xu — 50%</span>
+<span>💠 5 xu — 20%</span>
+<span>🔷 10 xu — 5%</span>
+<span>💎 20 xu — 4%</span>
+<span>👑 50 xu — 1%</span>
+<span>😢 Hụt — 20%</span>
+</div>
+</div>
+<div class="game-history" id="gmHistory"></div>
 </div>
 </div>
 
@@ -1158,6 +1146,7 @@ sb.auth.onAuthStateChange(async (ev, ss) => {
     rAcc(); rPk(); renderCh();
     await loadC(); try{ localStorage.setItem('cache_data', JSON.stringify(rd)) }catch(e){}
     rAll(); renderLockedState();
+    updateGmBalance();
     if(!window.__welcomeShown){ window.__welcomeShown = true; setTimeout(() => { if(window.showAuthToast) window.showAuthToast('welcome', ss.user.email); }, 700); }
     const lastGuide = parseInt(localStorage.getItem('guideShown') || '0'); const oneDay = 24 * 60 * 60 * 1000;
     if(Date.now() - lastGuide > oneDay){ setTimeout(() => { if(window.showGuideModal) window.showGuideModal(); }, 1600); }
@@ -1173,7 +1162,7 @@ sb.auth.onAuthStateChange(async (ev, ss) => {
 (async () => { try{ const { data: { session } } = await sb.auth.getSession(); if(!session){ document.getElementById('as').classList.remove('hd'); document.getElementById('app').classList.add('hd'); } } catch(e){ document.getElementById('as').classList.remove('hd'); } })();
 
 async function daily(){ if(!cu || !up || isA()) return; const l = up.last_daily_bonus ? new Date(up.last_daily_bonus).getTime() : 0; if(Date.now() - l < DAY) return; const n = (up.credits||0) + BONUS; const { error } = await sb.from('profiles').update({ credits: n, last_daily_bonus: new Date().toISOString() }).eq('id', cu.id); if(error) return; up.credits = n; up.last_daily_bonus = new Date().toISOString(); try{ localStorage.setItem('cache_profile', JSON.stringify(up)) }catch(e){} tS(`🎁 Điểm danh!<br><span style="font-size:12px">+${BONUS} xu</span>`); }
-function uC(){ document.getElementById('uC').textContent = isA() ? '∞' : (up?.credits||0).toLocaleString('vi-VN') }
+function uC(){ document.getElementById('uC').textContent = isA() ? '∞' : (up?.credits||0).toLocaleString('vi-VN'); updateGmBalance(); }
 function rAcc(){ if(!cu || !up) return; document.getElementById('ifE').textContent = cu.email || '—'; document.getElementById('ifC').textContent = up.created_at ? new Date(up.created_at).toLocaleString('vi-VN') : '—'; document.getElementById('ifL').textContent = up.last_login ? new Date(up.last_login).toLocaleString('vi-VN') : 'Vừa login'; document.getElementById('ifX').textContent = isA() ? '∞' : (up.credits||0).toLocaleString('vi-VN') + ' xu'; document.getElementById('ifR').textContent = isA() ? '👑 Admin' : (up.unlocked_analysis ? '🔑 Premium' : 'User'); }
 function rPk(){ document.getElementById('pkG').innerHTML = PKGS.map((p,i) => `<div class="pc" onclick="selP(${i})"><div class="p">${p.l}</div><div class="a">↓</div><div class="x">+${p.x.toLocaleString('vi-VN')} xu</div></div>`).join(''); }
 window.selP = (i) => { const p = PKGS[i]; if(!cu) return; const c = 'NAPXU ' + cu.email.split('@')[0].toUpperCase().substring(0,10); document.getElementById('payA').textContent = p.l; document.getElementById('payX').textContent = '+' + p.x.toLocaleString('vi-VN') + ' xu'; document.getElementById('payC').textContent = c; document.getElementById('mnD').classList.remove('hd'); };
@@ -1228,6 +1217,7 @@ window.__onTabChange = function(tab){
   if(tab === 'adm'){ adLoad(); adLoadKeys(); }
   if(tab === 'acc') rAcc();
   if(tab === 'mn') rPk();
+  if(tab === 'gm'){ updateGmBalance(); drawWheel(); renderGmHistory(); }
   if(tab === 'cn'){ renderCh(); renderContent(); renderGhAnalysis(); }
   if(tab === 'hm') renderHeatmap();
   if(tab === 'ac') renderAchievements();
@@ -1242,7 +1232,7 @@ function rMCmp(){ const b = document.getElementById('mCmpC'); if(rd.length < 2){
 
 document.getElementById('exB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } const l = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"']; rd.forEach(d => l.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`)); const c = '\ufeff' + l.join('\n'); const b = new Blob([c], { type:'text/csv;charset=utf-8' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `tiktok_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('shB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } let tv=0, tl=0, mx=0, mxD=''; rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx){ mx = d[1]; mxD = d[0] } }); const avg = Math.round(tv/rd.length); const t = `📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rd.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`; if(navigator.share) navigator.share({ title:'TikTok Stats', text: t }).catch(() => {}); else navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t)); });
-document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.0', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
+document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.4', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('rsB').addEventListener('click', () => document.getElementById('rI').click());
 document.getElementById('rI').addEventListener('change', e => { const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async ev => { try{ const d = JSON.parse(ev.target.result); if(!d.rows || !Array.isArray(d.rows)) throw new Error('File lỗi'); if(!confirm(`Khôi phục ${d.rows.length} dòng?`)) return; rd = d.rows; if(d.channelData){ cd = d.channelData; await saveCd(); renderCh() } rAll(); await saveC(); alert('✅ Đã khôi phục!'); } catch(err){ alert('❌ '+err.message) } }; r.readAsText(f); e.target.value = ''; });
 document.getElementById('pBtn').addEventListener('click', async () => { const p1 = document.getElementById('pO').value, p2 = document.getElementById('pN').value; const m = document.getElementById('pM'); m.textContent = ''; m.className = 'm'; if(!p1 || !p2){ m.textContent = 'Nhập đầy đủ'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1.length < 6){ m.textContent = 'Từ 6 ký tự'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1 !== p2){ m.textContent = 'Không khớp'; m.classList.add('e'); window.shakeInput(document.getElementById('pN')); return; } const b = document.getElementById('pBtn'); b.disabled = true; b.textContent = '⏳'; try{ const { error } = await sb.auth.updateUser({ password: p1 }); if(error) throw error; m.textContent = '✅ Đổi thành công!'; m.classList.add('o'); document.getElementById('pO').value = ''; document.getElementById('pN').value = ''; } catch(e){ m.textContent = '❌ '+e.message; m.classList.add('e') } b.disabled = false; b.textContent = '🔑 Đổi'; });
@@ -1498,13 +1488,26 @@ document.getElementById('capType')?.addEventListener('change', e => { curCapType
 document.getElementById('capAdd')?.addEventListener('click', async () => { if(!cu){ alert('Đăng nhập trước'); return; } const type = document.getElementById('capType').value; const labels = { cap:'caption', hash:'hashtag', hook:'hook' }; const txt = prompt(`Nhập ${labels[type]}:`); if(!txt || !txt.trim()) return; cd.captions = cd.captions || []; cd.captions.unshift({ type, text: txt.trim(), date: new Date().toISOString() }); try{ await saveCd(); renderCaptions(); tS('✅ Đã thêm!'); }catch(e){ alert('❌ '+e.message); } });
 
 /* ===== IDEAS ===== */
-const IDEAS = { edu:['Top 3 sai lầm khi mới học [X]','Giải thích [X] trong 30 giây','So sánh [A] và [B]','Hướng dẫn [X] trong 60s','5 mẹo [X] chuyên gia không muốn bạn biết','"Nếu bắt đầu lại, tôi sẽ..."','Sự thật về [X]','Case study: Tại sao [X] thành công?','Câu hỏi thường gặp về [X]','[X] cho người mới: bắt đầu từ đâu?'], fun:['POV: Bạn là [X]','Thử thách 24h','Khi bạn [X] trước mặt [Y]','Mấy kiểu người trong [X]','Đoán xem tôi làm gì?','Troll bạn thân','Thử [X] lần đầu','"Đừng [X]" — 5 phút sau:','Ai cũng có 1 người bạn như thế','Xem tôi pass [X] không?'], life:['Một ngày làm [nghề] của tôi','3 thứ tôi ước biết sớm','Sáng dậy 5h — kết quả','Review [X] sau 1 tháng','Chuyển nhà/du lịch/thay đổi','Morning routine — không filter','5 thói quen nhỏ','Sống tối giản 7 ngày','Dùng [X] 30 ngày','Điều tôi học sau [X]'], food:['Cách làm [món] ngon như hàng','Thử làm [món] lần đầu','Ăn [món] ở [quán] có đáng?','Đập hộp 5 món viral','Mẹ dạy nấu [món]','Review quán [X]','Ăn [món] 1 tuần','Món 10K ngon hơn 100K','Phá đảo menu [quán]','Cách làm [đồ uống] chuẩn quán'], fashion:['Mix đồ 100K: 3 hoàn cảnh','Những món cơ bản','Review [X] sau 2 tuần','Makeup 5 phút đi làm','Áo [X] 5 kiểu','Skincare routine','Sai lầm khi chọn [X]','Shopping haul [số] món','Trang phục đi [sự kiện]','So sánh [A] vs [B]'], game:['Thử [game] không dùng [X]','Top 5 game mobile','POV nhân vật game','Bug [game]','Review [thiết bị]','Mẹo [game] lên rank','Chơi [game] 1 tiếng','So sánh [A] và [B]','Setup góc làm việc','Thử [app] 1 tuần'], motiv:['Nếu bạn đang [khó khăn]','3 bài học sau thất bại','Điều tôi ước biết khi 18','Tại sao nên bắt đầu hôm nay','Câu chuyện về [ai đó]','5 câu nói thay đổi tôi','Từ [thất bại] đến [thành công]','Không cần [X] để bắt đầu','Đừng so sánh bản thân','Điều đơn giản thay đổi cuộc đời'] };
+const IDEAS = {
+  edu:['Top 3 sai lầm khi mới học [X]','Giải thích [X] trong 30 giây','So sánh [A] và [B]','Hướng dẫn [X] trong 60s','5 mẹo [X] chuyên gia không muốn bạn biết','"Nếu bắt đầu lại, tôi sẽ..."','Sự thật về [X]','Case study: Tại sao [X] thành công?','Câu hỏi thường gặp về [X]','[X] cho người mới: bắt đầu từ đâu?'],
+  fun:['POV: Bạn là [X]','Thử thách 24h','Khi bạn [X] trước mặt [Y]','Mấy kiểu người trong [X]','Đoán xem tôi làm gì?','Troll bạn thân','Thử [X] lần đầu','"Đừng [X]" — 5 phút sau:','Ai cũng có 1 người bạn như thế','Xem tôi pass [X] không?'],
+  life:['Một ngày làm [nghề] của tôi','3 thứ tôi ước biết sớm','Sáng dậy 5h — kết quả','Review [X] sau 1 tháng','Chuyển nhà/du lịch/thay đổi','Morning routine — không filter','5 thói quen nhỏ','Sống tối giản 7 ngày','Dùng [X] 30 ngày','Điều tôi học sau [X]'],
+  food:['Cách làm [món] ngon như hàng','Thử làm [món] lần đầu','Ăn [món] ở [quán] có đáng?','Đập hộp 5 món viral','Mẹ dạy nấu [món]','Review quán [X]','Ăn [món] 1 tuần','Món 10K ngon hơn 100K','Phá đảo menu [quán]','Cách làm [đồ uống] chuẩn quán'],
+  fashion:['Mix đồ 100K: 3 hoàn cảnh','Những món cơ bản','Review [X] sau 2 tuần','Makeup 5 phút đi làm','Áo [X] 5 kiểu','Skincare routine','Sai lầm khi chọn [X]','Shopping haul [số] món','Trang phục đi [sự kiện]','So sánh [A] vs [B]'],
+  game:['Thử [game] không dùng [X]','Top 5 game mobile','POV nhân vật game','Bug [game]','Review [thiết bị]','Mẹo [game] lên rank','Chơi [game] 1 tiếng','So sánh [A] và [B]','Setup góc làm việc','Thử [app] 1 tuần'],
+  motiv:['Nếu bạn đang [khó khăn]','3 bài học sau thất bại','Điều tôi ước biết khi 18','Tại sao nên bắt đầu hôm nay','Câu chuyện về [ai đó]','5 câu nói thay đổi tôi','Từ [thất bại] đến [thành công]','Không cần [X] để bắt đầu','Đừng so sánh bản thân','Điều đơn giản thay đổi cuộc đời'],
+  dieu_sao:['Tiếng sáo diều đêm trăng nghe cực chill 🌙','Hướng dẫn làm diều sáo đơn giản tại nhà 🪁','Thả diều sáo ở cánh đồng quê yên bình','Bí kíp chọn sáo diều kêu to, âm vang 🎵','Kỷ niệm tuổi thơ cùng cánh diều sáo','Review các loại diều sáo đang hot trend','Nghệ thuật chơi diều sáo bạn chưa từng biết','Cận cảnh tiếng sáo diều cực đỉnh','Một ngày đi thả diều sáo cùng hội bạn','Diều sáo khổng lồ gây sốt cộng đồng mạng','Cách buộc dây diều sáo chuẩn dân chơi','Phân biệt các loại sáo diều: đơn, đôi, ba','Diều sáo mini chơi trong nhà cực vui','Bí quyết thả diều sáo lên cao mà không rơi','Tiếng sáo diều đồng quê - nghe là nhớ tuổi thơ','Hướng dẫn làm sáo diều từ ống nứa','Diều sáo đêm - ánh đèn LED lung linh'],
+  xe_dien:['Đánh giá chi tiết xe điện [X] sau 1 tháng ⚡','Xe điện có thực sự tiết kiệm hơn xe xăng?','Top 5 xe điện đáng mua nhất 2024','Trải nghiệm lái thử xe điện [X]','Những sự thật thú vị về xe điện bạn nên biết','Sạc xe điện ở nhà như thế nào cho đúng?','Xe điện chạy được bao nhiêu km một lần sạc?','So sánh xe điện [A] và [B]','Tương lai của giao thông: Xe điện','Mẹo kéo dài tuổi thọ pin xe điện','Xe điện có đi được đường dài không?','Chi phí bảo dưỡng xe điện - rẻ hơn bạn nghĩ','Xe điện Việt Nam - có đáng mua không?','Cách chọn xe điện phù hợp nhu cầu','Xe điện đua với xe xăng - ai thắng?','Độ xe điện - những điều cần biết','Trạm sạc xe điện gần nhất - cách tra cứu'],
+  do_xe:['Nâng cấp dàn chân cho [X] cực ngầu 🚗','Độ pô xe chuẩn âm thanh không thể bỏ qua','Review gói độ [X] giá rẻ bất ngờ','Quá trình độ lại [X] từ A-Z','Những sai lầm khi độ xe ai cũng mắc','Chi phí độ xe cơ bản cho người mới','Độ đèn xe sáng quắc cho chuyến đi đêm','Phối màu sơn xe độ cực chất','Độ nội thất xe sang trọng như xe sang','Trước và sau khi độ xe [X]','Độ mâm xe thể thao - tăng cá tính','Độ bodykit xe [X] - cực kỳ ngầu','Độ âm thanh xe - dàn loa khủng','Độ camera 360 xe hơi - an toàn hơn','Độ ghế da cao cấp cho xe [X]','Cách độ xe tiết kiệm mà vẫn đẹp','Độ xe đi phượt - những thứ cần thiết'],
+  xe_may_do:['Dàn áo xe máy độ cực cháy 🏍️','Bí kíp độ xe máy tiết kiệm xăng','Độ pô xe máy: Tiếng nổ uy lực','Nâng cấp phuộc xe máy cho chuyến đi xa','Độ đèn LED xe máy siêu sáng','Khoe xe máy độ của các biker','Mẹo độ xe máy không bị CSGT phạt','Review dàn chân xe máy độ','Độ gương xe máy độc lạ','Chi phí độ xe máy đi phượt','Độ xe máy cho dân chơi kiểng','Độ xe máy của dân đua - cần gì?','Độ tem xe máy - cá tính riêng','Độ yên xe máy thoải mái cho chuyến xa','Độ lốp xe máy - bám đường hơn','Độ nhông sên dĩa xe máy - tăng tốc','Độ đèn hậu xe máy LED đẹp mắt','Tư vấn độ xe máy cho người mới'],
+  khac:['Daily vlog một ngày làm [nghề]','Hướng dẫn dùng [app/software]','Mẹo vặt cuộc sống cực hữu ích','Top 5 địa điểm check-in ở [thành phố]','Đập hộp [sản phẩm mới]','Cách tiết kiệm tiền hiệu quả','Vlog đi làm 1 ngày','Top 3 phim hay nhất tháng này','Review sách hay nên đọc','Kinh nghiệm du lịch bụi cho người mới','Top 5 quán cafe đẹp ở [thành phố]','Cách chụp ảnh đẹp bằng điện thoại','Mẹo chăm sóc da tại nhà','Hướng dẫn makeup cơ bản cho người mới','Review [khóa học] sau khi học xong','Cách quản lý thời gian hiệu quả','Bí kíp nấu ăn cho người độc thân','Vlog dọn nhà - cuối tuần thư giãn']
+};
 function randomIdea(){
   const sel = document.getElementById('ideaCat'); const cat = sel ? sel.value : 'all';
   let pool = []; if(cat === 'all'){ Object.values(IDEAS).forEach(arr => pool.push(...arr)); } else { pool = IDEAS[cat] || []; }
   if(!pool.length) return;
   const idea = pool[Math.floor(Math.random() * pool.length)];
-  const catLbl = { all:'🎲 Ngẫu nhiên', edu:'📚 Giáo dục', fun:'😂 Hài hước', life:'🌱 Đời sống', food:'🍜 Ẩm thực', fashion:'👗 Thời trang', game:'🎮 Game', motiv:'🔥 Truyền cảm hứng' };
+  const catLbl = { all:'🎲 Ngẫu nhiên', edu:'📚 Giáo dục', fun:'😂 Hài hước', life:'🌱 Đời sống', food:'🍜 Ẩm thực', fashion:'👗 Thời trang', game:'🎮 Game', motiv:'🔥 Truyền cảm hứng', dieu_sao:'🪁 Diều sáo', xe_dien:'⚡ Xe điện', do_xe:'🚗 Độ xe', xe_may_do:'🏍️ Xe máy độ', khac:'✨ Khác' };
   document.getElementById('ideaCatLbl').textContent = catLbl[cat] || 'Ý tưởng';
   const box = document.getElementById('ideaTxt'); box.textContent = idea; box.style.animation = 'none'; void box.offsetWidth; box.style.animation = 'fadeSlideUp .5s';
 }
@@ -1535,6 +1538,153 @@ document.querySelectorAll('.cap-tab').forEach(t => t.addEventListener('click', (
   if(key === 'chk') renderChecklist();
 }));
 
+/* ===== GAME JACKPOT ===== */
+const WHEEL_SEGMENTS = [
+  {label:'1', value:1, color:'#0d5c50'},
+  {label:'5', value:5, color:'#4a2a7a'},
+  {label:'1', value:1, color:'#0d5c50'},
+  {label:'0', value:0, color:'#2a2a2a'},
+  {label:'1', value:1, color:'#0d5c50'},
+  {label:'10', value:10, color:'#7a2a5a'},
+  {label:'1', value:1, color:'#0d5c50'},
+  {label:'20', value:20, color:'#7a5a0a'},
+  {label:'1', value:1, color:'#0d5c50'},
+  {label:'50', value:50, color:'#ff9500'}
+];
+let gmRotating = false;
+let gmCurrentRotation = 0;
+let gmHistory = [];
+
+function drawWheel(){
+  const canvas = document.getElementById('wheelCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const size = canvas.width;
+  const center = size / 2;
+  const radius = center - 6;
+  const segCount = WHEEL_SEGMENTS.length;
+  const segAngle = (Math.PI * 2) / segCount;
+  ctx.clearRect(0, 0, size, size);
+  WHEEL_SEGMENTS.forEach((seg, i) => {
+    const start = -Math.PI/2 + i * segAngle;
+    const end = start + segAngle;
+    ctx.beginPath(); ctx.moveTo(center, center); ctx.arc(center, center, radius, start, end); ctx.closePath();
+    ctx.fillStyle = seg.color; ctx.fill();
+    ctx.strokeStyle = '#ffd700'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.save(); ctx.translate(center, center); ctx.rotate(start + segAngle/2);
+    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#fff'; ctx.font = 'bold ' + (seg.value === 50 ? '22px' : '18px') + ' sans-serif';
+    ctx.shadowColor = seg.value === 50 ? '#ffd700' : 'transparent';
+    ctx.shadowBlur = seg.value === 50 ? 12 : 0;
+    const text = seg.value === 0 ? '😢 Hụt' : seg.label + 'xu';
+    ctx.fillText(text, radius - 16, 0);
+    ctx.restore();
+  });
+  ctx.beginPath(); ctx.arc(center, center, 26, 0, Math.PI * 2);
+  ctx.fillStyle = '#0a0e12'; ctx.fill();
+  ctx.strokeStyle = '#ffd700'; ctx.lineWidth = 3; ctx.stroke();
+  ctx.fillStyle = '#ffd700'; ctx.font = 'bold 16px sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('⭐', center, center);
+}
+
+function rollPrize(){
+  const r = Math.random() * 100;
+  if(r < 1) return 50;
+  if(r < 5) return 20;
+  if(r < 10) return 10;
+  if(r < 30) return 5;
+  if(r < 80) return 1;
+  return 0;
+}
+
+function updateGmBalance(){
+  const el = document.getElementById('gmBalance');
+  if(el) el.textContent = isA() ? '∞' : ((up?.credits || 0).toLocaleString('vi-VN'));
+}
+
+function addGmHistory(prize){
+  gmHistory.unshift({ time: new Date(), prize });
+  if(gmHistory.length > 10) gmHistory.pop();
+  renderGmHistory();
+}
+
+function renderGmHistory(){
+  const el = document.getElementById('gmHistory');
+  if(!el) return;
+  if(!gmHistory.length){ el.innerHTML = '<div class="nt">Chưa có lượt quay nào</div>'; return; }
+  el.innerHTML = '<div class="st2" style="margin-top:6px">📜 Lịch sử gần đây</div>' + gmHistory.map(h => {
+    const t = new Date(h.time).toLocaleTimeString('vi-VN');
+    if(h.prize > 0) return `<div class="game-hist-item"><span>🕐 ${t}</span><span class="h-win">+${h.prize} xu</span></div>`;
+    return `<div class="game-hist-item"><span>🕐 ${t}</span><span class="h-lose">Hụt 😐</span></div>`;
+  }).join('');
+}
+
+function showJackpotBanner(email){
+  const b = document.createElement('div');
+  b.className = 'jackpot-banner';
+  const name = (email || '').split('@')[0];
+  b.innerHTML = `🎉 <b>${esc(name)}</b> đã nổ hũ <span style="color:#7a0000;font-size:20px">50 XU</span> - Xin chúc mừng! 🎉<br><span style="font-size:11px;opacity:.85">👑 Siêu hiếm · Tỷ lệ 1% · Chúc mừng bạn!</span>`;
+  document.body.appendChild(b);
+  setTimeout(() => b.classList.add('show'), 50);
+  setTimeout(() => { b.classList.remove('show'); setTimeout(() => b.remove(), 700); }, 6500);
+}
+
+async function spinWheel(){
+  if(gmRotating) return;
+  if(!cu){ alert('Đăng nhập trước!'); return; }
+  const cost = 10;
+  if(!isA() && (up?.credits || 0) < cost){ tS('❌ Không đủ 10 xu!', null, 3000); return; }
+  gmRotating = true;
+  const btn = document.getElementById('gmSpinBtn');
+  btn.disabled = true; btn.textContent = '🎰 Đang quay...';
+  document.getElementById('gmResult').innerHTML = '';
+  if(!isA()){
+    const newCr = up.credits - cost;
+    const { error } = await sb.from('profiles').update({ credits: newCr }).eq('id', cu.id);
+    if(error){ alert('Lỗi: ' + error.message); gmRotating = false; btn.disabled = false; btn.textContent = '🎰 QUAY NGAY (10 XU)'; return; }
+    up.credits = newCr; uC(); updateGmBalance();
+  }
+  const prize = rollPrize();
+  const candidates = WHEEL_SEGMENTS.map((s, i) => ({...s, i})).filter(s => s.value === prize);
+  const target = candidates[Math.floor(Math.random() * candidates.length)];
+  const segCount = WHEEL_SEGMENTS.length;
+  const segAngle = 360 / segCount;
+  const segCenter = target.i * segAngle + segAngle / 2;
+  const currentMod = ((gmCurrentRotation % 360) + 360) % 360;
+  const targetMod = ((360 - segCenter) % 360 + 360) % 360;
+  let delta = targetMod - currentMod;
+  if(delta < 0) delta += 360;
+  gmCurrentRotation += 360 * 8 + delta;
+  const canvas = document.getElementById('wheelCanvas');
+  canvas.style.transition = 'transform 5s cubic-bezier(.17,.67,.2,1)';
+  canvas.style.transform = `rotate(${gmCurrentRotation}deg)`;
+  setTimeout(async () => {
+    if(prize > 0){
+      if(!isA()){
+        const newCr = up.credits + prize;
+        await sb.from('profiles').update({ credits: newCr }).eq('id', cu.id);
+        up.credits = newCr; uC(); updateGmBalance();
+      }
+      document.getElementById('gmResult').innerHTML = `<div class="game-result win">🎉 Chúc mừng! Bạn nhận được <b>${prize} xu</b></div>`;
+      tS(`🎉 +${prize} xu!`, null, 3000);
+      if(prize === 50) showJackpotBanner(cu.email);
+    } else {
+      document.getElementById('gmResult').innerHTML = `<div class="game-result lose">😢 Hụt rồi! Chúc bạn may mắn lần sau</div>`;
+    }
+    addGmHistory(prize);
+    gmRotating = false; btn.disabled = false; btn.textContent = '🎰 QUAY NGAY (10 XU)';
+  }, 5300);
+}
+
+setTimeout(() => {
+  drawWheel();
+  updateGmBalance();
+  renderGmHistory();
+  const btn = document.getElementById('gmSpinBtn');
+  if(btn) btn.addEventListener('click', spinWheel);
+}, 800);
+
 /* ===== SCREENSHOT ===== */
 async function takeScreenshot(){
   if(!rd.length){ alert('Chưa có dữ liệu'); return; }
@@ -1563,7 +1713,7 @@ function exportReport(){
 document.getElementById('expReport')?.addEventListener('click', exportReport);
 
 /* ===== UPDATE CHECK ===== */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.2';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.4';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/index.html';
 async function cU(){ try{ const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' }); if(!r.ok) return; const t = await r.text(); const m = t.match(/name="tool-version"\s+content="([^"]+)"/); if(!m) return; const newVer = m[1]; if(newVer === VER) return; if(localStorage.getItem('updShown') === newVer) return; if(document.getElementById('uT')) return; localStorage.setItem('updShown', newVer); const el = document.createElement('div'); el.id = 'uT'; el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;z-index:99999;max-width:90vw;cursor:pointer'; el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px">Bấm để tải lại</span>`; el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() }; document.body.appendChild(el); } catch(e){} }
 setTimeout(cU, 5000); setInterval(cU, 300000);
