@@ -3,17 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v12.0-all-features">
+<meta name="tool-version" content="v13.0-full">
 <meta name="theme-color" content="#00e5c7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Ductri Tool">
 <title>Tool by ductri705</title>
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" sizes="180x180" href="https://emojicdn.elk.sh/⚡?style=apple">
-<link rel="icon" type="image/png" sizes="192x192" href="https://emojicdn.elk.sh/⚡?style=apple">
+<link rel="apple-touch-icon" href="https://emojicdn.elk.sh/⚡?style=apple">
+<link rel="icon" href="https://emojicdn.elk.sh/⚡?style=apple">
 <link rel="preconnect" href="https://wkddmlxhqyvhxznycpgs.supabase.co" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <style>
 :root{--bg:#0f1419;--bg2:#161d24;--bg3:#0a0e12;--bd:#1f2a33;--tx:#e6f4ff;--tx2:#8fa8b8;--tx3:#5a7080;--acc:#00e5c7;--acc2:#06b6d4;--acc3:#a855f7;--gold:#ffd700;--gr:#22d3a8;--rd:#ff5c8a;--r:14px}
 [data-theme=light]{--bg:#f0faf8;--bg2:#e0f5f0;--bg3:#fff;--bd:#c7e0da;--tx:#0f1f1c;--tx2:#4a6560;--tx3:#7a9390;--acc:#0891b2;--acc2:#06b6d4;--acc3:#7c3aed;--gold:#d97706;--gr:#059669;--rd:#dc2626}
@@ -24,8 +22,7 @@ body{min-height:100vh;background:radial-gradient(circle at top,#1a2e2a,#0a0e12 7
 header{text-align:center;margin-bottom:16px;position:relative}
 header::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:60px;height:2px;background:linear-gradient(90deg,transparent,#00e5c7,#a855f7,#ffd700,transparent);border-radius:2px;animation:gradientShift 3s ease infinite;background-size:200% auto}
 h1{font-size:19px;font-weight:600;letter-spacing:2px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(90deg,#00e5c7,#a855f7,#06b6d4,#00e5c7);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradientShift 4s ease infinite}
-h1 svg{flex-shrink:0;transition:transform .5s cubic-bezier(.2,.9,.4,1.4);animation:logoPulse 2s ease-in-out infinite,logoFloat 3s ease-in-out infinite}
-h1:hover svg{transform:rotate(15deg) scale(1.2)}
+h1 svg{flex-shrink:0;animation:logoPulse 2s ease-in-out infinite,logoFloat 3s ease-in-out infinite}
 header p{font-size:12px;color:var(--tx3);margin-top:4px}
 .c{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:all .3s}
 .c:hover{box-shadow:0 6px 24px rgba(0,229,199,.1)}
@@ -36,7 +33,7 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .b:active{transform:translateY(0) scale(.97)}
 .b:disabled{opacity:.5;cursor:wait}
 .bs{background:transparent;border:1px solid var(--bd);color:var(--tx2);margin-top:6px;width:100%;padding:11px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .3s}
-.bs:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-1px);box-shadow:0 0 12px rgba(0,229,199,.2)}
+.bs:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-1px)}
 .bg{background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12}
 .bb{background:linear-gradient(135deg,#00e5c7,#06b6d4);color:#0a0e12}
 .bp{background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff}
@@ -54,35 +51,36 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .gl.a{background:linear-gradient(90deg,#2a1015,var(--bg2));border-left-color:var(--rd);animation:pulseGlow 2s infinite}
 .gl strong{color:var(--acc)}.gl.a strong{color:var(--gold)}
 .cdn{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--gold);margin-top:4px;letter-spacing:2px}
-.tg{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;font-size:11px;color:var(--tx2);cursor:pointer}
+.tg,.notif-toggle{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;font-size:11px;color:var(--tx2);cursor:pointer}
 .tg input,.notif-toggle input{width:auto;margin:0}
-.up{border:2px dashed var(--bd);border-radius:var(--r);padding:22px;text-align:center;cursor:pointer;transition:all .3s ease;position:relative;display:block;overflow:hidden}
-.up:hover,.up.dg{border-color:var(--acc);background:var(--bg2);transform:scale(1.01);box-shadow:0 0 30px rgba(0,229,199,.15)}
+.notif-warn{background:rgba(255,215,0,.1);border:1px solid var(--gold);color:var(--gold);padding:8px 10px;border-radius:8px;font-size:11px;margin-top:8px;text-align:center;display:none}
+.notif-warn.show{display:block}
+.up{border:2px dashed var(--bd);border-radius:var(--r);padding:22px;text-align:center;cursor:pointer;transition:all .3s;position:relative;display:block;overflow:hidden}
+.up:hover,.up.dg{border-color:var(--acc);background:var(--bg2);transform:scale(1.01)}
 .up input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;margin:0}
-.up .ic{font-size:30px;margin-bottom:6px;pointer-events:none;transition:transform .3s}
-.up:hover .ic{animation:iconBounce .8s ease infinite}
+.up .ic{font-size:30px;margin-bottom:6px;pointer-events:none}
 .up .tx{font-size:13px;color:var(--tx2);pointer-events:none}
 .up .tx b{color:var(--acc)}
-.fi{display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px 12px;background:rgba(0,229,199,.08);border:1px solid var(--acc);border-radius:9px;font-size:12px;color:var(--tx2);animation:dropIn .5s cubic-bezier(.2,.9,.4,1.4)}
+.fi{display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px 12px;background:rgba(0,229,199,.08);border:1px solid var(--acc);border-radius:9px;font-size:12px;color:var(--tx2)}
 .fi .fn{flex:1;color:var(--acc);font-weight:600;word-break:break-all}
 .fi .fs{color:var(--tx3);font-size:11px;white-space:nowrap}
 .tb{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
-.tbb{flex:1;min-width:58px;padding:8px 4px;text-align:center;background:var(--bg2);border:1px solid var(--bd);border-radius:9px;font-size:11px;color:var(--tx2);cursor:pointer;user-select:none;transition:all .3s cubic-bezier(.2,.9,.4,1.2);position:relative;overflow:hidden}
+.tbb{flex:1;min-width:58px;padding:8px 4px;text-align:center;background:var(--bg2);border:1px solid var(--bd);border-radius:9px;font-size:11px;color:var(--tx2);cursor:pointer;user-select:none;transition:all .3s}
 .tbb.a{background:rgba(0,229,199,.12);color:var(--acc);border-color:var(--acc);box-shadow:0 0 12px rgba(0,229,199,.4)}
-.tbb.g.a{background:rgba(255,215,0,.1);color:var(--gold);border-color:var(--gold);box-shadow:0 0 12px rgba(255,215,0,.4)}
-.tbb:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,229,199,.2)}
+.tbb.g.a{background:rgba(255,215,0,.1);color:var(--gold);border-color:var(--gold)}
+.tbb:hover{transform:translateY(-2px)}
 .sts{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:6px}
-.stt{background:var(--bg2);border-radius:10px;padding:8px 4px;text-align:center;transition:all .3s;border:1px solid transparent;animation:fadeSlideUp .5s ease backwards}
-.stt:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,229,199,.15);border-color:rgba(0,229,199,.3)}
+.stt{background:var(--bg2);border-radius:10px;padding:8px 4px;text-align:center;transition:all .3s;border:1px solid transparent}
+.stt:hover{transform:translateY(-3px);border-color:rgba(0,229,199,.3)}
 .stt .n{font-size:14px;font-weight:600;color:var(--acc);font-variant-numeric:tabular-nums}
 .stt .l{font-size:9px;color:var(--tx3);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
 .stt.g .n{color:var(--gr)}.stt.o .n{color:var(--gold)}.stt.p .n{color:var(--acc3)}.stt.r .n{color:var(--rd)}
-.cb{margin-top:12px;padding:12px;border-radius:var(--r);background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);transition:all .3s;animation:fadeSlideUp .5s ease backwards}
-.cb:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,229,199,.15)}
+.cb{margin-top:12px;padding:12px;border-radius:var(--r);background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);transition:all .3s}
+.cb:hover{transform:translateY(-3px)}
 .ct{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .ci{padding:9px;background:var(--bg3);border-radius:7px;text-align:center;transition:all .3s}
-.ci:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,229,199,.15)}
+.ci:hover{transform:translateY(-2px)}
 .ci .v{font-size:15px;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums}
 .ci .l{font-size:10px;color:var(--tx3);margin-top:3px}
 .cdf{margin-top:8px;padding:9px;border-radius:7px;text-align:center;font-size:12px;font-weight:600}
@@ -94,30 +92,29 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .fb{display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap}
 .fbt{flex:1;min-width:55px;padding:7px;text-align:center;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;font-size:11px;color:var(--tx2);cursor:pointer;transition:all .3s}
 .fbt.a{background:rgba(0,229,199,.12);color:var(--acc);border-color:var(--acc)}
-.fbt:hover{color:var(--acc);border-color:var(--acc);transform:translateY(-2px)}
-.ch{position:relative;height:300px;animation:fadeSlideUp .6s ease backwards .1s}
-canvas{animation:zoomIn .5s ease backwards .2s}
+.fbt:hover{color:var(--acc);border-color:var(--acc)}
+.ch{position:relative;height:300px}
 .ctr{display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
 .cbtn{padding:6px 11px;background:var(--bg2);border:1px solid var(--bd);color:var(--tx2);border-radius:8px;font-size:12px;cursor:pointer;transition:all .3s;font-family:inherit}
 .cbtn.a{background:rgba(0,229,199,.12);color:var(--acc);border-color:var(--acc)}
-.cbtn:hover{color:var(--acc);border-color:var(--acc);transform:translateY(-2px)}
+.cbtn:hover{color:var(--acc);border-color:var(--acc)}
 .sr{flex:1;min-width:110px;padding:7px 11px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;color:var(--tx);font-size:12px;outline:none;margin:0}
-.tv{display:flex;align-items:center;gap:11px;padding:12px;background:var(--bg2);border-radius:11px;margin-bottom:8px;position:relative;overflow:hidden;transition:all .3s;border:1px solid var(--bd);animation:fadeSlideLeft .4s ease backwards}
-.tv:hover{transform:translateX(6px) scale(1.01);box-shadow:0 6px 20px rgba(0,229,199,.15);border-color:var(--acc)}
+.tv{display:flex;align-items:center;gap:11px;padding:12px;background:var(--bg2);border-radius:11px;margin-bottom:8px;position:relative;overflow:hidden;border:1px solid var(--bd);transition:all .3s}
+.tv:hover{transform:translateX(6px);border-color:var(--acc)}
 .tv.r1{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,215,0,.08),var(--bg2))}
 .tv.r2{border-color:#c0c0c0}.tv.r3{border-color:#cd7f32}
 .tvr{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;background:var(--bg3);color:var(--tx3);border:2px solid var(--bd)}
-.tv.r1 .tvr{background:linear-gradient(135deg,#ffd700,#ff9500);color:#0a0e12;border-color:#ffd700;font-size:18px}
-.tv.r2 .tvr{background:linear-gradient(135deg,#e0e0e0,#a0a0a0);color:#0a0e12;border-color:#c0c0c0;font-size:16px}
-.tv.r3 .tvr{background:linear-gradient(135deg,#cd7f32,#8b4513);color:#fff;border-color:#cd7f32;font-size:16px}
+.tv.r1 .tvr{background:linear-gradient(135deg,#ffd700,#ff9500);color:#0a0e12;border-color:#ffd700}
+.tv.r2 .tvr{background:linear-gradient(135deg,#e0e0e0,#a0a0a0);color:#0a0e12}
+.tv.r3 .tvr{background:linear-gradient(135deg,#cd7f32,#8b4513);color:#fff}
 .tvi{flex:1;min-width:0}
 .tvd{font-size:13px;color:var(--tx);font-weight:600;margin-bottom:4px}
 .tvm{display:flex;gap:8px;font-size:11px;color:var(--tx2);flex-wrap:wrap;align-items:center}
 .tvv{font-size:14px;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums}
 .tvp{font-size:10px;padding:2px 6px;border-radius:5px;font-weight:700}
 .tvp.u{background:rgba(34,211,168,.2);color:var(--gr)}.tvp.d{background:rgba(255,92,138,.2);color:var(--rd)}
-.tvb{position:absolute;left:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--acc),var(--gr));transition:width .8s cubic-bezier(.2,.9,.4,1)}
-.tvc{position:absolute;top:6px;right:6px;font-size:16px;animation:iconBounce 2s ease infinite}
+.tvb{position:absolute;left:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--acc),var(--gr));transition:width .8s}
+.tvc{position:absolute;top:6px;right:6px;font-size:16px}
 .dt-wrap{max-height:400px;overflow-y:auto;border:1px solid var(--bd);border-radius:9px;margin-top:10px}
 .dt-tbl{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums}
 .dt-tbl th{position:sticky;top:0;background:var(--bg3);color:var(--acc);padding:8px 4px;font-weight:600;text-align:right;border-bottom:1px solid var(--bd);font-size:10px;text-transform:uppercase}
@@ -127,8 +124,8 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .dt-tbl td:first-child{text-align:left;color:var(--tx);font-weight:500}
 .gh-chart{height:180px;position:relative;margin:10px 0}
 .gh-bar{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;height:100%;align-items:end}
-.gh-b{background:linear-gradient(180deg,var(--acc),var(--acc2));border-radius:3px 3px 0 0;min-height:3px;transition:all .3s;cursor:pointer}
-.gh-b.top{background:linear-gradient(180deg,var(--gold),#ff9500);box-shadow:0 0 8px rgba(255,215,0,.5)}
+.gh-b{background:linear-gradient(180deg,var(--acc),var(--acc2));border-radius:3px 3px 0 0;min-height:3px}
+.gh-b.top{background:linear-gradient(180deg,var(--gold),#ff9500)}
 .gh-lbl{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;font-size:8px;color:var(--tx3);text-align:center;margin-top:3px}
 .gh-lbl span:nth-child(odd){opacity:0}
 .gh-list{margin-top:10px}
@@ -137,7 +134,7 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .gh-row .r-h{color:var(--acc);font-weight:600;width:60px}
 .gh-row .r-v{color:var(--tx);font-weight:600;flex:1;text-align:right}
 .gh-row .r-p{color:var(--gr);font-size:10px;margin-left:8px;width:45px;text-align:right}
-.au{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:12px;margin-bottom:8px;animation:fadeSlideRight .35s ease backwards}
+.au{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:12px;margin-bottom:8px}
 .au.bn{border-color:var(--rd);background:rgba(255,92,138,.08)}
 .au.ia{border-color:var(--gold);background:rgba(255,215,0,.05)}
 .au .h{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px;flex-wrap:wrap}
@@ -148,11 +145,10 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .au .nf{font-size:11px;color:var(--tx3);margin-bottom:8px}
 .au .crl{font-size:12px;color:var(--gold);font-weight:600;margin-bottom:8px}
 .au .ac{display:flex;gap:5px;flex-wrap:wrap}
-.abd{flex:1;min-width:50px;padding:7px;border-radius:8px;border:1px solid var(--bd);background:0;color:var(--tx2);font-size:11px;cursor:pointer;font-weight:600;transition:all .3s;font-family:inherit}
-.abd.bn{border-color:var(--rd);color:var(--rd)}
+.abd{flex:1;min-width:50px;padding:7px;border-radius:8px;border:1px solid var(--bd);background:0;color:var(--tx2);font-size:11px;cursor:pointer;font-weight:600;font-family:inherit}
+.abd.bn,.abd.dm,.abd.dl{border-color:var(--rd);color:var(--rd)}
 .abd.ub{border-color:var(--gr);color:var(--gr)}
 .abd.cr,.abd.pr{border-color:var(--gold);color:var(--gold)}
-.abd.dm,.abd.dl{border-color:var(--rd);color:var(--rd)}
 .ahd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .at{color:var(--gold);font-weight:600;font-size:14px}
 .arf{background:0;border:1px solid var(--bd);color:var(--tx2);padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
@@ -171,13 +167,13 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .stp{background:var(--bg3);border-radius:9px;padding:9px 13px;margin-bottom:6px;font-size:12px;color:var(--tx2);line-height:1.5;border-left:3px solid var(--acc)}
 .stp b{color:var(--gold)}
 .mbt{width:100%;padding:11px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#0a0e12;border:0;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:14px;font-family:inherit}
-.dt-toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),#ffae00);color:#0a0e12;padding:12px 22px;border-radius:var(--r);font-size:14px;font-weight:700;text-align:center;box-shadow:0 8px 30px rgba(255,215,0,.5);z-index:9998;max-width:90vw}
+.dt-toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),#ffae00);color:#0a0e12;padding:12px 22px;border-radius:var(--r);font-size:14px;font-weight:700;text-align:center;z-index:9998;max-width:90vw}
 .mbn{padding:14px;border-radius:var(--r);background:linear-gradient(135deg,rgba(255,215,0,.08),var(--bg2));border:1px solid var(--gold);text-align:center;margin-bottom:14px}
 .mbn .t{color:var(--gold);font-weight:700;font-size:15px;margin-bottom:5px}
 .mbn .d{color:var(--tx2);font-size:12px;line-height:1.5}
 .pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:14px}
 .pc{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:var(--r);padding:12px;text-align:center;cursor:pointer;transition:all .3s}
-.pc:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 12px 30px rgba(255,215,0,.2)}
+.pc:hover{border-color:var(--gold);transform:translateY(-4px)}
 .pc .p{font-size:15px;font-weight:700;color:var(--gold);margin-bottom:3px}
 .pc .x{font-size:12px;color:var(--gr);font-weight:600}
 .pc .a{font-size:10px;color:var(--tx3);margin:3px 0}
@@ -188,15 +184,14 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .bi .k{color:var(--tx2)}.bi .v{color:var(--acc);font-weight:700}
 .cp{background:0;border:1px solid var(--acc);color:var(--acc);padding:3px 7px;border-radius:5px;font-size:10px;cursor:pointer;margin-left:6px}
 .tbtn{position:fixed;top:calc(14px + env(safe-area-inset-top));width:38px;height:38px;border-radius:50%;background:var(--bg);border:1px solid var(--bd);color:var(--tx);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;transition:all .4s}
-.tbtn:hover{transform:scale(1.15);box-shadow:0 0 25px var(--acc);border-color:var(--acc)}
+.tbtn:hover{transform:scale(1.15);border-color:var(--acc)}
 #tbtn{right:14px}
 #cbtn{right:60px}
 #sShotBtn{right:106px;font-size:15px}
-.color-picker{position:fixed;top:calc(60px + env(safe-area-inset-top));right:14px;z-index:100;background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:10px;display:none;gap:8px;flex-wrap:wrap;max-width:200px;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.color-picker{position:fixed;top:calc(60px + env(safe-area-inset-top));right:14px;z-index:100;background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:10px;display:none;gap:8px;flex-wrap:wrap;max-width:200px}
 .color-picker.open{display:flex}
 .color-dot{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .3s}
-.color-dot:hover{transform:scale(1.15)}
-.color-dot.active{border-color:#fff;box-shadow:0 0 14px currentColor;transform:scale(1.1)}
+.color-dot.active{border-color:#fff;box-shadow:0 0 14px currentColor}
 .ch-card{padding:14px;background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:12px;margin-bottom:12px}
 .ch-h{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 .ch-av{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc3));display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#0a0e12;flex-shrink:0}
@@ -207,18 +202,18 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .ch-s2 .cn{font-size:15px;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums}
 .ch-s2 .cl{font-size:10px;color:var(--tx3);margin-top:3px;text-transform:uppercase}
 .gh-in{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.gh-t{padding:6px 11px;background:var(--bg2);border:1px solid var(--bd);border-radius:20px;font-size:12px;color:var(--acc);cursor:pointer;transition:all .3s}
-.gh-t.on{background:var(--gold);color:var(--bg3);border-color:var(--gold);font-weight:700;box-shadow:0 0 15px rgba(255,215,0,.4)}
+.gh-t{padding:6px 11px;background:var(--bg2);border:1px solid var(--bd);border-radius:20px;font-size:12px;color:var(--acc);cursor:pointer}
+.gh-t.on{background:var(--gold);color:var(--bg3);border-color:var(--gold);font-weight:700}
 .det{background:var(--bg2);border:1px solid var(--bd);border-radius:9px;padding:11px;font-size:12px;color:var(--tx2);line-height:1.6;margin-bottom:10px}
 .save-status{font-size:11px;text-align:right;color:var(--tx3);margin-top:-4px;margin-bottom:6px;min-height:14px}
 .save-status.ok{color:var(--gr)}.save-status.err{color:var(--rd)}
 .an-score{text-align:center;padding:18px;background:linear-gradient(135deg,var(--bg2),var(--bg));border-radius:14px;border:2px solid var(--bd);margin-bottom:12px}
-.an-grade{font-size:56px;font-weight:800;line-height:1;margin-bottom:6px;text-shadow:0 0 20px currentColor}
+.an-grade{font-size:56px;font-weight:800;line-height:1;margin-bottom:6px}
 .an-grade.A{color:#22d3a8}.an-grade.B{color:#00e5c7}.an-grade.C{color:#ffd700}.an-grade.D{color:#ff9500}.an-grade.F{color:#ff5c8a}
 .an-score-num{font-size:14px;color:var(--tx2)}
 .an-score-num b{color:var(--acc);font-size:18px}
-.an-sec{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:10px;animation:fadeSlideUp .5s ease backwards;transition:all .3s}
-.an-sec:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,229,199,.15)}
+.an-sec{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:10px;transition:all .3s}
+.an-sec:hover{transform:translateY(-3px)}
 .an-sec h3{font-size:13px;color:var(--acc);margin-bottom:10px;font-weight:600}
 .an-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:12px}
 .an-row .an-lbl{width:90px;color:var(--tx2);flex-shrink:0}
@@ -330,10 +325,9 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .lock-title{font-size:18px;font-weight:800;color:var(--gold);margin-bottom:8px}
 .lock-sub{font-size:13px;color:var(--tx2);margin-bottom:20px;line-height:1.6}
 .lock-sub b{color:var(--acc)}
-.lock-input{width:100%;max-width:300px;padding:12px 16px;background:var(--bg3);border:2px solid var(--bd);border-radius:10px;color:var(--tx);font-size:14px;font-weight:600;letter-spacing:2px;text-align:center;text-transform:uppercase;outline:none;margin-bottom:12px;font-family:inherit;transition:all .3s}
-.lock-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,.3)}
-.lock-btn{padding:12px 28px;background:linear-gradient(135deg,#ffd700,#ff9500);color:#0a0e12;border:0;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .3s}
-.lock-btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(255,215,0,.5)}
+.lock-input{width:100%;max-width:300px;padding:12px 16px;background:var(--bg3);border:2px solid var(--bd);border-radius:10px;color:var(--tx);font-size:14px;font-weight:600;letter-spacing:2px;text-align:center;text-transform:uppercase;outline:none;margin-bottom:12px;font-family:inherit}
+.lock-input:focus{border-color:var(--gold)}
+.lock-btn{padding:12px 28px;background:linear-gradient(135deg,#ffd700,#ff9500);color:#0a0e12;border:0;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
 .lock-msg{margin-top:12px;font-size:12px;min-height:16px;font-weight:600}
 .lock-msg.ok{color:var(--gr)}.lock-msg.err{color:var(--rd)}
 .lock-price{margin-top:16px;padding:12px;background:var(--bg3);border-radius:10px;font-size:12px;color:var(--tx2);line-height:1.7}
@@ -348,28 +342,25 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .key-item .k-status.expired{background:rgba(255,92,138,.15);color:#ff5c8a}
 .k-copy{background:0;border:0;color:var(--acc);cursor:pointer;font-size:15px;padding:4px 8px;margin-left:auto}
 .k-del{background:0;border:0;color:var(--rd);cursor:pointer;font-size:14px;padding:4px}
-.unlock-loading{position:fixed;inset:0;background:radial-gradient(circle at center,#0a1a1e 0%,#05090b 80%);z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px;overflow:hidden}
+.unlock-loading{position:fixed;inset:0;background:radial-gradient(circle at center,#0a1a1e 0%,#05090b 80%);z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px}
 .unlock-circle-wrap{position:relative;width:180px;height:180px;margin-bottom:28px;display:flex;align-items:center;justify-content:center}
 .unlock-circle-svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
 .unlock-circle-bg{fill:none;stroke:rgba(0,229,199,.1);stroke-width:5}
-.unlock-circle-progress{fill:none;stroke:url(#unlockGradient2);stroke-width:5;stroke-linecap:round;stroke-dasharray:502;stroke-dashoffset:502;transition:stroke-dashoffset .3s linear;filter:drop-shadow(0 0 8px #00e5c7)}
+.unlock-circle-progress{fill:none;stroke:url(#unlockGradient2);stroke-width:5;stroke-linecap:round;stroke-dasharray:502;stroke-dashoffset:502;transition:stroke-dashoffset .3s linear}
 .unlock-lock-icon{position:relative;z-index:2;font-size:64px;line-height:1;transition:all .4s}
-.unlock-percent{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:34px;font-weight:800;color:#00e5c7;font-variant-numeric:tabular-nums;text-shadow:0 0 20px rgba(0,229,199,.7);z-index:1}
+.unlock-percent{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:34px;font-weight:800;color:#00e5c7;z-index:1}
 .unlock-percent.hide{opacity:0}
 .unlock-loading-text{font-size:16px;font-weight:700;color:#ffd700;letter-spacing:2px;margin-bottom:10px;text-align:center}
 .unlock-loading-sub{font-size:12.5px;color:#8fa8b8;text-align:center;min-height:20px;max-width:320px;line-height:1.6}
 .unlock-progress-line{width:280px;max-width:80vw;height:3px;background:rgba(0,229,199,.15);border-radius:2px;overflow:hidden;margin-top:24px}
 .unlock-progress-fill{height:100%;background:linear-gradient(90deg,#00e5c7,#a855f7,#ffd700);border-radius:2px;width:0;transition:width .3s linear}
 .unlock-loading.fade-out{opacity:0;transition:opacity .6s}
-/* NEW FEATURES */
-.notif-toggle{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11px;color:var(--tx2);cursor:pointer}
-.notif-warn{background:rgba(255,215,0,.1);border:1px solid var(--gold);color:var(--gold);padding:8px 10px;border-radius:8px;font-size:11px;margin-top:8px;text-align:center;display:none}
-.notif-warn.show{display:block}
+/* COUNTDOWN */
 .cd-box{margin-top:12px;padding:14px;background:linear-gradient(135deg,rgba(255,215,0,.1),var(--bg2));border:1px solid var(--gold);border-radius:12px;text-align:center;transition:all .4s}
 .cd-box.in-golden{border-color:var(--rd);background:linear-gradient(135deg,rgba(255,92,138,.15),var(--bg2));animation:pulseGlow 2s infinite}
 .cd-lbl{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
-.cd-time{font-size:28px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:3px;text-shadow:0 0 15px rgba(255,215,0,.5);line-height:1}
-.cd-box.in-golden .cd-time{color:var(--rd);text-shadow:0 0 20px rgba(255,92,138,.6)}
+.cd-time{font-size:28px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:3px;line-height:1}
+.cd-box.in-golden .cd-time{color:var(--rd)}
 .cd-next{font-size:11px;color:var(--tx2);margin-top:6px}
 .streak-box{display:flex;gap:12px;align-items:center;padding:14px;background:linear-gradient(135deg,rgba(255,215,0,.1),var(--bg2));border:1px solid var(--gold);border-radius:12px;margin-top:14px}
 .streak-fire{font-size:40px;animation:heartbeat 1.5s infinite}
@@ -378,10 +369,10 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .streak-lbl{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
 .heatmap-wrap{overflow-x:auto;padding:8px 0}
 .heatmap{display:grid;grid-template-rows:repeat(7,14px);grid-auto-flow:column;gap:3px;min-width:fit-content}
-.hm-cell{width:14px;height:14px;border-radius:3px;background:var(--bg3);cursor:pointer;transition:transform .2s,box-shadow .2s}
-.hm-cell:hover{transform:scale(1.4);z-index:5;box-shadow:0 0 10px currentColor}
+.hm-cell{width:14px;height:14px;border-radius:3px;background:var(--bg3);cursor:pointer;transition:transform .2s}
+.hm-cell:hover{transform:scale(1.4);z-index:5}
 .hm-cell.l1{background:#0e4429}.hm-cell.l2{background:#006d32}.hm-cell.l3{background:#26a641}.hm-cell.l4{background:#39d353}
-.hm-cell.l5{background:#ffd700;box-shadow:0 0 6px rgba(255,215,0,.5)}
+.hm-cell.l5{background:#ffd700}
 .hm-cell.today{outline:2px solid var(--acc);outline-offset:1px}
 .hm-legend{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--tx3);margin-top:10px;justify-content:flex-end}
 .hm-legend .hm-cell{width:10px;height:10px}
@@ -395,8 +386,7 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .anomaly.spike .a-val{color:#22d3a8}
 .anomaly.drop .a-val{color:#ff5c8a}
 .funnel{display:flex;flex-direction:column;gap:6px;margin-top:8px}
-.funnel-step{padding:12px;border-radius:10px;text-align:center;color:#fff;font-weight:700;font-size:13px;transition:all .3s}
-.funnel-step:hover{transform:scale(1.02)}
+.funnel-step{padding:12px;border-radius:10px;text-align:center;color:#fff;font-weight:700;font-size:13px}
 .funnel-step small{display:block;font-weight:400;font-size:10px;opacity:.85;margin-top:3px}
 .ach-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .ach-sum-box{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:12px;padding:12px 8px;text-align:center}
@@ -408,7 +398,7 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .ach-card{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:14px;padding:14px 10px;text-align:center;position:relative;overflow:hidden;transition:all .4s}
 .ach-card.unlocked{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,215,0,.1),var(--bg2))}
 .ach-card.locked{opacity:.55;filter:grayscale(.5)}
-.ach-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 12px 30px rgba(255,215,0,.2)}
+.ach-card:hover{transform:translateY(-4px)}
 .ach-icon{font-size:34px;display:block;margin-bottom:6px;line-height:1}
 .ach-card.locked .ach-icon{filter:grayscale(1) blur(1px)}
 .ach-name{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:4px;line-height:1.3}
@@ -418,7 +408,7 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .ach-prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--gold));border-radius:2px;transition:width 1s}
 .ach-badge{position:absolute;top:6px;right:6px;font-size:14px}
 .cmp-presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.cmp-pre{padding:7px 12px;background:var(--bg2);border:1px solid var(--bd);color:var(--tx2);border-radius:20px;font-size:11px;cursor:pointer;transition:all .3s;font-family:inherit}
+.cmp-pre{padding:7px 12px;background:var(--bg2);border:1px solid var(--bd);color:var(--tx2);border-radius:20px;font-size:11px;cursor:pointer;font-family:inherit}
 .cmp-pre:hover{color:var(--acc);border-color:var(--acc)}
 .cmp-pre.a{background:rgba(0,229,199,.15);color:var(--acc);border-color:var(--acc);font-weight:600}
 .cmp-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
@@ -450,9 +440,9 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .suggest-tag.try{background:rgba(255,215,0,.2);color:var(--gold)}
 .suggest-tag.keep{background:rgba(0,229,199,.2);color:var(--acc)}
 .cap-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-.cap-tab{flex:1;min-width:75px;padding:9px 6px;text-align:center;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;font-size:12px;color:var(--tx2);cursor:pointer;transition:all .3s;font-family:inherit}
+.cap-tab{flex:1;min-width:75px;padding:9px 6px;text-align:center;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;font-size:12px;color:var(--tx2);cursor:pointer;font-family:inherit}
 .cap-tab.a{background:rgba(0,229,199,.12);color:var(--acc);border-color:var(--acc);font-weight:600}
-.cap-tab:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-2px)}
+.cap-tab:hover{border-color:var(--acc);color:var(--acc)}
 .cap-item{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:8px;transition:all .3s}
 .cap-item:hover{border-color:var(--acc);transform:translateX(4px)}
 .cap-item .cap-txt{font-size:13px;color:var(--tx);line-height:1.55;word-break:break-word;white-space:pre-wrap;margin-bottom:8px}
@@ -471,26 +461,90 @@ canvas{animation:zoomIn .5s ease backwards .2s}
 .idea-cat{font-size:10px;color:var(--acc3);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;font-weight:700}
 .idea-txt{font-size:15px;color:var(--tx);line-height:1.65;font-weight:500;padding:0 8px}
 .idea-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
-.chk-item{display:flex;align-items:center;gap:10px;padding:11px 13px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:6px;cursor:pointer;transition:all .3s;user-select:none}
+.chk-item{display:flex;align-items:center;gap:10px;padding:11px 13px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:6px;cursor:pointer;user-select:none;transition:all .3s}
 .chk-item:hover{border-color:var(--acc);transform:translateX(3px)}
 .chk-item.done{background:rgba(34,211,168,.1);border-color:var(--gr);opacity:.75}
 .chk-item.done .chk-txt{text-decoration:line-through;color:var(--tx3)}
-.chk-box{width:20px;height:20px;border-radius:6px;border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-size:12px;color:transparent}
+.chk-box{width:20px;height:20px;border-radius:6px;border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:transparent}
 .chk-item.done .chk-box{background:var(--gr);border-color:var(--gr);color:#0a0e12}
 .chk-txt{font-size:13px;color:var(--tx);flex:1;line-height:1.4}
 .chk-prog{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-bottom:12px}
 .chk-prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--gr));border-radius:3px;transition:width .5s}
+/* LINK TREND */
+.lnk-input-wrap{display:flex;gap:6px;margin-bottom:12px}
+.lnk-input-wrap input{margin:0;flex:1;font-size:12px;padding:10px 12px}
+.lnk-btn{padding:0 16px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#0a0e12;border:0;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .3s}
+.lnk-btn:hover{transform:translateY(-2px)}
+.lnk-btn:disabled{opacity:.5;cursor:wait}
+.lnk-card{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start}
+.lnk-thumb{width:90px;height:120px;border-radius:10px;background:var(--bg3);flex-shrink:0;object-fit:cover;border:1px solid var(--bd)}
+.lnk-info{flex:1;min-width:0}
+.lnk-title{font-size:13px;font-weight:600;color:var(--tx);line-height:1.4;margin-bottom:6px;word-break:break-word}
+.lnk-author{font-size:11px;color:var(--acc);margin-bottom:4px}
+.lnk-time{font-size:10px;color:var(--tx3)}
+.lnk-hash{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.lnk-hash span{font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(168,85,247,.15);color:var(--acc3)}
+.trend-score{text-align:center;padding:22px 16px;background:linear-gradient(135deg,var(--bg2),var(--bg));border:2px solid var(--bd);border-radius:16px;margin-bottom:12px}
+.trend-score.s50{border-color:var(--gold)}
+.trend-score.s70{border-color:var(--acc)}
+.trend-score.s85{border-color:var(--gr)}
+.trend-score.s95{border-color:var(--gold);box-shadow:0 0 30px rgba(255,215,0,.3)}
+.trend-score-num{font-size:64px;font-weight:900;line-height:1;margin-bottom:6px}
+.trend-score-num.s50{color:var(--gold)}
+.trend-score-num.s70{color:var(--acc)}
+.trend-score-num.s85{color:var(--gr)}
+.trend-score-num.s95{background:linear-gradient(135deg,#ffd700,#ff9500);-webkit-background-clip:text;background-clip:text;color:transparent}
+.trend-score-lbl{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:4px}
+.trend-score-sub{font-size:11px;color:var(--tx2)}
+.trend-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.trend-metric{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:12px;padding:12px 10px;text-align:center}
+.trend-metric:hover{transform:translateY(-3px)}
+.trend-metric .tm-icon{font-size:18px;margin-bottom:4px}
+.trend-metric .tm-val{font-size:16px;font-weight:800;margin-bottom:2px;font-variant-numeric:tabular-nums}
+.trend-metric .tm-lbl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.trend-metric .tm-note{font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px;display:inline-block}
+.trend-metric.good .tm-val{color:var(--gr)}
+.trend-metric.good .tm-note{background:rgba(34,211,168,.2);color:var(--gr)}
+.trend-metric.mid .tm-val{color:var(--gold)}
+.trend-metric.mid .tm-note{background:rgba(255,215,0,.2);color:var(--gold)}
+.trend-metric.bad .tm-val{color:var(--rd)}
+.trend-metric.bad .tm-note{background:rgba(255,92,138,.2);color:var(--rd)}
+.trend-section{background:linear-gradient(135deg,var(--bg2),var(--bg));border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:10px}
+.trend-section h3{font-size:13px;color:var(--acc);margin-bottom:10px;font-weight:700}
+.trend-bar{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:12px}
+.trend-bar .tb-lbl{width:95px;color:var(--tx2);flex-shrink:0;font-size:11px}
+.trend-bar .tb-track{flex:1;height:10px;background:var(--bg3);border-radius:5px;overflow:hidden}
+.trend-bar .tb-fill{height:100%;border-radius:5px;transition:width 1s}
+.trend-bar .tb-fill.good{background:linear-gradient(90deg,#22d3a8,#16a34a)}
+.trend-bar .tb-fill.mid{background:linear-gradient(90deg,#ffd700,#ff9500)}
+.trend-bar .tb-fill.bad{background:linear-gradient(90deg,#ff5c8a,#dc2626)}
+.trend-bar .tb-val{width:70px;text-align:right;font-weight:700;font-size:12px;flex-shrink:0}
+.trend-bar .tb-val.good{color:var(--gr)}
+.trend-bar .tb-val.mid{color:var(--gold)}
+.trend-bar .tb-val.bad{color:var(--rd)}
+.trend-verdict{padding:14px;border-radius:12px;font-size:13px;line-height:1.6;margin-top:10px}
+.trend-verdict.viral{background:linear-gradient(135deg,rgba(255,215,0,.15),var(--bg2));border:2px solid var(--gold);color:var(--tx)}
+.trend-verdict.hot{background:linear-gradient(135deg,rgba(34,211,168,.15),var(--bg2));border:2px solid var(--gr);color:var(--tx)}
+.trend-verdict.normal{background:linear-gradient(135deg,rgba(0,229,199,.1),var(--bg2));border:2px solid var(--acc);color:var(--tx)}
+.trend-verdict.low{background:linear-gradient(135deg,rgba(255,92,138,.12),var(--bg2));border:2px solid var(--rd);color:var(--tx)}
+.lnk-hist-item{display:flex;gap:8px;align-items:center;padding:9px 11px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:6px;font-size:12px;transition:all .3s;cursor:pointer}
+.lnk-hist-item:hover{border-color:var(--acc);transform:translateX(3px)}
+.lnk-hist-item .hi-thumb{width:34px;height:44px;border-radius:6px;object-fit:cover;background:var(--bg3);flex-shrink:0}
+.lnk-hist-item .hi-info{flex:1;min-width:0}
+.lnk-hist-item .hi-title{font-size:11.5px;color:var(--tx);line-height:1.3;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lnk-hist-item .hi-stat{font-size:10px;color:var(--tx3)}
+.lnk-hist-item .hi-score{font-size:14px;font-weight:800;flex-shrink:0}
+.lnk-hist-item .hi-del{background:0;border:0;color:var(--rd);cursor:pointer;padding:4px;font-size:13px}
+.lnk-loading{text-align:center;padding:26px;color:var(--tx2);font-size:13px}
+.lnk-loading .spin{display:inline-block;width:24px;height:24px;border:3px solid var(--bd);border-top-color:var(--acc);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
 @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 @keyframes logoPulse{0%,100%{filter:drop-shadow(0 0 12px rgba(0,229,199,.6))}50%{filter:drop-shadow(0 0 24px rgba(0,229,199,1))}}
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px) rotate(5deg)}}
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(0,229,199,.4)}50%{box-shadow:0 0 0 10px rgba(0,229,199,0)}}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeSlideLeft{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
-@keyframes fadeSlideRight{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
 @keyframes zoomIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
-@keyframes numberPop{0%{transform:scale(1)}50%{transform:scale(1.15);color:#ffd700}100%{transform:scale(1)}}
-@keyframes iconBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes dropIn{0%{opacity:0;transform:translateY(-60px)}60%{opacity:1;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
 @keyframes heartbeat{0%,100%{transform:scale(1)}25%{transform:scale(1.15)}50%{transform:scale(1)}75%{transform:scale(1.1)}}
 @keyframes inputError{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 .input-error{animation:inputError .5s ease;border-color:var(--rd)!important}
@@ -506,7 +560,7 @@ html{scroll-behavior:smooth}
 <div class="w">
 <header>
 <h1>
-<svg viewBox="0 0 100 100" width="28" height="28"><defs><linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00e5c7"/><stop offset="50%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs><rect x="2" y="2" width="96" height="96" rx="24" fill="url(#brandGrad)"/><rect x="2" y="2" width="96" height="96" rx="24" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><path d="M56 12 L28 56 H46 L42 88 L72 42 H53 Z" fill="#0a0e12" stroke-linejoin="round"/></svg>
+<svg viewBox="0 0 100 100" width="28" height="28"><defs><linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00e5c7"/><stop offset="50%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs><rect x="2" y="2" width="96" height="96" rx="24" fill="url(#brandGrad)"/><path d="M56 12 L28 56 H46 L42 88 L72 42 H53 Z" fill="#0a0e12" stroke-linejoin="round"/></svg>
 TOOL BY DUCTRI705
 </h1>
 <p>Đồng hồ • Giờ vàng • Thống kê TikTok • Cloud</p>
@@ -565,6 +619,7 @@ TOOL BY DUCTRI705
 <div class="tbb" data-tab="an">🔍 Phân tích</div>
 <div class="tbb" data-tab="ch">Biểu đồ</div>
 <div class="tbb" data-tab="tp">Top viral</div>
+<div class="tbb" data-tab="lnk">🔗 Link</div>
 <div class="tbb" data-tab="hm">📅 Heatmap</div>
 <div class="tbb" data-tab="ac">🏅 Thành tích</div>
 <div class="tbb" data-tab="cp">📊 So sánh</div>
@@ -662,6 +717,24 @@ TOOL BY DUCTRI705
 <div id="tpLocked" class="hd"></div>
 </div>
 
+<div id="tb-lnk" class="tc hd">
+<div class="st2">🔗 PHÂN TÍCH XU HƯỚNG LINK VIDEO</div>
+<div class="nt" style="text-align:left;margin-bottom:10px;line-height:1.7">
+💡 Dán link TikTok → tool <b>tự động lấy số liệu</b> và tính <b>tỉ lệ xu hướng</b><br>
+<span style="font-size:10px;color:var(--tx3)">Không cần nhập tay, không cần upload file</span>
+</div>
+<div class="lnk-input-wrap">
+<input type="text" id="lnkInput" placeholder="https://www.tiktok.com/@user/video/...">
+<button class="lnk-btn" id="lnkFetch">🔍 Phân tích</button>
+</div>
+<div id="lnkResult"></div>
+<div class="st2" style="margin-top:18px;display:flex;justify-content:space-between;align-items:center">
+<span>📚 Lịch sử phân tích</span>
+<button class="cap-btn" id="lnkClear" style="display:none">🗑️ Xóa hết</button>
+</div>
+<div id="lnkHistoryList"></div>
+</div>
+
 <div id="tb-hm" class="tc hd">
 <div class="st2">📅 HOẠT ĐỘNG THEO NGÀY</div>
 <div class="heatmap-wrap"><div class="heatmap" id="hmGrid"></div></div>
@@ -679,7 +752,7 @@ TOOL BY DUCTRI705
 <div id="tb-cp" class="tc hd">
 <div class="st2">📊 SO SÁNH 2 KHOẢNG THỜI GIAN</div>
 <div class="cmp-presets">
-<button class="cmp-pre a" data-pre="7">Tuần này vs Tuần trước</button>
+<button class="cmp-pre a" data-pre="7">Tuần vs Tuần trước</button>
 <button class="cmp-pre" data-pre="30">Tháng vs Tháng trước</button>
 <button class="cmp-pre" data-pre="90">Quý vs Quý trước</button>
 </div>
@@ -699,7 +772,6 @@ TOOL BY DUCTRI705
 <div class="cap-tab" data-ctab="idea">💡 Ý tưởng</div>
 <div class="cap-tab" data-ctab="chk">📋 Checklist</div>
 </div>
-
 <div id="capLib">
 <div class="st2">📚 CAPTION & HASHTAG</div>
 <div style="display:flex;gap:6px;margin-bottom:10px">
@@ -712,7 +784,6 @@ TOOL BY DUCTRI705
 </div>
 <div id="capList"></div>
 </div>
-
 <div id="capIdea" class="hd">
 <div class="st2">💡 GENERATOR Ý TƯỞNG</div>
 <select id="ideaCat">
@@ -735,7 +806,6 @@ TOOL BY DUCTRI705
 </div>
 <button class="b bp" id="ideaSave" style="margin-top:8px">💾 Lưu vào thư viện</button>
 </div>
-
 <div id="capChk" class="hd">
 <div class="st2">📋 CHECKLIST TRƯỚC KHI ĐĂNG</div>
 <div class="chk-prog"><div class="chk-prog-fill" id="chkProg" style="width:0%"></div></div>
@@ -751,7 +821,6 @@ TOOL BY DUCTRI705
 <div class="ch-st"><div class="ch-s2"><div class="cn" id="chL">0</div><div class="cl">Tim</div></div><div class="ch-s2"><div class="cn" id="chFo">0</div><div class="cl">Follow</div></div></div>
 </div>
 <div class="st2">👀 Upload Viewers (tìm giờ vàng)</div>
-<div class="nt" style="text-align:left;margin-bottom:8px">Format: <b>hour,viewers</b></div>
 <label class="up"><input type="file" id="fViewers" accept="*/*,.csv,.txt,.json,.zip"><div class="ic">👀</div><div class="tx">Bấm chọn <b>file viewers</b></div></label>
 <div id="vStatus" style="margin-top:8px;font-size:12px;text-align:center"></div>
 <div id="ghAnalysis" class="hd" style="margin-top:14px">
@@ -876,12 +945,11 @@ TOOL BY DUCTRI705
   aB.addEventListener('click', window.__doAuth);
   window.showAuthToast = function(type, email){
     const old = document.getElementById('authToast'); if(old) old.remove();
-    const cfg = { welcome: { icon:'👋', color:'#00e5c7', title:'Chào mừng trở lại!', sub: email||'' }, login: { icon:'✅', color:'#22d3a8', title:'Đăng nhập thành công!', sub: email||'' }, register: { icon:'🎉', color:'#ffd700', title:'Đăng ký thành công!', sub:'+50 xu đã được cộng' } };
+    const cfg = { welcome: { icon:'👋', color:'#00e5c7', title:'Chào mừng!', sub: email||'' }, login: { icon:'✅', color:'#22d3a8', title:'Đăng nhập thành công!', sub: email||'' }, register: { icon:'🎉', color:'#ffd700', title:'Đăng ký thành công!', sub:'+50 xu đã được cộng' } };
     const c = cfg[type] || cfg.login;
-    const safe = String(c.sub).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
     const el = document.createElement('div'); el.id = 'authToast';
-    el.style.cssText = 'position:fixed;top:calc(20px + env(safe-area-inset-top));left:50%;transform:translateX(-50%) translateY(-300%) scale(.8);background:linear-gradient(135deg,'+c.color+'22,rgba(15,20,25,.96));backdrop-filter:blur(12px);border:2px solid '+c.color+';border-radius:16px;padding:16px 24px;z-index:99999;box-shadow:0 12px 40px '+c.color+'55;max-width:90vw;min-width:240px;text-align:center;font-family:inherit;transition:transform .5s cubic-bezier(.2,.9,.4,1.4),opacity .4s;pointer-events:none;opacity:0';
-    el.innerHTML = '<div style="font-size:36px;margin-bottom:6px;line-height:1">'+c.icon+'</div><div style="font-size:15px;font-weight:700;color:'+c.color+';margin-bottom:3px">'+c.title+'</div><div style="font-size:11px;color:#8fa8b8;word-break:break-all">'+safe+'</div>';
+    el.style.cssText = 'position:fixed;top:calc(20px + env(safe-area-inset-top));left:50%;transform:translateX(-50%) translateY(-300%) scale(.8);background:linear-gradient(135deg,'+c.color+'22,rgba(15,20,25,.96));border:2px solid '+c.color+';border-radius:16px;padding:16px 24px;z-index:99999;max-width:90vw;text-align:center;font-family:inherit;transition:transform .5s cubic-bezier(.2,.9,.4,1.4),opacity .4s;opacity:0';
+    el.innerHTML = '<div style="font-size:36px;margin-bottom:6px">'+c.icon+'</div><div style="font-size:15px;font-weight:700;color:'+c.color+';margin-bottom:3px">'+c.title+'</div><div style="font-size:11px;color:#8fa8b8;word-break:break-all">'+c.sub+'</div>';
     document.body.appendChild(el);
     requestAnimationFrame(() => { el.style.transform = 'translateX(-50%) translateY(0) scale(1)'; el.style.opacity = '1'; });
     setTimeout(() => { el.style.transform = 'translateX(-50%) translateY(-300%) scale(.8)'; el.style.opacity = '0'; setTimeout(() => el.remove(), 500); }, 3000);
@@ -1069,7 +1137,7 @@ function renderAnalysis(){
   const anos2 = renderAnomalies();
   if(anos2) html += `<div class="an-sec"><h3>🚨 Bất thường</h3>${anos2}</div>`;
   const sugs2 = renderSuggestions();
-  if(sugs2) html += `<div class="an-sec"><h3>🎯 Đề xuất thông minh</h3>${sugs2}</div>`;
+  if(sugs2) html += `<div class="an-sec"><h3>🎯 Đề xuất</h3>${sugs2}</div>`;
   const bestDay = top10[0]; const worstDay = [...rd].filter(d => d[1] > 0).sort((a,b) => a[1]-b[1])[0];
   html += `<div class="an-sec"><h3>🔎 Insight</h3><div class="an-tip">🎯 <b>Viral nhất:</b> ${esc(bestDay[0])} — ${fmtNum(bestDay[1])}<br>📉 <b>Ít nhất:</b> ${worstDay ? esc(worstDay[0]) + ' — ' + fmtNum(worstDay[1]) : '—'}<br>📊 <b>Chênh lệch:</b> ${worstDay && worstDay[1] > 0 ? (mxV / worstDay[1]).toFixed(1) + 'x' : '—'}<br>⭐ <b>TB:</b> ${fmtNum(avgV)} view/ngày<br>📅 <b>Tổng:</b> ${n} ngày</div></div>`;
   box.innerHTML = html;
@@ -1091,7 +1159,7 @@ document.getElementById('fContent').addEventListener('change', async function(e)
 function parseContentFile(txt){ txt = String(txt).replace(/^\uFEFF/, ''); const result = []; try{ const j = JSON.parse(txt); if(Array.isArray(j)){ j.forEach(x => { const v = { time: x.time ?? x.post_time ?? x.date ?? x[0] ?? '', link: x.link ?? x.url ?? x[1] ?? '', views: parseInt(x.views ?? x.v ?? x[2]) || 0, likes: parseInt(x.likes ?? x.l ?? x[3]) || 0, comments: parseInt(x.comments ?? x.c ?? x[4]) || 0, shares: parseInt(x.shares ?? x.s ?? x[5]) || 0, title: x.title ?? x.desc ?? x.caption ?? '' }; if(v.views || v.likes) result.push(v); }); if(result.length) return result; } } catch(e){} const lines = txt.split(/\r?\n/).filter(l => l.trim()); if(lines.length < 2) return result; const header = splitCSVLine(lines[0]).map(h => h.toLowerCase()); let colTime = -1, colLink = -1, colViews = -1, colLikes = -1, colComm = -1, colShare = -1, colTitle = -1; header.forEach((h,i) => { if(colTime < 0 && (h.includes('post time') || h.includes('thời gian') || h.includes('date') || h === 'time')) colTime = i; else if(colLink < 0 && (h.includes('link') || h.includes('url'))) colLink = i; else if(colViews < 0 && (h.includes('view') || h.includes('lượt xem'))) colViews = i; else if(colLikes < 0 && (h.includes('like') || h.includes('tim'))) colLikes = i; else if(colComm < 0 && (h.includes('comment') || h.includes('bình luận'))) colComm = i; else if(colShare < 0 && (h.includes('share') || h.includes('chia sẻ'))) colShare = i; else if(colTitle < 0 && (h.includes('title') || h.includes('caption') || h.includes('desc'))) colTitle = i; }); const hasHeader = colViews >= 0 || colLikes >= 0; const startIdx = hasHeader ? 1 : 0; if(!hasHeader){ colTime = 0; colLink = 1; colViews = 2; colLikes = 3; colComm = 4; colShare = 5; } for(let i = startIdx; i < lines.length; i++){ const p = splitCSVLine(lines[i]); if(p.length < 3) continue; const v = { time: colTime >= 0 ? p[colTime] : '', link: colLink >= 0 ? p[colLink] : '', views: parseInt(String(p[colViews] || 0).replace(/[^\d]/g, '')) || 0, likes: parseInt(String(p[colLikes] || 0).replace(/[^\d]/g, '')) || 0, comments: colComm >= 0 ? (parseInt(String(p[colComm] || 0).replace(/[^\d]/g, '')) || 0) : 0, shares: colShare >= 0 ? (parseInt(String(p[colShare] || 0).replace(/[^\d]/g, '')) || 0) : 0, title: colTitle >= 0 ? p[colTitle] : '' }; if(v.views || v.likes) result.push(v); } return result; }
 function renderContent(){ const el = document.getElementById('ctList'); if(!el) return; const v = cd.contentData || []; if(!v.length){ el.innerHTML = '<div class="nt">Chưa có dữ liệu</div>'; return; } const sorted = [...v].sort((a,b) => b.views - a.views); const top = sorted.slice(0, 10); const mx = top[0].views || 1; const totalV = v.reduce((a,x) => a + x.views, 0); const totalL = v.reduce((a,x) => a + x.likes, 0); const avgV = Math.round(totalV / v.length); let html = `<div class="cb" style="margin-bottom:12px"><div class="ct">📹 Tổng quan Content</div><div class="cg"><div class="ci"><div class="v">${v.length}</div><div class="l">Video</div></div><div class="ci"><div class="v">${fV(totalV)}</div><div class="l">Tổng view</div></div><div class="ci"><div class="v">${fV(totalL)}</div><div class="l">Tổng tim</div></div><div class="ci"><div class="v">${fV(avgV)}</div><div class="l">View TB</div></div></div></div><div class="st2">🏆 TOP 10 VIDEO</div>`; html += top.map((x, i) => { const bw = (x.views / mx * 100).toFixed(1); const date = (x.time || '').toString().slice(0, 16); const lbl = x.title ? esc(x.title).slice(0, 60) : (date || 'Video #' + (i+1)); const link = x.link ? `<a href="${esc(x.link)}" target="_blank" style="color:var(--acc);font-size:11px;text-decoration:none">🔗 Mở</a>` : ''; return `<div class="tv r${i+1}"><div class="tvr">${i<3?MED[i]:i+1}</div><div class="tvi"><div class="tvd">${lbl}</div><div class="tvm"><span class="tvv">${fV(x.views)} view</span><span>❤️ ${fV(x.likes)}</span><span>💬 ${fV(x.comments)}</span><span>🔁 ${fV(x.shares)}</span>${link}</div>${date ? `<div style="font-size:10px;color:var(--tx3);margin-top:3px">🕐 ${esc(date)}</div>` : ''}</div>${i===0?'<span class="tvc">👑</span>':''}<div class="tvb" style="width:${bw}%"></div></div>`; }).join(''); el.innerHTML = html; }
 
-window.__regModal = function(){ const o = document.getElementById('m1'); if(o) o.remove(); const m = document.createElement('div'); m.id = 'm1'; m.className = 'mo'; m.innerHTML = `<div class="mbx"><h2>🎉 Chúc mừng!</h2><div class="sb">Tạo tài khoản thành công</div><div style="color:var(--tx);font-size:13px;margin-bottom:12px">Lấy file CSV:</div><div class="stp"><b>1:</b> Safari/Google</div><div class="stp"><b>2:</b> TikTok Studio</div><div class="stp"><b>3:</b> Đăng nhập TikTok</div><div class="stp"><b>4:</b> 3 chấm → TikTok Studio</div><div class="stp"><b>5:</b> Icon tải xuống</div><div class="stp"><b>6:</b> 365 ngày → tải → nhập</div><button class="mbt" onclick="document.getElementById('m1').remove()">OK! 🚀</button></div>`; document.body.appendChild(m); };
+window.__regModal = function(){ const o = document.getElementById('m1'); if(o) o.remove(); const m = document.createElement('div'); m.id = 'm1'; m.className = 'mo'; m.innerHTML = `<div class="mbx"><h2>🎉 Chúc mừng!</h2><div class="sb">Tạo tài khoản thành công</div><div style="color:var(--tx);font-size:13px;margin-bottom:12px">Lấy file CSV:</div><div class="stp"><b>1:</b> Mở TikTok Studio</div><div class="stp"><b>2:</b> Analytics → Overview</div><div class="stp"><b>3:</b> Chọn 365 ngày</div><div class="stp"><b>4:</b> Export → CSV</div><div class="stp"><b>5:</b> Upload vào tool</div><button class="mbt" onclick="document.getElementById('m1').remove()">OK! 🚀</button></div>`; document.body.appendChild(m); };
 
 document.getElementById('loB').addEventListener('click', async () => { if(!confirm('Đăng xuất sẽ xóa data?')) return; if(cu){ try{ await sb.from('user_data').delete().eq('user_id', cu.id) }catch(e){} } rd=[]; up=null; cd={}; if(chi){ chi.destroy(); chi=null } try{ ['cache_user','cache_profile','cache_data','cache_ch','updShown'].forEach(k => localStorage.removeItem(k)); }catch(e){} await sb.auth.signOut(); });
 
@@ -1163,7 +1231,7 @@ function pCSV(t){ const l = t.split(/\r?\n/).filter(x => x.trim()); if(l.length 
 
 function rAll(){ renderOverview(); renderDetail(); renderAnalysis(); rTp(); rCh(); rCmp(); rMCmp(); renderStreak(); renderHeatmap(); renderAchievements(); updateCountdown(); checkGoldenHourNotif(); }
 function rTp(){ const b = document.getElementById('tpL'); if(!rd.length){ b.innerHTML = '<div style="color:#666;text-align:center;padding:18px">Chưa có dữ liệu</div>'; return; } const avg = rd.reduce((a,d) => a+d[1], 0) / rd.length; const s = [...rd].sort((a,b) => b[1]-a[1]).slice(0,10); const mx = s[0][1]; b.innerHTML = s.map((d,i) => { const pct = avg>0 ? ((d[1]-avg)/avg*100) : 0; const bw = (d[1]/mx*100).toFixed(1); const pc = pct>=0 ? 'u' : 'd'; const pt = (pct>=0?'+':'') + pct.toFixed(0) + '% TB'; return `<div class="tv r${i+1}"><div class="tvr">${i<3?MED[i]:i+1}</div><div class="tvi"><div class="tvd">${d[0]}</div><div class="tvm"><span class="tvv">${d[1].toLocaleString('vi-VN')} view</span><span class="tvp ${pc}">${pt}</span></div></div>${i===0?'<span class="tvc">👑</span>':''}<div class="tvb" style="width:${bw}%"></div></div>`; }).join(''); }
-async function rCh(){ const c = document.getElementById('chC'); if(chi){ chi.destroy(); chi = null } if(!rd.length) return; try{ await loadCh() } catch(e){ return } let d = rd; if(chD > 0) d = rd.slice(-chD); if(sch){ const q = sch.toLowerCase(); d = d.filter(x => x[0].toLowerCase().includes(q)) } const lb = d.map(x => x[0]), vl = d.map(x => x[1]); const avg = vl.length ? vl.reduce((a,b) => a+b, 0)/vl.length : 0; const col = vl.map(v => v >= avg*1.5 ? '#ff5c8a' : '#00e5c7'); const ds = []; if(chT === 'bar'){ ds.push({ type:'bar', label:'View', data: vl, backgroundColor: col, borderRadius: 6, maxBarThickness: 40 }); } else { ds.push({ type:'line', label:'View', data: vl, borderColor:'#00e5c7', backgroundColor:'rgba(0,229,199,.15)', borderWidth:3, tension:.35, fill:true, pointBackgroundColor:col, pointBorderColor:'#0f1419', pointBorderWidth:2, pointRadius:4 }); } if(shAv && vl.length){ ds.push({ type:'line', label:'TB', data: vl.map(() => avg), borderColor:'#ffd700', borderWidth:2, borderDash:[6,6], pointRadius:0, fill:false }); } chi = new Chart(c, { data: { labels: lb, datasets: ds }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode:'index', intersect:false }, plugins: { legend: { display:true, labels:{ color:'#8fa8b8', font:{size:11}, boxWidth:12, boxHeight:12, usePointStyle:true } }, tooltip: { backgroundColor:'rgba(15,20,25,.95)', borderColor:'#00e5c7', borderWidth:1, titleColor:'#00e5c7', bodyColor:'#e6f4ff', padding:12, callbacks: { label: c => { const v = c.parsed.y; const pct = avg>0 ? ((v-avg)/avg*100) : 0; return `👀 ${v.toLocaleString('vi-VN')} (${pct>=0?'+':''}${pct.toFixed(0)}% TB)` } } } }, scales: { x: { ticks:{ color:'#5a7080', font:{size:9}, maxRotation:90, autoSkip:true, maxTicksLimit:20 }, grid:{display:false} }, y: { ticks:{ color:'#5a7080', font:{size:10}, callback: v => fV(v) }, grid:{ color:'#1f2a33' } } } } }); }
+async function rCh(){ const c = document.getElementById('chC'); if(chi){ chi.destroy(); chi = null } if(!rd.length) return; try{ await loadCh() } catch(e){ return } let d = rd; if(chD > 0) d = rd.slice(-chD); if(sch){ const q = sch.toLowerCase(); d = d.filter(x => x[0].toLowerCase().includes(q)) } const lb = d.map(x => x[0]), vl = d.map(x => x[1]); const avg = vl.length ? vl.reduce((a,b) => a+b, 0)/vl.length : 0; const col = vl.map(v => v >= avg*1.5 ? '#ff5c8a' : '#00e5c7'); const ds = []; if(chT === 'bar'){ ds.push({ type:'bar', label:'View', data: vl, backgroundColor: col, borderRadius: 6, maxBarThickness: 40 }); } else { ds.push({ type:'line', label:'View', data: vl, borderColor:'#00e5c7', backgroundColor:'rgba(0,229,199,.15)', borderWidth:3, tension:.35, fill:true, pointBackgroundColor:col, pointBorderColor:'#0f1419', pointBorderWidth:2, pointRadius:4 }); } if(shAv && vl.length){ ds.push({ type:'line', label:'TB', data: vl.map(() => avg), borderColor:'#ffd700', borderWidth:2, borderDash:[6,6], pointRadius:0, fill:false }); } chi = new Chart(c, { data: { labels: lb, datasets: ds }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode:'index', intersect:false }, plugins: { legend: { display:true, labels:{ color:'#8fa8b8', font:{size:11}, usePointStyle:true } }, tooltip: { backgroundColor:'rgba(15,20,25,.95)', borderColor:'#00e5c7', borderWidth:1, titleColor:'#00e5c7', bodyColor:'#e6f4ff', padding:12, callbacks: { label: c => { const v = c.parsed.y; const pct = avg>0 ? ((v-avg)/avg*100) : 0; return `👀 ${v.toLocaleString('vi-VN')} (${pct>=0?'+':''}${pct.toFixed(0)}% TB)` } } } }, scales: { x: { ticks:{ color:'#5a7080', font:{size:9}, maxRotation:90, autoSkip:true, maxTicksLimit:20 }, grid:{display:false} }, y: { ticks:{ color:'#5a7080', font:{size:10}, callback: v => fV(v) }, grid:{ color:'#1f2a33' } } } } }); }
 document.querySelectorAll('.fbt').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.fbt').forEach(x => x.classList.remove('a')); b.classList.add('a'); chD = parseInt(b.dataset.days); rCh(); }));
 document.querySelectorAll('[data-ct]').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('[data-ct]').forEach(x => x.classList.remove('a')); b.classList.add('a'); chT = b.dataset.ct; rCh(); }));
 document.getElementById('togAv').addEventListener('click', () => { shAv = !shAv; document.getElementById('togAv').classList.toggle('a', shAv); rCh(); });
@@ -1187,6 +1255,7 @@ window.__onTabChange = function(tab){
   if(tab === 'ac') renderAchievements();
   if(tab === 'cp'){ if(!document.getElementById('cmpFrom1').value) setPresetRange(7); renderCompare(); }
   if(tab === 'cap'){ renderCaptions(); renderChecklist(); updateCountdown(); }
+  if(tab === 'lnk') renderLinkHistory();
   const tb = document.getElementById('tb-' + tab);
   if(tb){ tb.style.animation = 'none'; setTimeout(() => { tb.style.animation = 'fadeSlideUp .35s cubic-bezier(.2,.9,.4,1.2)'; }, 10); }
 };
@@ -1196,106 +1265,50 @@ function rMCmp(){ const b = document.getElementById('mCmpC'); if(rd.length < 2){
 
 document.getElementById('exB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } const l = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"']; rd.forEach(d => l.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`)); const c = '\ufeff' + l.join('\n'); const b = new Blob([c], { type:'text/csv;charset=utf-8' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `tiktok_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('shB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } let tv=0, tl=0, mx=0, mxD=''; rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx){ mx = d[1]; mxD = d[0] } }); const avg = Math.round(tv/rd.length); const t = `📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rd.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`; if(navigator.share) navigator.share({ title:'TikTok Stats', text: t }).catch(() => {}); else navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t)); });
-document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'5.0', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd, th: localStorage.getItem('th')||'dark', captions: cd.captions || [], checklistState: cd.checklistState || {}, bestStreak: cd.bestStreak || 0 }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
+document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'6.0', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('rsB').addEventListener('click', () => document.getElementById('rI').click());
 document.getElementById('rI').addEventListener('change', e => { const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async ev => { try{ const d = JSON.parse(ev.target.result); if(!d.rows || !Array.isArray(d.rows)) throw new Error('File lỗi'); if(!confirm(`Khôi phục ${d.rows.length} dòng?`)) return; rd = d.rows; if(d.channelData){ cd = d.channelData; await saveCd(); renderCh() } rAll(); await saveC(); alert('✅ Đã khôi phục!'); } catch(err){ alert('❌ '+err.message) } }; r.readAsText(f); e.target.value = ''; });
 document.getElementById('pBtn').addEventListener('click', async () => { const p1 = document.getElementById('pO').value, p2 = document.getElementById('pN').value; const m = document.getElementById('pM'); m.textContent = ''; m.className = 'm'; if(!p1 || !p2){ m.textContent = 'Nhập đầy đủ'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1.length < 6){ m.textContent = 'Từ 6 ký tự'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1 !== p2){ m.textContent = 'Không khớp'; m.classList.add('e'); window.shakeInput(document.getElementById('pN')); return; } const b = document.getElementById('pBtn'); b.disabled = true; b.textContent = '⏳'; try{ const { error } = await sb.auth.updateUser({ password: p1 }); if(error) throw error; m.textContent = '✅ Đổi thành công!'; m.classList.add('o'); document.getElementById('pO').value = ''; document.getElementById('pN').value = ''; } catch(e){ m.textContent = '❌ '+e.message; m.classList.add('e') } b.disabled = false; b.textContent = '🔑 Đổi'; });
 
 setInterval(renderGt, 60000);
 
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v12.0-all';
-const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/index.html';
-async function cU(){ try{ const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' }); if(!r.ok) return; const t = await r.text(); const m = t.match(/name="tool-version"\s+content="([^"]+)"/); if(!m) return; const newVer = m[1]; if(newVer === VER) return; if(localStorage.getItem('updShown') === newVer) return; if(document.getElementById('uT')) return; localStorage.setItem('updShown', newVer); const el = document.createElement('div'); el.id = 'uT'; el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(34,211,168,.4);z-index:99999;max-width:90vw;cursor:pointer;padding-right:36px'; el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px;font-weight:400">Bấm để tải lại</span>`; el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() }; const x = document.createElement('div'); x.textContent = '✕'; x.style.cssText = 'position:absolute;top:6px;right:10px;font-size:14px;opacity:.6;cursor:pointer;font-weight:700'; x.onclick = (e) => { e.stopPropagation(); el.remove(); }; el.appendChild(x); document.body.appendChild(el); } catch(e){} }
-setTimeout(cU, 5000); setInterval(cU, 300000);
-
-window.showGuideModal = function(){ if(document.getElementById('gdModal')) return; const m = document.createElement('div'); m.id = 'gdModal'; m.className = 'gd-modal'; m.innerHTML = `<div class="gd-box"><h2>📖 Hướng dẫn lấy Overview.csv</h2><div class="gd-sub">File thống kê từ TikTok Studio</div><div class="gd-step"><div class="gd-num">1</div><div class="gd-txt">Mở <b>tiktok.com/tiktokstudio</b></div></div><div class="gd-step"><div class="gd-num">2</div><div class="gd-txt">Vào <b>Analytics</b> → <b>Overview</b></div></div><div class="gd-step"><div class="gd-num">3</div><div class="gd-txt">Chọn <b>365 ngày</b></div></div><div class="gd-step"><div class="gd-num">4</div><div class="gd-txt">Bấm <b>Export</b> → <b>CSV</b></div></div><div class="gd-step"><div class="gd-num">5</div><div class="gd-txt">Quay lại tool → <b>📤 Tải file</b></div></div><div class="gd-note"><b>💡 Lưu ý:</b><br>• File <b>.zip</b> OK<br>• Cần tài khoản <b>Creator / Business</b></div><div class="gd-btns"><button class="gd-btn secondary" onclick="window.__hideGuide()">Để sau</button><button class="gd-btn primary" onclick="window.__closeGuide()">✅ Đã hiểu</button></div></div>`; document.body.appendChild(m); m.addEventListener('click', (e) => { if(e.target === m) window.__closeGuide(); }); };
+window.showGuideModal = function(){ if(document.getElementById('gdModal')) return; const m = document.createElement('div'); m.id = 'gdModal'; m.className = 'gd-modal'; m.innerHTML = `<div class="gd-box"><h2>📖 Hướng dẫn</h2><div class="gd-sub">Lấy file Overview.csv</div><div class="gd-step"><div class="gd-num">1</div><div class="gd-txt">Mở <b>tiktok.com/tiktokstudio</b></div></div><div class="gd-step"><div class="gd-num">2</div><div class="gd-txt">Analytics → Overview</div></div><div class="gd-step"><div class="gd-num">3</div><div class="gd-txt">Chọn <b>365 ngày</b></div></div><div class="gd-step"><div class="gd-num">4</div><div class="gd-txt">Export → <b>CSV</b></div></div><div class="gd-step"><div class="gd-num">5</div><div class="gd-txt">Upload vào tool</div></div><div class="gd-btns"><button class="gd-btn secondary" onclick="window.__hideGuide()">Để sau</button><button class="gd-btn primary" onclick="window.__closeGuide()">✅ OK</button></div></div>`; document.body.appendChild(m); m.addEventListener('click', (e) => { if(e.target === m) window.__closeGuide(); }); };
 window.__closeGuide = function(){ const m = document.getElementById('gdModal'); if(m) m.remove(); localStorage.setItem('guideShown', Date.now().toString()); };
 window.__hideGuide = function(){ const m = document.getElementById('gdModal'); if(m) m.remove(); localStorage.setItem('guideShown', (Date.now() - 21*3600*1000).toString()); };
 window.openGuide = function(){ const m = document.getElementById('gdModal'); if(m) m.remove(); setTimeout(() => window.showGuideModal(), 100); };
 
-/* ============================================================
-   ALL NEW FEATURES (v12.0)
-   ============================================================ */
+/* ===== COLOR THEMES ===== */
+const THEMES = { cyan:{acc:'#00e5c7',acc2:'#06b6d4',acc3:'#a855f7'}, purple:{acc:'#a855f7',acc2:'#7c3aed',acc3:'#ec4899'}, pink:{acc:'#ff5c8a',acc2:'#dc2626',acc3:'#a855f7'}, gold:{acc:'#ffd700',acc2:'#ff9500',acc3:'#ff6e00'}, green:{acc:'#22d3a8',acc2:'#16a34a',acc3:'#00e5c7'}, blue:{acc:'#3b82f6',acc2:'#06b6d4',acc3:'#8b5cf6'} };
+function applyThemeColor(name){ const t = THEMES[name] || THEMES.cyan; document.documentElement.style.setProperty('--acc', t.acc); document.documentElement.style.setProperty('--acc2', t.acc2); document.documentElement.style.setProperty('--acc3', t.acc3); localStorage.setItem('theme-color', name); document.querySelectorAll('.color-dot').forEach(d => d.classList.toggle('active', d.dataset.color === name)); }
+(function(){ const picker = document.getElementById('cPicker'); const ctoggle = document.getElementById('cbtn'); if(!picker || !ctoggle) return; picker.innerHTML = Object.keys(THEMES).map(k => `<div class="color-dot" data-color="${k}" style="background:${THEMES[k].acc};color:${THEMES[k].acc}"></div>`).join(''); picker.querySelectorAll('.color-dot').forEach(d => d.addEventListener('click', () => applyThemeColor(d.dataset.color))); ctoggle.addEventListener('click', e => { e.stopPropagation(); picker.classList.toggle('open'); }); document.addEventListener('click', e => { if(!picker.contains(e.target) && e.target !== ctoggle) picker.classList.remove('open'); }); applyThemeColor(localStorage.getItem('theme-color') || 'cyan'); })();
 
-/* ===== 1. COLOR THEMES ===== */
-const THEMES = {
-  cyan:   { acc:'#00e5c7', acc2:'#06b6d4', acc3:'#a855f7' },
-  purple: { acc:'#a855f7', acc2:'#7c3aed', acc3:'#ec4899' },
-  pink:   { acc:'#ff5c8a', acc2:'#dc2626', acc3:'#a855f7' },
-  gold:   { acc:'#ffd700', acc2:'#ff9500', acc3:'#ff6e00' },
-  green:  { acc:'#22d3a8', acc2:'#16a34a', acc3:'#00e5c7' },
-  blue:   { acc:'#3b82f6', acc2:'#06b6d4', acc3:'#8b5cf6' }
-};
-function applyThemeColor(name){
-  const t = THEMES[name] || THEMES.cyan;
-  document.documentElement.style.setProperty('--acc', t.acc);
-  document.documentElement.style.setProperty('--acc2', t.acc2);
-  document.documentElement.style.setProperty('--acc3', t.acc3);
-  localStorage.setItem('theme-color', name);
-  document.querySelectorAll('.color-dot').forEach(d => d.classList.toggle('active', d.dataset.color === name));
-}
-(function initColorPicker(){
-  const picker = document.getElementById('cPicker');
-  const ctoggle = document.getElementById('cbtn');
-  if(!picker || !ctoggle) return;
-  picker.innerHTML = Object.keys(THEMES).map(k => `<div class="color-dot" data-color="${k}" style="background:${THEMES[k].acc};color:${THEMES[k].acc}" title="${k}"></div>`).join('');
-  picker.querySelectorAll('.color-dot').forEach(d => d.addEventListener('click', () => applyThemeColor(d.dataset.color)));
-  ctoggle.addEventListener('click', e => { e.stopPropagation(); picker.classList.toggle('open'); });
-  document.addEventListener('click', e => { if(!picker.contains(e.target) && e.target !== ctoggle) picker.classList.remove('open'); });
-  applyThemeColor(localStorage.getItem('theme-color') || 'cyan');
-})();
-
-/* ===== 2. NOTIFICATIONS ===== */
-const nT = document.getElementById('nT');
-const nWarn = document.getElementById('nWarn');
-function checkNotifPerm(){
-  if(!nT || !nWarn) return;
-  const saved = localStorage.getItem('notif-on') === 'true';
-  nT.checked = saved && Notification?.permission === 'granted';
-  nWarn.classList.toggle('show', saved && Notification?.permission !== 'granted');
-}
+/* ===== NOTIFICATIONS ===== */
+const nT = document.getElementById('nT'), nWarn = document.getElementById('nWarn');
+function checkNotifPerm(){ if(!nT || !nWarn) return; const saved = localStorage.getItem('notif-on') === 'true'; nT.checked = saved && Notification?.permission === 'granted'; nWarn.classList.toggle('show', saved && Notification?.permission !== 'granted'); }
 if(nT){
   checkNotifPerm();
   nT.addEventListener('change', async e => {
     if(e.target.checked){
       if(!('Notification' in window)){ alert('❌ Không hỗ trợ'); e.target.checked = false; return; }
       const perm = await Notification.requestPermission();
-      if(perm === 'granted'){ localStorage.setItem('notif-on', 'true'); try{ new Notification('✅ Đã bật thông báo!', { body: 'Sẽ báo khi vào giờ vàng', icon: 'https://emojicdn.elk.sh/🔔?style=apple' }); }catch(e){} nWarn.classList.remove('show'); }
+      if(perm === 'granted'){ localStorage.setItem('notif-on', 'true'); try{ new Notification('✅ Đã bật thông báo!', { body: 'Sẽ báo khi vào giờ vàng' }); }catch(e){} nWarn.classList.remove('show'); }
       else { e.target.checked = false; localStorage.setItem('notif-on', 'false'); nWarn.classList.add('show'); }
     } else { localStorage.setItem('notif-on', 'false'); }
   });
-  nWarn.addEventListener('click', async () => {
-    if(!('Notification' in window)) return;
-    const perm = await Notification.requestPermission();
-    if(perm === 'granted'){ localStorage.setItem('notif-on', 'true'); nT.checked = true; nWarn.classList.remove('show'); }
-  });
+  nWarn.addEventListener('click', async () => { if(!('Notification' in window)) return; const perm = await Notification.requestPermission(); if(perm === 'granted'){ localStorage.setItem('notif-on', 'true'); nT.checked = true; nWarn.classList.remove('show'); } });
 }
 let lastNotifHour = -1;
-function checkGoldenHourNotif(){
-  if(localStorage.getItem('notif-on') !== 'true') return;
-  if(!('Notification' in window) || Notification.permission !== 'granted') return;
-  const gh = cd.goldenHours || []; if(!gh.length) return;
-  const curH = PAD(new Date().getHours());
-  if(gh.includes(curH) && lastNotifHour !== curH){
-    lastNotifHour = curH;
-    try{ new Notification('🎯 VÀO GIỜ VÀNG!', { body: `Bây giờ là ${curH}h — đăng video ngay!`, icon: 'https://emojicdn.elk.sh/🎯?style=apple', tag: 'golden-hour', requireInteraction: true }); }catch(e){}
-  }
-}
+function checkGoldenHourNotif(){ if(localStorage.getItem('notif-on') !== 'true') return; if(!('Notification' in window) || Notification.permission !== 'granted') return; const gh = cd.goldenHours || []; if(!gh.length) return; const curH = PAD(new Date().getHours()); if(gh.includes(curH) && lastNotifHour !== curH){ lastNotifHour = curH; try{ new Notification('🎯 VÀO GIỜ VÀNG!', { body: `Bây giờ là ${curH}h — đăng video ngay!` }); }catch(e){} } }
 setInterval(checkGoldenHourNotif, 30000);
 
-/* ===== 3. COUNTDOWN ===== */
+/* ===== COUNTDOWN ===== */
 function updateCountdown(){
   const box = document.getElementById('cdBox'), timeEl = document.getElementById('cdTime'), lblEl = document.getElementById('cdLbl'), nextEl = document.getElementById('cdNext');
   if(!box || !timeEl) return;
   const gh = (cd.goldenHours || []).map(h => parseInt(h)).sort((a,b) => a-b);
   const now = new Date(); const curH = now.getHours();
   if(!gh.length){ timeEl.textContent = '--:--:--'; lblEl.textContent = '⏰ Giờ vàng tiếp theo'; nextEl.textContent = 'Chưa có dữ liệu'; box.classList.remove('in-golden'); return; }
-  if(gh.includes(curH)){
-    box.classList.add('in-golden'); lblEl.textContent = '🔥 ĐANG TRONG GIỜ VÀNG!';
-    const end = new Date(now); end.setHours(curH + 1, 0, 0, 0);
-    timeEl.textContent = fmtDiff(Math.max(0, end - now));
-    nextEl.textContent = `Kết thúc lúc ${PAD(curH+1)}:00 — Đăng ngay!`; return;
-  }
+  if(gh.includes(curH)){ box.classList.add('in-golden'); lblEl.textContent = '🔥 ĐANG TRONG GIỜ VÀNG!'; const end = new Date(now); end.setHours(curH + 1, 0, 0, 0); timeEl.textContent = fmtDiff(Math.max(0, end - now)); nextEl.textContent = `Kết thúc lúc ${PAD(curH+1)}:00`; return; }
   box.classList.remove('in-golden'); lblEl.textContent = '⏰ Giờ vàng tiếp theo';
   let nextH = gh.find(h => h > curH); let isTomorrow = false;
   if(nextH === undefined){ nextH = gh[0]; isTomorrow = true; }
@@ -1307,7 +1320,7 @@ function updateCountdown(){
 function fmtDiff(ms){ const s = Math.floor(ms/1000); return `${PAD(Math.floor(s/3600))}:${PAD(Math.floor((s%3600)/60))}:${PAD(s%60)}`; }
 setInterval(updateCountdown, 1000);
 
-/* ===== 4. STREAK ===== */
+/* ===== STREAK ===== */
 function calcStreak(){
   if(!rd.length) return 0;
   const sorted = [...rd].sort((a,b) => (pD(b[0])||0) - (pD(a[0])||0));
@@ -1330,7 +1343,7 @@ function renderStreak(){
   } else sb.innerHTML = '';
 }
 
-/* ===== 5. HEATMAP ===== */
+/* ===== HEATMAP ===== */
 function renderHeatmap(){
   const grid = document.getElementById('hmGrid'); if(!grid) return;
   if(!rd.length){ grid.innerHTML = '<div class="nt" style="grid-column:1/-1;padding:20px">Upload CSV trước</div>'; return; }
@@ -1358,11 +1371,10 @@ function showHmDetail(ts, label){
   if(!row){ box.innerHTML = `<div class="cb"><div class="ct">📅 ${esc(label)}</div><div class="nt">Không có dữ liệu</div></div>`; return; }
   const avg = rd.reduce((a,d) => a+d[1], 0) / rd.length;
   const pct = avg > 0 ? ((row[1] - avg) / avg * 100) : 0;
-  box.innerHTML = `<div class="cb"><div class="ct">📅 ${esc(label)}</div><div class="cg" style="margin-top:10px"><div class="ci"><div class="v">${row[1].toLocaleString('vi-VN')}</div><div class="l">Views</div></div><div class="ci"><div class="v">${row[2].toLocaleString('vi-VN')}</div><div class="l">Likes</div></div><div class="ci"><div class="v">${row[3].toLocaleString('vi-VN')}</div><div class="l">Comments</div></div><div class="ci"><div class="v">${row[4].toLocaleString('vi-VN')}</div><div class="l">Shares</div></div></div><div class="cdf ${pct>=0?'u':'d'}" style="margin-top:10px">${pct>=0?'📈 +':'📉 '}${pct.toFixed(0)}% so với TB ngày</div></div>`;
-  box.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  box.innerHTML = `<div class="cb"><div class="ct">📅 ${esc(label)}</div><div class="cg" style="margin-top:10px"><div class="ci"><div class="v">${row[1].toLocaleString('vi-VN')}</div><div class="l">Views</div></div><div class="ci"><div class="v">${row[2].toLocaleString('vi-VN')}</div><div class="l">Likes</div></div><div class="ci"><div class="v">${row[3].toLocaleString('vi-VN')}</div><div class="l">Comments</div></div><div class="ci"><div class="v">${row[4].toLocaleString('vi-VN')}</div><div class="l">Shares</div></div></div><div class="cdf ${pct>=0?'u':'d'}" style="margin-top:10px">${pct>=0?'📈 +':'📉 '}${pct.toFixed(0)}% so với TB</div></div>`;
 }
 
-/* ===== 6. ANOMALY ===== */
+/* ===== ANOMALY ===== */
 function detectAnomalies(){
   if(rd.length < 7) return [];
   const avg = rd.reduce((a,d) => a+d[1], 0) / rd.length;
@@ -1381,7 +1393,7 @@ function renderAnomalies(){
   return list.map(a => `<div class="anomaly ${a.type}"><span class="a-icon">${a.type==='spike'?'🚀':'📉'}</span><span class="a-txt">${a.type==='spike'?'<b>Viral!</b>':'<b>Sụt giảm</b>'} ngày <b>${esc(a.day)}</b></span><span class="a-val">${a.pct>=0?'+':''}${a.pct.toFixed(0)}%</span></div>`).join('');
 }
 
-/* ===== 7. FUNNEL ===== */
+/* ===== FUNNEL ===== */
 function renderFunnel(){
   if(!rd.length) return '';
   let tV=0, tL=0, tS=0, tC=0;
@@ -1396,38 +1408,36 @@ function renderFunnel(){
   return `<div class="funnel">${steps.map((s,i) => { const pct = s.value / mx * 100; const rate = i === 0 ? 100 : (s.value / steps[0].value * 100); return `<div class="funnel-step" style="background:${s.color};width:${Math.max(20,pct)}%;margin:0 auto">${s.icon} ${s.label}: ${s.value.toLocaleString('vi-VN')}<small>${i === 0 ? '100% (gốc)' : rate.toFixed(2)+'% so với Views'}</small></div>`; }).join('')}</div>`;
 }
 
-/* ===== 8. ACHIEVEMENTS ===== */
+/* ===== ACHIEVEMENTS ===== */
 const ACHIEVEMENTS = [
-  { id:'first_video', icon:'🌱', name:'Video đầu tiên', desc:'Có ít nhất 1 ngày dữ liệu', check: () => rd.length >= 1 },
-  { id:'streak7',     icon:'🔥', name:'Streak 7 ngày',  desc:'Đăng liên tục 7 ngày', check: () => calcStreak() >= 7 },
-  { id:'streak30',    icon:'💎', name:'Streak 30 ngày', desc:'Đăng liên tục 30 ngày', check: () => calcStreak() >= 30 },
-  { id:'views10k',    icon:'⭐', name:'10K Views',       desc:'Tổng view đạt 10.000', check: () => rd.reduce((a,d)=>a+d[1],0) >= 10000 },
-  { id:'views100k',   icon:'🚀', name:'100K Views',      desc:'Tổng view đạt 100.000', check: () => rd.reduce((a,d)=>a+d[1],0) >= 100000 },
-  { id:'views1m',     icon:'🏆', name:'1M Views',        desc:'Tổng view đạt 1.000.000', check: () => rd.reduce((a,d)=>a+d[1],0) >= 1000000 },
-  { id:'likes1k',     icon:'❤️', name:'1K Likes',        desc:'Tổng like đạt 1.000', check: () => rd.reduce((a,d)=>a+d[2],0) >= 1000 },
-  { id:'likes10k',    icon:'💖', name:'10K Likes',       desc:'Tổng like đạt 10.000', check: () => rd.reduce((a,d)=>a+d[2],0) >= 10000 },
-  { id:'cmt100',      icon:'💬', name:'100 Comments',    desc:'Tổng comment đạt 100', check: () => rd.reduce((a,d)=>a+d[3],0) >= 100 },
-  { id:'share100',    icon:'📤', name:'100 Shares',      desc:'Tổng share đạt 100', check: () => rd.reduce((a,d)=>a+d[4],0) >= 100 },
-  { id:'data30',      icon:'📅', name:'30 ngày data',    desc:'Có dữ liệu 30 ngày', check: () => rd.length >= 30 },
-  { id:'data90',      icon:'📆', name:'90 ngày data',    desc:'Có dữ liệu 90 ngày', check: () => rd.length >= 90 },
-  { id:'data365',     icon:'🗓️', name:'365 ngày data',   desc:'Có dữ liệu 365 ngày', check: () => rd.length >= 365 },
-  { id:'viral10x',    icon:'👑', name:'Viral 10x',       desc:'Có ngày đạt 10x view TB', check: () => { if(rd.length < 5) return false; const avg = rd.reduce((a,d)=>a+d[1],0)/rd.length; return rd.some(d => d[1] >= avg * 10); } },
-  { id:'viral100k',   icon:'⚡', name:'Viral 100K/ngày', desc:'1 ngày đạt 100K view', check: () => rd.some(d => d[1] >= 100000) },
-  { id:'viral1m',     icon:'🌟', name:'Viral 1M/ngày',   desc:'1 ngày đạt 1M view', check: () => rd.some(d => d[1] >= 1000000) }
+  { id:'first_video', icon:'🌱', name:'Video đầu tiên', desc:'Có ít nhất 1 ngày', check: () => rd.length >= 1 },
+  { id:'streak7', icon:'🔥', name:'Streak 7 ngày', desc:'Đăng liên tục 7 ngày', check: () => calcStreak() >= 7 },
+  { id:'streak30', icon:'💎', name:'Streak 30 ngày', desc:'Đăng liên tục 30 ngày', check: () => calcStreak() >= 30 },
+  { id:'views10k', icon:'⭐', name:'10K Views', desc:'Tổng view đạt 10.000', check: () => rd.reduce((a,d)=>a+d[1],0) >= 10000 },
+  { id:'views100k', icon:'🚀', name:'100K Views', desc:'Tổng view đạt 100.000', check: () => rd.reduce((a,d)=>a+d[1],0) >= 100000 },
+  { id:'views1m', icon:'🏆', name:'1M Views', desc:'Tổng view đạt 1.000.000', check: () => rd.reduce((a,d)=>a+d[1],0) >= 1000000 },
+  { id:'likes1k', icon:'❤️', name:'1K Likes', desc:'Tổng like đạt 1.000', check: () => rd.reduce((a,d)=>a+d[2],0) >= 1000 },
+  { id:'likes10k', icon:'💖', name:'10K Likes', desc:'Tổng like đạt 10.000', check: () => rd.reduce((a,d)=>a+d[2],0) >= 10000 },
+  { id:'cmt100', icon:'💬', name:'100 Comments', desc:'Tổng comment đạt 100', check: () => rd.reduce((a,d)=>a+d[3],0) >= 100 },
+  { id:'share100', icon:'📤', name:'100 Shares', desc:'Tổng share đạt 100', check: () => rd.reduce((a,d)=>a+d[4],0) >= 100 },
+  { id:'data30', icon:'📅', name:'30 ngày data', desc:'Có dữ liệu 30 ngày', check: () => rd.length >= 30 },
+  { id:'data90', icon:'📆', name:'90 ngày data', desc:'Có dữ liệu 90 ngày', check: () => rd.length >= 90 },
+  { id:'data365', icon:'🗓️', name:'365 ngày data', desc:'Có dữ liệu 365 ngày', check: () => rd.length >= 365 },
+  { id:'viral10x', icon:'👑', name:'Viral 10x', desc:'Có ngày đạt 10x view TB', check: () => { if(rd.length < 5) return false; const avg = rd.reduce((a,d)=>a+d[1],0)/rd.length; return rd.some(d => d[1] >= avg * 10); } },
+  { id:'viral100k', icon:'⚡', name:'Viral 100K/ngày', desc:'1 ngày đạt 100K view', check: () => rd.some(d => d[1] >= 100000) },
+  { id:'viral1m', icon:'🌟', name:'Viral 1M/ngày', desc:'1 ngày đạt 1M view', check: () => rd.some(d => d[1] >= 1000000) }
 ];
 function renderAchievements(){
-  const sumBox = document.getElementById('achSummary');
-  const grid = document.getElementById('achGrid');
+  const sumBox = document.getElementById('achSummary'), grid = document.getElementById('achGrid');
   if(!sumBox || !grid) return;
   if(!rd.length){ sumBox.innerHTML = ''; grid.innerHTML = '<div class="nt" style="grid-column:1/-1;padding:20px">Upload CSV để xem</div>'; return; }
   const unlocked = ACHIEVEMENTS.filter(a => { try{ return a.check(); }catch(e){ return false; } });
-  const total = ACHIEVEMENTS.length;
-  const pct = (unlocked.length / total * 100).toFixed(0);
+  const total = ACHIEVEMENTS.length; const pct = (unlocked.length / total * 100).toFixed(0);
   sumBox.innerHTML = `<div class="ach-sum-box unlocked"><div class="n">${unlocked.length}</div><div class="l">Đã mở</div></div><div class="ach-sum-box locked"><div class="n">${total - unlocked.length}</div><div class="l">Còn lại</div></div><div class="ach-sum-box"><div class="n" style="color:var(--gold)">${pct}%</div><div class="l">Hoàn thành</div></div>`;
   grid.innerHTML = ACHIEVEMENTS.map(a => { let ok = false; try{ ok = a.check(); }catch(e){} return `<div class="ach-card ${ok?'unlocked':'locked'}">${ok ? '<span class="ach-badge">✨</span>' : ''}<span class="ach-icon">${a.icon}</span><div class="ach-name">${a.name}</div><div class="ach-desc">${a.desc}</div><div class="ach-prog"><div class="ach-prog-fill" style="width:${ok?100:0}%"></div></div></div>`; }).join('');
 }
 
-/* ===== 9. COMPARE ===== */
+/* ===== COMPARE ===== */
 function setPresetRange(days){
   const today = new Date(); today.setHours(0,0,0,0);
   const to1 = new Date(today);
@@ -1435,40 +1445,35 @@ function setPresetRange(days){
   const to2 = new Date(from1); to2.setDate(to2.getDate() - 1);
   const from2 = new Date(to2); from2.setDate(from2.getDate() - (days - 1));
   const fmt = d => d.toISOString().slice(0,10);
-  document.getElementById('cmpFrom1').value = fmt(from1);
-  document.getElementById('cmpTo1').value = fmt(to1);
-  document.getElementById('cmpFrom2').value = fmt(from2);
-  document.getElementById('cmpTo2').value = fmt(to2);
+  document.getElementById('cmpFrom1').value = fmt(from1); document.getElementById('cmpTo1').value = fmt(to1);
+  document.getElementById('cmpFrom2').value = fmt(from2); document.getElementById('cmpTo2').value = fmt(to2);
 }
-function getRowsInRange(from, to){
-  const f = new Date(from).setHours(0,0,0,0); const t = new Date(to).setHours(23,59,59,999);
-  return rd.filter(d => { const ts = pD(d[0]); return ts && ts >= f && ts <= t; });
-}
+function getRowsInRange(from, to){ const f = new Date(from).setHours(0,0,0,0); const t = new Date(to).setHours(23,59,59,999); return rd.filter(d => { const ts = pD(d[0]); return ts && ts >= f && ts <= t; }); }
 function sumRows(rows){ return rows.reduce((a,d) => ({ n:a.n+1, views:a.views+d[1], likes:a.likes+d[2], cmt:a.cmt+d[3], shares:a.shares+d[4], profile:a.profile+d[5] }), { n:0, views:0, likes:0, cmt:0, shares:0, profile:0 }); }
 function renderCompare(){
   const out = document.getElementById('cmpResult'); if(!out) return;
   if(!rd.length){ out.innerHTML = '<div class="nt" style="padding:20px">Upload CSV trước</div>'; return; }
   const f1 = document.getElementById('cmpFrom1').value, t1 = document.getElementById('cmpTo1').value, f2 = document.getElementById('cmpFrom2').value, t2 = document.getElementById('cmpTo2').value;
-  if(!f1 || !t1 || !f2 || !t2){ out.innerHTML = '<div class="nt">Chọn đầy đủ khoảng thời gian</div>'; return; }
+  if(!f1 || !t1 || !f2 || !t2){ out.innerHTML = '<div class="nt">Chọn đầy đủ khoảng</div>'; return; }
   const r1 = getRowsInRange(f1, t1), r2 = getRowsInRange(f2, t2);
   if(!r1.length && !r2.length){ out.innerHTML = '<div class="nt">Không có dữ liệu</div>'; return; }
   const s1 = sumRows(r1), s2 = sumRows(r2);
   const fmtD = s => new Date(s).toLocaleDateString('vi-VN');
   const metrics = [
     { lbl:'Ngày có data', v1: s1.n, v2: s2.n },
-    { lbl:'Tổng Views',   v1: s1.views, v2: s2.views, big: true },
-    { lbl:'Tổng Likes',   v1: s1.likes, v2: s2.likes, big: true },
-    { lbl:'Comments',     v1: s1.cmt, v2: s2.cmt },
-    { lbl:'Shares',       v1: s1.shares, v2: s2.shares },
+    { lbl:'Tổng Views', v1: s1.views, v2: s2.views, big: true },
+    { lbl:'Tổng Likes', v1: s1.likes, v2: s2.likes, big: true },
+    { lbl:'Comments', v1: s1.cmt, v2: s2.cmt },
+    { lbl:'Shares', v1: s1.shares, v2: s2.shares },
     { lbl:'View TB/ngày', v1: s1.n ? Math.round(s1.views/s1.n) : 0, v2: s2.n ? Math.round(s2.views/s2.n) : 0, big: true },
-    { lbl:'Like/View %',  v1: s1.views ? (s1.likes/s1.views*100) : 0, v2: s2.views ? (s2.likes/s2.views*100) : 0, pct: true }
+    { lbl:'Like/View %', v1: s1.views ? (s1.likes/s1.views*100) : 0, v2: s2.views ? (s2.likes/s2.views*100) : 0, pct: true }
   ];
   out.innerHTML = `<div class="cmp-vs"><div class="cmp-side"><div class="lbl">Kỳ 1</div><div class="val">${fmtD(f1)} → ${fmtD(t1)}</div></div><div class="cmp-vs-icon">VS</div><div class="cmp-side"><div class="lbl">Kỳ 2</div><div class="val">${fmtD(f2)} → ${fmtD(t2)}</div></div></div><div class="cmp-table"><div class="cmp-row hd"><div class="lbl">Chỉ số</div><div class="v1">Kỳ 1</div><div class="v2">Kỳ 2</div><div class="df">Chênh</div></div>${metrics.map(m => { const diff = m.v2 > 0 ? ((m.v1 - m.v2) / m.v2 * 100) : (m.v1 > 0 ? 100 : 0); const cls = Math.abs(diff) < 1 ? 'eq' : diff > 0 ? 'up' : 'dn'; const fmt = v => m.pct ? v.toFixed(2) + '%' : (m.big ? Math.round(v).toLocaleString('vi-VN') : v.toLocaleString('vi-VN')); return `<div class="cmp-row"><div class="lbl">${m.lbl}</div><div class="v1">${fmt(m.v1)}</div><div class="v2">${fmt(m.v2)}</div><div class="df ${cls}">${diff>=0?'+':''}${diff.toFixed(0)}%</div></div>`; }).join('')}</div>`;
 }
 document.querySelectorAll('.cmp-pre').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.cmp-pre').forEach(x => x.classList.remove('a')); b.classList.add('a'); setPresetRange(parseInt(b.dataset.pre)); renderCompare(); }));
 document.getElementById('cmpRun')?.addEventListener('click', renderCompare);
 
-/* ===== 10. SMART SUGGESTIONS ===== */
+/* ===== SUGGESTIONS ===== */
 function renderSuggestions(){
   if(rd.length < 5) return '';
   const avg = rd.reduce((a,d) => a+d[1], 0) / rd.length;
@@ -1479,116 +1484,70 @@ function renderSuggestions(){
   const gh = cd.goldenHours || [];
   const sug = [];
   if(likeRate >= 0.08) sug.push({ p:1, icon:'❤️', tag:'keep', tagTxt:'Duy trì', title:'Tỷ lệ like xuất sắc!', desc:`Like/View đạt ${(likeRate*100).toFixed(1)}% — cao hơn chuẩn TikTok.` });
-  else if(likeRate < 0.02) sug.push({ p:1, icon:'❤️', tag:'do', tagTxt:'Cần làm', title:'Tăng tỷ lệ like', desc:`Like chỉ ${(likeRate*100).toFixed(1)}%. Thêm CTA cuối video, hook mạnh 3s đầu.` });
+  else if(likeRate < 0.02) sug.push({ p:1, icon:'❤️', tag:'do', tagTxt:'Cần làm', title:'Tăng tỷ lệ like', desc:`Like chỉ ${(likeRate*100).toFixed(1)}%. Thêm CTA cuối video.` });
   if(shareRate >= 0.005) sug.push({ p:2, icon:'🔁', tag:'keep', tagTxt:'Duy trì', title:'Share rất tốt', desc:`${(shareRate*100).toFixed(2)}% — content có giá trị chia sẻ.` });
-  else sug.push({ p:2, icon:'🔁', tag:'try', tagTxt:'Thử', title:'Tăng lượt share', desc:`Share ${(shareRate*100).toFixed(2)}%. Thêm twist bất ngờ cuối video.` });
-  if(cmtRate < 0.001) sug.push({ p:2, icon:'💬', tag:'do', tagTxt:'Cần làm', title:'Kêu gọi bình luận', desc:'Comment thấp. Kết video bằng câu hỏi mở.' });
-  if(spikes.length) sug.push({ p:1, icon:'🚀', tag:'keep', tagTxt:'Phân tích', title:`Có ${spikes.length} ngày viral`, desc:`Ngày viral: ${spikes.map(s => s.day).join(', ')}. Xem lại content, hashtag, giờ đăng.` });
-  if(drops.length >= 2) sug.push({ p:1, icon:'📉', tag:'do', tagTxt:'Cần làm', title:`${drops.length} ngày sụt giảm`, desc:`Sụt mạnh: ${drops.slice(0,3).map(s => s.day).join(', ')}.` });
-  if(streak >= 7) sug.push({ p:3, icon:'🔥', tag:'keep', tagTxt:'Tuyệt vời', title:`Streak ${streak} ngày`, desc:'Tần suất đều đặn — yếu tố quan trọng cho thuật toán.' });
-  else if(streak < 3 && rd.length >= 7) sug.push({ p:1, icon:'📅', tag:'do', tagTxt:'Cần làm', title:'Đăng bài đều hơn', desc:`Streak chỉ ${streak} ngày. Cố gắng 1 video/ngày.` });
+  else sug.push({ p:2, icon:'🔁', tag:'try', tagTxt:'Thử', title:'Tăng share', desc:`Share ${(shareRate*100).toFixed(2)}%. Thêm twist bất ngờ.` });
+  if(cmtRate < 0.001) sug.push({ p:2, icon:'💬', tag:'do', tagTxt:'Cần làm', title:'Kêu gọi bình luận', desc:'Comment thấp. Kết video bằng câu hỏi.' });
+  if(spikes.length) sug.push({ p:1, icon:'🚀', tag:'keep', tagTxt:'Phân tích', title:`${spikes.length} ngày viral`, desc:`Ngày: ${spikes.map(s => s.day).join(', ')}. Xem lại content, hashtag.` });
+  if(drops.length >= 2) sug.push({ p:1, icon:'📉', tag:'do', tagTxt:'Cần làm', title:`${drops.length} ngày sụt`, desc:`Sụt mạnh: ${drops.slice(0,3).map(s => s.day).join(', ')}.` });
+  if(streak >= 7) sug.push({ p:3, icon:'🔥', tag:'keep', tagTxt:'Tuyệt vời', title:`Streak ${streak} ngày`, desc:'Duy trì tần suất đều đặn.' });
+  else if(streak < 3 && rd.length >= 7) sug.push({ p:1, icon:'📅', tag:'do', tagTxt:'Cần làm', title:'Đăng bài đều hơn', desc:`Streak chỉ ${streak} ngày.` });
   if(gh.length) sug.push({ p:2, icon:'🎯', tag:'try', tagTxt:'Thử', title:'Đăng đúng giờ vàng', desc:`Giờ vàng: ${gh.sort().map(h=>h+'h').join(', ')}.` });
   else sug.push({ p:3, icon:'👀', tag:'try', tagTxt:'Thử', title:'Upload file Viewers', desc:'Chưa có dữ liệu giờ vàng.' });
   const last7 = rd.slice(-7).reduce((a,d)=>a+d[1],0), prev7 = rd.slice(-14,-7).reduce((a,d)=>a+d[1],0);
   if(prev7 > 0){ const t = ((last7 - prev7)/prev7*100);
-    if(t > 20) sug.push({ p:1, icon:'📈', tag:'keep', tagTxt:'Đang lên', title:`Xu hướng tăng ${t.toFixed(0)}%`, desc:'Tuần này tốt hơn tuần trước. Có thể tăng lên 2 video/ngày.' });
-    else if(t < -20) sug.push({ p:1, icon:'📉', tag:'stop', tagTxt:'Cảnh báo', title:`Đang giảm ${Math.abs(t).toFixed(0)}%`, desc:'View giảm mạnh. Nên đổi content, hashtag, giờ đăng.' });
+    if(t > 20) sug.push({ p:1, icon:'📈', tag:'keep', tagTxt:'Đang lên', title:`Tăng ${t.toFixed(0)}%`, desc:'Tuần này tốt hơn trước.' });
+    else if(t < -20) sug.push({ p:1, icon:'📉', tag:'stop', tagTxt:'Cảnh báo', title:`Giảm ${Math.abs(t).toFixed(0)}%`, desc:'View giảm mạnh.' });
   }
   if(!sug.length) return '';
   return sug.sort((a,b) => a.p - b.p).map(s => `<div class="suggest-item ${s.p===1?'priority':''}"><div class="suggest-icon">${s.icon}</div><div class="suggest-body"><div class="suggest-title">${s.title}</div><div class="suggest-desc">${s.desc}</div><span class="suggest-tag ${s.tag}">${s.tagTxt}</span></div></div>`).join('');
 }
 
-/* ===== 11. CAPTION LIBRARY ===== */
+/* ===== CAPTION LIB ===== */
 let curCapType = 'cap';
 function renderCaptions(){
   const list = document.getElementById('capList'); if(!list) return;
   const lib = cd.captions || [];
   const filtered = lib.filter(x => x.type === curCapType);
-  if(!filtered.length){
-    const names = { cap:'caption', hash:'hashtag', hook:'hook' };
-    list.innerHTML = `<div class="cap-empty">📭 Chưa có ${names[curCapType]} nào<br><span style="font-size:11px">Bấm <b>+ Thêm</b> để lưu</span></div>`;
-    return;
-  }
+  if(!filtered.length){ const names = { cap:'caption', hash:'hashtag', hook:'hook' }; list.innerHTML = `<div class="cap-empty">📭 Chưa có ${names[curCapType]} nào</div>`; return; }
   const badge = { cap:'cap', hash:'hash', hook:'hook' };
   const badgeTxt = { cap:'📝 Caption', hash:'#️⃣ Hashtag', hook:'🎣 Hook' };
-  list.innerHTML = filtered.map((c) => {
-    const idx = lib.indexOf(c);
-    return `<div class="cap-item"><div class="cap-txt">${esc(c.text)}</div><div class="cap-meta"><span class="cap-badge ${badge[c.type]}">${badgeTxt[c.type]}</span><span class="cap-date">${c.date ? new Date(c.date).toLocaleDateString('vi-VN') : ''}</span><div class="cap-actions"><button class="cap-btn" data-copy="${idx}">📋</button><button class="cap-btn" data-edit="${idx}">✏️</button><button class="cap-btn del" data-del="${idx}">🗑️</button></div></div></div>`;
-  }).join('');
+  list.innerHTML = filtered.map((c) => { const idx = lib.indexOf(c); return `<div class="cap-item"><div class="cap-txt">${esc(c.text)}</div><div class="cap-meta"><span class="cap-badge ${badge[c.type]}">${badgeTxt[c.type]}</span><span class="cap-date">${c.date ? new Date(c.date).toLocaleDateString('vi-VN') : ''}</span><div class="cap-actions"><button class="cap-btn" data-copy="${idx}">📋</button><button class="cap-btn" data-edit="${idx}">✏️</button><button class="cap-btn del" data-del="${idx}">🗑️</button></div></div></div>`; }).join('');
   list.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', async () => { try{ await navigator.clipboard.writeText(lib[parseInt(b.dataset.copy)].text); tS('📋 Đã copy!'); }catch(e){ prompt('Copy:', lib[parseInt(b.dataset.copy)].text); } }));
   list.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', async () => { const idx = parseInt(b.dataset.edit); const nv = prompt('Sửa:', lib[idx].text); if(nv === null || !nv.trim()) return; lib[idx].text = nv.trim(); try{ await saveCd(); renderCaptions(); }catch(e){} }));
   list.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', async () => { if(!confirm('Xóa?')) return; cd.captions.splice(parseInt(b.dataset.del), 1); try{ await saveCd(); renderCaptions(); }catch(e){} }));
 }
 document.getElementById('capType')?.addEventListener('change', e => { curCapType = e.target.value; renderCaptions(); });
-document.getElementById('capAdd')?.addEventListener('click', async () => {
-  if(!cu){ alert('Đăng nhập trước'); return; }
-  const type = document.getElementById('capType').value;
-  const labels = { cap:'caption', hash:'hashtag', hook:'hook' };
-  const txt = prompt(`Nhập ${labels[type]} mới:`);
-  if(!txt || !txt.trim()) return;
-  cd.captions = cd.captions || [];
-  cd.captions.unshift({ type, text: txt.trim(), date: new Date().toISOString() });
-  try{ await saveCd(); renderCaptions(); tS('✅ Đã thêm!'); }catch(e){ alert('❌ '+e.message); }
-});
+document.getElementById('capAdd')?.addEventListener('click', async () => { if(!cu){ alert('Đăng nhập trước'); return; } const type = document.getElementById('capType').value; const labels = { cap:'caption', hash:'hashtag', hook:'hook' }; const txt = prompt(`Nhập ${labels[type]}:`); if(!txt || !txt.trim()) return; cd.captions = cd.captions || []; cd.captions.unshift({ type, text: txt.trim(), date: new Date().toISOString() }); try{ await saveCd(); renderCaptions(); tS('✅ Đã thêm!'); }catch(e){ alert('❌ '+e.message); } });
 
-/* ===== 12. IDEA GENERATOR ===== */
-const IDEAS = {
-  edu: ['Top 3 sai lầm khi mới học [chủ đề]','Giải thích [khái niệm] trong 30 giây','So sánh [A] và [B]: cái nào tốt hơn?','Hướng dẫn từng bước làm [X] trong 60s','5 mẹo [chủ đề] chuyên gia không muốn bạn biết','"Nếu bắt đầu lại, tôi sẽ..."','Sự thật ít ai nói về [chủ đề]','Case study: Tại sao [X] thành công?','Câu hỏi thường gặp về [chủ đề]','[Chủ đề] cho người mới: bắt đầu từ đâu?'],
-  fun: ['POV: Bạn là [nhân vật] trong [tình huống]','Thử thách [X] trong 24h','Khi bạn [hành động] trước mặt [đối tượng]','Mấy kiểu người trong [tình huống]','Đoán xem tôi đang làm gì?','Troll bạn thân bằng cách [hành động]','Thử [X] lần đầu: thật lòng mà nói...','"Đừng [hành động]" — 5 phút sau:','Ai cũng có 1 người bạn như thế này','Xem tôi có pass thử thách [X] không?'],
-  life: ['Một ngày làm [nghề nghiệp] của tôi','3 thứ tôi ước biết sớm hơn về [X]','Sáng nay dậy lúc 5h và đây là kết quả','Review [sản phẩm] sau 1 tháng','Chuyển nhà/du lịch/thay đổi cuộc sống','Morning routine — không filter','5 thói quen nhỏ thay đổi cuộc đời','Thử sống tối giản 7 ngày','Dùng [X] trong 30 ngày','Điều tôi học được sau khi [trải nghiệm]'],
-  food: ['Cách làm [món] ngon như ngoài hàng','Thử làm [món] lần đầu','Ăn [món] ở [quán] có đáng không?','Đập hộp: 5 món ăn vặt viral','Mẹ dạy nấu [món] — công thức gia truyền','Review quán [X]','Tôi ăn [món] mỗi ngày 1 tuần','Món 10K ngon gấp 3 món 100K','Phá đảo menu [quán]','Cách làm [đồ uống] chuẩn vị quán'],
-  fashion: ['Mix đồ 100K: đi làm/đi chơi/đi date','Những món đồ cơ bản ai cũng nên có','Review mỹ phẩm [X] sau 2 tuần','Makeup 5 phút đi làm','Áo [X] mặc 5 kiểu khác nhau','Skincare routine — da dầu/mụn','Sai lầm khi chọn [quần áo]','Shopping haul [số] món dưới [tiền]','Trang phục đi [sự kiện]','So sánh [A] vs [B]: cái nào win?'],
-  game: ['Thử thách [game] không dùng [X]','Top 5 game mobile ít người biết','POV: Bạn là [nhân vật game]','Bug [game] ai cũng nên biết','Review [thiết bị] sau [thời gian]','Mẹo [game] lên rank nhanh','Chơi [game] 1 tiếng và đây là kết quả','So sánh [A] và [B]','Setup/góc làm việc của tôi','Thử [app công nghệ] 1 tuần'],
-  motiv: ['Nếu bạn đang [khó khăn] — xem 1 phút','3 bài học sau thất bại','Điều tôi ước biết khi 18 tuổi','Tại sao nên bắt đầu hôm nay','Câu chuyện về [ai đó] truyền cảm hứng','5 câu nói thay đổi cách tôi nhìn cuộc sống','Từ [thất bại] đến [thành công]','Không cần [X] để bắt đầu — cần [Y]','Đừng so sánh bản thân — lý do','Điều đơn giản nhất thay đổi cuộc đời tôi']
-};
+/* ===== IDEAS ===== */
+const IDEAS = { edu:['Top 3 sai lầm khi mới học [X]','Giải thích [X] trong 30 giây','So sánh [A] và [B]','Hướng dẫn [X] trong 60s','5 mẹo [X] chuyên gia không muốn bạn biết','"Nếu bắt đầu lại, tôi sẽ..."','Sự thật về [X]','Case study: Tại sao [X] thành công?','Câu hỏi thường gặp về [X]','[X] cho người mới: bắt đầu từ đâu?'], fun:['POV: Bạn là [X]','Thử thách 24h','Khi bạn [X] trước mặt [Y]','Mấy kiểu người trong [X]','Đoán xem tôi làm gì?','Troll bạn thân','Thử [X] lần đầu','"Đừng [X]" — 5 phút sau:','Ai cũng có 1 người bạn như thế','Xem tôi pass [X] không?'], life:['Một ngày làm [nghề] của tôi','3 thứ tôi ước biết sớm','Sáng dậy 5h — kết quả','Review [X] sau 1 tháng','Chuyển nhà/du lịch/thay đổi','Morning routine — không filter','5 thói quen nhỏ','Sống tối giản 7 ngày','Dùng [X] 30 ngày','Điều tôi học sau [X]'], food:['Cách làm [món] ngon như hàng','Thử làm [món] lần đầu','Ăn [món] ở [quán] có đáng?','Đập hộp 5 món viral','Mẹ dạy nấu [món]','Review quán [X]','Ăn [món] 1 tuần','Món 10K ngon hơn 100K','Phá đảo menu [quán]','Cách làm [đồ uống] chuẩn quán'], fashion:['Mix đồ 100K: 3 hoàn cảnh','Những món cơ bản','Review [X] sau 2 tuần','Makeup 5 phút đi làm','Áo [X] 5 kiểu','Skincare routine','Sai lầm khi chọn [X]','Shopping haul [số] món','Trang phục đi [sự kiện]','So sánh [A] vs [B]'], game:['Thử [game] không dùng [X]','Top 5 game mobile','POV nhân vật game','Bug [game]','Review [thiết bị]','Mẹo [game] lên rank','Chơi [game] 1 tiếng','So sánh [A] và [B]','Setup góc làm việc','Thử [app] 1 tuần'], motiv:['Nếu bạn đang [khó khăn]','3 bài học sau thất bại','Điều tôi ước biết khi 18','Tại sao nên bắt đầu hôm nay','Câu chuyện về [ai đó]','5 câu nói thay đổi tôi','Từ [thất bại] đến [thành công]','Không cần [X] để bắt đầu','Đừng so sánh bản thân','Điều đơn giản thay đổi cuộc đời'] };
 function randomIdea(){
   const sel = document.getElementById('ideaCat'); const cat = sel ? sel.value : 'all';
-  let pool = [];
-  if(cat === 'all'){ Object.values(IDEAS).forEach(arr => pool.push(...arr)); } else { pool = IDEAS[cat] || []; }
+  let pool = []; if(cat === 'all'){ Object.values(IDEAS).forEach(arr => pool.push(...arr)); } else { pool = IDEAS[cat] || []; }
   if(!pool.length) return;
   const idea = pool[Math.floor(Math.random() * pool.length)];
   const catLbl = { all:'🎲 Ngẫu nhiên', edu:'📚 Giáo dục', fun:'😂 Hài hước', life:'🌱 Đời sống', food:'🍜 Ẩm thực', fashion:'👗 Thời trang', game:'🎮 Game', motiv:'🔥 Truyền cảm hứng' };
   document.getElementById('ideaCatLbl').textContent = catLbl[cat] || 'Ý tưởng';
-  const box = document.getElementById('ideaTxt'); box.textContent = idea;
-  box.style.animation = 'none'; void box.offsetWidth; box.style.animation = 'fadeSlideUp .5s';
+  const box = document.getElementById('ideaTxt'); box.textContent = idea; box.style.animation = 'none'; void box.offsetWidth; box.style.animation = 'fadeSlideUp .5s';
 }
 document.getElementById('ideaRandom')?.addEventListener('click', randomIdea);
 document.getElementById('ideaCopy')?.addEventListener('click', async () => { const t = document.getElementById('ideaTxt').textContent; if(t.startsWith('Bấm')){ alert('Bấm Random trước'); return; } try{ await navigator.clipboard.writeText(t); tS('📋 Đã copy!'); }catch(e){ prompt('Copy:', t); } });
-document.getElementById('ideaSave')?.addEventListener('click', async () => {
-  if(!cu){ alert('Đăng nhập trước'); return; }
-  const t = document.getElementById('ideaTxt').textContent; if(t.startsWith('Bấm')){ alert('Bấm Random trước'); return; }
-  cd.captions = cd.captions || []; cd.captions.unshift({ type:'cap', text: t, date: new Date().toISOString() });
-  try{ await saveCd(); tS('💾 Đã lưu!'); }catch(e){ alert('❌ '+e.message); }
-});
+document.getElementById('ideaSave')?.addEventListener('click', async () => { if(!cu){ alert('Đăng nhập trước'); return; } const t = document.getElementById('ideaTxt').textContent; if(t.startsWith('Bấm')){ alert('Bấm Random trước'); return; } cd.captions = cd.captions || []; cd.captions.unshift({ type:'cap', text: t, date: new Date().toISOString() }); try{ await saveCd(); tS('💾 Đã lưu!'); }catch(e){ alert('❌ '+e.message); } });
 
-/* ===== 13. CHECKLIST ===== */
-const CHK_DEFAULT = [
-  { id:'hook', txt:'Hook 3 giây đầu đủ mạnh' },
-  { id:'caption', txt:'Caption có CTA' },
-  { id:'hashtag', txt:'Đủ hashtag (5-8 cái)' },
-  { id:'trend', txt:'Dùng nhạc trending' },
-  { id:'time', txt:'Đăng đúng giờ vàng' },
-  { id:'thumb', txt:'Thumbnail rõ, không bị che chữ' },
-  { id:'sub', txt:'Có phụ đề / caption' },
-  { id:'quality', txt:'Video đủ nét, không rung' },
-  { id:'length', txt:'Độ dài phù hợp (15-60s)' },
-  { id:'check', txt:'Xem lại video trước khi đăng' }
-];
+/* ===== CHECKLIST ===== */
+const CHK_DEFAULT = [ { id:'hook', txt:'Hook 3 giây đầu mạnh' }, { id:'caption', txt:'Caption có CTA' }, { id:'hashtag', txt:'Đủ hashtag (5-8 cái)' }, { id:'trend', txt:'Dùng nhạc trending' }, { id:'time', txt:'Đăng đúng giờ vàng' }, { id:'thumb', txt:'Thumbnail rõ, không bị che chữ' }, { id:'sub', txt:'Có phụ đề / caption' }, { id:'quality', txt:'Video đủ nét, không rung' }, { id:'length', txt:'Độ dài phù hợp (15-60s)' }, { id:'check', txt:'Xem lại video trước khi đăng' } ];
 function renderChecklist(){
   const list = document.getElementById('chkList'); if(!list) return;
   const state = cd.checklistState || {};
   list.innerHTML = CHK_DEFAULT.map(c => { const done = !!state[c.id]; return `<div class="chk-item ${done?'done':''}" data-chk="${c.id}"><div class="chk-box">${done?'✓':''}</div><div class="chk-txt">${c.txt}</div></div>`; }).join('');
   const done = CHK_DEFAULT.filter(c => state[c.id]).length;
   const prog = document.getElementById('chkProg'); if(prog) prog.style.width = (done / CHK_DEFAULT.length * 100) + '%';
-  list.querySelectorAll('[data-chk]').forEach(el => el.addEventListener('click', async () => {
-    const id = el.dataset.chk; cd.checklistState = cd.checklistState || {};
-    cd.checklistState[id] = !cd.checklistState[id];
-    try{ await saveCd(); renderChecklist(); }catch(e){ renderChecklist(); }
-  }));
+  list.querySelectorAll('[data-chk]').forEach(el => el.addEventListener('click', async () => { const id = el.dataset.chk; cd.checklistState = cd.checklistState || {}; cd.checklistState[id] = !cd.checklistState[id]; try{ await saveCd(); renderChecklist(); }catch(e){ renderChecklist(); } }));
 }
 document.getElementById('chkReset')?.addEventListener('click', async () => { if(!confirm('Reset checklist?')) return; cd.checklistState = {}; try{ await saveCd(); renderChecklist(); tS('🔄 Đã reset'); }catch(e){} });
 
-/* ===== 14. CAP SUB-TABS ===== */
+/* ===== CAP SUBTABS ===== */
 document.querySelectorAll('.cap-tab').forEach(t => t.addEventListener('click', () => {
   document.querySelectorAll('.cap-tab').forEach(x => x.classList.remove('a')); t.classList.add('a');
   const key = t.dataset.ctab;
@@ -1599,45 +1558,193 @@ document.querySelectorAll('.cap-tab').forEach(t => t.addEventListener('click', (
   if(key === 'chk') renderChecklist();
 }));
 
-/* ===== 15. SCREENSHOT (lazy load html2canvas) ===== */
+/* ===== SCREENSHOT ===== */
 async function takeScreenshot(){
   if(!rd.length){ alert('Chưa có dữ liệu'); return; }
   tS('📸 Đang chụp...', null, 2000);
   try{
-    if(typeof html2canvas === 'undefined'){
-      await new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
-    }
+    if(typeof html2canvas === 'undefined'){ await new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); }
     const target = document.querySelector('.w');
     const canvas = await html2canvas(target, { backgroundColor: getComputedStyle(document.body).backgroundColor || '#0f1419', scale: window.devicePixelRatio > 1 ? 1.5 : 2, useCORS: true, logging: false });
-    canvas.toBlob(blob => {
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = `dashboard-${new Date().toISOString().slice(0,10)}-${Date.now()}.png`;
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      URL.revokeObjectURL(url); tS('📸 Đã lưu ảnh!');
-    }, 'image/png');
+    canvas.toBlob(blob => { const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `dashboard-${new Date().toISOString().slice(0,10)}-${Date.now()}.png`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); tS('📸 Đã lưu ảnh!'); }, 'image/png');
   } catch(e){ alert('❌ Không chụp được: ' + e.message); }
 }
 document.getElementById('sShotBtn')?.addEventListener('click', takeScreenshot);
 
-/* ===== 16. EXPORT REPORT ===== */
+/* ===== EXPORT REPORT ===== */
 function exportReport(){
   if(!rd.length){ alert('Chưa có dữ liệu'); return; }
   const tV = rd.reduce((a,d)=>a+d[1],0), tL = rd.reduce((a,d)=>a+d[2],0), tC = rd.reduce((a,d)=>a+d[3],0), tS = rd.reduce((a,d)=>a+d[4],0);
-  const avgV = Math.round(tV/rd.length);
-  const top10 = [...rd].sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const avgV = Math.round(tV/rd.length); const top10 = [...rd].sort((a,b)=>b[1]-a[1]).slice(0,10);
   const anomalies = detectAnomalies(); const streak = calcStreak();
   const unlocked = ACHIEVEMENTS.filter(a => { try{ return a.check(); }catch(e){ return false; } });
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Báo cáo TikTok - ${new Date().toLocaleDateString('vi-VN')}</title><style>body{font-family:-apple-system,system-ui,sans-serif;max-width:900px;margin:40px auto;padding:20px;background:#f5f5f5;color:#111;line-height:1.6}h1{background:linear-gradient(90deg,#00e5c7,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:32px;margin-bottom:8px}h2{margin-top:32px;padding-bottom:8px;border-bottom:2px solid #00e5c7;color:#0a1a1e;font-size:20px}.sub{color:#666;margin-bottom:24px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}.box{background:#fff;padding:16px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center}.box .v{font-size:22px;font-weight:800;color:#00b8a0;margin-bottom:4px}.box .l{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px}table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);margin:16px 0}th{background:#0a1a1e;color:#00e5c7;padding:10px;text-align:left;font-size:12px;text-transform:uppercase}td{padding:10px;border-bottom:1px solid #eee;font-size:13px}tr:hover td{background:#f9f9f9}.good{color:#16a34a;font-weight:700}.bad{color:#dc2626;font-weight:700}.ach{display:inline-block;padding:8px 12px;background:#fff;border-radius:20px;margin:4px;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)}.footer{text-align:center;color:#999;font-size:11px;margin-top:40px;padding-top:20px;border-top:1px solid #ddd}@media print{body{background:#fff;margin:0}}</style></head><body><h1>📊 Báo cáo TikTok Analytics</h1><div class="sub">Xuất ngày ${new Date().toLocaleString('vi-VN')} · Tài khoản: ${cu?.email || 'N/A'}</div><h2>📈 Tổng quan</h2><div class="grid"><div class="box"><div class="v">${tV.toLocaleString('vi-VN')}</div><div class="l">Tổng Views</div></div><div class="box"><div class="v">${tL.toLocaleString('vi-VN')}</div><div class="l">Tổng Likes</div></div><div class="box"><div class="v">${tC.toLocaleString('vi-VN')}</div><div class="l">Comments</div></div><div class="box"><div class="v">${tS.toLocaleString('vi-VN')}</div><div class="l">Shares</div></div><div class="box"><div class="v">${avgV.toLocaleString('vi-VN')}</div><div class="l">View TB/ngày</div></div><div class="box"><div class="v">${rd.length}</div><div class="l">Số ngày data</div></div></div><h2>🔥 Streak</h2><div class="box" style="text-align:left;padding:20px"><div style="font-size:32px;font-weight:800;color:#d97706">${streak} ngày liên tục</div><div style="color:#888;font-size:12px;margin-top:4px">Kỷ lục: ${cd.bestStreak || streak} ngày</div></div><h2>🏆 Top 10 ngày viral</h2><table><thead><tr><th>#</th><th>Ngày</th><th>Views</th><th>Likes</th><th>Cmt</th><th>Shares</th></tr></thead><tbody>${top10.map((d,i) => `<tr><td>${i+1}</td><td>${esc(d[0])}</td><td><b>${d[1].toLocaleString('vi-VN')}</b></td><td>${d[2].toLocaleString('vi-VN')}</td><td>${d[3].toLocaleString('vi-VN')}</td><td>${d[4].toLocaleString('vi-VN')}</td></tr>`).join('')}</tbody></table>${anomalies.length ? `<h2>🚨 Bất thường</h2><table><thead><tr><th>Loại</th><th>Ngày</th><th>Views</th><th>Chênh lệch</th></tr></thead><tbody>${anomalies.map(a => `<tr><td>${a.type==='spike'?'🚀 Viral':'📉 Sụt'}</td><td>${esc(a.day)}</td><td>${a.value.toLocaleString('vi-VN')}</td><td class="${a.pct>=0?'good':'bad'}">${a.pct>=0?'+':''}${a.pct.toFixed(0)}%</td></tr>`).join('')}</tbody></table>` : ''}<h2>🏅 Thành tích (${unlocked.length}/${ACHIEVEMENTS.length})</h2><div>${unlocked.map(a => `<span class="ach">${a.icon} ${a.name}</span>`).join('')}</div><div class="footer">Báo cáo được tạo bởi Tool by @ductri705 · Zalo: 0865199199</div></body></html>`;
-  const blob = new Blob([html], { type:'text/html;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Báo cáo TikTok - ${new Date().toLocaleDateString('vi-VN')}</title><style>body{font-family:-apple-system,system-ui,sans-serif;max-width:900px;margin:40px auto;padding:20px;background:#f5f5f5;color:#111;line-height:1.6}h1{background:linear-gradient(90deg,#00e5c7,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:32px;margin-bottom:8px}h2{margin-top:32px;padding-bottom:8px;border-bottom:2px solid #00e5c7;color:#0a1a1e;font-size:20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}.box{background:#fff;padding:16px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center}.box .v{font-size:22px;font-weight:800;color:#00b8a0}.box .l{font-size:11px;color:#888;text-transform:uppercase}table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;margin:16px 0}th{background:#0a1a1e;color:#00e5c7;padding:10px;text-align:left;font-size:12px}td{padding:10px;border-bottom:1px solid #eee;font-size:13px}.good{color:#16a34a;font-weight:700}.bad{color:#dc2626;font-weight:700}.ach{display:inline-block;padding:8px 12px;background:#fff;border-radius:20px;margin:4px;font-size:12px}.footer{text-align:center;color:#999;font-size:11px;margin-top:40px}</style></head><body><h1>📊 Báo cáo TikTok Analytics</h1><div style="color:#666;margin-bottom:24px">Xuất ngày ${new Date().toLocaleString('vi-VN')} · ${cu?.email || 'N/A'}</div><h2>📈 Tổng quan</h2><div class="grid"><div class="box"><div class="v">${tV.toLocaleString('vi-VN')}</div><div class="l">Tổng Views</div></div><div class="box"><div class="v">${tL.toLocaleString('vi-VN')}</div><div class="l">Likes</div></div><div class="box"><div class="v">${tC.toLocaleString('vi-VN')}</div><div class="l">Comments</div></div><div class="box"><div class="v">${tS.toLocaleString('vi-VN')}</div><div class="l">Shares</div></div><div class="box"><div class="v">${avgV.toLocaleString('vi-VN')}</div><div class="l">View TB/ngày</div></div><div class="box"><div class="v">${rd.length}</div><div class="l">Số ngày</div></div></div><h2>🔥 Streak</h2><div class="box" style="text-align:left;padding:20px"><div style="font-size:32px;font-weight:800;color:#d97706">${streak} ngày</div></div><h2>🏆 Top 10 viral</h2><table><thead><tr><th>#</th><th>Ngày</th><th>Views</th></tr></thead><tbody>${top10.map((d,i) => `<tr><td>${i+1}</td><td>${esc(d[0])}</td><td><b>${d[1].toLocaleString('vi-VN')}</b></td></tr>`).join('')}</tbody></table>${anomalies.length ? `<h2>🚨 Bất thường</h2><table><thead><tr><th>Loại</th><th>Ngày</th><th>Chênh</th></tr></thead><tbody>${anomalies.map(a => `<tr><td>${a.type==='spike'?'🚀':'📉'}</td><td>${esc(a.day)}</td><td class="${a.pct>=0?'good':'bad'}">${a.pct>=0?'+':''}${a.pct.toFixed(0)}%</td></tr>`).join('')}</tbody></table>` : ''}<h2>🏅 Thành tích (${unlocked.length}/${ACHIEVEMENTS.length})</h2><div>${unlocked.map(a => `<span class="ach">${a.icon} ${a.name}</span>`).join('')}</div><div class="footer">Tool by @ductri705 · Zalo 0865199199</div></body></html>`;
+  const blob = new Blob([html], { type:'text/html;charset=utf-8' }); const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = `baocao-tiktok-${new Date().toISOString().slice(0,10)}.html`;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-  tS('📤 Đã xuất báo cáo!');
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); tS('📤 Đã xuất!');
 }
 document.getElementById('expReport')?.addEventListener('click', exportReport);
 
-/* ===== 17. INIT ===== */
-setTimeout(() => { renderStreak(); setPresetRange(7); updateCountdown(); renderCaptions(); renderChecklist(); }, 500);
+/* ===== LINK TREND AUTO ===== */
+const CORS_PROXIES = ['https://api.allorigins.win/raw?url=','https://corsproxy.io/?url=','https://cors.eu.org/'];
+async function fetchTikTokHTML(url){
+  for(let i = 0; i < CORS_PROXIES.length; i++){
+    try{
+      const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 12000);
+      const r = await fetch(CORS_PROXIES[i] + encodeURIComponent(url), { signal: ctrl.signal });
+      clearTimeout(to);
+      if(r.ok){ const txt = await r.text(); if(txt && txt.length > 1000) return txt; }
+    } catch(e){ continue; }
+  }
+  throw new Error('Không kết nối TikTok. Thử đổi mạng hoặc dùng 4G.');
+}
+function parseTikTokJSON(html){
+  let m = html.match(/<script[^>]+id="__UNIVERSAL_DATA_FOR_REHYDRATION__"[^>]*>([\s\S]*?)<\/script>/);
+  if(m){ try{ const j = JSON.parse(m[1]); const scope = j.__DEFAULT_SCOPE__ || {}; const vd = scope['webapp.video-detail']; const item = vd?.itemInfo?.itemStruct; if(item) return item; }catch(e){} }
+  m = html.match(/<script[^>]+id="SIGI_STATE"[^>]*>([\s\S]*?)<\/script>/);
+  if(m){ try{ const j = JSON.parse(m[1]); const im = j.ItemModule; if(im){ const keys = Object.keys(im); if(keys.length) return im[keys[0]]; } }catch(e){} }
+  m = html.match(/<script[^>]+id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
+  if(m){ try{ const j = JSON.parse(m[1]); const item = j.props?.pageProps?.itemInfo?.itemStruct; if(item) return item; }catch(e){} }
+  throw new Error('Không đọc được data video. Link sai hoặc đã xóa.');
+}
+function calcTrend(item){
+  const stats = item.stats || item.statsV2 || {};
+  const views = parseInt(stats.playCount) || 0, likes = parseInt(stats.diggCount) || 0, cmt = parseInt(stats.commentCount) || 0, shares = parseInt(stats.shareCount) || 0, saves = parseInt(stats.collectCount) || 0;
+  const createTime = parseInt(item.createTime) || 0;
+  const hoursSince = createTime > 0 ? Math.max(1, (Date.now()/1000 - createTime)/3600) : 0;
+  const daysSince = hoursSince/24;
+  const likeRate = views > 0 ? (likes/views)*100 : 0;
+  const cmtRate = views > 0 ? (cmt/views)*100 : 0;
+  const shareRate = views > 0 ? (shares/views)*100 : 0;
+  const saveRate = views > 0 ? (saves/views)*100 : 0;
+  const engRate = likeRate + cmtRate + shareRate;
+  const viewsPerHour = hoursSince > 0 ? views/hoursSince : 0;
+  const viewsPerDay = daysSince > 0 ? views/daysSince : 0;
+  let likeScore = 0; if(likeRate>=15) likeScore=30; else if(likeRate>=10) likeScore=26; else if(likeRate>=7) likeScore=22; else if(likeRate>=5) likeScore=18; else if(likeRate>=3) likeScore=12; else if(likeRate>=1) likeScore=6;
+  let cmtScore = 0; if(cmtRate>=1) cmtScore=20; else if(cmtRate>=0.5) cmtScore=16; else if(cmtRate>=0.3) cmtScore=12; else if(cmtRate>=0.15) cmtScore=8; else if(cmtRate>=0.05) cmtScore=4;
+  let shareScore = 0; if(shareRate>=2) shareScore=20; else if(shareRate>=1) shareScore=16; else if(shareRate>=0.5) shareScore=12; else if(shareRate>=0.2) shareScore=8; else if(shareRate>=0.05) shareScore=4;
+  let speedScore = 0; if(viewsPerHour>=50000) speedScore=30; else if(viewsPerHour>=20000) speedScore=26; else if(viewsPerHour>=10000) speedScore=22; else if(viewsPerHour>=5000) speedScore=18; else if(viewsPerHour>=2000) speedScore=14; else if(viewsPerHour>=1000) speedScore=10; else if(viewsPerHour>=500) speedScore=6; else if(viewsPerHour>=100) speedScore=3;
+  const totalScore = likeScore + cmtScore + shareScore + speedScore;
+  let verdict = 'low', verdictTxt = '📉 Chưa viral', verdictDesc = '';
+  if(totalScore >= 85){ verdict = 'viral'; verdictTxt = '🚀 SIÊU VIRAL!'; verdictDesc = 'Video đang bùng nổ với tỉ lệ tương tác cực cao. Đây là content bạn nên nhân bản!'; }
+  else if(totalScore >= 70){ verdict = 'hot'; verdictTxt = '🔥 ĐANG HOT'; verdictDesc = 'Video có dấu hiệu viral tốt, tương tác cao. Nên đẩy thêm content tương tự.'; }
+  else if(totalScore >= 50){ verdict = 'normal'; verdictTxt = '✅ Ổn định'; verdictDesc = 'Video tương tác ổn định. Có thể tối ưu CTA hoặc hook để tăng thêm.'; }
+  else { verdictDesc = 'Video tương tác thấp. Xem lại hook 3s đầu, nội dung, hashtag, giờ đăng.'; }
+  return { views, likes, cmt, shares, saves, createTime, hoursSince, daysSince, likeRate, cmtRate, shareRate, saveRate, engRate, viewsPerHour, viewsPerDay, likeScore, cmtScore, shareScore, speedScore, totalScore, verdict, verdictTxt, verdictDesc };
+}
+function fmtNum2(n){ if(n >= 1e9) return (n/1e9).toFixed(2)+'B'; if(n >= 1e6) return (n/1e6).toFixed(2)+'M'; if(n >= 1e3) return (n/1e3).toFixed(1)+'K'; return Math.round(n).toLocaleString('vi-VN'); }
+function timeAgo(ts){ if(!ts) return ''; const s = Math.floor(Date.now()/1000) - ts; if(s < 60) return s+' giây trước'; if(s < 3600) return Math.floor(s/60)+' phút trước'; if(s < 86400) return Math.floor(s/3600)+' giờ trước'; if(s < 2592000) return Math.floor(s/86400)+' ngày trước'; if(s < 31536000) return Math.floor(s/2592000)+' tháng trước'; return Math.floor(s/31536000)+' năm trước'; }
+
+async function analyzeLink(){
+  const url = document.getElementById('lnkInput').value.trim();
+  const btn = document.getElementById('lnkFetch'); const box = document.getElementById('lnkResult');
+  if(!url){ alert('Dán link trước'); return; }
+  if(!/tiktok\.com/i.test(url)){ alert('Chỉ hỗ trợ link TikTok'); return; }
+  btn.disabled = true;
+  box.innerHTML = '<div class="lnk-loading"><div class="spin"></div><div>⏳ Đang kết nối TikTok...</div><div style="font-size:10px;margin-top:4px">Có thể mất 5-15 giây</div></div>';
+  try{
+    const html = await fetchTikTokHTML(url);
+    const item = parseTikTokJSON(html);
+    const trend = calcTrend(item);
+    const author = item.author || {}, music = item.music || {}, challenges = item.challenges || [];
+    const thumb = item.video?.cover || item.video?.dynamicCover || '';
+    const title = item.desc || '(Không có tiêu đề)';
+    let scoreCls = '';
+    if(trend.totalScore >= 95) scoreCls = 's95'; else if(trend.totalScore >= 85) scoreCls = 's85'; else if(trend.totalScore >= 70) scoreCls = 's70'; else if(trend.totalScore >= 50) scoreCls = 's50';
+    const lc = trend.likeRate >= 5 ? 'good' : trend.likeRate >= 2 ? 'mid' : 'bad';
+    const cc = trend.cmtRate >= 0.3 ? 'good' : trend.cmtRate >= 0.1 ? 'mid' : 'bad';
+    const sc = trend.shareRate >= 0.5 ? 'good' : trend.shareRate >= 0.2 ? 'mid' : 'bad';
+    const spc = trend.viewsPerHour >= 10000 ? 'good' : trend.viewsPerHour >= 2000 ? 'mid' : 'bad';
+    const likeW = Math.min(100, trend.likeRate / 15 * 100), cmtW = Math.min(100, trend.cmtRate / 1 * 100), shareW = Math.min(100, trend.shareRate / 2 * 100), engW = Math.min(100, trend.engRate / 18 * 100);
+    box.innerHTML = `
+      <div class="lnk-card">
+        ${thumb ? `<img class="lnk-thumb" src="${esc(thumb)}" onerror="this.style.display='none'">` : ''}
+        <div class="lnk-info">
+          <div class="lnk-author">👤 @${esc(author.uniqueId || 'unknown')}</div>
+          <div class="lnk-title">${esc(title.slice(0, 140))}${title.length > 140 ? '...' : ''}</div>
+          <div class="lnk-time">🕐 ${esc(timeAgo(trend.createTime))} · ⏱️ ${trend.hoursSince.toFixed(1)}h</div>
+          ${challenges.length ? `<div class="lnk-hash">${challenges.slice(0, 5).map(c => `<span>#${esc(c.title || '')}</span>`).join('')}</div>` : ''}
+        </div>
+      </div>
+      <div class="trend-score ${scoreCls}">
+        <div class="trend-score-num ${scoreCls}">${trend.totalScore}</div>
+        <div class="trend-score-lbl">${trend.verdictTxt}</div>
+        <div class="trend-score-sub">Điểm xu hướng / 100</div>
+      </div>
+      <div class="trend-metrics">
+        <div class="trend-metric"><div class="tm-icon">👀</div><div class="tm-val">${fmtNum2(trend.views)}</div><div class="tm-lbl">Views</div><div class="tm-note">${fmtNum2(trend.viewsPerHour)}/h</div></div>
+        <div class="trend-metric ${lc}"><div class="tm-icon">❤️</div><div class="tm-val">${trend.likeRate.toFixed(2)}%</div><div class="tm-lbl">Like rate</div><div class="tm-note">${fmtNum2(trend.likes)}</div></div>
+        <div class="trend-metric ${cc}"><div class="tm-icon">💬</div><div class="tm-val">${trend.cmtRate.toFixed(2)}%</div><div class="tm-lbl">Cmt rate</div><div class="tm-note">${fmtNum2(trend.cmt)}</div></div>
+        <div class="trend-metric ${sc}"><div class="tm-icon">🔁</div><div class="tm-val">${trend.shareRate.toFixed(2)}%</div><div class="tm-lbl">Share rate</div><div class="tm-note">${fmtNum2(trend.shares)}</div></div>
+      </div>
+      <div class="trend-section">
+        <h3>📊 Tỉ lệ xu hướng chi tiết</h3>
+        <div class="trend-bar"><span class="tb-lbl">❤️ Like/View</span><div class="tb-track"><div class="tb-fill ${lc}" style="width:${likeW}%"></div></div><span class="tb-val ${lc}">${trend.likeRate.toFixed(2)}%</span></div>
+        <div class="trend-bar"><span class="tb-lbl">💬 Cmt/View</span><div class="tb-track"><div class="tb-fill ${cc}" style="width:${cmtW}%"></div></div><span class="tb-val ${cc}">${trend.cmtRate.toFixed(2)}%</span></div>
+        <div class="trend-bar"><span class="tb-lbl">🔁 Share/View</span><div class="tb-track"><div class="tb-fill ${sc}" style="width:${shareW}%"></div></div><span class="tb-val ${sc}">${trend.shareRate.toFixed(2)}%</span></div>
+        <div class="trend-bar"><span class="tb-lbl">⚡ Tổng tương tác</span><div class="tb-track"><div class="tb-fill ${trend.engRate>=8?'good':trend.engRate>=4?'mid':'bad'}" style="width:${engW}%"></div></div><span class="tb-val ${trend.engRate>=8?'good':trend.engRate>=4?'mid':'bad'}">${trend.engRate.toFixed(2)}%</span></div>
+        <div class="trend-bar"><span class="tb-lbl">🚀 Tốc độ viral</span><div class="tb-track"><div class="tb-fill ${spc}" style="width:${Math.min(100, trend.viewsPerHour/50000*100)}%"></div></div><span class="tb-val ${spc}">${fmtNum2(trend.viewsPerHour)}/h</span></div>
+      </div>
+      <div class="trend-section">
+        <h3>📈 Chi tiết điểm xu hướng</h3>
+        <div class="trend-bar"><span class="tb-lbl">❤️ Like score</span><div class="tb-track"><div class="tb-fill good" style="width:${trend.likeScore/30*100}%"></div></div><span class="tb-val good">${trend.likeScore}/30</span></div>
+        <div class="trend-bar"><span class="tb-lbl">💬 Cmt score</span><div class="tb-track"><div class="tb-fill good" style="width:${trend.cmtScore/20*100}%"></div></div><span class="tb-val good">${trend.cmtScore}/20</span></div>
+        <div class="trend-bar"><span class="tb-lbl">🔁 Share score</span><div class="tb-track"><div class="tb-fill good" style="width:${trend.shareScore/20*100}%"></div></div><span class="tb-val good">${trend.shareScore}/20</span></div>
+        <div class="trend-bar"><span class="tb-lbl">🚀 Speed score</span><div class="tb-track"><div class="tb-fill good" style="width:${trend.speedScore/30*100}%"></div></div><span class="tb-val good">${trend.speedScore}/30</span></div>
+      </div>
+      <div class="trend-verdict ${trend.verdict}">
+        <div style="font-weight:800;font-size:14px;margin-bottom:6px">${trend.verdictTxt}</div>
+        ${trend.verdictDesc}
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1);font-size:11.5px;color:var(--tx2)">
+          ⏱️ Đăng <b>${trend.hoursSince.toFixed(1)}h</b> trước · TB <b>${fmtNum2(trend.viewsPerDay)}</b> view/ngày
+          ${trend.saves > 0 ? `<br>💾 Lượt lưu: <b>${fmtNum2(trend.saves)}</b> (${trend.saveRate.toFixed(2)}%)` : ''}
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+        <button class="b bs" id="lnkSave">💾 Lưu</button>
+        <button class="b bb" id="lnkAgain">🔄 Lại</button>
+      </div>
+      <div class="nt" style="margin-top:10px;font-size:10px;text-align:left;line-height:1.6">📌 <b>Chuẩn TikTok:</b><br>• Like ≥5% (viral ≥10%) · Cmt ≥0.3% (viral ≥1%)<br>• Share ≥0.5% (viral ≥2%) · Tốc độ ≥10K view/giờ</div>
+    `;
+    document.getElementById('lnkSave').addEventListener('click', async () => {
+      if(!cu){ alert('Đăng nhập trước'); return; }
+      cd.linkHistory = cd.linkHistory || [];
+      cd.linkHistory.unshift({ url, title, author: author.uniqueId || 'unknown', thumbnail: thumb, views: trend.views, likes: trend.likes, cmt: trend.cmt, shares: trend.shares, score: trend.totalScore, verdict: trend.verdict, likeRate: trend.likeRate, date: new Date().toISOString() });
+      if(cd.linkHistory.length > 30) cd.linkHistory = cd.linkHistory.slice(0, 30);
+      try{ await saveCd(); renderLinkHistory(); tS('💾 Đã lưu!'); }catch(e){ alert('❌ '+e.message); }
+    });
+    document.getElementById('lnkAgain').addEventListener('click', analyzeLink);
+  } catch(err){
+    box.innerHTML = `<div class="trend-verdict low"><div style="font-weight:800;margin-bottom:6px">❌ Lỗi phân tích</div>${esc(err.message)}<div style="margin-top:8px;font-size:11px;color:var(--tx3)">💡 Đổi mạng (4G/Wifi khác) · Copy link từ app TikTok · Thử lại sau 1 phút</div></div>`;
+  } finally { btn.disabled = false; }
+}
+function renderLinkHistory(){
+  const list = document.getElementById('lnkHistoryList'); const clearBtn = document.getElementById('lnkClear');
+  if(!list) return;
+  const hist = cd.linkHistory || [];
+  if(!hist.length){ list.innerHTML = '<div class="cap-empty">📭 Chưa có video nào</div>'; if(clearBtn) clearBtn.style.display = 'none'; return; }
+  if(clearBtn) clearBtn.style.display = '';
+  list.innerHTML = hist.map((h, i) => {
+    const score = h.score || 0;
+    const color = score >= 85 ? 'var(--gold)' : score >= 70 ? 'var(--gr)' : score >= 50 ? 'var(--acc)' : 'var(--rd)';
+    const dateStr = h.date ? new Date(h.date).toLocaleDateString('vi-VN') : '';
+    return `<div class="lnk-hist-item" data-his-open="${i}">${h.thumbnail ? `<img class="hi-thumb" src="${esc(h.thumbnail)}" onerror="this.style.display='none'">` : '<div class="hi-thumb"></div>'}<div class="hi-info"><div class="hi-title">${esc((h.title||'').slice(0, 55))}</div><div class="hi-stat">@${esc(h.author||'?')} · 👀 ${fmtNum2(h.views||0)} · ${dateStr}</div></div><div class="hi-score" style="color:${color}">${score}</div><button class="hi-del" data-his-del="${i}">🗑️</button></div>`;
+  }).join('');
+  list.querySelectorAll('[data-his-del]').forEach(b => b.addEventListener('click', async (e) => { e.stopPropagation(); if(!confirm('Xóa?')) return; cd.linkHistory.splice(parseInt(b.dataset.hisDel), 1); try{ await saveCd(); renderLinkHistory(); }catch(e){} }));
+  list.querySelectorAll('[data-his-open]').forEach(el => el.addEventListener('click', (e) => { if(e.target.dataset.hisDel !== undefined) return; const h = hist[parseInt(el.dataset.hisOpen)]; if(h?.url){ document.getElementById('lnkInput').value = h.url; analyzeLink(); } }));
+}
+document.getElementById('lnkFetch')?.addEventListener('click', analyzeLink);
+document.getElementById('lnkInput')?.addEventListener('keypress', e => { if(e.key === 'Enter') analyzeLink(); });
+document.getElementById('lnkClear')?.addEventListener('click', async () => { if(!confirm('Xóa toàn bộ lịch sử?')) return; cd.linkHistory = []; try{ await saveCd(); renderLinkHistory(); tS('🗑️ Đã xóa'); }catch(e){} });
+
+/* ===== UPDATE CHECK ===== */
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.0';
+const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/index.html';
+async function cU(){ try{ const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' }); if(!r.ok) return; const t = await r.text(); const m = t.match(/name="tool-version"\s+content="([^"]+)"/); if(!m) return; const newVer = m[1]; if(newVer === VER) return; if(localStorage.getItem('updShown') === newVer) return; if(document.getElementById('uT')) return; localStorage.setItem('updShown', newVer); const el = document.createElement('div'); el.id = 'uT'; el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;z-index:99999;max-width:90vw;cursor:pointer'; el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px">Bấm để tải lại</span>`; el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() }; document.body.appendChild(el); } catch(e){} }
+setTimeout(cU, 5000); setInterval(cU, 300000);
+
+/* ===== INIT ===== */
+setTimeout(() => { renderStreak(); setPresetRange(7); updateCountdown(); renderCaptions(); renderChecklist(); renderLinkHistory(); }, 600);
 
 };
 </script>
