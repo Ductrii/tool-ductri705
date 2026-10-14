@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <!-- Cấu hình DNS tối ưu cho Free Fire -->
+        <dict>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>HTTPS</string>
+                <key>ServerURL</key>
+                <string>https://1.1.1.1/dns-query</string>
+                <key>ServerAddresses</key>
+                <array>
+                    <string>1.1.1.1</string>
+                    <string>1.0.0.1</string>
+                </array>
+            </dict>
+            <key>PayloadDescription</key>
+            <string>DNS Cloudflare - Tối ưu ping cho Free Fire (do Ductri705 tạo)</string>
+            <key>PayloadDisplayName</key>
+            <string>Ductri705 DNS FF</string>
+            <key>PayloadIdentifier</key>
+            <string>com.ductri705.ff.dns</string>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadUUID</key>
+            <string>A1B2C3D4-E5F6-7890-ABCD-EF1234567890</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+        <!-- Cấu hình WiFi (tùy chọn) -->
+        <dict>
+            <key>PayloadDescription</key>
+            <string>Cấu hình mạng cho Free Fire</string>
+            <key>PayloadDisplayName</key>
+            <string>Ductri705 Network FF</string>
+            <key>PayloadIdentifier</key>
+            <string>com.ductri705.ff.network</string>
+            <key>PayloadType</key>
+            <string>com.apple.wifi.managed</string>
+            <key>PayloadUUID</key>
+            <string>B2C3D4E5-F6A7-8901-BCDE-F23456789012</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+
+    <key>PayloadDescription</key>
+    <string>Hồ sơ tối ưu mạng cho Free Fire - Tạo bởi Ductri705</string>
+    <key>PayloadDisplayName</key>
+    <string>Ductri705 FF Profile</string>
+    <key>PayloadIdentifier</key>
+    <string>com.ductri705.ff.profile</string>
+    <key>PayloadOrganization</key>
+    <string>Ductri705</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>C3D4E5F6-A7B8-9012-CDEF-345678901234</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>
