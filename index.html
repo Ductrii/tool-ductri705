@@ -1,9 +1,14 @@
+Dưới đây là toàn bộ code hoàn chỉnh mới nhất đã được gộp và sửa lỗi nhạc (tự động bật khi đăng nhập, không bị tắt khi chuyển tab, chống tắt âm thanh liên tục).
+
+Bạn chỉ cần Bôi đen toàn bộ file cũ -> Xóa -> Dán đoạn code này vào -> Lưu lại là xong.
+
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v13.5-game">
+<meta name="tool-version" content="v13.6-game">
 <meta name="theme-color" content="#00e5c7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1189,6 +1194,10 @@ sb.auth.onAuthStateChange(async (ev, ss) => {
     rAll(); renderLockedState();
     updateGmBalance();
     if(!window.__welcomeShown){ window.__welcomeShown = true; setTimeout(() => { if(window.showAuthToast) window.showAuthToast('welcome', ss.user.email); }, 700); }
+    
+    // Tự động mở khóa âm thanh khi đăng nhập
+    setTimeout(() => { if(window.__unlockAudio) window.__unlockAudio(); }, 1000);
+    
     const lastGuide = parseInt(localStorage.getItem('guideShown') || '0'); const oneDay = 24 * 60 * 60 * 1000;
     if(Date.now() - lastGuide > oneDay){ setTimeout(() => { if(window.showGuideModal) window.showGuideModal(); }, 1600); }
   } else {
@@ -1273,7 +1282,7 @@ function rMCmp(){ const b = document.getElementById('mCmpC'); if(rd.length < 2){
 
 document.getElementById('exB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } const l = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"']; rd.forEach(d => l.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`)); const c = '\ufeff' + l.join('\n'); const b = new Blob([c], { type:'text/csv;charset=utf-8' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `tiktok_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('shB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } let tv=0, tl=0, mx=0, mxD=''; rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx){ mx = d[1]; mxD = d[0] } }); const avg = Math.round(tv/rd.length); const t = `📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rd.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`; if(navigator.share) navigator.share({ title:'TikTok Stats', text: t }).catch(() => {}); else navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t)); });
-document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.5', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
+document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.6', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('rsB').addEventListener('click', () => document.getElementById('rI').click());
 document.getElementById('rI').addEventListener('change', e => { const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async ev => { try{ const d = JSON.parse(ev.target.result); if(!d.rows || !Array.isArray(d.rows)) throw new Error('File lỗi'); if(!confirm(`Khôi phục ${d.rows.length} dòng?`)) return; rd = d.rows; if(d.channelData){ cd = d.channelData; await saveCd(); renderCh() } rAll(); await saveC(); alert('✅ Đã khôi phục!'); } catch(err){ alert('❌ '+err.message) } }; r.readAsText(f); e.target.value = ''; });
 document.getElementById('pBtn').addEventListener('click', async () => { const p1 = document.getElementById('pO').value, p2 = document.getElementById('pN').value; const m = document.getElementById('pM'); m.textContent = ''; m.className = 'm'; if(!p1 || !p2){ m.textContent = 'Nhập đầy đủ'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1.length < 6){ m.textContent = 'Từ 6 ký tự'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1 !== p2){ m.textContent = 'Không khớp'; m.classList.add('e'); window.shakeInput(document.getElementById('pN')); return; } const b = document.getElementById('pBtn'); b.disabled = true; b.textContent = '⏳'; try{ const { error } = await sb.auth.updateUser({ password: p1 }); if(error) throw error; m.textContent = '✅ Đổi thành công!'; m.classList.add('o'); document.getElementById('pO').value = ''; document.getElementById('pN').value = ''; } catch(e){ m.textContent = '❌ '+e.message; m.classList.add('e') } b.disabled = false; b.textContent = '🔑 Đổi'; });
@@ -1754,7 +1763,7 @@ function exportReport(){
 document.getElementById('expReport')?.addEventListener('click', exportReport);
 
 /* ===== UPDATE CHECK ===== */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.5';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.6';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/index.html';
 async function cU(){ try{ const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' }); if(!r.ok) return; const t = await r.text(); const m = t.match(/name="tool-version"\s+content="([^"]+)"/); if(!m) return; const newVer = m[1]; if(newVer === VER) return; if(localStorage.getItem('updShown') === newVer) return; if(document.getElementById('uT')) return; localStorage.setItem('updShown', newVer); const el = document.createElement('div'); el.id = 'uT'; el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;z-index:99999;max-width:90vw;cursor:pointer'; el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px">Bấm để tải lại</span>`; el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() }; document.body.appendChild(el); } catch(e){} }
 setTimeout(cU, 5000); setInterval(cU, 300000);
@@ -1763,6 +1772,7 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
 (function initRadioSystem(){
   let radioChannel = null;
   let currentRadioId = null;
+  let isUnmuted = false; // Trạng thái đã mở khóa âm thanh chưa
 
   function extractYTId(input){
     if(!input) return null;
@@ -1772,6 +1782,38 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
     return m ? m[1] : null;
   }
 
+  // Hàm ép phát (chạy ngầm mỗi 2s để chống tắt)
+  function forcePlayRadio(){
+    const ifr = document.getElementById('ytIframe');
+    if(ifr && ifr.contentWindow && currentRadioId){
+      try{
+        ifr.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        if(isUnmuted){
+          ifr.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+          ifr.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[100]}', '*');
+        }
+      }catch(e){}
+    }
+  }
+
+  // Hàm mở khóa âm thanh (gọi khi user click hoặc login)
+  function unlockAudio(){
+    if(!currentRadioId) return;
+    isUnmuted = true;
+    const ifr = document.getElementById('ytIframe');
+    if(ifr && ifr.contentWindow){
+      try{
+        ifr.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+        ifr.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[100]}', '*');
+        ifr.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        const nowEl = document.getElementById('radioNow');
+        if(nowEl && !nowEl.textContent.includes('🎵 ')) nowEl.textContent = '🎵 Đang phát...';
+      }catch(e){}
+    }
+  }
+  // Xuất hàm ra ngoài để lúc đăng nhập gọi được
+  window.__unlockAudio = unlockAudio; 
+
   function renderYtPlayer(videoId){
     const container = document.getElementById('ytPlayerContainer');
     const nowEl = document.getElementById('radioNow');
@@ -1779,16 +1821,25 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
     if(!videoId){
       container.innerHTML = '';
       nowEl.textContent = '🎵 Chưa có nhạc';
+      currentRadioId = null;
       return;
     }
     const existing = document.getElementById('ytIframe');
     if(existing && existing.dataset.vid === videoId) return;
-    container.innerHTML = '<iframe id="ytIframe" data-vid="' + videoId + '" width="320" height="180" src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&loop=1&playlist=' + videoId + '&enablejsapi=1&playsinline=1&mute=0" frameborder="0" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    
+    // Ban đầu để mute=1 (trình duyệt luôn cho phép autoplay nếu mute)
+    container.innerHTML = '<iframe id="ytIframe" data-vid="' + videoId + '" width="320" height="180" src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&loop=1&playlist=' + videoId + '&enablejsapi=1&playsinline=1&mute=1" frameborder="0" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>';
     nowEl.textContent = '🎵 Đang phát...';
+    
     fetch('https://www.youtube.com/oembed?url=https://youtu.be/' + videoId + '&format=json')
       .then(r => r.json())
       .then(d => { if(d.title && currentRadioId === videoId) nowEl.textContent = '🎵 ' + d.title.slice(0, 40); })
       .catch(() => {});
+      
+    setTimeout(() => {
+      if(isUnmuted) unlockAudio();
+      else forcePlayRadio();
+    }, 1000);
   }
 
   async function loadRadioFromDB(){
@@ -1821,18 +1872,20 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
     if(radioChannel){
       try{ await radioChannel.send({ type: 'broadcast', event: 'song', payload: { videoId, from: cu?.email || '?' } }); }catch(e){}
     }
+    unlockAudio(); // Tự động mở âm thanh ngay khi vừa đổi bài
   }
 
   async function start(){
     await loadRadioFromDB();
+    
     try{
       radioChannel = sb.channel('global-radio-v1');
       radioChannel.on('broadcast', { event: 'song' }, (msg) => {
         const vid = msg.payload?.videoId;
-        if(vid && vid !== currentRadioId){
+        if(vid !== undefined && vid !== currentRadioId){
           currentRadioId = vid;
           renderYtPlayer(vid);
-          try{ localStorage.setItem('radio_id', vid); }catch(e){}
+          if(vid) try{ localStorage.setItem('radio_id', vid); }catch(e){}
         }
       });
       radioChannel.subscribe();
@@ -1841,25 +1894,32 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
     setInterval(async () => {
       try{
         const { data, error } = await sb.from('global_radio').select('youtube_id').eq('id', 1).maybeSingle();
-        if(!error && data?.youtube_id && data.youtube_id !== currentRadioId){
+        if(!error && data?.youtube_id !== undefined && data.youtube_id !== currentRadioId){
           currentRadioId = data.youtube_id;
           renderYtPlayer(currentRadioId);
-          try{ localStorage.setItem('radio_id', currentRadioId); }catch(e){}
+          if(currentRadioId) try{ localStorage.setItem('radio_id', currentRadioId); }catch(e){}
         }
       }catch(e){}
     }, 15000);
 
-    document.addEventListener('click', function firstClick(){
-      const ifr = document.getElementById('ytIframe');
-      if(ifr){
-        try{
-          ifr.contentWindow?.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-          ifr.contentWindow?.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-        }catch(e){}
-      }
-      document.removeEventListener('click', firstClick);
-    }, { once: true });
+    // Lắng nghe mọi cú click/touch để phá vỡ chính sách autoplay
+    const handleInteraction = () => { unlockAudio(); };
+    document.addEventListener('click', handleInteraction);
+    document.addEventListener('touchstart', handleInteraction, { passive: true });
 
+    // Khi chuyển lại tab, tự động ép phát lại
+    document.addEventListener('visibilitychange', () => {
+      if(document.visibilityState === 'visible') {
+        setTimeout(forcePlayRadio, 500);
+      }
+    });
+
+    // KEEP ALIVE: Ép phát và unmute liên tục mỗi 2 giây để không bao giờ bị tắt
+    setInterval(() => {
+      if(currentRadioId) forcePlayRadio();
+    }, 2000);
+
+    // UI
     const rm = document.getElementById('radioModal');
     const rte = document.getElementById('radioEdit');
     const rn = document.getElementById('radioToggle');
@@ -1895,16 +1955,8 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
     });
 
     if(rn) rn.addEventListener('click', () => {
-      const ifr = document.getElementById('ytIframe');
-      if(ifr){
-        try{
-          ifr.contentWindow?.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-          ifr.contentWindow?.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-        }catch(e){}
-        tS('🔊 Đã bật âm thanh', null, 2000);
-      } else if(!currentRadioId){
-        tS('🎵 Chưa có nhạc - admin hãy thêm link', null, 3000);
-      }
+      unlockAudio();
+      if(!currentRadioId) tS('🎵 Chưa có nhạc - admin hãy thêm link', null, 3000);
     });
   }
 
@@ -1966,3 +2018,4 @@ setTimeout(() => { renderStreak(); setPresetRange(7); updateCountdown(); renderC
 </script>
 </body>
 </html>
+```
