@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v13.4-game">
+<meta name="tool-version" content="v13.5-game">
 <meta name="theme-color" content="#00e5c7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -469,7 +469,6 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .chk-txt{font-size:13px;color:var(--tx);flex:1;line-height:1.4}
 .chk-prog{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-bottom:12px}
 .chk-prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--gr));border-radius:3px;transition:width .5s}
-/* ===== GAME JACKPOT ===== */
 .game-container{display:flex;flex-direction:column;align-items:center;padding:8px 0}
 .game-balance{background:linear-gradient(135deg,rgba(255,215,0,.15),var(--bg2));border:1px solid var(--gold);border-radius:12px;padding:12px 18px;margin-bottom:14px;text-align:center;font-size:13px;width:100%;max-width:340px}
 .game-balance b{color:var(--gold);font-size:18px}
@@ -504,9 +503,51 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 @keyframes inputError{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 .input-error{animation:inputError .5s ease;border-color:var(--rd)!important}
 html{scroll-behavior:smooth}
+/* ===== SNOW EFFECT ===== */
+#snowCanvas{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;pointer-events:none;z-index:90}
+/* ===== RADIO MINI BAR ===== */
+#radioBar{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom));left:10px;background:linear-gradient(135deg,rgba(255,215,0,.12),var(--bg));border:1px solid var(--gold);border-radius:20px;padding:6px 12px;display:flex;align-items:center;gap:6px;font-size:12px;z-index:200;box-shadow:0 4px 16px rgba(255,215,0,.3);max-width:calc(100vw - 20px);transition:all .3s}
+#radioBar:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,215,0,.5)}
+#radioNow{flex:1;min-width:60px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--tx2);font-size:11px}
+#radioToggle,#radioEdit{background:transparent;border:0;cursor:pointer;padding:2px 4px;font-size:14px;line-height:1}
+#radioToggle{color:var(--gold);animation:heartbeat 2s infinite}
+#radioEdit{color:var(--tx2)}
+#radioEdit:hover{color:var(--gold)}
+#radioModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)}
+#radioModal.open{display:flex}
+#radioModal .rmbox{background:linear-gradient(135deg,var(--bg2),var(--bg));border:2px solid var(--gold);border-radius:16px;padding:20px;max-width:420px;width:100%}
+#radioModal h2{color:var(--gold);margin-bottom:12px;text-align:center;font-size:16px;font-weight:700}
+#radioUrlInput{width:100%;padding:11px 13px;margin-bottom:10px;background:var(--bg3);border:1px solid var(--bd);border-radius:10px;color:var(--tx);font:14px inherit;outline:none}
+#radioUrlInput:focus{border-color:var(--gold)}
+#radioSetBtn{flex:1;padding:10px;background:linear-gradient(135deg,#ffd700,#ff9500);color:#0a0e12;border:0;border-radius:10px;font-weight:700;cursor:pointer;font-family:inherit}
+#radioStopBtn{padding:10px 14px;background:var(--bg2);border:1px solid var(--rd);color:var(--rd);border-radius:10px;font-weight:700;cursor:pointer;font-family:inherit}
+#radioCloseBtn{width:100%;margin-top:8px;padding:10px;background:var(--bg2);border:1px solid var(--bd);color:var(--tx2);border-radius:10px;cursor:pointer;font-family:inherit}
+#radioAuthWarning{display:none;background:rgba(255,92,138,.15);border:1px solid var(--rd);color:var(--rd);padding:8px;border-radius:8px;font-size:11px;margin-bottom:10px;text-align:center}
 </style>
 </head>
 <body>
+<canvas id="snowCanvas"></canvas>
+<div id="ytPlayerContainer" style="position:fixed;left:-9999px;top:-9999px;width:320px;height:180px;pointer-events:none;"></div>
+<div id="radioBar">
+  <button id="radioToggle" title="Bật âm thanh">🎵</button>
+  <span id="radioNow">🎵 Chưa có nhạc</span>
+  <button id="radioEdit" title="Đổi nhạc">✏️</button>
+</div>
+<div id="radioModal">
+  <div class="rmbox">
+    <h2>🎵 Nhạc nền chung</h2>
+    <div id="radioAuthWarning">⚠️ Chỉ admin mới đổi được nhạc</div>
+    <input id="radioUrlInput" type="text" placeholder="Dán link YouTube (vd: https://youtu.be/dQw4w9WgXcQ)">
+    <div style="display:flex;gap:8px">
+      <button id="radioSetBtn">🎵 Phát cho mọi người</button>
+      <button id="radioStopBtn">⏹</button>
+    </div>
+    <button id="radioCloseBtn">Đóng</button>
+    <div style="font-size:10px;color:var(--tx3);margin-top:10px;text-align:center;line-height:1.5">
+      💡 Nhạc phát cho tất cả user đang online<br>Bấm 🎵 để bật âm thanh nếu bị chặn autoplay
+    </div>
+  </div>
+</div>
 <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="unlockGradient2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00e5c7"/><stop offset="50%" stop-color="#a855f7"/><stop offset="100%" stop-color="#ffd700"/></linearGradient></defs></svg>
 <button class="tbtn" id="sShotBtn" title="Chụp dashboard">📸</button>
 <button class="tbtn" id="cbtn" title="Đổi màu">🎨</button>
@@ -1232,7 +1273,7 @@ function rMCmp(){ const b = document.getElementById('mCmpC'); if(rd.length < 2){
 
 document.getElementById('exB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } const l = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"']; rd.forEach(d => l.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`)); const c = '\ufeff' + l.join('\n'); const b = new Blob([c], { type:'text/csv;charset=utf-8' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `tiktok_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('shB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } let tv=0, tl=0, mx=0, mxD=''; rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx){ mx = d[1]; mxD = d[0] } }); const avg = Math.round(tv/rd.length); const t = `📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rd.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`; if(navigator.share) navigator.share({ title:'TikTok Stats', text: t }).catch(() => {}); else navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t)); });
-document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.4', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
+document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.5', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('rsB').addEventListener('click', () => document.getElementById('rI').click());
 document.getElementById('rI').addEventListener('change', e => { const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async ev => { try{ const d = JSON.parse(ev.target.result); if(!d.rows || !Array.isArray(d.rows)) throw new Error('File lỗi'); if(!confirm(`Khôi phục ${d.rows.length} dòng?`)) return; rd = d.rows; if(d.channelData){ cd = d.channelData; await saveCd(); renderCh() } rAll(); await saveC(); alert('✅ Đã khôi phục!'); } catch(err){ alert('❌ '+err.message) } }; r.readAsText(f); e.target.value = ''; });
 document.getElementById('pBtn').addEventListener('click', async () => { const p1 = document.getElementById('pO').value, p2 = document.getElementById('pN').value; const m = document.getElementById('pM'); m.textContent = ''; m.className = 'm'; if(!p1 || !p2){ m.textContent = 'Nhập đầy đủ'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1.length < 6){ m.textContent = 'Từ 6 ký tự'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1 !== p2){ m.textContent = 'Không khớp'; m.classList.add('e'); window.shakeInput(document.getElementById('pN')); return; } const b = document.getElementById('pBtn'); b.disabled = true; b.textContent = '⏳'; try{ const { error } = await sb.auth.updateUser({ password: p1 }); if(error) throw error; m.textContent = '✅ Đổi thành công!'; m.classList.add('o'); document.getElementById('pO').value = ''; document.getElementById('pN').value = ''; } catch(e){ m.textContent = '❌ '+e.message; m.classList.add('e') } b.disabled = false; b.textContent = '🔑 Đổi'; });
@@ -1713,15 +1754,215 @@ function exportReport(){
 document.getElementById('expReport')?.addEventListener('click', exportReport);
 
 /* ===== UPDATE CHECK ===== */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.4';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.5';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/index.html';
 async function cU(){ try{ const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' }); if(!r.ok) return; const t = await r.text(); const m = t.match(/name="tool-version"\s+content="([^"]+)"/); if(!m) return; const newVer = m[1]; if(newVer === VER) return; if(localStorage.getItem('updShown') === newVer) return; if(document.getElementById('uT')) return; localStorage.setItem('updShown', newVer); const el = document.createElement('div'); el.id = 'uT'; el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;z-index:99999;max-width:90vw;cursor:pointer'; el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px">Bấm để tải lại</span>`; el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() }; document.body.appendChild(el); } catch(e){} }
 setTimeout(cU, 5000); setInterval(cU, 300000);
+
+/* ===== RADIO (nhạc YouTube cho mọi người) ===== */
+(function initRadioSystem(){
+  let radioChannel = null;
+  let currentRadioId = null;
+
+  function extractYTId(input){
+    if(!input) return null;
+    input = String(input).trim();
+    if(/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
+    const m = input.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    return m ? m[1] : null;
+  }
+
+  function renderYtPlayer(videoId){
+    const container = document.getElementById('ytPlayerContainer');
+    const nowEl = document.getElementById('radioNow');
+    if(!container || !nowEl) return;
+    if(!videoId){
+      container.innerHTML = '';
+      nowEl.textContent = '🎵 Chưa có nhạc';
+      return;
+    }
+    const existing = document.getElementById('ytIframe');
+    if(existing && existing.dataset.vid === videoId) return;
+    container.innerHTML = '<iframe id="ytIframe" data-vid="' + videoId + '" width="320" height="180" src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&loop=1&playlist=' + videoId + '&enablejsapi=1&playsinline=1&mute=0" frameborder="0" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    nowEl.textContent = '🎵 Đang phát...';
+    fetch('https://www.youtube.com/oembed?url=https://youtu.be/' + videoId + '&format=json')
+      .then(r => r.json())
+      .then(d => { if(d.title && currentRadioId === videoId) nowEl.textContent = '🎵 ' + d.title.slice(0, 40); })
+      .catch(() => {});
+  }
+
+  async function loadRadioFromDB(){
+    try{
+      const { data, error } = await sb.from('global_radio').select('youtube_id').eq('id', 1).maybeSingle();
+      if(!error && data?.youtube_id){
+        currentRadioId = data.youtube_id;
+        renderYtPlayer(currentRadioId);
+        try{ localStorage.setItem('radio_id', currentRadioId); }catch(e){}
+        return;
+      }
+    }catch(e){}
+    try{
+      const local = localStorage.getItem('radio_id');
+      if(local){ currentRadioId = local; renderYtPlayer(local); }
+    }catch(e){}
+  }
+
+  async function saveRadioToDB(videoId){
+    try{
+      await sb.from('global_radio').upsert({ id: 1, youtube_id: videoId, updated_at: new Date().toISOString(), updated_by: cu?.email || '' }, { onConflict: 'id' });
+    }catch(e){}
+  }
+
+  async function setRadio(videoId){
+    currentRadioId = videoId;
+    renderYtPlayer(videoId);
+    try{ localStorage.setItem('radio_id', videoId || ''); }catch(e){}
+    await saveRadioToDB(videoId);
+    if(radioChannel){
+      try{ await radioChannel.send({ type: 'broadcast', event: 'song', payload: { videoId, from: cu?.email || '?' } }); }catch(e){}
+    }
+  }
+
+  async function start(){
+    await loadRadioFromDB();
+    try{
+      radioChannel = sb.channel('global-radio-v1');
+      radioChannel.on('broadcast', { event: 'song' }, (msg) => {
+        const vid = msg.payload?.videoId;
+        if(vid && vid !== currentRadioId){
+          currentRadioId = vid;
+          renderYtPlayer(vid);
+          try{ localStorage.setItem('radio_id', vid); }catch(e){}
+        }
+      });
+      radioChannel.subscribe();
+    }catch(e){}
+
+    setInterval(async () => {
+      try{
+        const { data, error } = await sb.from('global_radio').select('youtube_id').eq('id', 1).maybeSingle();
+        if(!error && data?.youtube_id && data.youtube_id !== currentRadioId){
+          currentRadioId = data.youtube_id;
+          renderYtPlayer(currentRadioId);
+          try{ localStorage.setItem('radio_id', currentRadioId); }catch(e){}
+        }
+      }catch(e){}
+    }, 15000);
+
+    document.addEventListener('click', function firstClick(){
+      const ifr = document.getElementById('ytIframe');
+      if(ifr){
+        try{
+          ifr.contentWindow?.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+          ifr.contentWindow?.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        }catch(e){}
+      }
+      document.removeEventListener('click', firstClick);
+    }, { once: true });
+
+    const rm = document.getElementById('radioModal');
+    const rte = document.getElementById('radioEdit');
+    const rn = document.getElementById('radioToggle');
+    const rc = document.getElementById('radioCloseBtn');
+    const rs = document.getElementById('radioSetBtn');
+    const rst = document.getElementById('radioStopBtn');
+    const rw = document.getElementById('radioAuthWarning');
+
+    if(rte) rte.addEventListener('click', () => {
+      rm.classList.add('open');
+      rw.style.display = isA() ? 'none' : 'block';
+      document.getElementById('radioUrlInput').value = currentRadioId ? ('https://youtu.be/' + currentRadioId) : '';
+    });
+    if(rc) rc.addEventListener('click', () => rm.classList.remove('open'));
+    if(rm) rm.addEventListener('click', (e) => { if(e.target === rm) rm.classList.remove('open'); });
+
+    if(rs) rs.addEventListener('click', async () => {
+      if(!isA()){ tS('❌ Chỉ admin mới đổi được nhạc', null, 3000); return; }
+      const input = document.getElementById('radioUrlInput').value.trim();
+      if(!input){ alert('Nhập link YouTube'); return; }
+      const vid = extractYTId(input);
+      if(!vid){ alert('Link YouTube không hợp lệ'); return; }
+      await setRadio(vid);
+      rm.classList.remove('open');
+      tS('🎵 Đã đổi nhạc cho mọi người!');
+    });
+
+    if(rst) rst.addEventListener('click', async () => {
+      if(!isA()){ alert('Chỉ admin'); return; }
+      await setRadio(null);
+      rm.classList.remove('open');
+      tS('⏹ Đã tắt nhạc');
+    });
+
+    if(rn) rn.addEventListener('click', () => {
+      const ifr = document.getElementById('ytIframe');
+      if(ifr){
+        try{
+          ifr.contentWindow?.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+          ifr.contentWindow?.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        }catch(e){}
+        tS('🔊 Đã bật âm thanh', null, 2000);
+      } else if(!currentRadioId){
+        tS('🎵 Chưa có nhạc - admin hãy thêm link', null, 3000);
+      }
+    });
+  }
+
+  start();
+})();
 
 /* ===== INIT ===== */
 setTimeout(() => { renderStreak(); setPresetRange(7); updateCountdown(); renderCaptions(); renderChecklist(); }, 600);
 
 };
+</script>
+
+<script>
+/* SNOW EFFECT */
+(function(){
+  const canvas = document.getElementById('snowCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, flakes = [];
+
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function createFlake(){
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H - H,
+      r: Math.random() * 2.5 + 1,
+      speed: Math.random() * 1 + 0.5,
+      drift: Math.random() * 0.6 - 0.3,
+      alpha: Math.random() * 0.5 + 0.4
+    };
+  }
+
+  const count = Math.min(120, Math.floor(W / 10));
+  for(let i = 0; i < count; i++) flakes.push(createFlake());
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    flakes.forEach(f => {
+      ctx.beginPath();
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,' + f.alpha + ')';
+      ctx.fill();
+      f.y += f.speed;
+      f.x += f.drift + Math.sin(f.y / 60) * 0.3;
+      if(f.y > H + 5){ f.y = -5; f.x = Math.random() * W; }
+      if(f.x > W + 5) f.x = -5;
+      if(f.x < -5) f.x = W + 5;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 </script>
 </body>
 </html>
