@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v13.7-game">
+<meta name="tool-version" content="v13.8-game">
 <meta name="theme-color" content="#00e5c7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -475,7 +475,7 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .game-balance b{color:var(--gold);font-size:18px}
 .slot-machine{display:flex;justify-content:center;gap:10px;margin:20px 0}
 .slot-window{width:80px;height:100px;background:linear-gradient(135deg,#1a1f2e,#0a0e12);border:3px solid var(--gold);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:48px;box-shadow:inset 0 0 20px rgba(0,0,0,.8),0 0 15px rgba(255,215,0,.4);overflow:hidden;position:relative;transition:all .3s}
-.slot-window.spin{animation:slotShake 0.15s linear infinite}
+.slot-window.spin{animation:slotShake 0.1s linear infinite}
 .slot-window.win{border-color:var(--gr);box-shadow:0 0 25px var(--gr)}
 @keyframes slotShake{0%{transform:translateY(-5px)}50%{transform:translateY(5px)}100%{transform:translateY(-5px)}}
 #gmSpinBtn{margin-top:10px;padding:14px 32px;font-size:15px;font-weight:800;letter-spacing:1px;background:linear-gradient(135deg,#ffd700,#ff9500);color:#0a0e12;border:0;border-radius:12px;cursor:pointer;font-family:inherit;transition:all .3s;box-shadow:0 6px 20px rgba(255,215,0,.4)}
@@ -881,12 +881,12 @@ TOOL BY DUCTRI705
 <div class="game-prob">
 <div style="text-align:center;margin-bottom:6px;font-weight:700;color:var(--acc)">📊 Tỷ lệ trúng thưởng</div>
 <div style="text-align:center">
-<span>💎 1 xu — 50%</span>
-<span>💠 5 xu — 20%</span>
-<span>🔷 10 xu — 5%</span>
+<span>🍒 1 xu — 50%</span>
+<span>🍋 5 xu — 20%</span>
+<span>🔔 10 xu — 5%</span>
 <span>💎 20 xu — 4%</span>
 <span>👑 50 xu — 1%</span>
-<span>😢 Hụt — 20%</span>
+<span>💣 Hụt — 20%</span>
 </div>
 </div>
 <div class="game-history" id="gmHistory"></div>
@@ -1282,7 +1282,7 @@ function rMCmp(){ const b = document.getElementById('mCmpC'); if(rd.length < 2){
 
 document.getElementById('exB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } const l = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"']; rd.forEach(d => l.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`)); const c = '\ufeff' + l.join('\n'); const b = new Blob([c], { type:'text/csv;charset=utf-8' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `tiktok_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('shB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } let tv=0, tl=0, mx=0, mxD=''; rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx){ mx = d[1]; mxD = d[0] } }); const avg = Math.round(tv/rd.length); const t = `📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rd.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`; if(navigator.share) navigator.share({ title:'TikTok Stats', text: t }).catch(() => {}); else navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t)); });
-document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.7', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
+document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.8', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('rsB').addEventListener('click', () => document.getElementById('rI').click());
 document.getElementById('rI').addEventListener('change', e => { const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async ev => { try{ const d = JSON.parse(ev.target.result); if(!d.rows || !Array.isArray(d.rows)) throw new Error('File lỗi'); if(!confirm(`Khôi phục ${d.rows.length} dòng?`)) return; rd = d.rows; if(d.channelData){ cd = d.channelData; await saveCd(); renderCh() } rAll(); await saveC(); alert('✅ Đã khôi phục!'); } catch(err){ alert('❌ '+err.message) } }; r.readAsText(f); e.target.value = ''; });
 document.getElementById('pBtn').addEventListener('click', async () => { const p1 = document.getElementById('pO').value, p2 = document.getElementById('pN').value; const m = document.getElementById('pM'); m.textContent = ''; m.className = 'm'; if(!p1 || !p2){ m.textContent = 'Nhập đầy đủ'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1.length < 6){ m.textContent = 'Từ 6 ký tự'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1 !== p2){ m.textContent = 'Không khớp'; m.classList.add('e'); window.shakeInput(document.getElementById('pN')); return; } const b = document.getElementById('pBtn'); b.disabled = true; b.textContent = '⏳'; try{ const { error } = await sb.auth.updateUser({ password: p1 }); if(error) throw error; m.textContent = '✅ Đổi thành công!'; m.classList.add('o'); document.getElementById('pO').value = ''; document.getElementById('pN').value = ''; } catch(e){ m.textContent = '❌ '+e.message; m.classList.add('e') } b.disabled = false; b.textContent = '🔑 Đổi'; });
@@ -1566,7 +1566,8 @@ document.getElementById('ideaCopy')?.addEventListener('click', async () => { con
 document.getElementById('ideaSave')?.addEventListener('click', async () => { if(!cu){ alert('Đăng nhập trước'); return; } const t = document.getElementById('ideaTxt').textContent; if(t.startsWith('Bấm')){ alert('Bấm Random trước'); return; } cd.captions = cd.captions || []; cd.captions.unshift({ type:'cap', text: t, date: new Date().toISOString() }); try{ await saveCd(); tS('💾 Đã lưu!'); }catch(e){ alert('❌ '+e.message); } });
 
 /* ===== CHECKLIST ===== */
-const CHK_DEFAULT = [ { id:'hook', txt:'Hook 3 giây đầu mạnh' }, { id:'caption', txt:'Caption có CTA' }, { id:'hashtag', txt:'Đủ hashtag (5-8 cái)' }, { id:'trend', txt:'Dùng nhạc trending' }, { id:'time', txt:'Đăng đúng giờ vàng' }, { id:'thumb', txt:'Thumbnail rõ, không bị che chữ' }, { id:'sub', txt:'Có phụ đề / caption' }, { id:'quality', txt:'Video đủ nét, không rung' }, { id:'length', txt:'Độ dài phù hợp (15-60s)' }, { id:'check', txt:'Xem lại video trước khi đăng' } ];
+const CHK_DEFAULT = [ { id:'hook', txt:'Hook 3 giây đầu mạ');
+nh' }, { id:'caption', txt:'Caption có CTA' }, { id:'has htag', txt:'Đ ifủ hashtag (5-(!8 cái)' }, { id:'eltrend', txt:'Dùng nhạc trending' }, { id:')time', txt:'Đăng đúng giờ vàng' }, { id:'thumb', txt:'Thumbnail rõ, không bị che chữ' }, { id:'sub', txt:'Có phụ đề / caption' }, { id:'quality', txt:'Video đủ nét, không rung' }, { id:'length', txt:'Độ dài phù hợp (15-60s)' }, { id:'check', txt:'Xem lại video trước khi đăng' } ];
 function renderChecklist(){
   const list = document.getElementById('chkList'); if(!list) return;
   const state = cd.checklistState || {};
@@ -1588,17 +1589,10 @@ document.querySelectorAll('.cap-tab').forEach(t => t.addEventListener('click', (
   if(key === 'chk') renderChecklist();
 }));
 
-/* ===== GAME (SLOT MACHINE) ===== */
-const SLOT_ICONS = {
-  1: { emoji: '🍒', color: '#ff5c8a' },
-  5: { emoji: '🍋', color: '#ffd700' },
-  10: { emoji: '🔔', color: '#00e5c7' },
-  20: { emoji: '💎', color: '#a855f7' },
-  50: { emoji: '👑', color: '#ff9500' },
-  0: { emoji: '🍀', color: '#22d3a8' }
-};
+/* ===== GAME (SLOT MACHINE - RÚT GỌN CODE) ===== */
 let gmRotating = false;
 let gmHistory = [];
+const SLOT_ICONS = { 1: '🍒', 5: '🍋', 10: '🔔', 20: '💎', 50: '👑', 0: '💣' };
 
 function resetSlots(){
   [1,2,3].forEach(i => {
@@ -1617,13 +1611,6 @@ function rollPrize(){
   return 0;
 }
 
-function getSlotResult(prize) {
-  if (prize > 0) return [prize, prize, prize];
-  const icons = [1, 5, 10, 20, 50];
-  const shuffled = [...icons].sort(() => Math.random() - 0.5);
-  return [shuffled[0], shuffled[1], shuffled[2]];
-}
-
 function updateGmBalance(){
   const el = document.getElementById('gmBalance');
   if(el) el.textContent = isA() ? '∞' : ((up?.credits || 0).toLocaleString('vi-VN'));
@@ -1636,8 +1623,7 @@ function addGmHistory(prize){
 }
 
 function renderGmHistory(){
-  const el = document.getElementById('gmHistory');
-  if(!el) return;
+  const el = document.getElementById('gmHistory return;
   if(!gmHistory.length){ el.innerHTML = '<div class="nt">Chưa có lượt quay nào</div>'; return; }
   el.innerHTML = '<div class="st2" style="margin-top:6px">📜 Lịch sử gần đây</div>' + gmHistory.map(h => {
     const t = new Date(h.time).toLocaleTimeString('vi-VN');
@@ -1675,56 +1661,64 @@ async function spinWheel(){
   }
   
   const prize = rollPrize();
-  const resultIcons = getSlotResult(prize);
+  let resultIcons = [];
+  
+  if(prize > 0) {
+    resultIcons = [prize, prize, prize];
+  } else {
+    const pool = [1, 5, 10, 20, 50];
+    for(let i = pool.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    resultIcons = [pool[0], pool[1], pool[2]];
+  }
+
   const slots = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
+  slots.forEach(s => { s.classList.add('spin'); s.textContent = '❓'; s.classList.remove('win'); });
   
-  slots.forEach(s => { s.classList.remove('win'); s.classList.add('spin'); delete s.dataset.stopped; });
-  
+  let spinCount = 0;
+  const maxSpins = 25; 
   const spinInterval = setInterval(() => {
-    slots.forEach((s) => {
+    spinCount++;
+    slots.forEach(s => {
       if(!s.dataset.stopped) {
-        const randomIcons = [1, 5, 10, 20, 50];
-        const rIcon = randomIcons[Math.floor(Math.random() * randomIcons.length)];
-        s.textContent = SLOT_ICONS[rIcon].emoji;
-        s.style.color = SLOT_ICONS[rIcon].color;
+        const keys = [1, 5, 10, 20, 50];
+        const rk = keys[Math.floor(Math.random() * keys.length)];
+        s.textContent = SLOT_ICONS[rk];
       }
     });
-  }, 50);
-  
-  const stopSlot = (index, delay) => {
-    setTimeout(() => {
-      const s = slots[index];
-      s.dataset.stopped = 'true';
-      const iconData = SLOT_ICONS[resultIcons[index]];
-      s.textContent = iconData.emoji;
-      s.style.color = iconData.color;
-      s.classList.remove('spin');
-      if(prize > 0) s.classList.add('win');
-    }, delay);
-  };
-  
-  stopSlot(0, 1500);
-  stopSlot(1, 2000);
-  stopSlot(2, 2500);
-  
-  setTimeout(async () => {
-    clearInterval(spinInterval);
-    
-    if(prize > 0){
-      if(!isA()){
-        const newCr = up.credits + prize;
-        await sb.from('profiles').update({ credits: newCr }).eq('id', cu.id);
-        up.credits = newCr; uC(); updateGmBalance();
-      }
-      document.getElementById('gmResult').innerHTML = `<div class="game-result win">🎉 Chúc mừng! Bạn nhận được <b>${prize} xu</b></div>`;
-      tS(`🎉 +${prize} xu!`, null, 3000);
-      if(prize === 50) showJackpotBanner(cu.email);
-    } else {
-      document.getElementById('gmResult').innerHTML = `<div class="game-result lose">😢 Hụt rồi! Chúc bạn may mắn lần sau</div>`;
+    if(spinCount >= maxSpins) {
+      clearInterval(spinInterval);
+      slots.forEach((s, i) => {
+        setTimeout(() => {
+          s.dataset.stopped = 'true';
+          s.textContent = SLOT_ICONS[resultIcons[i]];
+          s.classList.remove('spin');
+          if(prize > 0) s.classList.add('win');
+          
+          if(i === 2) {
+            if(prize > 0){
+              if(!isA()){
+                const newCr = up.credits + prize;
+                sb.from('profiles').update({ credits: newCr }).eq('id', cu.id).then(() => {
+                  up.credits = newCr; uC(); updateGmBalance();
+                });
+              }
+              document.getElementById('gmResult').innerHTML = `<div class="game-result win">🎉 Chúc mừng! Bạn nhận được <b>${prize} xu</b></div>`;
+              tS(`🎉 +${prize} xu!`, null, 3000);
+              if(prize === 50) showJackpotBanner(cu.email);
+            } else {
+              document.getElementById('gmResult').innerHTML = `<div class="game-result lose">😢 Hụt rồi! Chúc bạn may mắn lần sau</div>`;
+            }
+            addGmHistory(prize);
+            gmRotating = false; btn.disabled = false; btn.textContent = '🎰 QUAY NGAY (10 XU)';
+            slots.forEach(sl => delete sl.dataset.stopped);
+          }
+        }, i * 300);
+      });
     }
-    addGmHistory(prize);
-    gmRotating = false; btn.disabled = false; btn.textContent = '🎰 QUAY NGAY (10 XU)';
-  }, 3000);
+  }, 60);
 }
 
 setTimeout(() => {
@@ -1762,7 +1756,7 @@ function exportReport(){
 document.getElementById('expReport')?.addEventListener('click', exportReport);
 
 /* ===== UPDATE CHECK ===== */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.7';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.8';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/index.html';
 async function cU(){ try{ const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' }); if(!r.ok) return; const t = await r.text(); const m = t.match(/name="tool-version"\s+content="([^"]+)"/); if(!m) return; const newVer = m[1]; if(newVer === VER) return; if(localStorage.getItem('updShown') === newVer) return; if(document.getElementById('uT')) return; localStorage.setItem('updShown', newVer); const el = document.createElement('div'); el.id = 'uT'; el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;z-index:99999;max-width:90vw;cursor:pointer'; el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px">Bấm để tải lại</span>`; el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() }; document.body.appendChild(el); } catch(e){} }
 setTimeout(cU, 5000); setInterval(cU, 300000);
