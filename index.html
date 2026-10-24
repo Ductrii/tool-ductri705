@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v13.6-game">
+<meta name="tool-version" content="v13.7-game">
 <meta name="theme-color" content="#00e5c7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -469,13 +469,16 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .chk-txt{font-size:13px;color:var(--tx);flex:1;line-height:1.4}
 .chk-prog{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-bottom:12px}
 .chk-prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--gr));border-radius:3px;transition:width .5s}
+/* ===== SLOT MACHINE CSS ===== */
 .game-container{display:flex;flex-direction:column;align-items:center;padding:8px 0}
 .game-balance{background:linear-gradient(135deg,rgba(255,215,0,.15),var(--bg2));border:1px solid var(--gold);border-radius:12px;padding:12px 18px;margin-bottom:14px;text-align:center;font-size:13px;width:100%;max-width:340px}
 .game-balance b{color:var(--gold);font-size:18px}
-.wheel-wrapper{position:relative;display:flex;flex-direction:column;align-items:center;padding:14px;width:100%}
-.wheel-pointer{font-size:38px;color:var(--gold);margin-bottom:-16px;z-index:10;position:relative;filter:drop-shadow(0 0 12px #ffd700);animation:wheelPointer 1s ease-in-out infinite}
-#wheelCanvas{width:min(320px,82vw);height:min(320px,82vw);border-radius:50%;box-shadow:0 0 40px rgba(255,215,0,.35),0 0 80px rgba(255,215,0,.15);border:4px solid var(--gold);background:#0a0e12}
-#gmSpinBtn{margin-top:18px;padding:14px 32px;font-size:15px;font-weight:800;letter-spacing:1px;background:linear-gradient(135deg,#ffd700,#ff9500);color:#0a0e12;border:0;border-radius:12px;cursor:pointer;font-family:inherit;transition:all .3s;box-shadow:0 6px 20px rgba(255,215,0,.4)}
+.slot-machine{display:flex;justify-content:center;gap:10px;margin:20px 0}
+.slot-window{width:80px;height:100px;background:linear-gradient(135deg,#1a1f2e,#0a0e12);border:3px solid var(--gold);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:48px;box-shadow:inset 0 0 20px rgba(0,0,0,.8),0 0 15px rgba(255,215,0,.4);overflow:hidden;position:relative;transition:all .3s}
+.slot-window.spin{animation:slotShake 0.15s linear infinite}
+.slot-window.win{border-color:var(--gr);box-shadow:0 0 25px var(--gr)}
+@keyframes slotShake{0%{transform:translateY(-5px)}50%{transform:translateY(5px)}100%{transform:translateY(-5px)}}
+#gmSpinBtn{margin-top:10px;padding:14px 32px;font-size:15px;font-weight:800;letter-spacing:1px;background:linear-gradient(135deg,#ffd700,#ff9500);color:#0a0e12;border:0;border-radius:12px;cursor:pointer;font-family:inherit;transition:all .3s;box-shadow:0 6px 20px rgba(255,215,0,.4)}
 #gmSpinBtn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,215,0,.6)}
 #gmSpinBtn:disabled{opacity:.6;cursor:wait}
 .game-result{margin-top:16px;padding:14px 20px;border-radius:12px;font-size:14px;font-weight:700;text-align:center;width:100%;max-width:340px;animation:fadeSlideUp .5s}
@@ -491,7 +494,6 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .jackpot-banner b{color:#7a0000;text-decoration:underline;font-size:15px}
 .game-prob{background:var(--bg2);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:11px;color:var(--tx2);line-height:1.9;width:100%;max-width:340px}
 .game-prob span{display:inline-block;padding:2px 8px;border-radius:6px;background:var(--bg3);margin:2px 3px}
-@keyframes wheelPointer{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 @keyframes logoPulse{0%,100%{filter:drop-shadow(0 0 12px rgba(0,229,199,.6))}50%{filter:drop-shadow(0 0 24px rgba(0,229,199,1))}}
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px) rotate(5deg)}}
@@ -864,14 +866,17 @@ TOOL BY DUCTRI705
 </div>
 
 <div id="tb-gm" class="tc hd">
-<div class="st2">🎰 VÒNG QUAY MAY MẮN</div>
+<div class="st2">🎰 MÁY ĐÁNH BẠC MAY MẮN</div>
 <div class="game-container">
 <div class="game-balance">💰 Số dư: <b id="gmBalance">0</b> xu<br><span style="font-size:11px;color:var(--tx3)">Phí mỗi lượt: <b style="color:var(--rd)">-10 xu</b></span></div>
-<div class="wheel-wrapper">
-<div class="wheel-pointer">▼</div>
-<canvas id="wheelCanvas" width="320" height="320"></canvas>
-<button id="gmSpinBtn">🎰 QUAY NGAY (10 XU)</button>
+
+<div class="slot-machine">
+  <div class="slot-window" id="slot1">❓</div>
+  <div class="slot-window" id="slot2">❓</div>
+  <div class="slot-window" id="slot3">❓</div>
 </div>
+
+<button id="gmSpinBtn">🎰 QUAY NGAY (10 XU)</button>
 <div id="gmResult"></div>
 <div class="game-prob">
 <div style="text-align:center;margin-bottom:6px;font-weight:700;color:var(--acc)">📊 Tỷ lệ trúng thưởng</div>
@@ -1262,7 +1267,7 @@ window.__onTabChange = function(tab){
   if(tab === 'adm'){ adLoad(); adLoadKeys(); }
   if(tab === 'acc') rAcc();
   if(tab === 'mn') rPk();
-  if(tab === 'gm'){ updateGmBalance(); drawWheel(); renderGmHistory(); }
+  if(tab === 'gm'){ updateGmBalance(); renderGmHistory(); resetSlots(); }
   if(tab === 'cn'){ renderCh(); renderContent(); renderGhAnalysis(); }
   if(tab === 'hm') renderHeatmap();
   if(tab === 'ac') renderAchievements();
@@ -1277,7 +1282,7 @@ function rMCmp(){ const b = document.getElementById('mCmpC'); if(rd.length < 2){
 
 document.getElementById('exB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } const l = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"']; rd.forEach(d => l.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`)); const c = '\ufeff' + l.join('\n'); const b = new Blob([c], { type:'text/csv;charset=utf-8' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `tiktok_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('shB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } let tv=0, tl=0, mx=0, mxD=''; rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx){ mx = d[1]; mxD = d[0] } }); const avg = Math.round(tv/rd.length); const t = `📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rd.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`; if(navigator.share) navigator.share({ title:'TikTok Stats', text: t }).catch(() => {}); else navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t)); });
-document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.6', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
+document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.7', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('rsB').addEventListener('click', () => document.getElementById('rI').click());
 document.getElementById('rI').addEventListener('change', e => { const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async ev => { try{ const d = JSON.parse(ev.target.result); if(!d.rows || !Array.isArray(d.rows)) throw new Error('File lỗi'); if(!confirm(`Khôi phục ${d.rows.length} dòng?`)) return; rd = d.rows; if(d.channelData){ cd = d.channelData; await saveCd(); renderCh() } rAll(); await saveC(); alert('✅ Đã khôi phục!'); } catch(err){ alert('❌ '+err.message) } }; r.readAsText(f); e.target.value = ''; });
 document.getElementById('pBtn').addEventListener('click', async () => { const p1 = document.getElementById('pO').value, p2 = document.getElementById('pN').value; const m = document.getElementById('pM'); m.textContent = ''; m.className = 'm'; if(!p1 || !p2){ m.textContent = 'Nhập đầy đủ'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1.length < 6){ m.textContent = 'Từ 6 ký tự'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1 !== p2){ m.textContent = 'Không khớp'; m.classList.add('e'); window.shakeInput(document.getElementById('pN')); return; } const b = document.getElementById('pBtn'); b.disabled = true; b.textContent = '⏳'; try{ const { error } = await sb.auth.updateUser({ password: p1 }); if(error) throw error; m.textContent = '✅ Đổi thành công!'; m.classList.add('o'); document.getElementById('pO').value = ''; document.getElementById('pN').value = ''; } catch(e){ m.textContent = '❌ '+e.message; m.classList.add('e') } b.disabled = false; b.textContent = '🔑 Đổi'; });
@@ -1583,54 +1588,23 @@ document.querySelectorAll('.cap-tab').forEach(t => t.addEventListener('click', (
   if(key === 'chk') renderChecklist();
 }));
 
-/* ===== GAME JACKPOT ===== */
-const WHEEL_SEGMENTS = [
-  {label:'1', value:1, color:'#0d5c50'},
-  {label:'5', value:5, color:'#4a2a7a'},
-  {label:'1', value:1, color:'#0d5c50'},
-  {label:'0', value:0, color:'#2a2a2a'},
-  {label:'1', value:1, color:'#0d5c50'},
-  {label:'10', value:10, color:'#7a2a5a'},
-  {label:'1', value:1, color:'#0d5c50'},
-  {label:'20', value:20, color:'#7a5a0a'},
-  {label:'1', value:1, color:'#0d5c50'},
-  {label:'50', value:50, color:'#ff9500'}
-];
+/* ===== GAME (SLOT MACHINE) ===== */
+const SLOT_ICONS = {
+  1: { emoji: '🍒', color: '#ff5c8a' },
+  5: { emoji: '🍋', color: '#ffd700' },
+  10: { emoji: '🔔', color: '#00e5c7' },
+  20: { emoji: '💎', color: '#a855f7' },
+  50: { emoji: '👑', color: '#ff9500' },
+  0: { emoji: '🍀', color: '#22d3a8' }
+};
 let gmRotating = false;
-let gmCurrentRotation = 0;
 let gmHistory = [];
 
-function drawWheel(){
-  const canvas = document.getElementById('wheelCanvas');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const size = canvas.width;
-  const center = size / 2;
-  const radius = center - 6;
-  const segCount = WHEEL_SEGMENTS.length;
-  const segAngle = (Math.PI * 2) / segCount;
-  ctx.clearRect(0, 0, size, size);
-  WHEEL_SEGMENTS.forEach((seg, i) => {
-    const start = -Math.PI/2 + i * segAngle;
-    const end = start + segAngle;
-    ctx.beginPath(); ctx.moveTo(center, center); ctx.arc(center, center, radius, start, end); ctx.closePath();
-    ctx.fillStyle = seg.color; ctx.fill();
-    ctx.strokeStyle = '#ffd700'; ctx.lineWidth = 2; ctx.stroke();
-    ctx.save(); ctx.translate(center, center); ctx.rotate(start + segAngle/2);
-    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#fff'; ctx.font = 'bold ' + (seg.value === 50 ? '22px' : '18px') + ' sans-serif';
-    ctx.shadowColor = seg.value === 50 ? '#ffd700' : 'transparent';
-    ctx.shadowBlur = seg.value === 50 ? 12 : 0;
-    const text = seg.value === 0 ? '😢 Hụt' : seg.label + 'xu';
-    ctx.fillText(text, radius - 16, 0);
-    ctx.restore();
+function resetSlots(){
+  [1,2,3].forEach(i => {
+    const s = document.getElementById('slot'+i);
+    if(s){ s.textContent = '❓'; s.style.color = 'var(--tx)'; s.classList.remove('spin','win'); }
   });
-  ctx.beginPath(); ctx.arc(center, center, 26, 0, Math.PI * 2);
-  ctx.fillStyle = '#0a0e12'; ctx.fill();
-  ctx.strokeStyle = '#ffd700'; ctx.lineWidth = 3; ctx.stroke();
-  ctx.fillStyle = '#ffd700'; ctx.font = 'bold 16px sans-serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText('⭐', center, center);
 }
 
 function rollPrize(){
@@ -1641,6 +1615,13 @@ function rollPrize(){
   if(r < 30) return 5;
   if(r < 80) return 1;
   return 0;
+}
+
+function getSlotResult(prize) {
+  if (prize > 0) return [prize, prize, prize];
+  const icons = [1, 5, 10, 20, 50];
+  const shuffled = [...icons].sort(() => Math.random() - 0.5);
+  return [shuffled[0], shuffled[1], shuffled[2]];
 }
 
 function updateGmBalance(){
@@ -1680,31 +1661,55 @@ async function spinWheel(){
   if(!cu){ alert('Đăng nhập trước!'); return; }
   const cost = 10;
   if(!isA() && (up?.credits || 0) < cost){ tS('❌ Không đủ 10 xu!', null, 3000); return; }
+  
   gmRotating = true;
   const btn = document.getElementById('gmSpinBtn');
   btn.disabled = true; btn.textContent = '🎰 Đang quay...';
   document.getElementById('gmResult').innerHTML = '';
+  
   if(!isA()){
     const newCr = up.credits - cost;
     const { error } = await sb.from('profiles').update({ credits: newCr }).eq('id', cu.id);
     if(error){ alert('Lỗi: ' + error.message); gmRotating = false; btn.disabled = false; btn.textContent = '🎰 QUAY NGAY (10 XU)'; return; }
     up.credits = newCr; uC(); updateGmBalance();
   }
+  
   const prize = rollPrize();
-  const candidates = WHEEL_SEGMENTS.map((s, i) => ({...s, i})).filter(s => s.value === prize);
-  const target = candidates[Math.floor(Math.random() * candidates.length)];
-  const segCount = WHEEL_SEGMENTS.length;
-  const segAngle = 360 / segCount;
-  const segCenter = target.i * segAngle + segAngle / 2;
-  const currentMod = ((gmCurrentRotation % 360) + 360) % 360;
-  const targetMod = ((360 - segCenter) % 360 + 360) % 360;
-  let delta = targetMod - currentMod;
-  if(delta < 0) delta += 360;
-  gmCurrentRotation += 360 * 8 + delta;
-  const canvas = document.getElementById('wheelCanvas');
-  canvas.style.transition = 'transform 5s cubic-bezier(.17,.67,.2,1)';
-  canvas.style.transform = `rotate(${gmCurrentRotation}deg)`;
+  const resultIcons = getSlotResult(prize);
+  const slots = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
+  
+  slots.forEach(s => { s.classList.remove('win'); s.classList.add('spin'); delete s.dataset.stopped; });
+  
+  const spinInterval = setInterval(() => {
+    slots.forEach((s) => {
+      if(!s.dataset.stopped) {
+        const randomIcons = [1, 5, 10, 20, 50];
+        const rIcon = randomIcons[Math.floor(Math.random() * randomIcons.length)];
+        s.textContent = SLOT_ICONS[rIcon].emoji;
+        s.style.color = SLOT_ICONS[rIcon].color;
+      }
+    });
+  }, 50);
+  
+  const stopSlot = (index, delay) => {
+    setTimeout(() => {
+      const s = slots[index];
+      s.dataset.stopped = 'true';
+      const iconData = SLOT_ICONS[resultIcons[index]];
+      s.textContent = iconData.emoji;
+      s.style.color = iconData.color;
+      s.classList.remove('spin');
+      if(prize > 0) s.classList.add('win');
+    }, delay);
+  };
+  
+  stopSlot(0, 1500);
+  stopSlot(1, 2000);
+  stopSlot(2, 2500);
+  
   setTimeout(async () => {
+    clearInterval(spinInterval);
+    
     if(prize > 0){
       if(!isA()){
         const newCr = up.credits + prize;
@@ -1719,11 +1724,10 @@ async function spinWheel(){
     }
     addGmHistory(prize);
     gmRotating = false; btn.disabled = false; btn.textContent = '🎰 QUAY NGAY (10 XU)';
-  }, 5300);
+  }, 3000);
 }
 
 setTimeout(() => {
-  drawWheel();
   updateGmBalance();
   renderGmHistory();
   const btn = document.getElementById('gmSpinBtn');
@@ -1758,7 +1762,7 @@ function exportReport(){
 document.getElementById('expReport')?.addEventListener('click', exportReport);
 
 /* ===== UPDATE CHECK ===== */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.6';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.7';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/index.html';
 async function cU(){ try{ const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' }); if(!r.ok) return; const t = await r.text(); const m = t.match(/name="tool-version"\s+content="([^"]+)"/); if(!m) return; const newVer = m[1]; if(newVer === VER) return; if(localStorage.getItem('updShown') === newVer) return; if(document.getElementById('uT')) return; localStorage.setItem('updShown', newVer); const el = document.createElement('div'); el.id = 'uT'; el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;z-index:99999;max-width:90vw;cursor:pointer'; el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px">Bấm để tải lại</span>`; el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() }; document.body.appendChild(el); } catch(e){} }
 setTimeout(cU, 5000); setInterval(cU, 300000);
@@ -1767,7 +1771,7 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
 (function initRadioSystem(){
   let radioChannel = null;
   let currentRadioId = null;
-  let isUnmuted = false; // Trạng thái đã mở khóa âm thanh chưa
+  let isUnmuted = false;
 
   function extractYTId(input){
     if(!input) return null;
@@ -1777,7 +1781,6 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
     return m ? m[1] : null;
   }
 
-  // Hàm ép phát (chạy ngầm mỗi 2s để chống tắt)
   function forcePlayRadio(){
     const ifr = document.getElementById('ytIframe');
     if(ifr && ifr.contentWindow && currentRadioId){
@@ -1791,7 +1794,6 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
     }
   }
 
-  // Hàm mở khóa âm thanh (gọi khi user click hoặc login)
   function unlockAudio(){
     if(!currentRadioId) return;
     isUnmuted = true;
@@ -1806,7 +1808,6 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
       }catch(e){}
     }
   }
-  // Xuất hàm ra ngoài để lúc đăng nhập gọi được
   window.__unlockAudio = unlockAudio; 
 
   function renderYtPlayer(videoId){
@@ -1822,7 +1823,6 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
     const existing = document.getElementById('ytIframe');
     if(existing && existing.dataset.vid === videoId) return;
     
-    // Ban đầu để mute=1 (trình duyệt luôn cho phép autoplay nếu mute)
     container.innerHTML = '<iframe id="ytIframe" data-vid="' + videoId + '" width="320" height="180" src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&loop=1&playlist=' + videoId + '&enablejsapi=1&playsinline=1&mute=1" frameborder="0" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>';
     nowEl.textContent = '🎵 Đang phát...';
     
@@ -1867,7 +1867,7 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
     if(radioChannel){
       try{ await radioChannel.send({ type: 'broadcast', event: 'song', payload: { videoId, from: cu?.email || '?' } }); }catch(e){}
     }
-    unlockAudio(); // Tự động mở âm thanh ngay khi vừa đổi bài
+    unlockAudio(); 
   }
 
   async function start(){
@@ -1897,24 +1897,20 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
       }catch(e){}
     }, 15000);
 
-    // Lắng nghe mọi cú click/touch để phá vỡ chính sách autoplay
     const handleInteraction = () => { unlockAudio(); };
     document.addEventListener('click', handleInteraction);
     document.addEventListener('touchstart', handleInteraction, { passive: true });
 
-    // Khi chuyển lại tab, tự động ép phát lại
     document.addEventListener('visibilitychange', () => {
       if(document.visibilityState === 'visible') {
         setTimeout(forcePlayRadio, 500);
       }
     });
 
-    // KEEP ALIVE: Ép phát và unmute liên tục mỗi 2 giây để không bao giờ bị tắt
     setInterval(() => {
       if(currentRadioId) forcePlayRadio();
     }, 2000);
 
-    // UI
     const rm = document.getElementById('radioModal');
     const rte = document.getElementById('radioEdit');
     const rn = document.getElementById('radioToggle');
