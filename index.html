@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v13.9-game">
+<meta name="tool-version" content="v14.0-game">
 <meta name="theme-color" content="#00e5c7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -494,6 +494,7 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .jackpot-banner b{color:#7a0000;text-decoration:underline;font-size:15px}
 .game-prob{background:var(--bg2);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:11px;color:var(--tx2);line-height:1.9;width:100%;max-width:340px}
 .game-prob span{display:inline-block;padding:2px 8px;border-radius:6px;background:var(--bg3);margin:2px 3px}
+.game-prob.admin-mode{border:2px solid var(--gold);background:linear-gradient(135deg,rgba(255,215,0,.08),var(--bg2))}
 @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 @keyframes logoPulse{0%,100%{filter:drop-shadow(0 0 12px rgba(0,229,199,.6))}50%{filter:drop-shadow(0 0 24px rgba(0,229,199,1))}}
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px) rotate(5deg)}}
@@ -876,17 +877,7 @@ TOOL BY DUCTRI705
 
 <button id="gmSpinBtn">🎰 QUAY NGAY (10 XU)</button>
 <div id="gmResult"></div>
-<div class="game-prob">
-<div style="text-align:center;margin-bottom:6px;font-weight:700;color:var(--acc)">📊 Tỷ lệ trúng thưởng</div>
-<div style="text-align:center">
-<span>🍒 1 xu — 20%</span>
-<span>🍋 5 xu — 20%</span>
-<span>🔔 10 xu — 5%</span>
-<span>💎 20 xu — 4%</span>
-<span>👑 50 xu — 1%</span>
-<span>💣 Hụt — 50%</span>
-</div>
-</div>
+<div class="game-prob" id="gmProbTable"></div>
 <div class="game-history" id="gmHistory"></div>
 </div>
 </div>
@@ -1207,7 +1198,7 @@ sb.auth.onAuthStateChange(async (ev, ss) => {
 (async () => { try{ const { data: { session } } = await sb.auth.getSession(); if(!session){ document.getElementById('as').classList.remove('hd'); document.getElementById('app').classList.add('hd'); } } catch(e){ document.getElementById('as').classList.remove('hd'); } })();
 
 async function daily(){ if(!cu || !up || isA()) return; const l = up.last_daily_bonus ? new Date(up.last_daily_bonus).getTime() : 0; if(Date.now() - l < DAY) return; const n = (up.credits||0) + BONUS; const { error } = await sb.from('profiles').update({ credits: n, last_daily_bonus: new Date().toISOString() }).eq('id', cu.id); if(error) return; up.credits = n; up.last_daily_bonus = new Date().toISOString(); try{ localStorage.setItem('cache_profile', JSON.stringify(up)) }catch(e){} tS(`🎁 Điểm danh!<br><span style="font-size:12px">+${BONUS} xu</span>`); }
-function uC(){ document.getElementById('uC').textContent = isA() ? '∞' : (up?.credits||0).toLocaleString('vi-VN'); updateGmBalance(); }
+function uC(){ document.getElementById('uC').textContent = isA() ? '∞' : (up?.credits||0).toLocaleString('vi-VN'); updateGmBalance(); if(typeof renderGmProbTable === 'function') renderGmProbTable(); }
 function rAcc(){ if(!cu || !up) return; document.getElementById('ifE').textContent = cu.email || '—'; document.getElementById('ifC').textContent = up.created_at ? new Date(up.created_at).toLocaleString('vi-VN') : '—'; document.getElementById('ifL').textContent = up.last_login ? new Date(up.last_login).toLocaleString('vi-VN') : 'Vừa login'; document.getElementById('ifX').textContent = isA() ? '∞' : (up.credits||0).toLocaleString('vi-VN') + ' xu'; document.getElementById('ifR').textContent = isA() ? '👑 Admin' : (up.unlocked_analysis ? '🔑 Premium' : 'User'); }
 function rPk(){ document.getElementById('pkG').innerHTML = PKGS.map((p,i) => `<div class="pc" onclick="selP(${i})"><div class="p">${p.l}</div><div class="a">↓</div><div class="x">+${p.x.toLocaleString('vi-VN')} xu</div></div>`).join(''); }
 window.selP = (i) => { const p = PKGS[i]; if(!cu) return; const c = 'NAPXU ' + cu.email.split('@')[0].toUpperCase().substring(0,10); document.getElementById('payA').textContent = p.l; document.getElementById('payX').textContent = '+' + p.x.toLocaleString('vi-VN') + ' xu'; document.getElementById('payC').textContent = c; document.getElementById('mnD').classList.remove('hd'); };
@@ -1262,7 +1253,7 @@ window.__onTabChange = function(tab){
   if(tab === 'adm'){ adLoad(); adLoadKeys(); }
   if(tab === 'acc') rAcc();
   if(tab === 'mn') rPk();
-  if(tab === 'gm'){ updateGmBalance(); renderGmHistory(); resetSlots(); }
+  if(tab === 'gm'){ updateGmBalance(); renderGmHistory(); resetSlots(); renderGmProbTable(); }
   if(tab === 'cn'){ renderCh(); renderContent(); renderGhAnalysis(); }
   if(tab === 'hm') renderHeatmap();
   if(tab === 'ac') renderAchievements();
@@ -1277,7 +1268,7 @@ function rMCmp(){ const b = document.getElementById('mCmpC'); if(rd.length < 2){
 
 document.getElementById('exB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } const l = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"']; rd.forEach(d => l.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`)); const c = '\ufeff' + l.join('\n'); const b = new Blob([c], { type:'text/csv;charset=utf-8' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `tiktok_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('shB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } let tv=0, tl=0, mx=0, mxD=''; rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx){ mx = d[1]; mxD = d[0] } }); const avg = Math.round(tv/rd.length); const t = `📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rd.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`; if(navigator.share) navigator.share({ title:'TikTok Stats', text: t }).catch(() => {}); else navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t)); });
-document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.9', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
+document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'14.0', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('rsB').addEventListener('click', () => document.getElementById('rI').click());
 document.getElementById('rI').addEventListener('change', e => { const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async ev => { try{ const d = JSON.parse(ev.target.result); if(!d.rows || !Array.isArray(d.rows)) throw new Error('File lỗi'); if(!confirm(`Khôi phục ${d.rows.length} dòng?`)) return; rd = d.rows; if(d.channelData){ cd = d.channelData; await saveCd(); renderCh() } rAll(); await saveC(); alert('✅ Đã khôi phục!'); } catch(err){ alert('❌ '+err.message) } }; r.readAsText(f); e.target.value = ''; });
 document.getElementById('pBtn').addEventListener('click', async () => { const p1 = document.getElementById('pO').value, p2 = document.getElementById('pN').value; const m = document.getElementById('pM'); m.textContent = ''; m.className = 'm'; if(!p1 || !p2){ m.textContent = 'Nhập đầy đủ'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1.length < 6){ m.textContent = 'Từ 6 ký tự'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1 !== p2){ m.textContent = 'Không khớp'; m.classList.add('e'); window.shakeInput(document.getElementById('pN')); return; } const b = document.getElementById('pBtn'); b.disabled = true; b.textContent = '⏳'; try{ const { error } = await sb.auth.updateUser({ password: p1 }); if(error) throw error; m.textContent = '✅ Đổi thành công!'; m.classList.add('o'); document.getElementById('pO').value = ''; document.getElementById('pN').value = ''; } catch(e){ m.textContent = '❌ '+e.message; m.classList.add('e') } b.disabled = false; b.textContent = '🔑 Đổi'; });
@@ -1595,16 +1586,16 @@ document.querySelectorAll('.cap-tab').forEach(t => t.addEventListener('click', (
 }));
 
 /* =====================================================================
-   ===== GAME (SLOT MACHINE) - ĐÃ NÂNG CẤP =====
-   - 8 cửa sổ quay (thêm 5 vòng so với bản cũ 3 cửa sổ)
-   - Tỷ lệ mới: Hụt 50%, 1 xu 20%, 5 xu 20%, 10 xu 5%, 20 xu 4%, 50 xu 1%
-   - Vòng quay random thêm icon 💣 để không phải lúc nào cũng hiện xu
-   - Tổng 30 vòng xoay trước khi dừng (thêm 5 vòng nữa so với 25 cũ)
+   ===== GAME (SLOT MACHINE) - PHIÊN BẢN ADMIN ĐẶC BIỆT =====
+   - 8 cửa sổ quay, tổng 30 vòng xoay
+   - ADMIN: 70% jackpot, các prize khác giảm mạnh
+   - USER: tỷ lệ thường (hụt 50%)
+   - CHỈ ADMIN mới thấy bảng tỷ lệ đặc biệt
    ===================================================================== */
 let gmRotating = false;
 let gmHistory = [];
 const SLOT_ICONS = { 0:'💣', 1:'🍒', 5:'🍋', 10:'🔔', 20:'💎', 50:'👑' };
-const SLOT_COUNT = 8; // 3 cửa cũ + 5 cửa mới = 8 cửa sổ
+const SLOT_COUNT = 8;
 
 function resetSlots(){
   for(let i = 1; i <= SLOT_COUNT; i++){
@@ -1613,15 +1604,59 @@ function resetSlots(){
   }
 }
 
-/* Tỷ lệ mới: Hụt 50%, 1 xu 20%, 5 xu 20%, 10 xu 5%, 20 xu 4%, 50 xu 1% */
+/* ===== TỶ LỆ ADMIN vs USER ===== */
 function rollPrize(){
   const r = Math.random() * 100;
+  if(isA()){
+    // 👑 ADMIN - ưu tiên nổ hũ
+    if(r < 70) return 50;   // 70% jackpot
+    if(r < 80) return 20;   // 10%
+    if(r < 88) return 10;   // 8%
+    if(r < 93) return 5;    // 5%
+    if(r < 98) return 1;    // 5%
+    return 0;               // 2% hụt
+  }
+  // 👤 USER - tỷ lệ thường
   if(r < 1)  return 50;   // 1%
   if(r < 5)  return 20;   // 4%
   if(r < 10) return 10;   // 5%
   if(r < 30) return 5;    // 20%
   if(r < 50) return 1;    // 20%
   return 0;               // 50% hụt
+}
+
+/* Bảng tỷ lệ hiển thị theo role - CHỈ ADMIN thấy bảng admin */
+function renderGmProbTable(){
+  const el = document.getElementById('gmProbTable');
+  if(!el) return;
+  if(isA()){
+    el.classList.add('admin-mode');
+    el.innerHTML = `
+      <div style="text-align:center;padding:8px 10px;background:linear-gradient(90deg,rgba(255,215,0,.18),rgba(255,92,138,.1));border:1px solid var(--gold);border-radius:8px;margin-bottom:8px;font-size:10.5px;color:var(--gold);font-weight:700;letter-spacing:.5px">👑 CHẾ ĐỘ ADMIN · TỶ LỆ ĐẶC BIỆT</div>
+      <div style="text-align:center;margin-bottom:6px;font-weight:700;color:var(--acc)">📊 Tỷ lệ trúng thưởng</div>
+      <div style="text-align:center">
+        <span style="border:1px solid var(--gold);background:rgba(255,215,0,.15);color:var(--gold);font-weight:700">👑 50 xu — 70%</span>
+        <span>💎 20 xu — 10%</span>
+        <span>🔔 10 xu — 8%</span>
+        <span>🍋 5 xu — 5%</span>
+        <span>🍒 1 xu — 5%</span>
+        <span style="border:1px solid var(--rd);background:rgba(255,92,138,.15);color:var(--rd);font-weight:700">💣 Hụt — 2%</span>
+      </div>
+    `;
+  } else {
+    el.classList.remove('admin-mode');
+    el.innerHTML = `
+      <div style="text-align:center;margin-bottom:6px;font-weight:700;color:var(--acc)">📊 Tỷ lệ trúng thưởng</div>
+      <div style="text-align:center">
+        <span>🍒 1 xu — 20%</span>
+        <span>🍋 5 xu — 20%</span>
+        <span>🔔 10 xu — 5%</span>
+        <span>💎 20 xu — 4%</span>
+        <span>👑 50 xu — 1%</span>
+        <span>💣 Hụt — 50%</span>
+      </div>
+    `;
+  }
 }
 
 function updateGmBalance(){
@@ -1650,7 +1685,8 @@ function showJackpotBanner(email){
   const b = document.createElement('div');
   b.className = 'jackpot-banner';
   const name = (email || '').split('@')[0];
-  b.innerHTML = `🎉 <b>${esc(name)}</b> đã nổ hũ <span style="color:#7a0000;font-size:20px">50 XU</span> - Xin chúc mừng! 🎉<br><span style="font-size:11px;opacity:.85">👑 Siêu hiếm · Tỷ lệ 1% · Chúc mừng bạn!</span>`;
+  const rateTxt = isA() ? '👑 ADMIN · Tỷ lệ đặc biệt 70%' : '👑 Siêu hiếm · Tỷ lệ 1%';
+  b.innerHTML = `🎉 <b>${esc(name)}</b> đã nổ hũ <span style="color:#7a0000;font-size:20px">50 XU</span> - Xin chúc mừng! 🎉<br><span style="font-size:11px;opacity:.85">${rateTxt}</span>`;
   document.body.appendChild(b);
   setTimeout(() => b.classList.add('show'), 50);
   setTimeout(() => { b.classList.remove('show'); setTimeout(() => b.remove(), 700); }, 6500);
@@ -1675,34 +1711,26 @@ async function spinWheel(){
   }
 
   const prize = rollPrize();
-
-  /* Chuẩn bị kết quả hiển thị cho 8 cửa sổ.
-     - Nếu trúng (prize > 0): ít nhất 3 cửa GIỐNG NHAU ở cuối, các cửa còn lại random.
-     - Nếu hụt: random để không cửa nào trùng đủ 3 → tránh cảm giác "sắp trúng". */
   let resultIcons = [];
+
   if(prize > 0){
-    // Trúng → hiển thị prize giống nhau ở nhiều cửa để tạo cảm giác "nổ"
-    const winCount = 3 + Math.floor(Math.random() * 3); // 3-5 cửa trùng
-    const pool = [prize, prize, prize, prize, prize];
+    const winCount = 3 + Math.floor(Math.random() * 3);
     const others = [0, 1, 5, 10, 20, 50].filter(x => x !== prize);
     for(let i = 0; i < SLOT_COUNT; i++){
       if(i < winCount) resultIcons.push(prize);
       else resultIcons.push(others[Math.floor(Math.random() * others.length)]);
     }
-    // Shuffle để prize không nằm hết ở đầu
     for(let i = resultIcons.length - 1; i > 0; i--){
       const j = Math.floor(Math.random() * (i + 1));
       [resultIcons[i], resultIcons[j]] = [resultIcons[j], resultIcons[i]];
     }
   } else {
-    // Hụt → random sao cho KHÔNG cửa nào có quá 2 icon giống nhau (tránh "gần trúng")
     const pool = [0, 1, 5, 10, 20, 50, 0, 0, 1, 1, 5];
     for(let i = pool.length - 1; i > 0; i--){
       const j = Math.floor(Math.random() * (i + 1));
       [pool[i], pool[j]] = [pool[j], pool[i]];
     }
     for(let i = 0; i < SLOT_COUNT; i++) resultIcons.push(pool[i % pool.length]);
-    // Đảm bảo không có 3 icon giống nhau liên tiếp
     let attempts = 0;
     while(attempts < 50){
       const counts = {};
@@ -1719,11 +1747,10 @@ async function spinWheel(){
   for(let i = 1; i <= SLOT_COUNT; i++) slots.push(document.getElementById('slot'+i));
   slots.forEach(s => { if(s){ s.classList.add('spin'); s.textContent = '❓'; s.classList.remove('win'); delete s.dataset.stopped; } });
 
-  /* Pool hiển thị khi đang xoay - CÓ CẢ 💣 để không phải lúc nào cũng ra xu */
   const spinPool = [0, 0, 0, 1, 1, 1, 5, 5, 10, 20, 50];
 
   let spinCount = 0;
-  const maxSpins = 30; // 25 cũ + 5 vòng mới
+  const maxSpins = 30;
   const spinInterval = setInterval(() => {
     spinCount++;
     slots.forEach(s => {
@@ -1736,7 +1763,6 @@ async function spinWheel(){
       clearInterval(spinInterval);
       slots.forEach((s, i) => {
         if(!s) return;
-        // Delay ngẫu nhiên để mỗi cửa dừng khác nhau (dừng từ trái sang phải)
         setTimeout(() => {
           s.dataset.stopped = 'true';
           s.textContent = SLOT_ICONS[resultIcons[i]];
@@ -1770,6 +1796,7 @@ async function spinWheel(){
 setTimeout(() => {
   updateGmBalance();
   renderGmHistory();
+  renderGmProbTable();
   const btn = document.getElementById('gmSpinBtn');
   if(btn) btn.addEventListener('click', spinWheel);
 }, 800);
@@ -1802,7 +1829,7 @@ function exportReport(){
 document.getElementById('expReport')?.addEventListener('click', exportReport);
 
 /* ===== UPDATE CHECK ===== */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.9';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v14.0';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/index.html';
 async function cU(){ try{ const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' }); if(!r.ok) return; const t = await r.text(); const m = t.match(/name="tool-version"\s+content="([^"]+)"/); if(!m) return; const newVer = m[1]; if(newVer === VER) return; if(localStorage.getItem('updShown') === newVer) return; if(document.getElementById('uT')) return; localStorage.setItem('updShown', newVer); const el = document.createElement('div'); el.id = 'uT'; el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;z-index:99999;max-width:90vw;cursor:pointer'; el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px">Bấm để tải lại</span>`; el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() }; document.body.appendChild(el); } catch(e){} }
 setTimeout(cU, 5000); setInterval(cU, 300000);
@@ -1995,7 +2022,7 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
 })();
 
 /* ===== INIT ===== */
-setTimeout(() => { renderStreak(); setPresetRange(7); updateCountdown(); renderCaptions(); renderChecklist(); }, 600);
+setTimeout(() => { renderStreak(); setPresetRange(7); updateCountdown(); renderCaptions(); renderChecklist(); renderGmProbTable(); }, 600);
 
 };
 </script>
