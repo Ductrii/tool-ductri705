@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="tool-version" content="v13.8-game">
+<meta name="tool-version" content="v13.9-game">
 <meta name="theme-color" content="#00e5c7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -473,8 +473,8 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 .game-container{display:flex;flex-direction:column;align-items:center;padding:8px 0}
 .game-balance{background:linear-gradient(135deg,rgba(255,215,0,.15),var(--bg2));border:1px solid var(--gold);border-radius:12px;padding:12px 18px;margin-bottom:14px;text-align:center;font-size:13px;width:100%;max-width:340px}
 .game-balance b{color:var(--gold);font-size:18px}
-.slot-machine{display:flex;justify-content:center;gap:10px;margin:20px 0}
-.slot-window{width:80px;height:100px;background:linear-gradient(135deg,#1a1f2e,#0a0e12);border:3px solid var(--gold);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:48px;box-shadow:inset 0 0 20px rgba(0,0,0,.8),0 0 15px rgba(255,215,0,.4);overflow:hidden;position:relative;transition:all .3s}
+.slot-machine{display:flex;justify-content:center;gap:8px;margin:20px 0;flex-wrap:wrap;max-width:100%}
+.slot-window{width:68px;height:88px;background:linear-gradient(135deg,#1a1f2e,#0a0e12);border:3px solid var(--gold);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:42px;box-shadow:inset 0 0 20px rgba(0,0,0,.8),0 0 15px rgba(255,215,0,.4);overflow:hidden;position:relative;transition:all .3s}
 .slot-window.spin{animation:slotShake 0.1s linear infinite}
 .slot-window.win{border-color:var(--gr);box-shadow:0 0 25px var(--gr)}
 @keyframes slotShake{0%{transform:translateY(-5px)}50%{transform:translateY(5px)}100%{transform:translateY(-5px)}}
@@ -499,15 +499,11 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,229,199,.15);tra
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px) rotate(5deg)}}
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(0,229,199,.4)}50%{box-shadow:0 0 0 10px rgba(0,229,199,0)}}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeSlideLeft{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
-@keyframes zoomIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
 @keyframes heartbeat{0%,100%{transform:scale(1)}25%{transform:scale(1.15)}50%{transform:scale(1)}75%{transform:scale(1.1)}}
 @keyframes inputError{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 .input-error{animation:inputError .5s ease;border-color:var(--rd)!important}
 html{scroll-behavior:smooth}
-/* ===== SNOW EFFECT ===== */
 #snowCanvas{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;pointer-events:none;z-index:90}
-/* ===== RADIO MINI BAR ===== */
 #radioBar{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom));left:10px;background:linear-gradient(135deg,rgba(255,215,0,.12),var(--bg));border:1px solid var(--gold);border-radius:20px;padding:6px 12px;display:flex;align-items:center;gap:6px;font-size:12px;z-index:200;box-shadow:0 4px 16px rgba(255,215,0,.3);max-width:calc(100vw - 20px);transition:all .3s}
 #radioBar:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,215,0,.5)}
 #radioNow{flex:1;min-width:60px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--tx2);font-size:11px}
@@ -539,15 +535,12 @@ html{scroll-behavior:smooth}
   <div class="rmbox">
     <h2>🎵 Nhạc nền chung</h2>
     <div id="radioAuthWarning">⚠️ Chỉ admin mới đổi được nhạc</div>
-    <input id="radioUrlInput" type="text" placeholder="Dán link YouTube (vd: https://youtu.be/dQw4w9WgXcQ)">
+    <input id="radioUrlInput" type="text" placeholder="Dán link YouTube">
     <div style="display:flex;gap:8px">
       <button id="radioSetBtn">🎵 Phát cho mọi người</button>
       <button id="radioStopBtn">⏹</button>
     </div>
     <button id="radioCloseBtn">Đóng</button>
-    <div style="font-size:10px;color:var(--tx3);margin-top:10px;text-align:center;line-height:1.5">
-      💡 Nhạc phát cho tất cả user đang online<br>Bấm 🎵 để bật âm thanh nếu bị chặn autoplay
-    </div>
   </div>
 </div>
 <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="unlockGradient2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00e5c7"/><stop offset="50%" stop-color="#a855f7"/><stop offset="100%" stop-color="#ffd700"/></linearGradient></defs></svg>
@@ -874,6 +867,11 @@ TOOL BY DUCTRI705
   <div class="slot-window" id="slot1">❓</div>
   <div class="slot-window" id="slot2">❓</div>
   <div class="slot-window" id="slot3">❓</div>
+  <div class="slot-window" id="slot4">❓</div>
+  <div class="slot-window" id="slot5">❓</div>
+  <div class="slot-window" id="slot6">❓</div>
+  <div class="slot-window" id="slot7">❓</div>
+  <div class="slot-window" id="slot8">❓</div>
 </div>
 
 <button id="gmSpinBtn">🎰 QUAY NGAY (10 XU)</button>
@@ -881,12 +879,12 @@ TOOL BY DUCTRI705
 <div class="game-prob">
 <div style="text-align:center;margin-bottom:6px;font-weight:700;color:var(--acc)">📊 Tỷ lệ trúng thưởng</div>
 <div style="text-align:center">
-<span>🍒 1 xu — 50%</span>
+<span>🍒 1 xu — 20%</span>
 <span>🍋 5 xu — 20%</span>
 <span>🔔 10 xu — 5%</span>
 <span>💎 20 xu — 4%</span>
 <span>👑 50 xu — 1%</span>
-<span>💣 Hụt — 20%</span>
+<span>💣 Hụt — 50%</span>
 </div>
 </div>
 <div class="game-history" id="gmHistory"></div>
@@ -1194,10 +1192,7 @@ sb.auth.onAuthStateChange(async (ev, ss) => {
     rAll(); renderLockedState();
     updateGmBalance();
     if(!window.__welcomeShown){ window.__welcomeShown = true; setTimeout(() => { if(window.showAuthToast) window.showAuthToast('welcome', ss.user.email); }, 700); }
-    
-    // Tự động mở khóa âm thanh khi đăng nhập
     setTimeout(() => { if(window.__unlockAudio) window.__unlockAudio(); }, 1000);
-    
     const lastGuide = parseInt(localStorage.getItem('guideShown') || '0'); const oneDay = 24 * 60 * 60 * 1000;
     if(Date.now() - lastGuide > oneDay){ setTimeout(() => { if(window.showGuideModal) window.showGuideModal(); }, 1600); }
   } else {
@@ -1282,7 +1277,7 @@ function rMCmp(){ const b = document.getElementById('mCmpC'); if(rd.length < 2){
 
 document.getElementById('exB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } const l = ['"Date","Video Views","Likes","Comments","Shares","Profile Views"']; rd.forEach(d => l.push(`"${d[0]}","${d[1]}","${d[2]}","${d[3]}","${d[4]}","${d[5]}"`)); const c = '\ufeff' + l.join('\n'); const b = new Blob([c], { type:'text/csv;charset=utf-8' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `tiktok_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('shB').addEventListener('click', () => { if(!rd.length){ alert('Chưa có data'); return; } let tv=0, tl=0, mx=0, mxD=''; rd.forEach(d => { tv += d[1]; tl += d[2]; if(d[1] > mx){ mx = d[1]; mxD = d[0] } }); const avg = Math.round(tv/rd.length); const t = `📊 THỐNG KÊ TIKTOK\n━━━━━━━━━━━━━━\n📅 Ngày: ${rd.length}\n👀 View: ${tv.toLocaleString('vi-VN')}\n❤️ Like: ${tl.toLocaleString('vi-VN')}\n📈 TB: ${avg.toLocaleString('vi-VN')}/ngày\n🏆 Viral: ${mxD} → ${mx.toLocaleString('vi-VN')}\n━━━━━━━━━━━━━━\nTool @ductri705 🚀`; if(navigator.share) navigator.share({ title:'TikTok Stats', text: t }).catch(() => {}); else navigator.clipboard.writeText(t).then(() => alert('Đã copy!')).catch(() => prompt('Copy:', t)); });
-document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.8', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
+document.getElementById('bkB').addEventListener('click', () => { if(!cu) return; const b = { v:'13.9', at: new Date().toISOString(), user: cu.email, rows: rd, channelData: cd, snd }; const bl = new Blob([JSON.stringify(b, null, 2)], { type:'application/json' }); const u = URL.createObjectURL(bl); const a = document.createElement('a'); a.href = u; a.download = `tool-backup-${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
 document.getElementById('rsB').addEventListener('click', () => document.getElementById('rI').click());
 document.getElementById('rI').addEventListener('change', e => { const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async ev => { try{ const d = JSON.parse(ev.target.result); if(!d.rows || !Array.isArray(d.rows)) throw new Error('File lỗi'); if(!confirm(`Khôi phục ${d.rows.length} dòng?`)) return; rd = d.rows; if(d.channelData){ cd = d.channelData; await saveCd(); renderCh() } rAll(); await saveC(); alert('✅ Đã khôi phục!'); } catch(err){ alert('❌ '+err.message) } }; r.readAsText(f); e.target.value = ''; });
 document.getElementById('pBtn').addEventListener('click', async () => { const p1 = document.getElementById('pO').value, p2 = document.getElementById('pN').value; const m = document.getElementById('pM'); m.textContent = ''; m.className = 'm'; if(!p1 || !p2){ m.textContent = 'Nhập đầy đủ'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1.length < 6){ m.textContent = 'Từ 6 ký tự'; m.classList.add('e'); window.shakeInput(document.getElementById('pO')); return; } if(p1 !== p2){ m.textContent = 'Không khớp'; m.classList.add('e'); window.shakeInput(document.getElementById('pN')); return; } const b = document.getElementById('pBtn'); b.disabled = true; b.textContent = '⏳'; try{ const { error } = await sb.auth.updateUser({ password: p1 }); if(error) throw error; m.textContent = '✅ Đổi thành công!'; m.classList.add('o'); document.getElementById('pO').value = ''; document.getElementById('pN').value = ''; } catch(e){ m.textContent = '❌ '+e.message; m.classList.add('e') } b.disabled = false; b.textContent = '🔑 Đổi'; });
@@ -1566,8 +1561,18 @@ document.getElementById('ideaCopy')?.addEventListener('click', async () => { con
 document.getElementById('ideaSave')?.addEventListener('click', async () => { if(!cu){ alert('Đăng nhập trước'); return; } const t = document.getElementById('ideaTxt').textContent; if(t.startsWith('Bấm')){ alert('Bấm Random trước'); return; } cd.captions = cd.captions || []; cd.captions.unshift({ type:'cap', text: t, date: new Date().toISOString() }); try{ await saveCd(); tS('💾 Đã lưu!'); }catch(e){ alert('❌ '+e.message); } });
 
 /* ===== CHECKLIST ===== */
-const CHK_DEFAULT = [ { id:'hook', txt:'Hook 3 giây đầu mạ');
-nh' }, { id:'caption', txt:'Caption có CTA' }, { id:'has htag', txt:'Đ ifủ hashtag (5-(!8 cái)' }, { id:'eltrend', txt:'Dùng nhạc trending' }, { id:')time', txt:'Đăng đúng giờ vàng' }, { id:'thumb', txt:'Thumbnail rõ, không bị che chữ' }, { id:'sub', txt:'Có phụ đề / caption' }, { id:'quality', txt:'Video đủ nét, không rung' }, { id:'length', txt:'Độ dài phù hợp (15-60s)' }, { id:'check', txt:'Xem lại video trước khi đăng' } ];
+const CHK_DEFAULT = [
+  { id:'hook', txt:'Hook 3 giây đầu mạnh' },
+  { id:'caption', txt:'Caption có CTA' },
+  { id:'hashtag', txt:'Đủ hashtag (5-8 cái)' },
+  { id:'trend', txt:'Dùng nhạc trending' },
+  { id:'time', txt:'Đăng đúng giờ vàng' },
+  { id:'thumb', txt:'Thumbnail rõ, không bị che chữ' },
+  { id:'sub', txt:'Có phụ đề / caption' },
+  { id:'quality', txt:'Video đủ nét, không rung' },
+  { id:'length', txt:'Độ dài phù hợp (15-60s)' },
+  { id:'check', txt:'Xem lại video trước khi đăng' }
+];
 function renderChecklist(){
   const list = document.getElementById('chkList'); if(!list) return;
   const state = cd.checklistState || {};
@@ -1589,26 +1594,34 @@ document.querySelectorAll('.cap-tab').forEach(t => t.addEventListener('click', (
   if(key === 'chk') renderChecklist();
 }));
 
-/* ===== GAME (SLOT MACHINE - RÚT GỌN CODE) ===== */
+/* =====================================================================
+   ===== GAME (SLOT MACHINE) - ĐÃ NÂNG CẤP =====
+   - 8 cửa sổ quay (thêm 5 vòng so với bản cũ 3 cửa sổ)
+   - Tỷ lệ mới: Hụt 50%, 1 xu 20%, 5 xu 20%, 10 xu 5%, 20 xu 4%, 50 xu 1%
+   - Vòng quay random thêm icon 💣 để không phải lúc nào cũng hiện xu
+   - Tổng 30 vòng xoay trước khi dừng (thêm 5 vòng nữa so với 25 cũ)
+   ===================================================================== */
 let gmRotating = false;
 let gmHistory = [];
-const SLOT_ICONS = { 1: '🍒', 5: '🍋', 10: '🔔', 20: '💎', 50: '👑', 0: '💣' };
+const SLOT_ICONS = { 0:'💣', 1:'🍒', 5:'🍋', 10:'🔔', 20:'💎', 50:'👑' };
+const SLOT_COUNT = 8; // 3 cửa cũ + 5 cửa mới = 8 cửa sổ
 
 function resetSlots(){
-  [1,2,3].forEach(i => {
+  for(let i = 1; i <= SLOT_COUNT; i++){
     const s = document.getElementById('slot'+i);
-    if(s){ s.textContent = '❓'; s.style.color = 'var(--tx)'; s.classList.remove('spin','win'); }
-  });
+    if(s){ s.textContent = '❓'; s.style.color = 'var(--tx)'; s.classList.remove('spin','win'); delete s.dataset.stopped; }
+  }
 }
 
+/* Tỷ lệ mới: Hụt 50%, 1 xu 20%, 5 xu 20%, 10 xu 5%, 20 xu 4%, 50 xu 1% */
 function rollPrize(){
   const r = Math.random() * 100;
-  if(r < 1) return 50;
-  if(r < 5) return 20;
-  if(r < 10) return 10;
-  if(r < 30) return 5;
-  if(r < 80) return 1;
-  return 0;
+  if(r < 1)  return 50;   // 1%
+  if(r < 5)  return 20;   // 4%
+  if(r < 10) return 10;   // 5%
+  if(r < 30) return 5;    // 20%
+  if(r < 50) return 1;    // 20%
+  return 0;               // 50% hụt
 }
 
 function updateGmBalance(){
@@ -1623,7 +1636,8 @@ function addGmHistory(prize){
 }
 
 function renderGmHistory(){
-  const el = document.getElementById('gmHistory return;
+  const el = document.getElementById('gmHistory');
+  if(!el) return;
   if(!gmHistory.length){ el.innerHTML = '<div class="nt">Chưa có lượt quay nào</div>'; return; }
   el.innerHTML = '<div class="st2" style="margin-top:6px">📜 Lịch sử gần đây</div>' + gmHistory.map(h => {
     const t = new Date(h.time).toLocaleTimeString('vi-VN');
@@ -1647,57 +1661,89 @@ async function spinWheel(){
   if(!cu){ alert('Đăng nhập trước!'); return; }
   const cost = 10;
   if(!isA() && (up?.credits || 0) < cost){ tS('❌ Không đủ 10 xu!', null, 3000); return; }
-  
+
   gmRotating = true;
   const btn = document.getElementById('gmSpinBtn');
   btn.disabled = true; btn.textContent = '🎰 Đang quay...';
   document.getElementById('gmResult').innerHTML = '';
-  
+
   if(!isA()){
     const newCr = up.credits - cost;
     const { error } = await sb.from('profiles').update({ credits: newCr }).eq('id', cu.id);
     if(error){ alert('Lỗi: ' + error.message); gmRotating = false; btn.disabled = false; btn.textContent = '🎰 QUAY NGAY (10 XU)'; return; }
     up.credits = newCr; uC(); updateGmBalance();
   }
-  
+
   const prize = rollPrize();
+
+  /* Chuẩn bị kết quả hiển thị cho 8 cửa sổ.
+     - Nếu trúng (prize > 0): ít nhất 3 cửa GIỐNG NHAU ở cuối, các cửa còn lại random.
+     - Nếu hụt: random để không cửa nào trùng đủ 3 → tránh cảm giác "sắp trúng". */
   let resultIcons = [];
-  
-  if(prize > 0) {
-    resultIcons = [prize, prize, prize];
+  if(prize > 0){
+    // Trúng → hiển thị prize giống nhau ở nhiều cửa để tạo cảm giác "nổ"
+    const winCount = 3 + Math.floor(Math.random() * 3); // 3-5 cửa trùng
+    const pool = [prize, prize, prize, prize, prize];
+    const others = [0, 1, 5, 10, 20, 50].filter(x => x !== prize);
+    for(let i = 0; i < SLOT_COUNT; i++){
+      if(i < winCount) resultIcons.push(prize);
+      else resultIcons.push(others[Math.floor(Math.random() * others.length)]);
+    }
+    // Shuffle để prize không nằm hết ở đầu
+    for(let i = resultIcons.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [resultIcons[i], resultIcons[j]] = [resultIcons[j], resultIcons[i]];
+    }
   } else {
-    const pool = [1, 5, 10, 20, 50];
+    // Hụt → random sao cho KHÔNG cửa nào có quá 2 icon giống nhau (tránh "gần trúng")
+    const pool = [0, 1, 5, 10, 20, 50, 0, 0, 1, 1, 5];
     for(let i = pool.length - 1; i > 0; i--){
       const j = Math.floor(Math.random() * (i + 1));
       [pool[i], pool[j]] = [pool[j], pool[i]];
     }
-    resultIcons = [pool[0], pool[1], pool[2]];
+    for(let i = 0; i < SLOT_COUNT; i++) resultIcons.push(pool[i % pool.length]);
+    // Đảm bảo không có 3 icon giống nhau liên tiếp
+    let attempts = 0;
+    while(attempts < 50){
+      const counts = {};
+      resultIcons.forEach(v => counts[v] = (counts[v]||0) + 1);
+      if(!Object.values(counts).some(c => c >= 3)) break;
+      const i1 = Math.floor(Math.random() * SLOT_COUNT);
+      const i2 = Math.floor(Math.random() * SLOT_COUNT);
+      [resultIcons[i1], resultIcons[i2]] = [resultIcons[i2], resultIcons[i1]];
+      attempts++;
+    }
   }
 
-  const slots = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
-  slots.forEach(s => { s.classList.add('spin'); s.textContent = '❓'; s.classList.remove('win'); });
-  
+  const slots = [];
+  for(let i = 1; i <= SLOT_COUNT; i++) slots.push(document.getElementById('slot'+i));
+  slots.forEach(s => { if(s){ s.classList.add('spin'); s.textContent = '❓'; s.classList.remove('win'); delete s.dataset.stopped; } });
+
+  /* Pool hiển thị khi đang xoay - CÓ CẢ 💣 để không phải lúc nào cũng ra xu */
+  const spinPool = [0, 0, 0, 1, 1, 1, 5, 5, 10, 20, 50];
+
   let spinCount = 0;
-  const maxSpins = 25; 
+  const maxSpins = 30; // 25 cũ + 5 vòng mới
   const spinInterval = setInterval(() => {
     spinCount++;
     slots.forEach(s => {
-      if(!s.dataset.stopped) {
-        const keys = [1, 5, 10, 20, 50];
-        const rk = keys[Math.floor(Math.random() * keys.length)];
+      if(s && !s.dataset.stopped){
+        const rk = spinPool[Math.floor(Math.random() * spinPool.length)];
         s.textContent = SLOT_ICONS[rk];
       }
     });
-    if(spinCount >= maxSpins) {
+    if(spinCount >= maxSpins){
       clearInterval(spinInterval);
       slots.forEach((s, i) => {
+        if(!s) return;
+        // Delay ngẫu nhiên để mỗi cửa dừng khác nhau (dừng từ trái sang phải)
         setTimeout(() => {
           s.dataset.stopped = 'true';
           s.textContent = SLOT_ICONS[resultIcons[i]];
           s.classList.remove('spin');
           if(prize > 0) s.classList.add('win');
-          
-          if(i === 2) {
+
+          if(i === SLOT_COUNT - 1){
             if(prize > 0){
               if(!isA()){
                 const newCr = up.credits + prize;
@@ -1713,9 +1759,9 @@ async function spinWheel(){
             }
             addGmHistory(prize);
             gmRotating = false; btn.disabled = false; btn.textContent = '🎰 QUAY NGAY (10 XU)';
-            slots.forEach(sl => delete sl.dataset.stopped);
+            slots.forEach(sl => { if(sl) delete sl.dataset.stopped; });
           }
-        }, i * 300);
+        }, i * 220);
       });
     }
   }, 60);
@@ -1748,7 +1794,7 @@ function exportReport(){
   const avgV = Math.round(tV/rd.length); const top10 = [...rd].sort((a,b)=>b[1]-a[1]).slice(0,10);
   const anomalies = detectAnomalies(); const streak = calcStreak();
   const unlocked = ACHIEVEMENTS.filter(a => { try{ return a.check(); }catch(e){ return false; } });
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Báo cáo TikTok - ${new Date().toLocaleDateString('vi-VN')}</title><style>body{font-family:-apple-system,system-ui,sans-serif;max-width:900px;margin:40px auto;padding:20px;background:#f5f5f5;color:#111;line-height:1.6}h1{background:linear-gradient(90deg,#00e5c7,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:32px;margin-bottom:8px}h2{margin-top:32px;padding-bottom:8px;border-bottom:2px solid #00e5c7;color:#0a1a1e;font-size:20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}.box{background:#fff;padding:16px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center}.box .v{font-size:22px;font-weight:800;color:#00b8a0}.box .l{font-size:11px;color:#888;text-transform:uppercase}table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;margin:16px 0}th{background:#0a1a1e;color:#00e5c7;padding:10px;text-align:left;font-size:12px}td{padding:10px;border-bottom:1px solid #eee;font-size:13px}.good{color:#16a34a;font-weight:700}.bad{color:#dc2626;font-weight:700}.ach{display:inline-block;padding:8px 12px;background:#fff;border-radius:20px;margin:4px;font-size:12px}.footer{text-align:center;color:#999;font-size:11px;margin-top:40px}</style></head><body><h1>📊 Báo cáo TikTok Analytics</h1><div style="color:#666;margin-bottom:24px">Xuất ngày ${new Date().toLocaleString('vi-VN')} · ${cu?.email || 'N/A'}</div><h2>📈 Tổng quan</h2><div class="grid"><div class="box"><div class="v">${tV.toLocaleString('vi-VN')}</div><div class="l">Tổng Views</div></div><div class="box"><div class="v">${tL.toLocaleString('vi-VN')}</div><div class="l">Likes</div></div><div class="box"><div class="v">${tC.toLocaleString('vi-VN')}</div><div class="l">Comments</div></div><div class="box"><div class="v">${tS.toLocaleString('vi-VN')}</div><div class="l">Shares</div></div><div class="box"><div class="v">${avgV.toLocaleString('vi-VN')}</div><div class="l">View TB/ngày</div></div><div class="box"><div class="v">${rd.length}</div><div class="l">Số ngày</div></div></div><h2>🔥 Streak</h2><div class="box" style="text-align:left;padding:20px"><div style="font-size:32px;font-weight:800;color:#d97706">${streak} ngày</div></div><h2>🏆 Top 10 viral</h2><table><thead><tr><th>#</th><th>Ngày</th><th>Views</th></tr></thead><tbody>${top10.map((d,i) => `<tr><td>${i+1}</td><td>${esc(d[0])}</td><td><b>${d[1].toLocaleString('vi-VN')}</b></td></tr>`).join('')}</tbody></table>${anomalies.length ? `<h2>🚨 Bất thường</h2><table><thead><tr><th>Loại</th><th>Ngày</th><th>Chênh</th></tr></thead><tbody>${anomalies.map(a => `<tr><td>${a.type==='spike'?'🚀':'📉'}</td><td>${esc(a.day)}</td><td class="${a.pct>=0?'good':'bad'}">${a.pct>=0?'+':''}${a.pct.toFixed(0)}%</td></tr>`).join('')}</tbody></table>` : ''}<h2>🏅 Thành tích (${unlocked.length}/${ACHIEVEMENTS.length})</h2><div>${unlocked.map(a => `<span class="ach">${a.icon} ${a.name}</span>`).join('')}</div><div class="footer">Tool by @ductri705 · Zalo 0865199199</div></body></html>`;
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Báo cáo TikTok</title><style>body{font-family:-apple-system,system-ui,sans-serif;max-width:900px;margin:40px auto;padding:20px;background:#f5f5f5;color:#111;line-height:1.6}h1{color:#0a1a1e;font-size:28px}h2{margin-top:32px;padding-bottom:8px;border-bottom:2px solid #00e5c7;color:#0a1a1e;font-size:20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}.box{background:#fff;padding:16px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center}.box .v{font-size:22px;font-weight:800;color:#00b8a0}.box .l{font-size:11px;color:#888;text-transform:uppercase}table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;margin:16px 0}th{background:#0a1a1e;color:#00e5c7;padding:10px;text-align:left;font-size:12px}td{padding:10px;border-bottom:1px solid #eee;font-size:13px}.good{color:#16a34a;font-weight:700}.bad{color:#dc2626;font-weight:700}.ach{display:inline-block;padding:8px 12px;background:#fff;border-radius:20px;margin:4px;font-size:12px}.footer{text-align:center;color:#999;font-size:11px;margin-top:40px}</style></head><body><h1>📊 Báo cáo TikTok Analytics</h1><div style="color:#666;margin-bottom:24px">Xuất ngày ${new Date().toLocaleString('vi-VN')} · ${cu?.email || 'N/A'}</div><h2>📈 Tổng quan</h2><div class="grid"><div class="box"><div class="v">${tV.toLocaleString('vi-VN')}</div><div class="l">Tổng Views</div></div><div class="box"><div class="v">${tL.toLocaleString('vi-VN')}</div><div class="l">Likes</div></div><div class="box"><div class="v">${tC.toLocaleString('vi-VN')}</div><div class="l">Comments</div></div><div class="box"><div class="v">${tS.toLocaleString('vi-VN')}</div><div class="l">Shares</div></div><div class="box"><div class="v">${avgV.toLocaleString('vi-VN')}</div><div class="l">View TB/ngày</div></div><div class="box"><div class="v">${rd.length}</div><div class="l">Số ngày</div></div></div><h2>🔥 Streak</h2><div class="box" style="text-align:left;padding:20px"><div style="font-size:32px;font-weight:800;color:#d97706">${streak} ngày</div></div><h2>🏆 Top 10 viral</h2><table><thead><tr><th>#</th><th>Ngày</th><th>Views</th></tr></thead><tbody>${top10.map((d,i) => `<tr><td>${i+1}</td><td>${esc(d[0])}</td><td><b>${d[1].toLocaleString('vi-VN')}</b></td></tr>`).join('')}</tbody></table>${anomalies.length ? `<h2>🚨 Bất thường</h2><table><thead><tr><th>Loại</th><th>Ngày</th><th>Chênh</th></tr></thead><tbody>${anomalies.map(a => `<tr><td>${a.type==='spike'?'🚀':'📉'}</td><td>${esc(a.day)}</td><td class="${a.pct>=0?'good':'bad'}">${a.pct>=0?'+':''}${a.pct.toFixed(0)}%</td></tr>`).join('')}</tbody></table>` : ''}<h2>🏅 Thành tích (${unlocked.length}/${ACHIEVEMENTS.length})</h2><div>${unlocked.map(a => `<span class="ach">${a.icon} ${a.name}</span>`).join('')}</div><div class="footer">Tool by @ductri705 · Zalo 0865199199</div></body></html>`;
   const blob = new Blob([html], { type:'text/html;charset=utf-8' }); const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = `baocao-tiktok-${new Date().toISOString().slice(0,10)}.html`;
   document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); tS('📤 Đã xuất!');
@@ -1756,12 +1802,12 @@ function exportReport(){
 document.getElementById('expReport')?.addEventListener('click', exportReport);
 
 /* ===== UPDATE CHECK ===== */
-const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.8';
+const VER = document.querySelector('meta[name="tool-version"]')?.content || 'v13.9';
 const UPD = 'https://raw.githubusercontent.com/ductrii/tool-ductri705/main/index.html';
 async function cU(){ try{ const r = await fetch(UPD + '?t=' + Date.now(), { cache:'no-store' }); if(!r.ok) return; const t = await r.text(); const m = t.match(/name="tool-version"\s+content="([^"]+)"/); if(!m) return; const newVer = m[1]; if(newVer === VER) return; if(localStorage.getItem('updShown') === newVer) return; if(document.getElementById('uT')) return; localStorage.setItem('updShown', newVer); const el = document.createElement('div'); el.id = 'uT'; el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3a8,#16a34a);color:#0a0e12;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;z-index:99999;max-width:90vw;cursor:pointer'; el.innerHTML = `🔄 Cập nhật (${newVer})<br><span style="font-size:11px">Bấm để tải lại</span>`; el.onclick = () => { location.href = location.pathname + '?v=' + Date.now() }; document.body.appendChild(el); } catch(e){} }
 setTimeout(cU, 5000); setInterval(cU, 300000);
 
-/* ===== RADIO (nhạc YouTube cho mọi người) ===== */
+/* ===== RADIO ===== */
 (function initRadioSystem(){
   let radioChannel = null;
   let currentRadioId = null;
@@ -1802,7 +1848,7 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
       }catch(e){}
     }
   }
-  window.__unlockAudio = unlockAudio; 
+  window.__unlockAudio = unlockAudio;
 
   function renderYtPlayer(videoId){
     const container = document.getElementById('ytPlayerContainer');
@@ -1816,15 +1862,15 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
     }
     const existing = document.getElementById('ytIframe');
     if(existing && existing.dataset.vid === videoId) return;
-    
+
     container.innerHTML = '<iframe id="ytIframe" data-vid="' + videoId + '" width="320" height="180" src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&loop=1&playlist=' + videoId + '&enablejsapi=1&playsinline=1&mute=1" frameborder="0" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>';
     nowEl.textContent = '🎵 Đang phát...';
-    
+
     fetch('https://www.youtube.com/oembed?url=https://youtu.be/' + videoId + '&format=json')
       .then(r => r.json())
       .then(d => { if(d.title && currentRadioId === videoId) nowEl.textContent = '🎵 ' + d.title.slice(0, 40); })
       .catch(() => {});
-      
+
     setTimeout(() => {
       if(isUnmuted) unlockAudio();
       else forcePlayRadio();
@@ -1861,12 +1907,12 @@ setTimeout(cU, 5000); setInterval(cU, 300000);
     if(radioChannel){
       try{ await radioChannel.send({ type: 'broadcast', event: 'song', payload: { videoId, from: cu?.email || '?' } }); }catch(e){}
     }
-    unlockAudio(); 
+    unlockAudio();
   }
 
   async function start(){
     await loadRadioFromDB();
-    
+
     try{
       radioChannel = sb.channel('global-radio-v1');
       radioChannel.on('broadcast', { event: 'song' }, (msg) => {
@@ -2003,4 +2049,3 @@ setTimeout(() => { renderStreak(); setPresetRange(7); updateCountdown(); renderC
 </script>
 </body>
 </html>
-```
